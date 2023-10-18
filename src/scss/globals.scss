@@ -1,0 +1,19 @@
+html {
+    /* 1rem = 10px */
+    font-size: 62.5%;
+}
+body {
+    font-size: 1.8rem;
+    font-family: "Montserrat", sans-serif !important;
+}
+
+.btn {
+    font-size: 1.8rem;
+    border-radius: 1.5rem;
+}
+
+.btn-xl {
+    font-size: 3rem;
+    border-radius: 2.5rem;
+    padding: 1rem 2.5rem;
+}

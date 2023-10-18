@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-//PublicView
-import PublicView from "./pages/public/PublicView.vue";
+//IndexView
+import IndexView from "./pages/public/IndexView.vue";
 
 const routes = [
-    { path: "/", component: PublicView },
+    { path: "/", component: IndexView },
     // {
     //     path: "/:catchAll(.*)",
     //     component: NotFoundView
