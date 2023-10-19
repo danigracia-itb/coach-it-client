@@ -1,6 +1,8 @@
 <template>
     <header>
-        <section class="bg-dark px-5 py-1 gap-3 d-flex justify-content-center justify-content-md-end">
+        <section
+            class="bg-dark px-5 py-1 gap-3 d-flex justify-content-center justify-content-md-end"
+        >
             <a href="#" class="text-white text-decoration-none">Register</a>
             <a href="#" class="text-white text-decoration-none">Login</a>
         </section>
@@ -43,7 +45,7 @@
                         </li>
                         <li class="nav-item text-center">
                             <a class="btn btn-primary text-uppercase" href="#"
-                                >Free Trial</a
+                                >Start today</a
                             >
                         </li>
                     </ul>
@@ -67,13 +69,76 @@
                 <a
                     href="#"
                     class="free-trial-btn btn btn-primary text-uppercase btn-xl"
-                    >Free Trial</a
+                    >Start now</a
                 >
             </div>
 
-            <img width="800" src="../../assets/img/calendar.png" alt="Calendar" class="calendar-img">
+            <img
+                width="800"
+                src="../../assets/img/calendar.png"
+                alt="Calendar"
+                class="calendar-img"
+            />
         </div>
     </section>
+    <section class="index-1 bg-dark pt-5">
+        <div class="container">
+            <h2 class="text-center text-white fw-bold">
+                THE BEST TOOL FOR PERSONAL TRAINERS
+            </h2>
+            <div class="row gx-5">
+                <div
+                    class="col-md-6 d-flex justify-content-end align-items-center mb-5 mb-md-0"
+                >
+                    <div class="image-container">
+                        <img
+                            src="../../assets/img/powerlifting1.jpg"
+                            alt="Powerlifting"
+                            class="rounded"
+                        />
+                    </div>
+                </div>
+                <div
+                    class="col-md-6 text-white d-flex flex-column justify-content-center"
+                >
+                    <h3 class="text-uppercase">Powerlifting Specific Tools</h3>
+                    <p class="fs-2">
+                        RPE Calculators, E1RM, Stress Index, Volumne, RPE... All
+                        things you need for an efective program planning.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row gx-5 mb-5">
+                <div
+                    class="col-md-6 text-white d-flex flex-column justify-content-center mb-5 mb-md-0"
+                >
+                    <h3 class="text-uppercase">Performance Tracking</h3>
+                    <p class="fs-2">
+                        Follow your athletes' journeys and analyze their ups and
+                        downs in terms of performance.
+                    </p>
+                </div>
+                <div
+                    class="col-md-6 d-flex justify-content-end align-items-center"
+                >
+                    <div class="image-container">
+                        <img
+                            src="../../assets/img/graph.jpg"
+                            alt="Powerlifting"
+                            class="rounded"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-light p-3">
+        <p class="text-center m-0">
+            All rights reserved &copy; - Coach IT 2023
+        </p>
+    </footer>
 </template>
 
 <script>
@@ -91,7 +156,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .hero {
     background-image: url("../../assets/img/hero-img.jpeg");
     height: 75rem;
@@ -101,14 +166,20 @@ export default {
 
 @media (min-width: 768px) {
     .hero {
-        height: 90rem;
+        height: 82rem;
     }
 }
 
 .hero-overlay {
     height: 100%;
-    padding: 0 10%;
+    padding: 22rem 10% 0 10%;
     background-color: rgba(0, 0, 0, 0.75);
+}
+
+@media (min-width: 768px) {
+    .hero-overlay {
+        padding: 8rem 10% 0 10%;
+    }
 }
 
 .hero-overlay h1 {
@@ -119,12 +190,11 @@ export default {
 @media (min-width: 768px) {
     .hero-overlay h1 {
         font-size: 7rem;
-
     }
 }
 
 .hero-overlay h1 span {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
     font-size: 120%;
     -webkit-text-stroke: 2px white;
 }
@@ -135,5 +205,20 @@ export default {
 .calendar-img {
     position: relative;
     top: 100px;
+}
+
+.index-1 h2 {
+    margin: 8rem 0;
+}
+
+.image-container {
+    width: 60rem;
+    height: 50rem;
+    overflow: hidden; /* Para recortar las imágenes que excedan las dimensiones especificadas */
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
 }
 </style>
