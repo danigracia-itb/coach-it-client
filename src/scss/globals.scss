@@ -2,6 +2,7 @@ html {
     /* 1rem = 10px */
     font-size: 62.5%;
 }
+
 body {
     font-size: 1.8rem;
     font-family: "Montserrat", sans-serif !important;
@@ -34,7 +35,9 @@ h3 {
 }
 
 // Auth
-.container-auth {
-    display: grid;
-    grid-template-columns: 3fr 2fr;
+.img-auth {
+    background-image: url(./src/assets/img/img-login.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center right;
 }
