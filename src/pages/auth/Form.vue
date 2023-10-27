@@ -1,10 +1,10 @@
 <template>
     <div class="p-3 mb-2 bg-primary text-white full-screen d-flex justify-content-center align-items-center">
-        <div class="border rounded p-5 bg-white text-center">
+        <div class="border rounded-5 p-5 bg-white text-center">
             <img class="auth-logo-img mx-auto" src="../../assets/logo.png" alt="">
             <form class="text-center">
                 <div class="form-group mt-5">
-                    <label for="age" class="fw-bold text-black">Hou old are you?</label>
+                    <label for="age" class="fw-bold text-black">How old are you?</label>
                     <input type="age" id="age" class="form-control" placeholder="Introduce your age">
                 </div>
 
