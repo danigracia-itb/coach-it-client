@@ -17,7 +17,6 @@
                     <label for="height" class="fw-bold text-black">What's your height?</label>
                     <input type="height" id="height" class="form-control" placeholder="Introduce your height">
                 </div>
-
             </form>
         </div>
     </div>

@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="img-auth vh-100 col-5 d-none d-md-block">
+        <div class="img-auth vh-100 col-5 d-none d-md-block" src="recover.png">
 
         </div>
         <div class="col-md-7 d-flex flex-column align-items-center justify-content-center">
