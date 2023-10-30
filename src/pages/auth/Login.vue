@@ -40,8 +40,4 @@
 import { RouterLink } from 'vue-router';
 </script>
 
-<style scoped>
-.p-8 {
-    padding: 7rem;
-}
-</style>
+<style scoped></style>
