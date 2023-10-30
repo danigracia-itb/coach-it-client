@@ -43,8 +43,7 @@
                 </form>
                 <div class="mt-5 text-center">
                     <p>Don't you have an account?<br>
-                        <RouterLink to="/register?type=coach" class="text-primary fw-bolder">Log in Register as an athlete
-                        </RouterLink>
+                        <RouterLink to="/register?type=coach" class="text-primary fw-bolder">Login</RouterLink> or <RouterLink to="/register?type=athlete" class="text-primary fw-bolder">Register as an athlete</RouterLink>
                     </p>
                 </div>
             </div>
