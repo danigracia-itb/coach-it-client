@@ -71,15 +71,14 @@ const login = async (e) => {
 
         if (is_coach) {
             const { token } = response.data.authorization;
-            const { name, email, image } = response.data.user;
+            const { name, email } = response.data.user;
             localStorage.setItem("token", token);
             localStorage.setItem("name", name);
             localStorage.setItem("email", email);
-            localStorage.setItem("image", image);
 
-            router.push("/coach");
+            router.push({ path: '/coach' });
         } else {
-            router.push("/athlete");
+            router.push({ path: '/athlete' });
         }
     } catch (error) {
         loading.value = false;
@@ -91,14 +90,8 @@ const login = async (e) => {
 // const Spinner = defineAsyncComponent(() => import("../components/layout/Spinner.vue"));
 </script>
 
-<<<<<<< HEAD
-
-
 <style scoped>
 .p-8 {
     padding: 7rem;
 }
 </style>
-=======
-<style scoped></style>
->>>>>>> 777fb362af042765f430e4f12282274a4aee4b99
