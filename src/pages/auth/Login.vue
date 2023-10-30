@@ -91,14 +91,10 @@ const login = async (e) => {
 // const Spinner = defineAsyncComponent(() => import("../components/layout/Spinner.vue"));
 </script>
 
-<<<<<<< HEAD
-
-
 <style scoped>
 .p-8 {
     padding: 7rem;
 }
 </style>
-=======
-<style scoped></style>
->>>>>>> 777fb362af042765f430e4f12282274a4aee4b99
+
+
