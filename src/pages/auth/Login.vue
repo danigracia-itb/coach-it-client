@@ -32,12 +32,21 @@
                             placeholder="Introduce your password"
                         />
                     </div>
-                    <button
-                        type="submit"
-                        class="text-uppercase btn btn-primary mt-5 rounded-4 w-100"
-                    >
-                        Login
-                    </button>
+
+                    <div style="height: 4rem;" class="mt-5 d-flex align-items-center">
+                        <button
+                            v-if="!loading"
+                            type="submit"
+                            class="text-uppercase btn btn-primary rounded-4 w-100"
+                        >
+                            Login
+                        </button>
+                        <Spinner v-else />
+                    </div>
+
+                    <div v-if="error" class="alert alert-danger mt-5">
+                        Error: Incorrect credentials.
+                    </div>
                 </form>
                 <div class="mt-5 text-small">
                     <p class="text-lg">
@@ -74,6 +83,8 @@ import { ref } from "vue";
 import axiosClient from "../../config/axios";
 import { useRouter, RouterLink } from "vue-router";
 
+import Spinner from "../../components/Utils/Spinner.vue";
+
 const email = ref("");
 const password = ref("");
 const error = ref("");
@@ -98,6 +109,7 @@ const login = async (e) => {
             }
         );
         loading.value = false;
+        error.value = false;
 
         const { is_coach } = response.data.user;
 
@@ -109,10 +121,9 @@ const login = async (e) => {
         } else {
             router.push({ path: "/athlete" });
         }
-    } catch (error) {
+    } catch (e) {
         loading.value = false;
         error.value = true;
-        console.log(error);
     }
 };
 
