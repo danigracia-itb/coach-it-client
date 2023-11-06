@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import { isLoggedIn } from "./helpers";
+import { checkAuth } from "./helpers";
 
 //IndexView
 import IndexView from "./pages/public/IndexView.vue";
@@ -27,6 +27,7 @@ const routes = [
     {
         path: "/coach",
         component: CoachDashboard,
+        meta: { requiresAuth: true }, // Requiere autenticación
     },
 
     // {
@@ -35,35 +36,22 @@ const routes = [
     // }
 ];
 
-const history = createWebHistory();
-
 const router = createRouter({
-    history,
+    history: createWebHistory(),
     routes,
 });
 
-// función beforeEach para proteger las rutas
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
     if (to.matched.some((record) => record.meta.requiresAuth)) {
-        // verifica si la ruta requiere autenticación
-
-        isLoggedIn().then((res) => {
-            if (!res) {
-                next("/login"); // redirige a la página de inicio de sesión si no está autenticado
-            } else {
-                next(); // permite continuar a la ruta protegida si el usuario está autenticado
-            }
-        });
-    } else if (to.matched.some((record) => record.meta.isLogged)) {
-        isLoggedIn().then((res) => {
-            if (res) {
-                next("/coach"); // redirige a la página de inicio de sesión si no está autenticado
-            } else {
-                next(); // permite continuar a la ruta protegida si el usuario está autenticado
-            }
-        });
+        // Verificar la autenticación aquí
+        const isAuthenticated = await checkAuth(); // Lógica para verificar si el usuario está autenticado
+        if (!isAuthenticated) {
+            next("/login"); // Redirigir al usuario al inicio de sesión si no está autenticado
+        } else {
+            next(); // Permitir acceso a la ruta protegida si el usuario está autenticado
+        }
     } else {
-        next(); // permite continuar a rutas que no requieren autenticación
+        next(); // Permitir acceso a rutas que no requieren autenticación
     }
 });
 
