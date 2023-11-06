@@ -7,8 +7,9 @@ import IndexView from "./pages/public/IndexView.vue";
 import Login from "./pages/auth/Login.vue";
 import Register from "./pages/auth/Register.vue";
 import Form from "./pages/auth/Form.vue";
-import Recover from "./pages/auth/Recover.vue";
-import Reset from "./pages/auth/Reset.vue";
+import Recover from "./pages/auth/RecoverPassword.vue";
+import Reset from "./pages/auth/ResetPassword.vue";
+
 
 //Coach
 import CoachDashboard from "./pages/coach/Dashboard.vue";
