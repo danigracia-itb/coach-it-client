@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="img-auth col-7 d-none d-md-block">
+        <div class="img-register col-7 d-none d-md-block">
 
         </div>
         <div class="col-md-5 d-flex flex-column align-items-center justify-content-center">
