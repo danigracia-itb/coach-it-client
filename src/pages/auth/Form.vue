@@ -1,5 +1,5 @@
 <template>
-    <div class="p-3 mb-2 bg-primary text-white full-screen d-flex justify-content-center align-items-center">
+    <div class="p-3 mb-2 bg-form text-white full-screen d-flex justify-content-center align-items-center">
         <div class="p-5 px-5 border rounded-5 bg-white text-center">
             <img class="auth-logo-img mx-auto" src="../../assets/logo.png" alt="">
             <form class="text-center">
@@ -37,5 +37,11 @@
     margin: 0;
     padding: 0;
     overflow: auto;
+}
+
+.bg-form {
+    background-image: url(../../assets/img/img-form.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 </style>

@@ -24,14 +24,14 @@
                         <input type="password" id="password" class="form-control p-3 mt-4" placeholder="Repeat your password">
                     </div>
 
-                    <div class="form-check mt-4">
+                    <div class="form-check mt-4 text-small">
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                             I agree to the <span class="text-primary fw-bold">Terms & Conditions</span>
                         </label>
                     </div>
 
-                    <div class="form-check mt-2">
+                    <div class="form-check mt-2 text-small">
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
                         <label class="form-check-label" for="flexCheckChecked">
                             I agree to recive communications from Coach IT
@@ -41,7 +41,7 @@
                     <button type="submit" class="text-uppercase btn btn-primary mt-5 rounded-4 w-100">Register</button>
 
                 </form>
-                <div class="mt-5 text-center">
+                <div class="mt-3 text-center text-small">
                     <p>Don't you have an account?<br>
                         <RouterLink to="/register?type=coach" class="text-primary fw-bolder">Login</RouterLink> or <RouterLink to="/register?type=athlete" class="text-primary fw-bolder">Register as an athlete</RouterLink>
                     </p>
@@ -55,4 +55,8 @@
 import { RouterLink } from 'vue-router';
 </script>
 
-<style scoped></style>
+<style scoped>
+.text-small {
+    font-size: 1.5rem;
+}
+</style>
