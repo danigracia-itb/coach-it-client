@@ -18,7 +18,7 @@
                     <label for="bodyWeight" class="text-black">Body weight</label>
                     <input type="text" id="bodyWeight" class="form-control" placeholder="Introduce your body weight">
                 </div>
-                <button @click="nextPage">Next</button>
+                <button @click="nextPage">1/{{totalPages}}</button>
             </fieldset>
 
 
@@ -55,7 +55,8 @@
                     <span><input type="checkbox" id="sunday" name="day" value="Sunday"><label
                             for="sunday">Sun</label></span>
                 </div>
-                <button @click="nextPage">Next</button>
+                <button @click="previousPage">&#8592; {{currentPage-1}}/{{totalPages}}</button>
+                <button @click="nextPage">{{currentPage}}/{{totalPages}} &#8594;</button>
             </fieldset>
 
             <fieldset v-if="currentPage === 3" class="text-center">
@@ -69,7 +70,8 @@
                     <label for="hatedExercises" class="text-black">Hated Exercises</label>
                     <textarea id="hatedExercises" class="form-control" placeholder="Enter your hated exercises"></textarea>
                 </div>
-                <button @click="nextPage">Next</button>
+                <button @click="previousPage">&#8592; {{currentPage-1}}/{{totalPages}}</button>
+                <button @click="nextPage">{{currentPage}}/{{totalPages}} &#8594;</button>
             </fieldset>
 
             <fieldset v-if="currentPage === 4" class="text-center">
@@ -82,7 +84,8 @@
                     <label for="longTermGoals" class="text-black">Long-Term Goals</label>
                     <textarea id="longTermGoals" class="form-control" placeholder="Enter your long-term goals"></textarea>
                 </div>
-                <button @click="nextPage">Next</button>
+                <button @click="previousPage">&#8592; {{currentPage-1}}/{{totalPages}}</button>
+                <button @click="nextPage">{{currentPage}}/{{totalPages}}</button>
             </fieldset>
         </form>
     </div>
@@ -99,9 +102,26 @@ function nextPage() {
         currentPage.value += 1;
     }
 }
+
+function previousPage() {
+    if (currentPage.value > 1) {
+        currentPage.value -= 1;
+    }
+}
 </script>
 
 <style scoped>
+.full-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+
 .full-screen {
     position: fixed;
     top: 0;
@@ -119,14 +139,11 @@ function nextPage() {
     background-size: cover;
 }
 
-span {
-    margin: 1%;
-}
-
 label {
     margin-left: 1%;
 }
-button{
+
+button {
     background-color: #711bba;
     margin-top: 5%;
 }
