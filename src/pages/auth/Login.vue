@@ -86,6 +86,7 @@ import Spinner from "../../components/Utils/Spinner.vue";
 
 const email = ref("");
 const password = ref("");
+
 const error = ref("");
 const loading = ref(false);
 const router = useRouter();
