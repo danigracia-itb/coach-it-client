@@ -1,6 +1,13 @@
 html {
     /* 1rem = 10px */
     font-size: 62.5%;
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
 }
 
 body {
@@ -18,7 +25,6 @@ body {
     font-size: 3rem;
     padding: 1rem 2.5rem;
 }
-
 
 //Headers
 
@@ -39,13 +45,13 @@ h3 {
     background-size: cover;
     background-position: center right;
 }
-.img-password{
+.img-password {
     background-image: url(../assets/img/recover_psswd.jpeg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center right;
 }
-.img-register{
+.img-register {
     background-image: url(../assets/img/img-register.webp);
     background-repeat: no-repeat;
     background-size: cover;
