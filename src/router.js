@@ -12,7 +12,7 @@ import Reset from "./pages/auth/ResetPassword.vue";
 
 
 //Coach
-import CoachDashboard from "./pages/coach/Dashboard.vue";
+import CoachDashboard from "./pages/coach/CoachDashboard.vue";
 
 const routes = [
     { path: "/", component: IndexView },
@@ -28,7 +28,7 @@ const routes = [
     {
         path: "/coach",
         component: CoachDashboard,
-        meta: { requiresAuth: true }, // Requiere autenticación
+        //meta: { requiresAuth: true }, // Requiere autenticación
     },
 
     // {
