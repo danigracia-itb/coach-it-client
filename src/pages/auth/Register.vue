@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="img-register col-7 d-none d-md-block"></div>
+        <div class="img-register vh-100 col-7 d-none d-md-block"></div>
         <div
             class="col-md-5 d-flex flex-column align-items-center justify-content-center"
         >
@@ -18,7 +18,7 @@
                     Registering using code:
                     <span class="text-primary">{{ code }}</span>
                 </p>
-                <form>
+                <form @submit.prevent="register">
                     <div class="form-group mt-5">
                         <label for="name">Name</label>
                         <input
@@ -26,6 +26,7 @@
                             id="name"
                             class="form-control p-3"
                             placeholder="Introduce your name"
+                            required
                         />
                     </div>
 
@@ -36,6 +37,7 @@
                             id="email"
                             class="form-control p-3"
                             placeholder="Introduce your email"
+                            required
                         />
                     </div>
 
@@ -46,12 +48,14 @@
                             id="password"
                             class="form-control p-3"
                             placeholder="Introduce your password"
+                            required
                         />
                         <input
                             type="password"
                             id="password"
                             class="form-control p-3 mt-4"
                             placeholder="Repeat your password"
+                            required
                         />
                     </div>
 
@@ -61,6 +65,7 @@
                             type="checkbox"
                             value=""
                             id="flexCheckDefault"
+                            required
                         />
                         <label class="form-check-label" for="flexCheckDefault">
                             I agree to the
@@ -126,7 +131,7 @@ import { onMounted, ref, watch } from "vue";
 import { RouterLink, useRoute, useRouter } from "vue-router";
 
 //Alerts
-import { enterCoachCode } from "../../helpers/alerts";
+import { enterCoachCode } from "../../functions/alerts";
 
 const route = useRoute();
 const router = useRouter();
@@ -144,6 +149,12 @@ function registerType() {
     }
 }
 
+function register() {
+    //TODO: Validate form
+
+}
+
+
 onMounted(() => {
     registerType();
 });
@@ -156,4 +167,11 @@ watch(
 );
 </script>
 
-<style scoped></style>
+<style scoped>
+.img-register {
+    background-image: url(./src/assets/img/img-register.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center right;
+}
+</style>

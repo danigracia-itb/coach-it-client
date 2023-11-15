@@ -1,13 +1,12 @@
 <template>
     <div class="row">
         <div
-            class="img-auth vh-100 col-7 d-none d-md-block"
-            src="recover.png"
+            class="img-login vh-100 col-7 d-none d-md-block"
         ></div>
         <div
             class="col-md-5 d-flex flex-column align-items-center justify-content-center"
         >
-            <img class="auth-logo-img" src="../../assets/logo.png" alt="" />
+            <img class="auth-logo-img" src="../../assets/logo.png" alt="Logo Coach IT" />
             <div class="p-8 border rounded-5">
                 <h1 class="text-uppercase text-center fw-bold">login</h1>
                 <form @submit.prevent="login" class="">
@@ -131,6 +130,12 @@ const login = async (e) => {
 </script>
 
 <style scoped>
+.img-login {
+    background-image: url(./src/assets/img/img-login.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center right;
+}
 .p-8 {
     padding: 7rem;
 }
