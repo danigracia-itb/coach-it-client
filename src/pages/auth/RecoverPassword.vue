@@ -6,7 +6,8 @@
         <div class="col-md-5 d-flex flex-column align-items-center justify-content-center">
             <RouterLink to="/"><img class="auth-logo-img" src="../../assets/logo.png" alt=""></RouterLink>
             <div class="p-5 px-5 border rounded-5">
-                <h1 class="text-uppercase text-center fw-bold">Reset your<span class="text-primary">Password?</span></h1>
+                <img class="key-img" src="../../assets/img/key-solid.svg" alt="" srcset="">
+                <h1 class="text-uppercase text-center fw-bold">Reset your <span class="text-primary">Password?</span></h1>
                 <p>Introduce your new password</p>
                 <form>
                     <div class="form-group mt-5">
