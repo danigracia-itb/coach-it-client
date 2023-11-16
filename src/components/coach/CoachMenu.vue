@@ -1,21 +1,18 @@
 <template>
-    <div class="col-3 vh-100 ml-0 text-center pr-0">
-        <div>
-
-        </div>
-        <img width="250" class="mx-auto" src="../../assets/logo.png" alt="logo">
-        <div class="bg-primary w-100 h-100">
+        <div class="bg-primary col-2 ml-0 text-center pr-0">
             <RouterLink to="/" class="text-white d-flex text-style">
-                <img height="40" class="m-3" src="../../assets/img/calendar.svg" alt="">
-                <p class="mt-5">Dashboard</p>
-                <font-awesome-icon size icon="fa-regular fa-calendar-days" />
+                <font-awesome-icon class="w-25 mt-1 p-3" size="2xl" icon="fa-regular fa-calendar-days" />
+                <p class="mt-4 fs-1">Dashboard</p>
             </RouterLink><br>
-            <RouterLink to="/" class="text-white">Routines</RouterLink><br>
-            <font-awesome-icon icon="fa-solid fa-user-secret" />
-            <font-awesome-icon icon="fa-solid fa-calendar-days" />
-            <font-awesome-icon icon="fa-regular fa-house" />            <RouterLink to="/" class="text-white">Exercices</RouterLink><br>
+            <RouterLink to="/" class="text-white d-flex text-style">
+                <font-awesome-icon class="w-25 mt-1 p-3" size="2xl" icon="fa-solid fa-list-check" />
+                <p class="mt-4 fs-1">Routines</p>
+            </RouterLink><br>
+            <RouterLink to="/" class="text-white d-flex text-style">
+                <font-awesome-icon class="w-25 mt-1 p-3" size="2xl" icon="fa-solid fa-dumbbell" />
+                <p class="mt-4 fs-1">Exercises</p>
+            </RouterLink><br>
         </div>
-    </div>
 </template>
 
 <script setup>
