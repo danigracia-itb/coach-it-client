@@ -1,6 +1,13 @@
 html {
     /* 1rem = 10px */
     font-size: 62.5%;
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
 }
 
 body {
@@ -19,7 +26,6 @@ body {
     padding: 1rem 2.5rem;
 }
 
-
 //Headers
 
 h2 {
@@ -33,24 +39,13 @@ h3 {
 }
 
 // Auth
-.img-auth {
-    background-image: url(./src/assets/img/img-login.webp);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center right;
-}
-.img-password{
+.img-password {
     background-image: url(../assets/img/recover_psswd.jpeg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center right;
 }
-.img-register{
-    background-image: url(../assets/img/img-register.webp);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center right;
-}
+
 .auth-logo-img {
     width: 35rem;
 }
