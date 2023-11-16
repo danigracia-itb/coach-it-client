@@ -7,7 +7,7 @@
             <RouterLink to="/"
                 ><img class="auth-logo-img" src="../../assets/logo.png" alt=""
             /></RouterLink>
-            <div class="p-5 px-5 border rounded-5">
+            <div class="p-5 mx-2 mx-md-0 border rounded-5">
                 <h1 class="text-uppercase text-center fw-bold">
                     Register as {{ is_coach ? "a" : "an" }}
                     <span class="text-primary">{{
