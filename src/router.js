@@ -4,6 +4,8 @@ import { checkAuth } from "./helpers";
 
 //IndexView
 import IndexView from "./pages/public/IndexView.vue";
+import PrivacyPolicy from "./pages/public/PrivacyPolicy.vue";
+
 import Login from "./pages/auth/Login.vue";
 import Register from "./pages/auth/Register.vue";
 import Form from "./pages/auth/Form.vue";
@@ -16,11 +18,15 @@ import CoachDashboard from "./pages/coach/CoachDashboard.vue";
 
 const routes = [
     { path: "/", component: IndexView },
+    { path: "/privacy-policy", component: PrivacyPolicy },
+
+
+    //Auth public
     { path: "/login", component: Login },
     { path: "/register", component: Register },
-
-    //WTF
     { path: "/form", component: Form },
+
+    //Password
     { path: "/recover", component: Recover },
     { path: "/reset", component: Reset },
 
