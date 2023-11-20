@@ -1,15 +1,21 @@
 <template>
     <header>
-        <section
-            class="bg-dark px-5 py-1 gap-3 d-flex justify-content-center justify-content-md-end"
-        >
-            <a href="#" class="text-white text-decoration-none">Register</a>
-            <a href="#" class="text-white text-decoration-none">Login</a>
+        <section class="bg-dark px-5 d-flex">
+            <a class="social" href="#">
+                <img class="social-net" src="/src/assets/img/instagram.svg" />
+            </a>
+            <a class="social" href="#">
+                <img class="social-net" src="/src/assets/img/facebook.svg" />
+            </a>
+            <a class="social" href="#">
+                <img class="social-net" src="/src/assets/img/twitterX.svg" />
+            </a>
         </section>
+
         <section
             class="bg-light px-5 py-2 d-flex flex-column flex-sm-row justify-content-between align-items-center shadow-sm"
         >
-            <img width="175" src="../../assets/logo.png" />
+            <img width="250" src="../../assets/logo.png" />
             <nav
                 class="navbar navbar-expand-lg d-flex flex-column align-items-center navbar-light bg-light"
             >
@@ -18,7 +24,7 @@
                     type="button"
                     @click="toggleNav"
                     :aria-expanded="isNavOpen ? 'true' : 'false'"
-                    style="font-size: 2rem"
+                    style="font-size: 4rem"
                 >
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -31,17 +37,14 @@
                     id="navbarNav"
                 >
                     <ul class="navbar-nav">
-                        <li
-                            class="nav-item text-center"
-                            style="margin-right: 1rem"
-                        >
+                        <li class="nav-item text-center">
                             <a class="nav-link active" href="#">Home</a>
                         </li>
-                        <li
-                            class="nav-item text-center"
-                            style="margin-right: 1rem"
-                        >
+                        <li class="nav-item text-center">
                             <a class="nav-link" href="#">About Us</a>
+                        </li>
+                        <li class="nav-item text-center">
+                            <a class="nav-link nav-login" href="#">Login</a>
                         </li>
                         <li class="nav-item text-center">
                             <a class="btn btn-primary text-uppercase" href="#"
@@ -157,11 +160,35 @@ export default {
 </script>
 
 <style scoped>
+.bg-dark {
+    background-color: #000; /* Puedes ajustar el color de fondo según tus preferencias */
+    padding: 5px; /* Ajusta el padding según tus preferencias */
+}
+
+.d-flex {
+    justify-content: flex-end; /* Alinea los íconos a la derecha */
+    gap: 10px; /* Ajusta el espacio entre los íconos según tus preferencias */
+}
+
+.social-net {
+    width: 50%; /* Establece el ancho del SVG al 50% */
+    height: auto; /* Mantiene la proporción original del SVG */
+}
+
 .hero {
     background-image: url("../../assets/img/hero-img.jpeg");
     height: 75rem;
     background-size: cover;
     background-position: center;
+}
+
+.nav.item {
+    padding-right: 120px;
+    text-align: center;
+}
+
+.nav-login {
+    text-decoration: underline;
 }
 
 @media (min-width: 768px) {
