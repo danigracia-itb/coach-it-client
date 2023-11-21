@@ -5,7 +5,7 @@ import { checkAuth } from "./functions/helpers";
 //Public
 import IndexView from "./pages/public/IndexView.vue";
 import PrivacyPolicy from "./pages/public/PrivacyPolicy.vue";
-import NotFound from "./pages/public/NotFound.vue"
+import NotFound from "./pages/public/NotFound.vue";
 
 //Auth
 import Login from "./pages/auth/Login.vue";
@@ -17,8 +17,9 @@ import RequestPasswordRecover from "./pages/auth/RequestPasswordRecover.vue";
 import PasswordRecover from "./pages/auth/PasswordRecover.vue";
 
 //Coach
-import CoachLayout from './layouts/CoachLayout.vue'
+import CoachLayout from "./layouts/CoachLayout.vue";
 import CoachDashboard from "./pages/coach/Dashboard.vue";
+import CoachAthleteProfile from "./pages/coach/AthleteProfile.vue";
 
 const routes = [
     { path: "/", component: IndexView },
@@ -39,13 +40,16 @@ const routes = [
         component: CoachLayout,
         //meta: { requiresAuth: true }, // Requiere autenticación
 
-        children: [{ path: "", component: CoachDashboard }],
+        children: [
+            { path: "", component: CoachDashboard },
+            { path: "athlete/:id", component: CoachAthleteProfile },
+        ],
     },
 
     {
         path: "/:catchAll(.*)",
-        component: NotFound
-    }
+        component: NotFound,
+    },
 ];
 
 const router = createRouter({

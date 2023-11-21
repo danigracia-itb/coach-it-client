@@ -2,22 +2,24 @@
     <div>
         <h1 class="text-center mt-5">Dashboard</h1>
 
-        <Spinner v-if="loading" />
+        <Spinner class="mt-5" v-if="loading" />
 
         <div class="clients-grid h-100 w-100 p-5" v-else>
-            <div
-                class="athlete-card p-3 border border-3 rounded border-primary"
+            <RouterLink
+                :to="`/coach/athlete/${client.id}`"
+                class="athlete-card p-3 border border-3 rounded border-primary text-decoration-none text-black"
                 v-for="client in clients"
                 :key="client.id"
             >
                 {{ client.name }}
-            </div>
+            </RouterLink>
         </div>
     </div>
 </template>
 
 <script setup>
 import { onMounted, reactive, ref } from "vue";
+import { RouterLink } from "vue-router";
 import axiosClient from "../../config/axios";
 import Spinner from "../../components/utils/Spinner.vue";
 
@@ -27,11 +29,11 @@ var clients = reactive([]);
 async function getClients() {
     loading.value = true;
     try {
-        const respuesta = await axiosClient(
-            "coach/get-clients/" + localStorage.getItem("id")
+        const response = await axiosClient(
+            "coach/get-athletes/" + localStorage.getItem("id")
         );
 
-        clients = respuesta.data;
+        clients = response.data;
 
         loading.value = false;
     } catch (e) {
