@@ -2,10 +2,12 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import { checkAuth } from "./functions/helpers";
 
-//IndexView
+//Public
 import IndexView from "./pages/public/IndexView.vue";
 import PrivacyPolicy from "./pages/public/PrivacyPolicy.vue";
+import NotFound from "./pages/public/NotFound.vue"
 
+//Auth
 import Login from "./pages/auth/Login.vue";
 import Register from "./pages/auth/Register.vue";
 import Form from "./pages/auth/Form.vue";
@@ -40,10 +42,10 @@ const routes = [
         children: [{ path: "", component: CoachDashboard }],
     },
 
-    // {
-    //     path: "/:catchAll(.*)",
-    //     component: NotFoundView
-    // }
+    {
+        path: "/:catchAll(.*)",
+        component: NotFound
+    }
 ];
 
 const router = createRouter({
