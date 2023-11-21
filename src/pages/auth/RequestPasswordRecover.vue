@@ -19,31 +19,25 @@
                             type="email"
                             id="email"
                             class="form-control p-3"
-                            :class="
-                                errors.email ? 'is-invalid' : ''
-                            "
+                            :class="errors.email ? 'is-invalid' : ''"
                             placeholder="Introduce your email"
                             required
                         />
 
-                        <div
-                            v-if="errors.email"
-                            class="invalid-feedback"
-                        >
+                        <div v-if="errors.email" class="invalid-feedback">
                             {{ errors.email }}
                         </div>
                     </div>
 
-
                     <Spinner v-if="loading" />
 
-                    <button v-else
+                    <button
+                        v-else
                         type="submit"
                         class="text-uppercase btn btn-primary mt-5 rounded-4 w-100"
                     >
                         Send mail
                     </button>
-
                 </form>
             </div>
 
@@ -56,7 +50,7 @@
 import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
 import axiosClient from "../../config/axios";
-import {passwordRecoverRequestedSuccess} from "../../functions/alerts"
+import { passwordRecoverRequestedSuccess } from "../../functions/alerts";
 
 import Spinner from "../../components/utils/Spinner.vue";
 
@@ -68,12 +62,17 @@ const loading = ref(false);
 const router = useRouter();
 
 async function requestPasswordRecover() {
-    loading.value = true
-
     //Validar
     if (!email.value) {
         errors.email = "The email field is required.";
     }
+
+    //If there's any error
+    if (Object.entries(errors).length > 0) {
+        return;
+    }
+
+    loading.value = true;
 
     try {
         await axiosClient.post(
@@ -87,14 +86,14 @@ async function requestPasswordRecover() {
                 },
             }
         );
-        loading.value = false
+        loading.value = false;
         passwordRecoverRequestedSuccess(email.value).then(() => {
-            router.push("/login")
-        })
+            router.push("/login");
+        });
     } catch (e) {
-        loading.value = false
-        if(e.response.data.error.email[0]) {
-            errors.email = e.response.data.error.email[0]
+        loading.value = false;
+        if (e.response.data.error.email[0]) {
+            errors.email = e.response.data.error.email[0];
         }
     }
 }
