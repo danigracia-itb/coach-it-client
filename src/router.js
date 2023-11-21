@@ -15,12 +15,12 @@ import RequestPasswordRecover from "./pages/auth/RequestPasswordRecover.vue";
 import PasswordRecover from "./pages/auth/PasswordRecover.vue";
 
 //Coach
-import CoachDashboard from "./pages/coach/CoachDashboard.vue";
+import CoachLayout from './layouts/CoachLayout.vue'
+import CoachDashboard from "./pages/coach/Dashboard.vue";
 
 const routes = [
     { path: "/", component: IndexView },
     { path: "/privacy-policy", component: PrivacyPolicy },
-
 
     //Auth public
     { path: "/login", component: Login },
@@ -34,8 +34,10 @@ const routes = [
     //PRIVATE PART
     {
         path: "/coach",
-        component: CoachDashboard,
+        component: CoachLayout,
         //meta: { requiresAuth: true }, // Requiere autenticación
+
+        children: [{ path: "", component: CoachDashboard }],
     },
 
     // {
