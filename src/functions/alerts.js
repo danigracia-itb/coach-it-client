@@ -19,7 +19,6 @@ export function enterCoachCode(code, router) {
     });
 }
 
-//TODO: LINK TO PRIVACY POLICY
 export function showTermsConditions() {
     return new Promise((resolve, reject) => {
         Swal.fire({
@@ -82,4 +81,23 @@ export function showTermsConditions() {
             }
         });
     });
+}
+
+export function passwordRecoverRequestedSuccess(email) {
+    return Swal.fire({
+        icon: "success",
+        title: "Requested",
+        text: "We have sent an email to " + email,
+        confirmButtonText: "Confirm",
+        confirmButtonColor: "#711bba",
+    })
+}
+
+export function passwordChangedSuccessfully() {
+    return Swal.fire({
+        icon: "success",
+        title: "Changed",
+        text: "Password changed succesfully, returning to login...",
+        timer: 1500
+    })
 }

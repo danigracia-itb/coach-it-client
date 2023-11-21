@@ -174,7 +174,7 @@ import axiosClient from "../../config/axios";
 import { enterCoachCode, showTermsConditions } from "../../functions/alerts";
 
 //Components
-import Spinner from "../../components/Utils/Spinner.vue";
+import Spinner from "../../components/utils/Spinner.vue";
 
 //Router
 const route = useRoute();
