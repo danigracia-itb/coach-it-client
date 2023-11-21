@@ -1,7 +1,10 @@
 <template>
     <div>
         <h1 class="text-center mt-5">Dashboard</h1>
-        <div class="clients-grid h-100 w-100 p-5" v-if="clients.length > 0">
+
+        <Spinner v-if="loading" />
+
+        <div class="clients-grid h-100 w-100 p-5" v-else>
             <div
                 class="athlete-card p-3 border border-3 rounded border-primary"
                 v-for="client in clients"
@@ -14,20 +17,26 @@
 </template>
 
 <script setup>
-import { onMounted, reactive } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import axiosClient from "../../config/axios";
+import Spinner from "../../components/utils/Spinner.vue";
 
+const loading = ref(true);
 var clients = reactive([]);
 
 async function getClients() {
+    loading.value = true;
     try {
         const respuesta = await axiosClient(
             "coach/get-clients/" + localStorage.getItem("id")
         );
+
         clients = respuesta.data;
-        console.log(clients);
+
+        loading.value = false;
     } catch (e) {
         console.log(e);
+        loading.value = false;
     }
 }
 
