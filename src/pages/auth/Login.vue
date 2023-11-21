@@ -82,7 +82,7 @@ import { ref } from "vue";
 import axiosClient from "../../config/axios";
 import { useRouter, RouterLink } from "vue-router";
 
-import Spinner from "../../components/Utils/Spinner.vue";
+import Spinner from "../../components/utils/Spinner.vue";
 
 const email = ref("");
 const password = ref("");
