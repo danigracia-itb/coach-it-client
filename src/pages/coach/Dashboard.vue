@@ -4,14 +4,12 @@
 
         <Spinner class="mt-5" v-if="loading" />
 
-        <div class="clients-grid h-100 w-100 p-5" v-else>
-            <RouterLink
-                :to="`/coach/athlete/${client.id}`"
-                class="athlete-card p-3 border border-3 rounded border-primary text-decoration-none text-black"
-                v-for="client in clients"
-                :key="client.id"
-            >
-                {{ client.name }}
+        <div class="athletes-grid h-100 w-100 p-5" v-else>
+            <RouterLink :to="`/coach/athlete/${athlete.id}`"
+                class="athlete-card p-3 border border-3 rounded text-decoration-none text-black align-middle"
+                v-for="athlete in athletes" :key="athlete.id">
+                <img width="130" class="p-2 rounded-circle" :src="athlete.picture" alt="">
+                <span class="display-6 fw-bold mx-4">{{ athlete.name }}</span>
             </RouterLink>
         </div>
     </div>
@@ -24,16 +22,16 @@ import axiosClient from "../../config/axios";
 import Spinner from "../../components/utils/Spinner.vue";
 
 const loading = ref(true);
-var clients = reactive([]);
+var athletes = reactive([]);
 
-async function getClients() {
+async function getAthletes() {
     loading.value = true;
     try {
         const response = await axiosClient(
             "coach/get-athletes/" + localStorage.getItem("id")
         );
 
-        clients = response.data;
+        athletes = response.data;
 
         loading.value = false;
     } catch (e) {
@@ -43,12 +41,12 @@ async function getClients() {
 }
 
 onMounted(() => {
-    getClients();
+    getAthletes();
 });
 </script>
 
 <style scoped>
-.clients-grid {
+.athletes-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
