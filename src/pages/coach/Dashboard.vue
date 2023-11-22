@@ -4,7 +4,7 @@
 
         <Spinner class="mt-5" v-if="loading" />
 
-        <div class="clients-grid h-100 w-100 p-5" v-else>
+        <div class="clients-grid mt-5" v-else>
             <RouterLink
                 :to="`/coach/athlete/${client.id}`"
                 class="athlete-card p-3 border border-3 rounded border-primary text-decoration-none text-black"

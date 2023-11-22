@@ -37,6 +37,6 @@ header {
 .main-content {
     margin-left: 25rem;
     margin-top: 8rem;
-    padding-top: .5rem;
+    padding: .5rem 4rem 4rem 4rem;
 }
 </style>
