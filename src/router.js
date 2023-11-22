@@ -20,6 +20,7 @@ import PasswordRecover from "./pages/auth/PasswordRecover.vue";
 import CoachLayout from "./layouts/CoachLayout.vue";
 import CoachDashboard from "./pages/coach/Dashboard.vue";
 import CoachAthleteProfile from "./pages/coach/AthleteProfile.vue";
+import CoachExercises from "./pages/coach/Exercises.vue";
 
 const routes = [
     { path: "/", component: IndexView },
@@ -43,6 +44,7 @@ const routes = [
         children: [
             { path: "", component: CoachDashboard },
             { path: "athlete/:id", component: CoachAthleteProfile },
+            { path: "exercises", component: CoachExercises },
         ],
     },
 

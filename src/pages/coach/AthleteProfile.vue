@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-5">
+    <div>
         <Spinner v-if="loading" />
 
         <div v-else>
