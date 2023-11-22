@@ -1,9 +1,17 @@
 <template>
-    <div>
-        <Spinner v-if="loading" />
+    <div class="mt-5">
+        <h1 class="text-center">Exercises</h1>
 
-        <div v-else>
-            <h1 class="text-center">{{ athlete.name }}</h1>
+        <Spinner class="mt-5" v-if="loading" />
+
+        <div class="h-100 p-5 " v-else>
+            <p
+                class=""
+                v-for="exercise in exercises"
+                :key="exercise.id"
+            >
+                {{ exercise.name }}
+            </p>
         </div>
     </div>
 </template>
@@ -17,18 +25,18 @@ import Spinner from "../../components/utils/Spinner.vue";
 const route = useRoute();
 
 const loading = ref(true);
-var athlete = reactive({});
+var exercises = reactive([]);
 
-async function getAthleteProfile() {
+async function getExercises() {
     loading.value = true;
     try {
         const response = await axiosClient(
-            "coach/get-athlete-profile/" + route.params.id
+            "coach/get-exercises/" + route.params.id
         );
 
-        athlete = response.data;
+        exercises = response.data;
 
-        console.log(athlete);
+        console.log(exercises);
 
         loading.value = false;
     } catch (e) {
@@ -38,6 +46,6 @@ async function getAthleteProfile() {
 }
 
 onMounted(() => {
-    getAthleteProfile();
+    getExercises();
 });
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div class="vh-100 overflow-hidden">
+    <div class="vh-100">
         <header>
             <img
                 width="200"
@@ -8,11 +8,11 @@
                 alt="logo"
             />
         </header>
-        <div class="row h-100">
+        <div class="h-100">
             <CoachMenu></CoachMenu>
-            <div class="col-10">
+            <main class="main-content">
                 <RouterView />
-            </div>
+            </main>
         </div>
     </div>
 </template>
@@ -25,5 +25,18 @@ import CoachMenu from "../components/coach/CoachMenu.vue";
 <style scoped>
 header {
     background-color: #dbdee2;
+    height: 8rem;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+}
+
+.main-content {
+    margin-left: 25rem;
+    margin-top: 8rem;
+    padding-top: .5rem;
 }
 </style>
