@@ -107,21 +107,27 @@
             >Amount of time available for training</label
           >
           <input
-            v-model="train_available_time"
             type="time"
             class="form-control"
+            :class="errors.train_available_time ? 'is-invalid' : ''"
             placeholder="Enter time available"
+            requiered
+            v-model="train_available_time"
           />
+        </div>
+
+        <div v-if="errors.train_available_time" class="ivalid-feedback">
+          {{ errors.train_available_time }}
         </div>
 
         <div class="form-group mt-5 text-black">
           <label class="text-black">Days available for training</label><br />
           <input
-            v-model="train_available_days"
             type="checkbox"
             id="monday"
             name="day"
             value="Monday"
+            v-model="train_available_days"
           /><label for="monday">Mon</label>
           <input
             v-model="train_available_days"
@@ -189,21 +195,31 @@
             >Favorite Exercises</label
           >
           <textarea
-            v-model="wishlist_exercises"
             id="favoriteExercises"
             class="form-control"
+            :class="errors.favoriteExercises ? 'is-invalid' : ''"
             placeholder="Enter your favorite exercises"
+            required
+            v-model="wishlist_exercises"
           ></textarea>
         </div>
+
+        <div v-if="errors.favoriteExercises" class="invalid-feedback"></div>
 
         <div class="form-group">
           <label for="hatedExercises" class="text-black">Hated Exercises</label>
           <textarea
-            v-model="banlist_exercises"
             id="hatedExercises"
             class="form-control"
+            :class="errors.heatedExercises ? 'is-invalid' : ''"
             placeholder="Enter your hated exercises"
+            required
+            v-model="banlist_exercises"
           ></textarea>
+        </div>
+
+        <div v-if="errors.heatedExercises" class="invalid-feedback">
+          {{ errors.heatedExercises }}
         </div>
 
         <div v-if="showError" class="alert alert-danger mt-5">
@@ -228,23 +244,33 @@
             >Short-Term Goals</label
           >
           <textarea
-            v-model="short_term_goals"
             id="shortTermGoals"
             class="form-control"
+            :classs="errors.shortTermGoalsError ? 'is-invalid' : ''"
             placeholder="Enter your short-term goals"
+            requiered
+            v-model="short_term_goals"
           ></textarea>
         </div>
 
+        <div v-if="errors.shortTermGoalsError" class="invalid-feedback">
+          {{ errors.shortTermGoalsError }}
+        </div>
         <div class="form-group">
           <label for="longTermGoals" class="text-black">Long-Term Goals</label>
           <textarea
-            v-model="long_term_goals"
             id="longTermGoals"
             class="form-control"
+            :class="errors.long_term_goals ? 'is-invalid' : ''"
             placeholder="Enter your long-term goals"
+            requiered
+            v-model="long_term_goals"
           ></textarea>
         </div>
 
+        <div v-if="errors.longTermGoalsError" class="invalid-feedback">
+          {{ errors.longTermGoalsError }}
+        </div>
         <div v-if="showError" class="alert alert-danger mt-5">
           Please complete all fields before moving to the next page.
         </div>
