@@ -9,22 +9,22 @@
       <img class="auth-logo-img mx-auto" src="../../assets/logo.png" alt="" />
 
       <!-- Page 1 -->
-      <fieldset v-if="currentPage === 1" class="text-center form-page">
+      <fieldset v-if="currentPage === 1" class="form-page">
         <div class="form-group mt-5">
-          <label for="date" class="text-black">Date of Birth</label>
+          <label for="date" class="text-center text-black">Date of Birth</label>
           <input
             @input="validateDate"
             type="date"
             id="date"
             class="form-control"
-            :class="errors.dateError ? 'is-invalid' : ''"
+            :class="errors.date_birth ? 'is-invalid' : ''"
             placeholder="Introduce your birthday"
             required
             v-model="date_birth"
           />
 
-          <div v-if="errors.dateError" class="invalid-feedback">
-            {{ errors.dateError }}
+          <div v-if="errors.date_birth" class="invalid-feedback">
+            {{ errors.date_birth }}
           </div>
         </div>
 
@@ -35,13 +35,13 @@
             type="text"
             id="height"
             class="form-control"
-            :class="errors.heightError ? 'is-invalid' : ''"
+            :class="errors.height ? 'is-invalid' : ''"
             placeholder="Introduce your Height"
             required
             v-model="height"
           />
-          <div v-if="errors.heightError" class="invalid-feedback">
-            {{ errors.heightError }}
+          <div v-if="errors.height" class="invalid-feedback">
+            {{ errors.height }}
           </div>
         </div>
 
@@ -52,24 +52,20 @@
             type="text"
             id="bodyWeight"
             class="form-control"
-            :class="errors.bodyWeightError ? 'is-invalid' : ''"
+            :class="errors.body_weight ? 'is-invalid' : ''"
             placeholder="Introduce your body weight"
             required
             v-model="body_weight"
           />
-          <div v-if="errors.bodyWeightError" class="invalid-feedback">
-            {{ errors.bodyWeightError }}
+          <div v-if="errors.body_weight" class="invalid-feedback">
+            {{ errors.body_weight }}
           </div>
-        </div>
-
-        <div v-if="showError" class="alert alert-danger mt-5">
-          Please complete all fields before moving to the next page.
         </div>
 
         <p class="btn btn-primary mx-2 mt-5">
           {{ currentPage }}/{{ totalPages }}
         </p>
-        <button @click.prevent="nextPage" class="btn btn-secondary mt-4">
+        <button @click.prevent="validatePage(1)" class="btn btn-secondary mt-4">
           <img
             width="20"
             src="../../assets/img/arrow-right.svg"
@@ -87,7 +83,7 @@
           <select
             id="timeTraining"
             class="form-control"
-            :class="errors.timeTraining ? 'is-invalid' : ''"
+            :class="errors.time_training ? 'is-invalid' : ''"
             required
             v-model="time_training"
           >
@@ -96,10 +92,9 @@
             <option value="1-2 years">1 - 2 years</option>
             <option value="2+ years">+2 years</option>
           </select>
-        </div>
-
-        <div v-if="errors.timeTraining" class="invalid-feedback">
-          {{ errors.timeTraining }}
+          <div v-if="errors.time_training" class="invalid-feedback">
+            {{ errors.time_training }}
+          </div>
         </div>
 
         <div class="form-group mt-5">
@@ -114,10 +109,9 @@
             requiered
             v-model="train_available_time"
           />
-        </div>
-
-        <div v-if="errors.train_available_time" class="ivalid-feedback">
-          {{ errors.train_available_time }}
+          <div v-if="errors.train_available_time" class="ivalid-feedback">
+            {{ errors.train_available_time }}
+          </div>
         </div>
 
         <div class="form-group mt-5 text-black">
@@ -171,15 +165,16 @@
             name="day"
             value="Sunday"
           /><label for="sunday">Sun</label>
+
+          <div v-if="errors.train_available_days" class="invalid-feedback">
+            {{ errors.train_available_days }}
+          </div>
         </div>
 
-        <div v-if="showError" class="alert alert-danger mt-5">
-          Please complete all fields before moving to the next page.
-        </div>
         <p class="btn btn-primary mx-2 mt-5">
           {{ currentPage }}/{{ totalPages }}
         </p>
-        <button @click.prevent="nextPage" class="btn btn-secondary mt-4">
+        <button @click.prevent="validatePage(2)" class="btn btn-secondary mt-4">
           <img
             width="20"
             src="../../assets/img/arrow-right.svg"
@@ -197,38 +192,34 @@
           <textarea
             id="favoriteExercises"
             class="form-control"
-            :class="errors.favoriteExercises ? 'is-invalid' : ''"
+            :class="errors.wishlist_exercises_ ? 'is-invalid' : ''"
             placeholder="Enter your favorite exercises"
             required
             v-model="wishlist_exercises"
           ></textarea>
+          <div v-if="errors.wishlist_exercises_" class="invalid-feedback">
+            {{ errors.wishlist_exercises_ }}
+          </div>
         </div>
-
-        <div v-if="errors.favoriteExercises" class="invalid-feedback"></div>
 
         <div class="form-group">
           <label for="hatedExercises" class="text-black">Hated Exercises</label>
           <textarea
             id="hatedExercises"
             class="form-control"
-            :class="errors.heatedExercises ? 'is-invalid' : ''"
+            :class="errors.banlist_exercises ? 'is-invalid' : ''"
             placeholder="Enter your hated exercises"
             required
             v-model="banlist_exercises"
           ></textarea>
-        </div>
-
-        <div v-if="errors.heatedExercises" class="invalid-feedback">
-          {{ errors.heatedExercises }}
-        </div>
-
-        <div v-if="showError" class="alert alert-danger mt-5">
-          Please complete all fields before moving to the next page.
+          <div v-if="errors.banlist_exercises" class="invalid-feedback">
+            {{ errors.banlist_exercises }}
+          </div>
         </div>
         <p class="btn btn-primary mx-2 mt-5">
           {{ currentPage }}/{{ totalPages }}
         </p>
-        <button @click.prevent="nextPage" class="btn btn-secondary mt-4">
+        <button @click.prevent="validatePage(3)" class="btn btn-secondary mt-4">
           <img
             width="20"
             src="../../assets/img/arrow-right.svg"
@@ -246,16 +237,16 @@
           <textarea
             id="shortTermGoals"
             class="form-control"
-            :classs="errors.shortTermGoalsError ? 'is-invalid' : ''"
+            :classs="errors.short_term_goals ? 'is-invalid' : ''"
             placeholder="Enter your short-term goals"
             requiered
             v-model="short_term_goals"
           ></textarea>
+          <div v-if="errors.short_term_goals" class="invalid-feedback">
+            {{ errors.short_term_goals }}
+          </div>
         </div>
 
-        <div v-if="errors.shortTermGoalsError" class="invalid-feedback">
-          {{ errors.shortTermGoalsError }}
-        </div>
         <div class="form-group">
           <label for="longTermGoals" class="text-black">Long-Term Goals</label>
           <textarea
@@ -266,13 +257,9 @@
             requiered
             v-model="long_term_goals"
           ></textarea>
-        </div>
-
-        <div v-if="errors.longTermGoalsError" class="invalid-feedback">
-          {{ errors.longTermGoalsError }}
-        </div>
-        <div v-if="showError" class="alert alert-danger mt-5">
-          Please complete all fields before moving to the next page.
+          <div v-if="errors.long_term_goals" class="invalid-feedback">
+            {{ errors.long_term_goals }}
+          </div>
         </div>
         <button
           @click.prevent="enviarFormulario"
@@ -303,18 +290,16 @@ const errors = reactive({
   short_term_goals: "",
   long_term_goals: "",
   // daysOfWeek: ""
-})
+});
 /* Primera página */
 const date_birth = ref("");
 const height = ref("");
 const body_weight = ref("");
 
-
 /* Segunda página */
 const time_training = ref("");
 const train_available_time = ref("");
 const train_available_days = ref([]);
-
 
 /* Tercera página */
 const wishlist_exercises = ref("");
@@ -324,74 +309,80 @@ const banlist_exercises = ref("");
 const short_term_goals = ref("");
 const long_term_goals = ref("");
 
-
-const daysOfWeek = [
-  { id: "monday", label: "Mon", value: "Monday" },
-  { id: "tuesday", label: "Tue", value: "Tuesday" },
-  { id: "wednesday", label: "Wed", value: "Wednesday" },
-  { id: "thursday", label: "Thu", value: "Thursday" },
-  { id: "friday", label: "Fri", value: "Friday" },
-  { id: "saturday", label: "Sat", value: "Saturday" },
-  { id: "sunday", label: "Sun", value: "Sunday" },
-];
-
 /* CONTROL DE ERRORES */
-const showError = ref(false);
+function validatePage(num) {
+  switch (num) {
+    case 1:
+      if (!date_birth.value) {
+        errors.date_birth = "Date field is mandatory.";
+      }
+      if (!height.value) {
+        errors.height = "Height field is mandatory.";
+      }
+      if (!body_weight.value) {
+        errors.body_weight = "Body weight field is mandatory.";
+      }
+      if (
+        errors.date_birth == "" &&
+        errors.height == "" &&
+        errors.body_weight == ""
+      ) {
+        nextPage();
+      }
+    case 2:
+      if (!time_training.value) {
+        errors.time_training = "Time training field is mandatory.";
+      }
+      if (!train_available_time.value) {
+        errors.train_available_time =
+          "Train available time field is mandatory.";
+      }
+      if (!train_available_days.value) {
+        errors.train_available_days =
+          "Train available days field is mandatory.";
+      }
+      if (
+        errors.time_training == "" &&
+        errors.train_available_time == "" &&
+        errors.train_available_days == ""
+      ) {
+        nextPage();
+      }
+    case 3:
+      if (!wishlist_exercises.value) {
+        errors.wishlist_exercises = "Wishlist exercises field is mandatory.";
+      }
+      if (!banlist_exercises.value) {
+        errors.banlist_exercises = "Bablist exercises field is mandatory.";
+      }
+      if (errors.wishlist_exercises == "" && errors.banlist_exercises == "") {
+        nextPage();
+      }
+    case 4:
+      if (!short_term_goals.value) {
+        errors.short_term_goals = "Short term goals field is mandatory.";
+      }
+      if (!long_term_goals.value) {
+        errors.long_term_goals = "Long term goals field is mandatory.";
+      }
+      if (errors.short_term_goals == "" && errors.long_term_goals == "") {
+        nextPage();
+      }
+      break;
 
-function validatePage3() {
-  wishlistExercisesError.value = !wishlist_exercises.value.trim();
-  banlistExercisesError.value = !banlist_exercises.value.trim();
-
-  return !wishlistExercisesError.value && !banlistExercisesError.value;
-}
-
-function validatePage2() {
-  timeTrainingError.value = !time_training.value;
-  trainAvailableTimeError.value = !train_available_time.value;
-  trainAvailableDaysError.value = train_available_days.length === 0;
-
-  return (
-    !timeTrainingError.value &&
-    !trainAvailableTimeError.value &&
-    !trainAvailableDaysError.value
-  );
-}
-
-function validateFields() {
-  if (currentPage.value === 1) {
-    dateError.value = !validateDate();
-    heightError.value = isNaN(height.value) || height.value <= 0;
-    bodyWeightError.value = isNaN(body_weight.value) || body_weight.value <= 0;
-
-    return !dateError.value && !heightError.value && !bodyWeightError.value;
-  } else if (currentPage.value === 2) {
-    return validatePage2();
-  } else if (currentPage.value === 3) {
-    return validatePage3();
-  } else if (currentPage.value === 4) {
-    shortTermGoalsError.value = false;
-    longTermGoalsError.value = false;
-
-    return !!short_term_goals.value && !!long_term_goals.value;
+    default:
+      break;
   }
-  return false;
 }
-
 function validateDate() {
   const selectedDate = new Date(date_birth.value);
   const currentDate = new Date();
 
   return selectedDate <= currentDate;
 }
-
 function nextPage() {
-  if (validateFields()) {
-    if (currentPage.value < totalPages) {
-      currentPage.value += 1;
-    }
-    showError.value = false;
-  } else {
-    showError.value = true;
+  if (currentPage.value < totalPages) {
+    currentPage.value += 1;
   }
 }
 </script>
@@ -440,5 +431,4 @@ function nextPage() {
     padding: 0.5rem;
   }
 }
-
 </style>
