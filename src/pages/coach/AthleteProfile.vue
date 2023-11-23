@@ -3,7 +3,7 @@
         <Spinner v-if="loading" />
 
         <div v-else>
-            <h1 class="text-center m-5">{{ athlete.name }}</h1>
+            <h1 class="text-center p-5">{{ athlete.name }}</h1>
             <div class="row">
                 <div class="col-lg-4 mb-4 mb-lg-0 d-flex justify-content-center align-items-center">
                     <img class="rounded-circle" width="400" :src="athlete.picture" alt="">
@@ -18,65 +18,58 @@
                         </div>
                         <div class="d-flex align-items-center">
                             <font-awesome-icon class="p-3" icon="fa-solid fa-cake-candles" size="2xl" />
-                            <p class="m-0">22/11/2023</p>
+                            <p class="m-0">{{ athlete.user_data.date_birth }}</p>
                         </div>
                         <div class="d-flex align-items-center">
                             <font-awesome-icon class="p-3" icon="fa-solid fa-ruler-vertical" size="2xl" />
-                            <p class="m-0">170cm</p>
+                            <p class="m-0">{{ athlete.user_data.height }}cm</p>
                         </div>
                         <div class="d-flex align-items-center">
                             <font-awesome-icon class="p-3" icon="fa-solid fa-weight-scale" size="2xl" />
-                            <p class="m-0">70kg</p>
+                            <p class="m-0">{{ athlete.user_data.body_weight }}kg</p>
                         </div>
 
-                        <p><strong>Time training:</strong></p>
-                        <p><strong>Time for training:</strong></p>
+                        <p><strong>Time training: </strong>{{ athlete.user_data.time_training }}</p>
+                        <p><strong>Time for training: </strong>{{ athlete.user_data.train_available_time }}</p>
 
 
-                        <table class="table table-bordered text-center">
-                            <thead>
-                                <tr>
-                                    <th>Monday</th>
-                                    <th>Tuesday</th>
-                                    <th>Wednesday</th>
-                                    <th>Thursday</th>
-                                    <th>Friday</th>
-                                    <th>Saturday</th>
-                                    <th>Sunday</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><font-awesome-icon icon="fa-solid fa-square-check" class="text-success" size="xl" />
-                                    </td>
-                                    <td><font-awesome-icon icon="fa-solid fa-square-xmark" class="text-danger" size="xl" />
-                                    </td>
-                                    <td><font-awesome-icon icon="fa-solid fa-square-check" class="text-success" size="xl" />
-                                    </td>
-                                    <td><font-awesome-icon icon="fa-solid fa-square-xmark" class="text-danger" size="xl" />
-                                    </td>
-                                    <td><font-awesome-icon icon="fa-solid fa-square-check" class="text-success" size="xl" />
-                                    </td>
-                                    <td><font-awesome-icon icon="fa-solid fa-square-xmark" class="text-danger" size="xl" />
-                                    </td>
-                                    <td><font-awesome-icon icon="fa-solid fa-square-check" class="text-success" size="xl" />
-                                    </td>
-                                    <!-- <td>
-                                {{ athlete.available_days.monday ? 'true' :'false' }}
-                                </td> -->
-                                </tr>
-                            </tbody>
+                        <AvailableDaysTable :available_days="athlete.user_data.available_days"></AvailableDaysTable>
 
-                        </table>
+                        <section>
+                            <h4 class="text-center mt-5">Exercises</h4>
+                            <table class="table table-bordered text-center">
+                                <thead>
+                                    <tr>
+                                        <th>Wishlist</th>
+                                        <th>Banlist</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ athlete.user_data.wishlist_exercises }}</td>
+                                        <td>{{ athlete.user_data.banlist_exercises }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
 
-                        <div class="d-flex align-items-center">
-                            <font-awesome-icon class="p-3" icon="fa-solid fa-star" size="2xl" />
-                            <p class="m-0"><strong>Favorite exercises: </strong></p>
-                        </div>
-
-                        <p><strong>Hated exercises:</strong></p>
-                        <p><strong>Short-term goals:</strong></p>
-                        <p><strong>Long-term goals:</strong></p>
+                        <section>
+                            <h4 class="text-center mt-5">Goals</h4>
+                            <table class="table table-bordered text-center">
+                                <thead>
+                                    <tr>
+                                        <th>Short-term goals</th>
+                                        <th>Long-term goals</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ athlete.user_data.short_term_goals }}</td>
+                                        <td>{{ athlete.user_data.short_term_goals }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
 
                     </div>
                 </div>
@@ -90,6 +83,7 @@ import { onMounted, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 import axiosClient from "../../config/axios";
 import Spinner from "../../components/utils/Spinner.vue";
+import AvailableDaysTable from '../../components/coach/AvailableDaysTable.vue'
 
 const route = useRoute();
 
