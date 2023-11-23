@@ -17,14 +17,14 @@
             type="date"
             id="date"
             class="form-control"
-            :class="errors.date ? 'is-invalid' : ''"
+            :class="errors.dateError ? 'is-invalid' : ''"
             placeholder="Introduce your birthday"
             required
             v-model="date_birth"
           />
 
-          <div v-if="errors.date" class="invalid-feedback">
-            {{ errors.date }}
+          <div v-if="errors.dateError" class="invalid-feedback">
+            {{ errors.dateError }}
           </div>
         </div>
 
@@ -35,13 +35,13 @@
             type="text"
             id="height"
             class="form-control"
-            :class="errors.height ? 'is-invalid' : ''"
+            :class="errors.heightError ? 'is-invalid' : ''"
             placeholder="Introduce your Height"
             required
             v-model="height"
           />
-          <div v-if="errors.height" class="invalid-feedback">
-            {{ errors.height }}
+          <div v-if="errors.heightError" class="invalid-feedback">
+            {{ errors.heightError }}
           </div>
         </div>
 
@@ -52,13 +52,13 @@
             type="text"
             id="bodyWeight"
             class="form-control"
-            :class="errors.bodyWeight ? 'is-invalid' : ''"
+            :class="errors.bodyWeightError ? 'is-invalid' : ''"
             placeholder="Introduce your body weight"
             required
             v-model="body_weight"
           />
-          <div v-if="errors.bodyWeight" class="invalid-feedback">
-            {{ errors.bodyWeight }}
+          <div v-if="errors.bodyWeightError" class="invalid-feedback">
+            {{ errors.bodyWeightError }}
           </div>
         </div>
 
@@ -286,38 +286,44 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 
 const currentPage = ref(1);
 const totalPages = 4;
 
+const errors = reactive({
+  date_birth: "",
+  height: "",
+  body_weight: "",
+  time_training: "",
+  train_available_time: "",
+  train_available_days: "",
+  wishlist_exercises_: "",
+  banlist_exercises: "",
+  short_term_goals: "",
+  long_term_goals: "",
+  // daysOfWeek: ""
+})
 /* Primera página */
 const date_birth = ref("");
 const height = ref("");
 const body_weight = ref("");
-const dateError = ref(false);
-const heightError = ref(false);
-const bodyWeightError = ref(false);
+
 
 /* Segunda página */
 const time_training = ref("");
 const train_available_time = ref("");
 const train_available_days = ref([]);
-const timeTrainingError = ref(false);
-const trainAvailableTimeError = ref(false);
-const trainAvailableDaysError = ref(false);
+
 
 /* Tercera página */
 const wishlist_exercises = ref("");
 const banlist_exercises = ref("");
-const wishlistExercisesError = ref(false);
-const banlistExercisesError = ref(false);
 
 /* Cuarta página */
 const short_term_goals = ref("");
 const long_term_goals = ref("");
-const shortTermGoalsError = ref(false);
-const longTermGoalsError = ref(false);
+
 
 const daysOfWeek = [
   { id: "monday", label: "Mon", value: "Monday" },
@@ -408,17 +414,31 @@ function nextPage() {
   background-size: cover;
 }
 
-label {
+.label {
   margin-left: 1%;
 }
 
 .form-quest {
-  width: 50rem;
-  height: 55rem;
+  max-width: 50rem;
+  width: 100%;
   margin: 0 auto;
+  padding: 2rem;
+  box-sizing: border-box;
 }
 
 .form-error {
-  height: 70rem;
+  height: auto;
 }
+@media (max-width: 768px) {
+  .form-quest {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .form-quest {
+    padding: 0.5rem;
+  }
+}
+
 </style>
