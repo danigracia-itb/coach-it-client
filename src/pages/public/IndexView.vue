@@ -1,8 +1,11 @@
 <template>
     <header>
-        <section class="bg-dark px-5 d-flex">
+        <section class="bg-dark d-flex">
             <a class="social" href="#">
-                <img class="social-net" src="/src/assets/img/instagram.svg" />
+                <img
+                    class="social-net svg-container"
+                    src="/src/assets/img/instagram.svg"
+                />
             </a>
             <a class="social" href="#">
                 <img class="social-net" src="/src/assets/img/facebook.svg" />
@@ -16,42 +19,51 @@
             class="bg-light px-5 py-2 d-flex flex-column flex-sm-row justify-content-between align-items-center shadow-sm"
         >
             <img width="250" src="../../assets/logo.png" />
-            <nav
-                class="navbar navbar-expand-lg d-flex flex-column align-items-center navbar-light bg-light"
-            >
-                <button
-                    class="navbar-toggler"
-                    type="button"
-                    @click="toggleNav"
-                    :aria-expanded="isNavOpen ? 'true' : 'false'"
-                    style="font-size: 4rem"
-                >
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div
-                    :class="[
-                        'collapse',
-                        'navbar-collapse',
-                        { show: isNavOpen },
-                    ]"
-                    id="navbarNav"
-                >
-                    <ul class="navbar-nav">
-                        <li class="nav-item text-center">
-                            <a class="nav-link active" href="#">Home</a>
-                        </li>
-                        <li class="nav-item text-center">
-                            <a class="nav-link" href="#">About Us</a>
-                        </li>
-                        <li class="nav-item text-center">
-                            <a class="nav-link nav-login" href="#">Login</a>
-                        </li>
-                        <li class="nav-item text-center">
-                            <a class="btn btn-primary text-uppercase" href="#"
-                                >Start today</a
-                            >
-                        </li>
-                    </ul>
+            <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+                <div class="container-fluid">
+                    <button
+                        class="navbar-toggler"
+                        type="button"
+                        @click="toggleNav"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        :aria-expanded="isNavOpen ? 'true' : 'false'"
+                        aria-label="Toggle navigation"
+                        style="font-size: 4rem"
+                    >
+                        >
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div
+                        :class="[
+                            'collapse',
+                            'navbar-collapse',
+                            { show: isNavOpen },
+                        ]"
+                        id="navbarNav"
+                    >
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">About us</a>
+                            </li>
+                            <li class="nav-item">
+                                <RouterLink to="/login"
+                                    ><a class="nav-link" href="#"
+                                        >Login</a
+                                    ></RouterLink
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                    <RouterLink to="/register"
+                        ><button class="btn start-today-btn btn btn-primary">
+                            Start Today
+                        </button></RouterLink
+                    >
                 </div>
             </nav>
         </section>
@@ -66,8 +78,6 @@
                 <br />
                 <span class="text-primary">strength coach</span>
             </h1>
-
-            <!-- Buttons -->
             <div>
                 <a
                     href="#"
@@ -145,6 +155,8 @@
 </template>
 
 <script>
+import { RouterLink } from "vue-router";
+
 export default {
     data() {
         return {
@@ -156,23 +168,45 @@ export default {
             this.isNavOpen = !this.isNavOpen;
         },
     },
+    components: { RouterLink },
 };
 </script>
 
 <style scoped>
 .bg-dark {
     background-color: #000; /* Puedes ajustar el color de fondo según tus preferencias */
-    padding: 5px; /* Ajusta el padding según tus preferencias */
+    padding: 15px; /* Ajusta el padding según tus preferencias */
 }
 
 .d-flex {
-    justify-content: flex-end; /* Alinea los íconos a la derecha */
-    gap: 10px; /* Ajusta el espacio entre los íconos según tus preferencias */
+    display: flex; /* Hace que el contenedor sea flexible */
+    justify-content: flex-end; /* Alinea los elementos a la derecha */
+}
+
+.social {
+    margin-left: 15px;
+    transition: color 0.3s ease; /* Transición de color al hacer hover */
+}
+
+.social:hover {
+    color: #9329f4; /* Cambia el color al pasar el ratón sobre el elemento */
 }
 
 .social-net {
-    width: 50%; /* Establece el ancho del SVG al 50% */
-    height: auto; /* Mantiene la proporción original del SVG */
+    width: 50px;
+    height: auto;
+    fill: #ffffff; /* Establece el color inicial */
+    transition: fill 0.3s ease; /* Transición de color al hacer hover */
+}
+
+.social-net:hover {
+    fill: #9329f4; /* Cambia el color al pasar el ratón sobre el SVG */
+}
+
+.social-net:hover {
+    filter: brightness(
+        1.2
+    ); /* Ajusta el brillo para cambiar el color al pasar el ratón sobre el elemento */
 }
 
 .hero {
@@ -182,13 +216,29 @@ export default {
     background-position: center;
 }
 
-.nav.item {
-    padding-right: 120px;
-    text-align: center;
+.navbar-custom .navbar-nav .nav-link {
+    color: #000000;
+    margin-right: 20px;
+}
+.navbar-nav .nav-link:hover {
+    color: #9329f4;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
 }
 
-.nav-login {
-    text-decoration: underline;
+.start-today-btn {
+    color: #9329f4;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    width: 150px;
+    height: 50px;
+    border-radius: 10px; /* Ajusta el valor de border-radius en píxeles o em */
+}
+
+.start-today-btn:active {
+    transform: scale(0.95);
+    color: #fff;
 }
 
 @media (min-width: 768px) {
