@@ -18,7 +18,9 @@
         <section
             class="bg-light px-5 py-2 d-flex flex-column flex-sm-row justify-content-between align-items-center shadow-sm"
         >
-            <img width="250" src="../../assets/logo.png" />
+            <RouterLink to="/"
+                ><img width="300" src="../../assets/logo.png"
+            /></RouterLink>
             <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
                 <div class="container-fluid">
                     <button
@@ -45,7 +47,9 @@
                     >
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Home</a>
+                                <a class="nav-link home fw-bold" href="#"
+                                    >Home</a
+                                >
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">About us</a>
@@ -193,7 +197,7 @@ export default {
 }
 
 .social-net {
-    width: 50px;
+    width: 30px;
     height: auto;
     fill: #ffffff; /* Establece el color inicial */
     transition: fill 0.3s ease; /* Transición de color al hacer hover */
@@ -222,10 +226,34 @@ export default {
 }
 .navbar-nav .nav-link:hover {
     color: #9329f4;
-    text-decoration: underline;
     text-decoration-thickness: 2px;
 }
 
+.nav-link {
+    text-decoration: none; /* Elimina el subrayado por defecto */
+    padding: 5px; /* Añade espacio alrededor del enlace */
+    display: inline-block; /* Hace que el padding se aplique alrededor del texto */
+    position: relative;
+}
+
+.nav-link::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px; /* Grosor del subrayado */
+    bottom: 0;
+    left: 0;
+    background-color: transparent; /* Color del subrayado inicial */
+    transition: background-color 0.3s ease; /* Transición de color al hacer hover */
+}
+
+.nav-link:hover::after {
+    background-color: #9329f4; /* Cambia el color del subrayado al hacer hover */
+}
+
+.home {
+    pointer-events: none;
+}
 .start-today-btn {
     color: #9329f4;
     border: none;
