@@ -90,7 +90,7 @@ export function passwordRecoverRequestedSuccess(email) {
         text: "We have sent an email to " + email,
         confirmButtonText: "Confirm",
         confirmButtonColor: "#711bba",
-    })
+    });
 }
 
 export function passwordChangedSuccessfully() {
@@ -98,6 +98,45 @@ export function passwordChangedSuccessfully() {
         icon: "success",
         title: "Changed",
         text: "Password changed succesfully, returning to login...",
-        timer: 1500
-    })
+        timer: 1500,
+    });
+}
+
+//Add exercise
+export function addExercisePopup() {
+    Swal.fire({
+        title: "Add Exercise",
+        html:
+            '<input id="swal-input1" class="swal2-input" placeholder="Name">' +
+            '<select id="swal-input2" class="swal2-select">' +
+            '<option value="1">1</option>' +
+            '<option value="2">2</option>' +
+            '<option value="3">3</option>' +
+            '<option value="4">4</option>' +
+            "</select>",
+        focusConfirm: false,
+        showCancelButton: true,
+            confirmButtonText: "Add",
+        confirmButtonColor: "#711bba",
+        preConfirm: () => {
+            const name = Swal.getPopup().querySelector("#swal-input1").value;
+            const selectedNumber =
+                Swal.getPopup().querySelector("#swal-input2").value;
+
+            if (!name || !selectedNumber) {
+                Swal.showValidationMessage("Name and number are required");
+            }
+
+            return { name: name, selectedNumber: selectedNumber };
+        },
+    }).then((result) => {
+        if (result.value) {
+            const name = result.value.name;
+            const selectedNumber = result.value.selectedNumber;
+
+            // Perform actions with the entered name and selected number
+            console.log("Name:", name);
+            console.log("Selected Number:", selectedNumber);
+        }
+    });
 }

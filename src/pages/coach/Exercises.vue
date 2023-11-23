@@ -4,7 +4,7 @@
 
         <!-- Acciones -->
         <div class="d-flex justify-content-end">
-            <button class="btn btn-primary">Add</button>
+            <button class="btn btn-primary" @click="addExercisePopup">Add</button>
         </div>
 
         <Spinner class="mt-5" v-if="loading" />
@@ -31,6 +31,7 @@ import { useRoute } from "vue-router";
 import axiosClient from "../../config/axios";
 import Spinner from "../../components/utils/Spinner.vue";
 import ExerciseCard from "../../components/ExerciseCard.vue";
+import {addExercisePopup} from "../../functions/alerts"
 
 const route = useRoute();
 
