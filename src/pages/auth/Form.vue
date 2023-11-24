@@ -121,7 +121,7 @@
             id="monday"
             name="day"
             value="Monday"
-            v-model="train_available_days"
+            v-model="train_available_days.monday"
           /><label for="monday">Mon</label>
           <input
             v-model="train_available_days"
@@ -299,7 +299,10 @@ const body_weight = ref("");
 /* Segunda página */
 const time_training = ref("");
 const train_available_time = ref("");
-const train_available_days = ref([]);
+const train_available_days = reactive({
+  monday: false,
+
+});
 
 /* Tercera página */
 const wishlist_exercises = ref("");
@@ -311,24 +314,37 @@ const long_term_goals = ref("");
 
 /* CONTROL DE ERRORES */
 function validatePage(num) {
+
   switch (num) {
     case 1:
       if (!date_birth.value) {
         errors.date_birth = "Date field is mandatory.";
+      } else {
+        errors.date_birth = "";
       }
+
       if (!height.value) {
         errors.height = "Height field is mandatory.";
       }
+      else {
+        errors.height = "";
+      }
+
       if (!body_weight.value) {
         errors.body_weight = "Body weight field is mandatory.";
+      }else {
+        errors.body_weight = "";
       }
+
       if (
         errors.date_birth == "" &&
         errors.height == "" &&
         errors.body_weight == ""
-      ) {
+      ) 
+      {
         nextPage();
       }
+      break;
     case 2:
       if (!time_training.value) {
         errors.time_training = "Time training field is mandatory.";
@@ -348,6 +364,7 @@ function validatePage(num) {
       ) {
         nextPage();
       }
+      break;
     case 3:
       if (!wishlist_exercises.value) {
         errors.wishlist_exercises = "Wishlist exercises field is mandatory.";
@@ -358,6 +375,7 @@ function validatePage(num) {
       if (errors.wishlist_exercises == "" && errors.banlist_exercises == "") {
         nextPage();
       }
+      break;
     case 4:
       if (!short_term_goals.value) {
         errors.short_term_goals = "Short term goals field is mandatory.";
@@ -369,7 +387,6 @@ function validatePage(num) {
         nextPage();
       }
       break;
-
     default:
       break;
   }
