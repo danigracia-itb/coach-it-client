@@ -26,6 +26,12 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 /* import specific icons */
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 
+import posthogPlugin from "./helpers/posthog"; //import the plugin. 
+
+const app = createApp(App);
+
+app.use(posthogPlugin); //install the plugin
+
 /* add icons to the library */
 library.add(faUserSecret)
 
@@ -33,4 +39,5 @@ createApp(App)
 .component('font-awesome-icon', FontAwesomeIcon)
 .use(router)
 .mount('#app')
+
 

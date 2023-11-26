@@ -1,10 +1,15 @@
 <template>
-    <router-view />
-  </template>
+  <router-view />
+</template>
   
-  <script>
-  export default {
-    name: "App",
-  };
-  </script>
+<script>
+import { RouterLink } from "vue-router";
+
+export default {
+  name: "App",
+  components: {
+    RouterLink
+  }
+};
+</script>
   
