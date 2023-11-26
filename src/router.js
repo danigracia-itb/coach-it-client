@@ -22,6 +22,11 @@ import CoachDashboard from "./pages/coach/Dashboard.vue";
 import CoachAthleteProfile from "./pages/coach/AthleteProfile.vue";
 import CoachExercises from "./pages/coach/Exercises.vue";
 
+//Athlete
+import AthleteLayout from "./layouts/AthleteLayout.vue"
+import Calendar from "./pages/athlete/Calendar.vue"
+import Routines from "./pages/athlete/Routines.vue"
+
 const routes = [
     { path: "/", component: IndexView },
     { path: "/privacy-policy", component: PrivacyPolicy },
@@ -45,6 +50,18 @@ const routes = [
             { path: "", component: CoachDashboard },
             { path: "athlete/:id", component: CoachAthleteProfile },
             { path: "exercises", component: CoachExercises },
+        ],
+    },
+
+    //PRIVATE PART ATHLETE
+    {
+        path: "/athlete",
+        component: AthleteLayout,
+        //meta: { requiresAuth: true }, // Requiere autenticación
+
+        children: [
+            { path: "", component: Calendar },
+            { path: "", component: Routines }
         ],
     },
 
