@@ -12,14 +12,9 @@
             </a>
         </section>
 
-        <section <<<<<<< HEAD
+        <section
             class="bg-light px-5 py-2 d-flex flex-column flex-sm-row justify-content-between align-items-center shadow-sm">
             <RouterLink to="/"><img width="300" src="../../assets/logo.png" /></RouterLink>
-            =======
-            class="bg-light px-5 py-2 d-flex flex-column flex-sm-row justify-content-between align-items-center shadow-sm"
-            >
-            <RouterLink to="/"><img width="300" src="../../assets/logo.png" /></RouterLink>
-            >>>>>>> f68895084dca76ff213bb80cb1e5623817dc4dca
             <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
                 <div class="container-fluid">
                     <button class="navbar-toggler" type="button" @click="toggleNav" data-bs-toggle="collapse"
@@ -35,10 +30,7 @@
                     ]" id="navbarNav">
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item">
-                                <<<<<<< HEAD <a class="nav-link home fw-bold" href="#">Home</a>
-                                    =======
-                                    <a class="nav-link home fw-bold" href="#">Home</a>
-                                    >>>>>>> f68895084dca76ff213bb80cb1e5623817dc4dca
+                                <a class="nav-link home fw-bold" href="#">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">About us</a>
@@ -174,7 +166,7 @@
         </p>
     </footer>
 
-    <!--<CookieBanner v-if="showBanner" @hideBanner="hideCookieBanner" />-->
+    <CookieBanner v-if="showBanner" @hideBanner="hideCookieBanner" />
 </template>
 
 <script>
@@ -448,7 +440,7 @@ svg {
     position: absolute;
     top: 100%;
     left: 50%;
-    git transform: translateX(-50%);
+    transform: translateX(-50%);
     z-index: 1;
     margin-top: 60px;
 }

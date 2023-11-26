@@ -11,7 +11,7 @@
 </template>
 
 <script>
-export default {
+/*export default {
     name: "CookieBanner",
     data() {
         return {
@@ -32,7 +32,7 @@ export default {
             this.$emit("hideBanner");
         }
     }
-};
+};*/
 </script>
 
 <style scoped>
