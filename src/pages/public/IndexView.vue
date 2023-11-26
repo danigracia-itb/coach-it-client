@@ -12,9 +12,14 @@
             </a>
         </section>
 
-        <section
+        <section <<<<<<< HEAD
             class="bg-light px-5 py-2 d-flex flex-column flex-sm-row justify-content-between align-items-center shadow-sm">
             <RouterLink to="/"><img width="300" src="../../assets/logo.png" /></RouterLink>
+            =======
+            class="bg-light px-5 py-2 d-flex flex-column flex-sm-row justify-content-between align-items-center shadow-sm"
+            >
+            <RouterLink to="/"><img width="300" src="../../assets/logo.png" /></RouterLink>
+            >>>>>>> f68895084dca76ff213bb80cb1e5623817dc4dca
             <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
                 <div class="container-fluid">
                     <button class="navbar-toggler" type="button" @click="toggleNav" data-bs-toggle="collapse"
@@ -30,7 +35,10 @@
                     ]" id="navbarNav">
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item">
-                                <a class="nav-link home fw-bold" href="#">Home</a>
+                                <<<<<<< HEAD <a class="nav-link home fw-bold" href="#">Home</a>
+                                    =======
+                                    <a class="nav-link home fw-bold" href="#">Home</a>
+                                    >>>>>>> f68895084dca76ff213bb80cb1e5623817dc4dca
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">About us</a>
@@ -276,6 +284,12 @@ svg {
     text-decoration: none;
     padding: 5px;
     display: inline-block;
+    text-decoration: none;
+    /* Elimina el subrayado por defecto */
+    padding: 5px;
+    /* Añade espacio alrededor del enlace */
+    display: inline-block;
+    /* Hace que el padding se aplique alrededor del texto */
     position: relative;
 }
 
@@ -292,6 +306,19 @@ svg {
 
 .nav-link:hover::after {
     background-color: #9329f4;
+    height: 2px;
+    /* Grosor del subrayado */
+    bottom: 0;
+    left: 0;
+    background-color: transparent;
+    /* Color del subrayado inicial */
+    transition: background-color 0.3s ease;
+    /* Transición de color al hacer hover */
+}
+
+.nav-link:hover::after {
+    background-color: #9329f4;
+    /* Cambia el color del subrayado al hacer hover */
 }
 
 .home {
@@ -421,7 +448,7 @@ svg {
     position: absolute;
     top: 100%;
     left: 50%;
-    transform: translateX(-50%);
+    git transform: translateX(-50%);
     z-index: 1;
     margin-top: 60px;
 }
