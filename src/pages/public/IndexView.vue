@@ -33,7 +33,7 @@
                                 <a class="nav-link home fw-bold" href="#">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">About us</a>
+                                <RouterLink to="/aboutus"><a class="nav-link" href="#">About us</a></RouterLink>
                             </li>
                             <li class="nav-item">
                                 <RouterLink to="/login"><a class="nav-link" href="#">Login</a></RouterLink>

@@ -6,6 +6,7 @@ import { checkAuth } from "./functions/helpers";
 import IndexView from "./pages/public/IndexView.vue";
 import PrivacyPolicy from "./pages/public/PrivacyPolicy.vue";
 import NotFound from "./pages/public/NotFound.vue";
+import AboutUs from "./pages/public/AboutUs.vue";
 
 //Auth
 import Login from "./pages/auth/Login.vue";
@@ -35,6 +36,7 @@ const routes = [
     { path: "/login", component: Login },
     { path: "/register", component: Register },
     { path: "/form", component: Form },
+    { path: "/aboutus", component: AboutUs},
 
     //Password
     { path: "/request-password-recover", component: RequestPasswordRecover },
