@@ -1,13 +1,13 @@
 <template>
     <header>
         <section class="bg-dark d-flex">
-            <a class="social" href="#">
+            <a class="social" href="https://www.instagram.com">
                 <img class="social-net svg-container" src="/src/assets/img/instagram.svg" />
             </a>
-            <a class="social" href="#">
+            <a class="social" href="https://www.facebook.com">
                 <img class="social-net" src="/src/assets/img/facebook.svg" />
             </a>
-            <a class="social" href="#">
+            <a class="social" href="https://www.twitter.com">
                 <img class="social-net" src="/src/assets/img/twitterX.svg" />
             </a>
         </section>
@@ -151,14 +151,8 @@
                 <div class="col-md-6 text-white d-flex flex-column justify-content-center">
                 </div>
             </div>
-
-
-
-
         </div>
     </section>
-
-
 
     <footer class="bg-light p-3">
         <p class="text-center m-0">
@@ -166,8 +160,9 @@
         </p>
     </footer>
 
-    <CookieBanner v-if="showBanner" @hideBanner="hideCookieBanner" />
+    <CookieBanner :cookies-accepted="cookiesAccepted" @accept-cookies="acceptCookies" @decline-cookies="declineCookies" />
 </template>
+
 
 <script>
 import { RouterLink } from "vue-router";
@@ -188,7 +183,7 @@ export default {
                 { src: "../src/assets/img/DashboardAthlete.png", alt: "Calendar" },
                 { src: "../src/assets/img/DashboardCoach.png", alt: "Dashboard" },
             ],
-            showBanner: true
+            cookiesAccepted: false,
         };
     },
     mounted() {
@@ -206,9 +201,14 @@ export default {
         nextImage() {
             this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
         },
-        hideCookieBanner() {
-            this.showBanner = false;
-        }
+        acceptCookies() {
+            //this.cookiesAccepted = true;
+            // Realizar acciones?
+        },
+        declineCookies() {
+            //this.cookiesAccepted = false;
+            //Realizar acciones?
+        },
 
     },
     computed: {
@@ -277,11 +277,8 @@ svg {
     padding: 5px;
     display: inline-block;
     text-decoration: none;
-    /* Elimina el subrayado por defecto */
     padding: 5px;
-    /* Añade espacio alrededor del enlace */
     display: inline-block;
-    /* Hace que el padding se aplique alrededor del texto */
     position: relative;
 }
 
@@ -299,18 +296,14 @@ svg {
 .nav-link:hover::after {
     background-color: #9329f4;
     height: 2px;
-    /* Grosor del subrayado */
     bottom: 0;
     left: 0;
     background-color: transparent;
-    /* Color del subrayado inicial */
     transition: background-color 0.3s ease;
-    /* Transición de color al hacer hover */
 }
 
 .nav-link:hover::after {
     background-color: #9329f4;
-    /* Cambia el color del subrayado al hacer hover */
 }
 
 .home {
