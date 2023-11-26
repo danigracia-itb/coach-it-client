@@ -3,7 +3,7 @@
         <p>
             We use tracking cookies to understand how you use the product and help us improve it.
             Please accept cookies to help us improve. </p>
-        <p>Look at info from <a href="https://policies.google.com/technologies/cookies?hl=en">Google</a> & <a
+        <p class="p1">Look more info from <a href="https://policies.google.com/technologies/cookies?hl=en">Google</a> & <a
                 href="https://www.apple.com/legal/privacy/en/cookies/">Apple</a> use of cookies.
         </p>
         <button class="btn btn-primary" type="button" @click="acceptCookies">Accept cookies</button>
@@ -54,9 +54,8 @@ export default {
     bottom: 0;
 }
 
-p {
-
-    margin: 10;
+.p1 {
+    padding-bottom: 10px;
 }
 
 .btn {
