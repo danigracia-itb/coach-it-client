@@ -7,40 +7,31 @@
                 href="https://www.apple.com/legal/privacy/en/cookies/">Apple</a> use of cookies.
         </p>
         <button class="btn btn-primary" type="button" @click="acceptCookies">Accept cookies</button>
-        <button class="btn btn-primary" type="button" @click="declineCookies">Decline cookies</button>
+        <!-- <button class="btn btn-primary" type="button" @click="declineCookies">Decline cookies</button> -->
     </div>
 </template>
 
-<!--<script>
-export default {
-    data() {
-        return {
-            cookiesAccepted: false,
-        };
-    },
-    mounted() {
-        const cookiesAccepted = localStorage.getItem('cookiesAccepted');
-        if (cookiesAccepted) {
-            this.cookiesAccepted = true;
-        }
-    },
-    methods: {
-        acceptCookies() {
-            this.cookiesAccepted = true;
-            localStorage.setItem('cookiesAccepted', false);
-        },
-        declineCookies() {
-            this.cookiesAccepted = true;
-            localStorage.setItem('cookiesAccepted', false);
-            console.log(clearLoc)
-        },
-        handleBeforeUnload() {
-            // Borrar el valor de localStorage al reiniciar la página
-            localStorage.removeItem('cookiesAccepted');
-        },
-    },
+<script setup>
+import { ref, onMounted } from 'vue';
+
+const cookiesAccepted = ref(false);
+
+const acceptCookies = () => {
+  cookiesAccepted.value = true;
+  localStorage.setItem('cookiesAccepted', true);
 };
-</script>-->
+
+// const declineCookies = () => {
+//   cookiesAccepted.value = false;
+//   localStorage.removeItem('cookiesAccepted');
+// };
+
+onMounted(() => {
+  const accepted = localStorage.getItem('cookiesAccepted');
+  cookiesAccepted.value = accepted === 'true';
+});
+</script>
+
 
 <style scoped>
 .banner {
