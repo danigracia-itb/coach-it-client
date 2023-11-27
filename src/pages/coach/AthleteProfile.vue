@@ -6,7 +6,7 @@
             <h1 class="text-center p-5">{{ athlete.name }}</h1>
             <div class="row">
                 <div class="col-lg-4 mb-4 mb-lg-0 d-flex justify-content-center align-items-center">
-                    <img class="rounded-circle" width="400" :src="athlete.picture" alt="">
+                    <img class="rounded-circle img-user-small" width="400" :src="athlete.picture" alt="">
                 </div>
 
 
@@ -113,4 +113,16 @@ onMounted(() => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.img-user-small {
+    width: 20rem;
+    height: 20rem;
+}
+
+@media (min-width: 768px) {
+    .img-user-small {
+        width: 25rem;
+        height: 25rem;
+    }
+}
+</style>
