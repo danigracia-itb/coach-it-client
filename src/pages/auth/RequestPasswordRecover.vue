@@ -1,5 +1,5 @@
 <template>
-    <div class="row">
+    <div class="row vh-100">
         <div class="img-password col-7 d-none d-md-block"></div>
         <div
             class="col-md-5 d-flex flex-column align-items-center justify-content-center"
