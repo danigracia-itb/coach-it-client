@@ -4,7 +4,7 @@
 
         <!-- Acciones -->
         <div class="d-flex justify-content-end">
-            <button class="btn btn-primary" @click="addExercisePopup">Add</button>
+            <button class="btn btn-primary" @click="addExercise">Add</button>
         </div>
 
         <Spinner class="mt-5" v-if="loading" />
@@ -27,16 +27,20 @@
 
 <script setup>
 import { onMounted, reactive, ref, computed } from "vue";
-import { useRoute } from "vue-router";
 import axiosClient from "../../config/axios";
 import Spinner from "../../components/utils/Spinner.vue";
 import ExerciseCard from "../../components/ExerciseCard.vue";
 import {addExercisePopup} from "../../functions/alerts"
 
-const route = useRoute();
-
 const loading = ref(true);
 var exercises = reactive([]);
+
+function addExercise() {
+    addExercisePopup().then(({exercise}) => {
+        exercises.push(exercise)
+        updateGroupedExercises()
+    })
+}
 
 async function getExercises() {
     loading.value = true;
@@ -47,7 +51,7 @@ async function getExercises() {
 
         exercises = response.data;
 
-        console.log(exercises);
+        updateGroupedExercises()
 
         loading.value = false;
     } catch (e) {
@@ -61,11 +65,13 @@ onMounted(() => {
 });
 
 //Group exercises
-const groupedExercises = computed(() => {
-    const grouped = exercises.reduce((acc, exercise) => {
+const groupedExercises = ref([]);
+
+function updateGroupedExercises() {
+    groupedExercises.value = exercises.reduce((acc, exercise) => {
         var groupKey = "No Type";
 
-        switch (exercise.muscular_group) {
+        switch (parseInt(exercise.muscular_group)) {
             case 1:
                 groupKey = "Push";
                 break;
@@ -88,9 +94,8 @@ const groupedExercises = computed(() => {
 
         return acc;
     }, {});
+}
 
-    return grouped;
-});
 </script>
 
 <style scoped>
