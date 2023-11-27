@@ -2,8 +2,7 @@
     <div class="vh-100">
         <header>
             <img width="200" class="mx-auto" src="../assets/logo.png" alt="logo" />
-            <button class="d-md-none" @click="toggleMenu"
-                style="border: none; background-color: transparent; outline: none;">
+            <button class="d-md-none button-mobile" @click="toggleMenu">
                 <img src="../assets/img/mobile-menu.png" width="20" alt="">
             </button>
             <div v-if="showMenu" class="text-center border-bottom bg-primary">
@@ -45,6 +44,19 @@ function toggleMenu() {
 </script>
 
 <style scoped>
+
+.button-mobile {
+    border: none;
+    background-color: transparent;
+    outline: none;
+    margin-left: 120px;
+}
+
+header {
+    background-color: #dbdee2;
+}
+
+
 @media (min-width: 768px) {
     header {
         background-color: #dbdee2;
@@ -58,7 +70,8 @@ function toggleMenu() {
     }
 
     .main-content {
-        margin-left: 25rem;
+        margin-left: 30rem;
+        margin-right: 5rem;
         margin-top: 8rem;
         padding: .5rem 4rem 4rem 4rem;
     }
