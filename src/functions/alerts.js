@@ -1,4 +1,5 @@
 import Swal from "sweetalert2";
+import axiosClient from "../config/axios";
 
 export function enterCoachCode(code, router) {
     Swal.fire({
@@ -104,39 +105,65 @@ export function passwordChangedSuccessfully() {
 
 //Add exercise
 export function addExercisePopup() {
-    Swal.fire({
-        title: "Add Exercise",
-        html:
-            '<input id="swal-input1" class="swal2-input" placeholder="Name">' +
-            '<select id="swal-input2" class="swal2-select">' +
-            '<option value="1">1</option>' +
-            '<option value="2">2</option>' +
-            '<option value="3">3</option>' +
-            '<option value="4">4</option>' +
-            "</select>",
-        focusConfirm: false,
-        showCancelButton: true,
+    return new Promise((resolve, reject) => {
+        Swal.fire({
+            title: "Add Exercise",
+            html: `<div class="form-group">
+                    <label class="form-label d-block">Name</label>
+                    <input id="name" class="form-control">
+                </div>
+    
+                <div class="form-group mt-5">
+                    <label class="form-label d-block">Muscular Group</label>
+                    <select id="muscular_group" class="form-select">
+                        <option value="1">Push</option>
+                        <option value="2">Pull</option>
+                        <option value="3">Leg</option>
+                        <option value="4">Core</option>
+                    </select>
+                </div>`,
+            focusConfirm: false,
+            showCancelButton: true,
             confirmButtonText: "Add",
-        confirmButtonColor: "#711bba",
-        preConfirm: () => {
-            const name = Swal.getPopup().querySelector("#swal-input1").value;
-            const selectedNumber =
-                Swal.getPopup().querySelector("#swal-input2").value;
+            confirmButtonColor: "#711bba",
+            preConfirm: () => {
+                const name = Swal.getPopup().querySelector("#name").value;
+                const muscular_group =
+                    Swal.getPopup().querySelector("#muscular_group").value;
 
-            if (!name || !selectedNumber) {
-                Swal.showValidationMessage("Name and number are required");
+                if (!name || !muscular_group) {
+                    Swal.showValidationMessage("Both fields are mandatory.");
+                }
+
+                return { name, muscular_group };
+            },
+        }).then(async (result) => {
+            if (result.value) {
+                const { name, muscular_group } = result.value;
+
+                try {
+                    const response = await axiosClient.post(
+                        "exercises",
+                        {
+                            name,
+                            muscular_group,
+                            user_id: localStorage.getItem("id"),
+                        },
+                        {
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                        }
+                    );
+                    return resolve(response.data)
+                } catch (e) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Something went wrong!",
+                    });
+                }
             }
-
-            return { name: name, selectedNumber: selectedNumber };
-        },
-    }).then((result) => {
-        if (result.value) {
-            const name = result.value.name;
-            const selectedNumber = result.value.selectedNumber;
-
-            // Perform actions with the entered name and selected number
-            console.log("Name:", name);
-            console.log("Selected Number:", selectedNumber);
-        }
+        });
     });
 }

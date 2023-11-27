@@ -6,6 +6,7 @@ import { checkAuth } from "./functions/helpers";
 import IndexView from "./pages/public/IndexView.vue";
 import PrivacyPolicy from "./pages/public/PrivacyPolicy.vue";
 import NotFound from "./pages/public/NotFound.vue";
+import AboutUs from "./pages/public/AboutUs.vue";
 
 //Auth
 import Login from "./pages/auth/Login.vue";
@@ -22,6 +23,11 @@ import CoachDashboard from "./pages/coach/Dashboard.vue";
 import CoachAthleteProfile from "./pages/coach/AthleteProfile.vue";
 import CoachExercises from "./pages/coach/Exercises.vue";
 
+//Athlete
+import AthleteLayout from "./layouts/AthleteLayout.vue"
+import Calendar from "./pages/athlete/Calendar.vue"
+import Routines from "./pages/athlete/Routines.vue"
+
 const routes = [
     { path: "/", component: IndexView },
     { path: "/privacy-policy", component: PrivacyPolicy },
@@ -30,6 +36,7 @@ const routes = [
     { path: "/login", component: Login },
     { path: "/register", component: Register },
     { path: "/form", component: Form },
+    { path: "/aboutus", component: AboutUs},
 
     //Password
     { path: "/request-password-recover", component: RequestPasswordRecover },
@@ -45,6 +52,18 @@ const routes = [
             { path: "", component: CoachDashboard },
             { path: "athlete/:id", component: CoachAthleteProfile },
             { path: "exercises", component: CoachExercises },
+        ],
+    },
+
+    //PRIVATE PART ATHLETE
+    {
+        path: "/athlete",
+        component: AthleteLayout,
+        //meta: { requiresAuth: true }, // Requiere autenticación
+
+        children: [
+            { path: "", component: Calendar },
+            { path: "", component: Routines }
         ],
     },
 
