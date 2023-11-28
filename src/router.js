@@ -1,40 +1,76 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import { checkAuth } from "./helpers";
+import { checkAuth } from "./functions/helpers";
 
-//IndexView
+//Public
 import IndexView from "./pages/public/IndexView.vue";
+import PrivacyPolicy from "./pages/public/PrivacyPolicy.vue";
+import NotFound from "./pages/public/NotFound.vue";
+import AboutUs from "./pages/public/AboutUs.vue";
+
+//Auth
 import Login from "./pages/auth/Login.vue";
 import Register from "./pages/auth/Register.vue";
 import Form from "./pages/auth/Form.vue";
-import Recover from "./pages/auth/RecoverPassword.vue";
-import Reset from "./pages/auth/ResetPassword.vue";
 
+//Recover password
+import RequestPasswordRecover from "./pages/auth/RequestPasswordRecover.vue";
+import PasswordRecover from "./pages/auth/PasswordRecover.vue";
 
 //Coach
-import CoachDashboard from "./pages/coach/CoachDashboard.vue";
+import CoachLayout from "./layouts/CoachLayout.vue";
+import CoachDashboard from "./pages/coach/Dashboard.vue";
+import CoachAthleteProfile from "./pages/coach/AthleteProfile.vue";
+import CoachExercises from "./pages/coach/Exercises.vue";
+
+//Athlete
+import AthleteLayout from "./layouts/AthleteLayout.vue"
+import Calendar from "./pages/athlete/Calendar.vue"
+import Routines from "./pages/athlete/Routines.vue"
 
 const routes = [
     { path: "/", component: IndexView },
+    { path: "/privacy-policy", component: PrivacyPolicy },
+
+    //Auth public
     { path: "/login", component: Login },
     { path: "/register", component: Register },
-
-    //WTF
     { path: "/form", component: Form },
-    { path: "/recover", component: Recover },
-    { path: "/reset", component: Reset },
+    { path: "/aboutus", component: AboutUs},
+
+    //Password
+    { path: "/request-password-recover", component: RequestPasswordRecover },
+    { path: "/password-recover/:token", component: PasswordRecover },
 
     //PRIVATE PART
     {
         path: "/coach",
-        component: CoachDashboard,
+        component: CoachLayout,
         //meta: { requiresAuth: true }, // Requiere autenticación
+
+        children: [
+            { path: "", component: CoachDashboard },
+            { path: "athlete/:id", component: CoachAthleteProfile },
+            { path: "exercises", component: CoachExercises },
+        ],
     },
 
-    // {
-    //     path: "/:catchAll(.*)",
-    //     component: NotFoundView
-    // }
+    //PRIVATE PART ATHLETE
+    {
+        path: "/athlete",
+        component: AthleteLayout,
+        //meta: { requiresAuth: true }, // Requiere autenticación
+
+        children: [
+            { path: "", component: Calendar },
+            { path: "", component: Routines }
+        ],
+    },
+
+    {
+        path: "/:catchAll(.*)",
+        component: NotFound,
+    },
 ];
 
 const router = createRouter({

@@ -82,7 +82,7 @@ import { ref } from "vue";
 import axiosClient from "../../config/axios";
 import { useRouter, RouterLink } from "vue-router";
 
-import Spinner from "../../components/Utils/Spinner.vue";
+import Spinner from "../../components/utils/Spinner.vue";
 
 const email = ref("");
 const password = ref("");
@@ -114,8 +114,9 @@ const login = async (e) => {
         const { is_coach } = response.data.user;
 
         if (is_coach) {
-            const { token } = response.data;
+            const { token, user } = response.data;
             localStorage.setItem("token", token);
+            localStorage.setItem("id", user.id);
 
             router.push({ path: "/coach" });
         } else {

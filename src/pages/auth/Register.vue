@@ -31,10 +31,7 @@
                             v-model="name"
                         />
 
-                        <div
-                            v-if="errors.name"
-                            class="invalid-feedback"
-                        >
+                        <div v-if="errors.name" class="invalid-feedback">
                             {{ errors.name }}
                         </div>
                     </div>
@@ -51,10 +48,7 @@
                             v-model="email"
                         />
 
-                        <div
-                            v-if="errors.email"
-                            class="invalid-feedback"
-                        >
+                        <div v-if="errors.email" class="invalid-feedback">
                             {{ errors.email }}
                         </div>
                     </div>
@@ -102,7 +96,9 @@
                         />
                         <label class="form-check-label" for="flexCheckDefault">
                             I agree to the
-                            <span class="text-primary fw-bold"
+                            <span
+                                class="text-primary fw-bold text-decoration-underline cursor-pointer"
+                                @click="callTermsAndConditions"
                                 >Terms & Conditions</span
                             >
                         </label>
@@ -175,17 +171,17 @@ import { RouterLink, useRoute, useRouter } from "vue-router";
 import axiosClient from "../../config/axios";
 
 //Alerts
-import { enterCoachCode } from "../../functions/alerts";
+import { enterCoachCode, showTermsConditions } from "../../functions/alerts";
 
 //Components
-import Spinner from "../../components/Utils/Spinner.vue";
+import Spinner from "../../components/utils/Spinner.vue";
 
 //Router
 const route = useRoute();
 const router = useRouter();
 
 //Variables
-const errors = reactive({});
+var errors = reactive({});
 const loading = ref(false);
 
 const is_coach = ref(false);
@@ -199,18 +195,27 @@ const password_confirmation = ref("");
 const terms_conditions = ref(true);
 const comunications = ref(false);
 
+function callTermsAndConditions() {
+    showTermsConditions().then((userAgreed) => {
+        if (userAgreed) {
+            terms_conditions.value = true;
+        } else {
+            terms_conditions.value = false;
+        }
+    });
+}
+
 async function register() {
     //Validate form
-    if(!name.value) {
+    if (!name.value) {
         errors.name = "Name field is mandatory.";
     }
-    if(!email.value) {
+    if (!email.value) {
         errors.email = "Email field is mandatory.";
     }
-    if(!password.value && !password_confirmation.value) {
+    if (!password.value && !password_confirmation.value) {
         errors.password_confirmation = "Both passwords fields are mandatory.";
     }
-
 
     if (password.value != password_confirmation.value) {
         errors.password_confirmation = "Passwords do not match.";
@@ -221,7 +226,7 @@ async function register() {
 
     //If there's any error
     if (Object.entries(errors).length > 0) {
-        return
+        return;
     }
 
     //Call API
@@ -244,10 +249,11 @@ async function register() {
             }
         );
         loading.value = false;
-        error.value = false;
+        errors = {};
 
-        const { token } = response.data;
+        const { token, user } = response.data;
         localStorage.setItem("token", token);
+        localStorage.setItem("id", user.id);
 
         if (is_coach) {
             router.push({ path: "/coach" });
@@ -263,7 +269,7 @@ async function register() {
     }
 }
 
-//Check register type
+//Check register type()
 function registerType() {
     is_coach.value = route.query.type != "athlete"; //if there's no type in URL, coach will be the default mode
     if (is_coach.value == false) {
