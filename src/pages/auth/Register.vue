@@ -255,10 +255,10 @@ async function register() {
         localStorage.setItem("token", token);
         localStorage.setItem("id", user.id);
 
-        if (is_coach) {
+        if (is_coach.value) {
             router.push({ path: "/coach" });
         } else {
-            router.push({ path: "/athlete" });
+            router.push({ path: `/form`, query: {id: user.id} });
         }
 
         console.log(response);
