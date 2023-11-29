@@ -11,10 +11,10 @@
                     <font-awesome-icon class="w-25 mt-1 p-3" size="2xl" icon="fa-regular fa-calendar-days" />
                     <p class="mt-4 fs-1">Dashboard</p>
                 </RouterLink><br />
-                <RouterLink to="/" class="d-flex text-decoration-none text-white">
+                <!-- <RouterLink to="/" class="d-flex text-decoration-none text-white">
                     <font-awesome-icon class="w-25 mt-1 p-3" size="2xl" icon="fa-solid fa-list-check" />
                     <p class="mt-4 fs-1">Routines</p>
-                </RouterLink><br />
+                </RouterLink><br /> -->
                 <RouterLink to="/coach/exercises" class="d-flex text-decoration-none text-white">
                     <font-awesome-icon class="w-25 mt-1 p-3" size="2xl" icon="fa-solid fa-dumbbell" />
                     <p class="mt-4 fs-1">Exercises</p>
@@ -22,7 +22,7 @@
             </div>
         </header>
         <div class="h-100">
-            <CoachMenu class="d-none d-md-block"></CoachMenu>
+            <CoachMenu  class="d-none d-md-block"></CoachMenu>
             <main class="main-content px-3 px-md-0">
                 <RouterView />
             </main>
@@ -53,13 +53,12 @@ function toggleMenu() {
 }
 
 header {
-    background-color: #dbdee2;
+    background-color: rgb(230, 230, 230);
 }
 
 
 @media (min-width: 768px) {
     header {
-        background-color: #dbdee2;
         height: 8rem;
         width: 100%;
         position: fixed;
