@@ -18,6 +18,7 @@
                         v-for="exercise in exercises"
                         :key="exercise.id"
                         :exercise="exercise"
+                        :deleteExercise="deleteExercise"
                     />
                 </div>
             </div>
@@ -42,6 +43,17 @@ function addExercise() {
     })
 }
 
+async function deleteExercise(id) {
+    try {
+        deleteExerciseFromArray(id)
+        updateGroupedExercises()
+
+        await axiosClient.delete("exercises/" + id)
+    } catch (e) {
+        console.log(e)
+    }
+}
+
 async function getExercises() {
     loading.value = true;
     try {
@@ -60,9 +72,13 @@ async function getExercises() {
     }
 }
 
-onMounted(() => {
-    getExercises();
-});
+function deleteExerciseFromArray(id) {
+    const index = exercises.findIndex(exercise => exercise.id === id);
+
+    if (index !== -1) {
+        exercises.splice(index, 1);
+    }
+}
 
 //Group exercises
 const groupedExercises = ref([]);
@@ -95,6 +111,10 @@ function updateGroupedExercises() {
         return acc;
     }, {});
 }
+
+onMounted(() => {
+    getExercises();
+});
 
 </script>
 

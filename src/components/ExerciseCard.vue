@@ -8,7 +8,7 @@
         >
             <p class="fw-bold mb-0">{{ exercise.name }}</p>
 
-            <button class="delete-btn btn btn-danger" v-if="!exercise.is_default">
+            <button class="delete-btn btn btn-danger" v-if="!exercise.is_default" @click="() => deleteExercise(exercise.id)">
                 <font-awesome-icon icon="fa-solid fa-trash" />
             </button>
             <p class="mb-0" v-else>Default</p>
@@ -17,7 +17,9 @@
 </template>
 
 <script setup>
-const { exercise } = defineProps(["exercise"]);
+import axiosClient from '../config/axios';
+const { exercise, deleteExercise } = defineProps(["exercise", "deleteExercise"]);
+
 </script>
 
 <style>

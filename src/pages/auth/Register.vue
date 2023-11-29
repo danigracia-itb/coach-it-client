@@ -254,6 +254,7 @@ async function register() {
         const { token, user } = response.data;
         localStorage.setItem("token", token);
         localStorage.setItem("id", user.id);
+        localStorage.setItem("user", JSON.stringify(user));
 
         if (is_coach.value) {
             router.push({ path: "/coach" });

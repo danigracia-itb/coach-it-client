@@ -24,3 +24,14 @@ export async function checkAuth() {
         return false;
     }
 }
+
+//Obtiene el usuario del localstorage y lo convierte en objeto javascript
+export function getUser() {
+    const userRaw = localStorage.getItem("user")
+
+    if(userRaw) {
+        return JSON.parse(userRaw)
+    } else {
+        return false
+    }
+}

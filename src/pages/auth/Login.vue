@@ -111,13 +111,13 @@ const login = async (e) => {
         loading.value = false;
         error.value = false;
 
-        const { is_coach } = response.data.user;
+        const { token, user } = response.data;
 
-        if (is_coach) {
-            const { token, user } = response.data;
-            localStorage.setItem("token", token);
-            localStorage.setItem("id", user.id);
+        localStorage.setItem("token", token);
+        localStorage.setItem("id", user.id);
+        localStorage.setItem("user", JSON.stringify(user));
 
+        if (user.is_coach) {
             router.push({ path: "/coach" });
         } else {
             router.push({ path: "/athlete" });
