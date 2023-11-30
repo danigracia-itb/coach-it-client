@@ -47,8 +47,10 @@
                     >
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item">
-                                <a class="nav-link home fw-bold" href="#"
-                                    >Home</a
+                                <RouterLink to="/">
+                                    <a class="nav-link" href="#"
+                                        >Home</a
+                                    ></RouterLink
                                 >
                             </li>
                             <li class="nav-item">
@@ -76,66 +78,97 @@
             </nav>
         </section>
     </header>
-    <img src="/src/assets/img/privacy-policy.jpg" />
-    <div>
-        <h2>Privacy Policy</h2>
 
-        <p>
-            Welcome to Coach It, the premier online coaching platform for
-            strength sports!
-        </p>
+    <div class="container-pp mb-5">
+        <section class="privacy-section">
+            <h2 class="text-center mt-5 mb-5 primary">Privacy Policy</h2>
+            <img
+                class="center-image mb-5"
+                src="/src/assets/img/privacy-policy.jpg"
+            />
+            <div class="privacy-content">
+                <p>
+                    Welcome to Coach It, the premier online coaching platform
+                    for strength sports!
+                </p>
 
-        <p><b>1. Information We Collect</b></p>
-        <p>
-            We may collect personal information such as your name, email
-            address, and other relevant details when you register for an
-            account.
-        </p>
+                <p><b>1. Information We Collect</b></p>
+                <p>
+                    We may collect personal information such as your name, email
+                    address, and other relevant details when you register for an
+                    account.
+                </p>
 
-        <p><b>2. How We Use Your Information</b></p>
-        <p>
-            Your information is used to provide and improve our services. We may
-            also use it to communicate with you and personalize your experience
-            on Coach It.
-        </p>
+                <p><b>2. How We Use Your Information</b></p>
+                <p>
+                    Your information is used to provide and improve our
+                    services. We may also use it to communicate with you and
+                    personalize your experience on Coach It.
+                </p>
 
-        <p><b>3. Information Sharing</b></p>
-        <p>
-            We do not share your personal information with third parties without
-            your consent, except as required by law.
-        </p>
+                <p><b>3. Information Sharing</b></p>
+                <p>
+                    We do not share your personal information with third parties
+                    without your consent, except as required by law.
+                </p>
 
-        <p><b>4. Security</b></p>
-        <p>
-            We prioritize the security of your information and take reasonable
-            precautions to protect it.
-        </p>
+                <p><b>4. Security</b></p>
+                <p>
+                    We prioritize the security of your information and take
+                    reasonable precautions to protect it.
+                </p>
 
-        <p><b>5. Cookies</b></p>
-        <p>
-            Coach It may use cookies to enhance your experience. You can adjust
-            your browser settings to disable cookies if you prefer.
-        </p>
+                <p><b>5. Cookies</b></p>
+                <p>
+                    Coach It may use cookies to enhance your experience. You can
+                    adjust your browser settings to disable cookies if you
+                    prefer.
+                </p>
 
-        <p><b>6. Changes to Privacy Policy</b></p>
-        <p>
-            We may update our Privacy Policy from time to time. Any changes will
-            be reflected on this page.
-        </p>
+                <p><b>6. Changes to Privacy Policy</b></p>
+                <p>
+                    We may update our Privacy Policy from time to time. Any
+                    changes will be reflected on this page.
+                </p>
 
-        <p><b>7. Contact Us</b></p>
-        <p>
-            If you have any questions or concerns about our Privacy Policy,
-            please contact us at
-            <a href="mailto:privacy@coach.it">privacy@coach.it</a>.
-        </p>
+                <p><b>7. Contact Us</b></p>
+                <p>
+                    If you have any questions or concerns about our Privacy
+                    Policy, please contact us at
+                    <a href="mailto:privacy@coach.it">privacy@coach.it</a>.
+                </p>
 
-        <p>
-            Thank you for choosing Coach It as your online strength sports
-            coaching platform!
-        </p>
+                <p>
+                    Thank you for choosing Coach It as your online strength
+                    sports coaching platform!
+                </p>
+            </div>
+        </section>
     </div>
+
+    <footer class="bg-light p-3">
+        <p class="text-center m-0">
+            All rights reserved &copy; - Coach IT 2023
+        </p>
+    </footer>
 </template>
+
+<script>
+import { RouterLink } from "vue-router";
+
+export default {
+    data() {
+        return {
+            isNavOpen: false,
+        };
+    },
+    methods: {
+        toggleNav() {
+            this.isNavOpen = !this.isNavOpen;
+        },
+    },
+};
+</script>
 
 <style scoped>
 .bg-dark {
@@ -222,5 +255,38 @@ svg {
 
 .home {
     pointer-events: none;
+}
+
+.start-today-btn {
+    color: #9329f4;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+}
+
+.start-today-btn:active {
+    transform: scale(0.95);
+    color: #fff;
+}
+
+.container-pp {
+    max-width: 75%; /* Máximo ancho de la columna */
+    margin: 0 auto; /* Centrar el contenedor en la página */
+    padding: 0 20px; /* Añadir relleno opcional */
+}
+
+/* Estilos para centrar la imagen */
+.center-image {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+}
+
+.privacy-content {
+    text-align: justify; /* Alinear el texto justificado */
 }
 </style>
