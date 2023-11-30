@@ -1,12 +1,11 @@
 <template>
     <div class="card mt-5">
-
         <CalendarHeader
-                :current-date="today"
-                :selected-date="selectedDate"
-                @dateSelected="selectDate"
-                class="mt-2"
-            />
+            :current-date="today"
+            :selected-date="selectedDate"
+            @dateSelected="selectDate"
+            class="mt-2"
+        />
 
         <CalendarWeekdays />
 
@@ -17,6 +16,7 @@
                 :day="day"
                 :is-today="day.date === today"
                 :athlete="athlete"
+                :has-workout="hasWorkout(day.date)"
             />
         </ol>
     </div>
@@ -34,7 +34,7 @@ dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
 
 export default {
-    name: "CalendarMonth",
+    name: "Calendar",
 
     components: {
         CalendarMonthDayItem,
@@ -46,8 +46,11 @@ export default {
             type: Object,
             required: true,
         },
+        workouts: {
+            type: Array,
+            required: true,
+        },
     },
-
 
     data() {
         return {
@@ -160,12 +163,15 @@ export default {
         selectDate(newSelectedDate) {
             this.selectedDate = newSelectedDate;
         },
+        hasWorkout(date) {
+            // Verifica si hay un workout en la fecha dada
+            return this.workouts.some((workout) => workout.date === date);
+        },
     },
 };
 </script>
 
 <style scoped>
-
 .day-of-week {
     color: var(--grey-800);
     font-size: 18px;

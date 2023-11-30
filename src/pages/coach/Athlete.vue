@@ -17,7 +17,7 @@
             </header>
 
             <div>
-                <Calendar :athlete="athlete" />
+                <Calendar :athlete="athlete" :workouts="workouts" />
             </div>
         </div>
     </div>
@@ -34,15 +34,20 @@ const route = useRoute();
 
 const loading = ref(true);
 var athlete = reactive({});
+var workouts = reactive({});
 
 async function getAthleteProfile() {
     loading.value = true;
     try {
-        const response = await axiosClient(
+        const profileResponse = await axiosClient(
             "coach/get-athlete-profile/" + route.params.id
         );
+        const workoutsResponse = await axiosClient(
+            "coach/get-athlete-workouts/" + route.params.id
+        );
 
-        athlete = response.data;
+        athlete = profileResponse.data;
+        workouts = workoutsResponse.data;
 
         console.log(athlete);
 

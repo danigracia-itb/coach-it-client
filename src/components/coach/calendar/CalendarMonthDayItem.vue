@@ -11,6 +11,8 @@
         <RouterLink v-if="day.isCurrentMonth" :to="`/coach/athlete/${athlete.id}/workout/create?date=${day.date}`" class="add-btn btn btn-success">
             <font-awesome-icon icon="fa-solid fa-plus" />
         </RouterLink>
+
+        <p v-if="hasWorkout">Entreno</p>
     </li>
 </template>
 
@@ -43,6 +45,10 @@ export default {
             type: Object,
             required: true,
         },
+        hasWorkout: {
+            type: Boolean,
+            required: true
+        }
     },
 
     computed: {
