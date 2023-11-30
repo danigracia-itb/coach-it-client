@@ -24,10 +24,20 @@
                     </button>
 
                     <div class="order-exercise">
-                        <button class="btn" @click="() => changeExerciseOrder(exercise.id, true)">
+                        <button
+                            class="btn"
+                            @click="
+                                () => changeExerciseOrder(exercise.id, true)
+                            "
+                        >
                             <font-awesome-icon icon="fa-solid fa-arrow-up" />
                         </button>
-                        <button class="btn" @click="() => changeExerciseOrder(exercise.id, false)">
+                        <button
+                            class="btn"
+                            @click="
+                                () => changeExerciseOrder(exercise.id, false)
+                            "
+                        >
                             <font-awesome-icon icon="fa-solid fa-arrow-down" />
                         </button>
                     </div>
@@ -148,7 +158,6 @@ const workout = reactive([]);
 const orderedWorkout = computed(() => _.orderBy(workout, "order"));
 
 const counter = ref(1);
-const order = ref(10);
 
 async function getExercises() {
     loading.value = true;
@@ -179,12 +188,9 @@ function addExercise() {
         const exerciceToAdd = exercises.value[findExercise(parseInt(result))];
 
         workout.push({
-            order: order.value + 1,
             ...exerciceToAdd,
             sets: [],
         });
-
-        order.value++;
     });
 }
 
@@ -198,15 +204,21 @@ function deleteExercise(exercise_id) {
 
 //go_up is a boolean
 function changeExerciseOrder(exercise_id, go_up) {
-    const index = findExerciseInWorkout(exercise_id)
+    const index = findExerciseInWorkout(exercise_id);
 
-    if(go_up) {
-        workout[index].order -= 1.5
-    } else {
-        workout[index].order += 1.5
+    if (go_up && index > 0) {
+        // Swap the current exercise with the one above it
+        [workout[index - 1], workout[index]] = [
+            workout[index],
+            workout[index - 1],
+        ];
+    } else if (!go_up && index < workout.length - 1) {
+        // Swap the current exercise with the one below it
+        [workout[index], workout[index + 1]] = [
+            workout[index + 1],
+            workout[index],
+        ];
     }
-
-    console.log(workout)
 }
 
 //Sets
