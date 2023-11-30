@@ -127,6 +127,7 @@
             <button
                 v-if="workout.length > 0"
                 class="btn btn-primary w-100 mt-5"
+                @click="saveWorkout"
             >
                 Save Workout
             </button>
@@ -242,6 +243,23 @@ function deleteSet(exercise_id, set_id) {
 
     if (setIndex !== -1) {
         workout[exerciseIndex].sets.splice(setIndex, 1);
+    }
+}
+
+//Enviar api
+async function saveWorkout() {
+    loading.value = true;
+    try {
+        const respuesta = await axiosClient.post("workout", {
+            user_id: athlete_id,
+            date,
+            workout
+        })
+        console.log(respuesta)
+        loading.value = false;
+    } catch (error) {
+        console.log(error)
+        loading.value = false;
     }
 }
 
