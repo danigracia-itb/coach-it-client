@@ -137,7 +137,7 @@
     </div>
 </template>
 
-<style>
+<style scoped>
 .bg-dark {
     background-color: #000;
     padding: 15px;
