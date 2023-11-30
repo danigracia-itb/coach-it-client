@@ -35,3 +35,16 @@ export function getUser() {
         return false
     }
 }
+
+export function calculateTonelage(sets) {
+    var tonelage = 0
+    if(!sets[0]) {
+        return tonelage
+    }
+
+    sets.map(set => {
+        tonelage += set.weight * set.reps
+    })
+    
+    return tonelage
+}

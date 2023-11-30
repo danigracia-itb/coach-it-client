@@ -12,12 +12,41 @@
             <!-- workout List -->
             <ul class="list-unstyled mt-3">
                 <li
-                    v-for="exercise in workout"
+                    v-for="exercise in orderedWorkout"
                     :key="exercise.id"
-                    class="card exercise-card p-4 mb-4"
+                    class="card exercise-card p-4 mb-2"
                 >
-                    <p class="text-center fw-bold mb-1">{{ exercise.name }}</p>
-                    <p class="text-end">{{ exercise.sets.length }} sets</p>
+                    <button
+                        class="delete-exercise btn"
+                        @click="() => deleteExercise(exercise.id)"
+                    >
+                        <font-awesome-icon icon="fa-solid fa-xmark" />
+                    </button>
+
+                    <div class="order-exercise">
+                        <button class="btn" @click="() => changeExerciseOrder(exercise.id, true)">
+                            <font-awesome-icon icon="fa-solid fa-arrow-up" />
+                        </button>
+                        <button class="btn" @click="() => changeExerciseOrder(exercise.id, false)">
+                            <font-awesome-icon icon="fa-solid fa-arrow-down" />
+                        </button>
+                    </div>
+
+                    <header class="text-center mb-4">
+                        <p class="fw-bold mb-0 h4">{{ exercise.name }}</p>
+                        <div
+                            class="d-flex justify-content-between align-items-center"
+                        >
+                            <p class="mb-0">
+                                <span class="fw-bold">Total Sets:</span>
+                                {{ exercise.sets.length }}
+                            </p>
+                            <p class="mb-0">
+                                <span class="fw-bold">Tonelage:</span>
+                                {{ calculateTonelage(exercise.sets) }}kg
+                            </p>
+                        </div>
+                    </header>
 
                     <!-- Sets header -->
                     <section
@@ -36,7 +65,7 @@
                     >
                         <li
                             v-for="(set, index) in exercise.sets"
-                            :key="set.n"
+                            :key="set.id"
                             class="d-flex bg-white border-bottom"
                         >
                             <!-- Set Number -->
@@ -48,46 +77,78 @@
 
                             <!-- Set content -->
                             <div class="m-3 w-100 d-flex gap-2">
-                                <input type="text" class="form-control" />
-                                <input type="text" class="form-control" />
-                                <input type="text" class="form-control" />
+                                <input
+                                    type="number"
+                                    class="form-control text-center"
+                                    v-model="set.weight"
+                                />
+                                <input
+                                    type="number"
+                                    class="form-control text-center"
+                                    v-model="set.reps"
+                                />
+                                <input
+                                    type="number"
+                                    class="form-control text-center"
+                                    v-model="set.rpe"
+                                />
                             </div>
 
                             <button
                                 class="set-number btn btn-danger mx-2 my-3 text-white"
-                                @click="() => deleteSet(exercise.id, set.n)"
+                                @click="() => deleteSet(exercise.id, set.id)"
                             >
                                 <font-awesome-icon icon="fa-solid fa-trash" />
                             </button>
                         </li>
                     </ol>
-                    <button class="btn btn-secondary" @click="() => addSet(exercise.id)">
+                    <button
+                        class="btn btn-secondary"
+                        @click="() => addSet(exercise.id)"
+                    >
                         Add Set
                     </button>
                 </li>
             </ul>
-            <button class="btn btn-primary w-100" @click="addExercise">Add Exercise</button>
+            <button class="btn btn-dark w-100" @click="addExercise">
+                Add Exercise
+            </button>
+
+            <button
+                v-if="workout.length > 0"
+                class="btn btn-primary w-100 mt-5"
+            >
+                Save Workout
+            </button>
         </section>
     </div>
 </template>
 
 <script setup>
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, reactive, ref, computed } from "vue";
 import { useRoute } from "vue-router";
+import _ from "lodash";
+
 import axiosClient from "../../config/axios";
-import {selectExercise} from "../../functions/alerts"
+
+import { selectExercise } from "../../functions/alerts";
+import { calculateTonelage } from "../../functions/helpers";
 import Spinner from "../../components/utils/Spinner.vue";
 
 const route = useRoute();
 const athlete_id = route.params.id;
 const date = route.query.date;
 
-const loading = ref(false)
+const loading = ref(false);
 
-const exercises = ref([])
+//API EXERCISES
+const exercises = ref([]);
+
 const workout = reactive([]);
+const orderedWorkout = computed(() => _.orderBy(workout, "order"));
 
-const counter = ref(1)
+const counter = ref(1);
+const order = ref(10);
 
 async function getExercises() {
     loading.value = true;
@@ -114,15 +175,38 @@ function findExercise(exercise_id) {
 
 //Exercise
 function addExercise() {
-    selectExercise(exercises.value).then(result => {
-        const exerciceToAdd = exercises.value[findExercise(parseInt(result))]
+    selectExercise(exercises.value, workout).then((result) => {
+        const exerciceToAdd = exercises.value[findExercise(parseInt(result))];
 
         workout.push({
-            id: exerciceToAdd.id,
-            name: exerciceToAdd.name,
-            sets: []
-        })
-    })
+            order: order.value + 1,
+            ...exerciceToAdd,
+            sets: [],
+        });
+
+        order.value++;
+    });
+}
+
+function deleteExercise(exercise_id) {
+    const index = findExerciseInWorkout(exercise_id);
+
+    if (index !== -1) {
+        workout.splice(index, 1);
+    }
+}
+
+//go_up is a boolean
+function changeExerciseOrder(exercise_id, go_up) {
+    const index = findExerciseInWorkout(exercise_id)
+
+    if(go_up) {
+        workout[index].order -= 1.5
+    } else {
+        workout[index].order += 1.5
+    }
+
+    console.log(workout)
 }
 
 //Sets
@@ -130,14 +214,19 @@ function addSet(exercise_id) {
     const index = findExerciseInWorkout(exercise_id);
 
     workout[index].sets.push({
-        n: counter.value,
+        id: counter.value,
+        weight: 0,
+        reps: 0,
+        rpe: 0,
     });
-    counter.value = counter.value + 1
+    counter.value = counter.value + 1;
 }
 
-function deleteSet(exercise_id, set_n) {
+function deleteSet(exercise_id, set_id) {
     const exerciseIndex = findExerciseInWorkout(exercise_id);
-    const setIndex = workout[exerciseIndex].sets.findIndex((set) => set.n === set_n);
+    const setIndex = workout[exerciseIndex].sets.findIndex(
+        (set) => set.id === set_id
+    );
 
     if (setIndex !== -1) {
         workout[exerciseIndex].sets.splice(setIndex, 1);
@@ -145,15 +234,15 @@ function deleteSet(exercise_id, set_n) {
 }
 
 onMounted(() => {
-    getExercises()
-})
+    getExercises();
+});
 </script>
 
 <style scoped>
 .set-header {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    margin: 0 4rem 0 3.5rem;
+    margin: 0 6rem 0 3.5rem;
 }
 .set-number {
     width: 3.5rem;
@@ -161,5 +250,33 @@ onMounted(() => {
 
 .exercise-card {
     background-color: rgb(230, 230, 230);
+}
+
+.delete-exercise {
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    border: 1px solid lightgray;
+    border-radius: 0px 2px 0px 0px;
+}
+
+.delete-exercise:hover {
+    background-color: white;
+}
+
+.order-exercise {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.order-exercise .btn {
+    border: 1px solid lightgray;
+    border-radius: 0px 2px 0px 0px;
+}
+
+.order-exercise .btn:hover {
+    background-color: white;
 }
 </style>
