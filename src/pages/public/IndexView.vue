@@ -234,6 +234,7 @@
 <script>
 import { RouterLink } from "vue-router";
 import CookieBanner from "../../components/CookieBanner.vue";
+import Footer from './Footer.vue'
 
 export default {
     data() {
