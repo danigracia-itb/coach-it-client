@@ -8,7 +8,7 @@
     >
         <span :class="isToday ? 'bg-primary text-white' : ''">{{ label }}</span>
 
-        <RouterLink v-if="day.isCurrentMonth" :to="`/coach/athlete/${athlete.id}/routine/create?date=${day.date}`" class="add-btn btn btn-success">
+        <RouterLink v-if="day.isCurrentMonth" :to="`/coach/athlete/${athlete.id}/workout/create?date=${day.date}`" class="add-btn btn btn-success">
             <font-awesome-icon icon="fa-solid fa-plus" />
         </RouterLink>
     </li>

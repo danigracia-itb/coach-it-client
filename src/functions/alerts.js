@@ -155,7 +155,7 @@ export function addExercisePopup() {
                             },
                         }
                     );
-                    return resolve(response.data)
+                    return resolve(response.data);
                 } catch (e) {
                     Swal.fire({
                         icon: "error",
@@ -163,6 +163,42 @@ export function addExercisePopup() {
                         text: "Something went wrong!",
                     });
                 }
+            }
+        });
+    });
+}
+
+//Select Exercise
+export function selectExercise(exercises) {
+    return new Promise((resolve, reject) => {
+        Swal.fire({
+            titleText: "Select an exercise to add",
+            iconHtml: "",
+            html: `
+        <select id="exercise" class="form-select">
+        ${exercises
+            .map((e) => {
+                return `<option value='${e.id}'>${e.name}</option>`;
+            })
+            .join("")}
+        </select>
+        `,
+            showCloseButton: true,
+            confirmButtonText: "Add to Workout",
+            confirmButtonColor: "#711bba",
+            preConfirm: () => {
+                const exercise =
+                    Swal.getPopup().querySelector("#exercise").value;
+
+                if (!exercise) {
+                    Swal.showValidationMessage("Please select an exercise.");
+                }
+
+                return exercise;
+            },
+        }).then((result) => {
+            if (result.value) {
+                resolve(result.value)
             }
         });
     });

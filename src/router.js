@@ -53,7 +53,7 @@ const routes = [
             { path: "exercises", component: CoachExercises },
             { path: "athlete/:id", component: () => import('./pages/coach/Athlete.vue') },
             { path: "athlete/:id/profile", component: CoachAthleteProfile },
-            { path: "athlete/:id/routine/create", component: () => import('./pages/coach/CreateRoutine.vue') },
+            { path: "athlete/:id/workout/create", component: () => import('./pages/coach/CreateWorkout.vue') },
         ],
     },
 
