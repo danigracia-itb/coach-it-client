@@ -146,15 +146,12 @@
         </section>
     </div>
 
-    <footer class="bg-light p-3">
-        <p class="text-center m-0">
-            All rights reserved &copy; - Coach IT 2023
-        </p>
-    </footer>
+    <Footer />
 </template>
 
 <script>
 import { RouterLink } from "vue-router";
+import Footer from "./Footer.vue";
 
 export default {
     data() {
@@ -166,6 +163,9 @@ export default {
         toggleNav() {
             this.isNavOpen = !this.isNavOpen;
         },
+    },
+    components: {
+        Footer,
     },
 };
 </script>

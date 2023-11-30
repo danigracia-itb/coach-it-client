@@ -24,9 +24,9 @@ import CoachAthleteProfile from "./pages/coach/AthleteProfile.vue";
 import CoachExercises from "./pages/coach/Exercises.vue";
 
 //Athlete
-import AthleteLayout from "./layouts/AthleteLayout.vue"
-import Calendar from "./pages/athlete/Calendar.vue"
-import Routines from "./pages/athlete/Routines.vue"
+import AthleteLayout from "./layouts/AthleteLayout.vue";
+import Calendar from "./pages/athlete/Calendar.vue";
+import Routines from "./pages/athlete/Routines.vue";
 
 const routes = [
     { path: "/", component: IndexView },
@@ -36,7 +36,7 @@ const routes = [
     { path: "/login", component: Login },
     { path: "/register", component: Register },
     { path: "/form", component: Form },
-    { path: "/aboutus", component: AboutUs},
+    { path: "/aboutus", component: AboutUs },
 
     //Password
     { path: "/request-password-recover", component: RequestPasswordRecover },
@@ -65,7 +65,7 @@ const routes = [
 
         children: [
             { path: "", component: Calendar },
-            { path: "", component: Routines }
+            { path: "", component: Routines },
         ],
     },
 
