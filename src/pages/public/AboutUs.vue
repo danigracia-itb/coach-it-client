@@ -183,9 +183,12 @@
             </div>
         </div>
     </section>
+    <Footer />
 </template>
 
 <script>
+import Footer from "./Footer.vue";
+
 export default {
     name: "Contact",
     data() {
@@ -202,20 +205,13 @@ export default {
             console.log("Message:", this.message);
         },
     },
+    components: {
+        Footer,
+    },
 };
 </script>
 
 <style scoped>
-.bg-dark {
-    background-color: #000;
-    padding: 15px;
-}
-
-.d-flex {
-    display: flex;
-    justify-content: flex-end;
-}
-
 svg {
     color: #ffffff;
 }

@@ -607,7 +607,7 @@ async function sendForm() {
             available_days: train_available_days,
         });
         loading.value = false;
-        router.push("/athlete")
+        router.push("/athlete");
     } catch (e) {
         //If there's any error
         loading.value = false;
