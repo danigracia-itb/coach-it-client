@@ -1,13 +1,13 @@
 <template>
-    <div class="p-3">
-        <h4 class="fw-bold calendar-month-header-selected-month text-center">
+    <div class="p-3 bg-primary m-0">
+        <h4 class="fw-bold calendar-month-header-selected-month text-center mt-2 text-white">
             {{ selectedMonth }}
         </h4>
 
         <div class="d-flex justify-content-between mt-2">
-            <span @click="selectPrevious" class="btn btn-primary">&lt;</span>
-            <span @click="selectCurrent" class="btn btn-secondary">Today</span>
-            <span @click="selectNext" class="btn btn-primary">&gt;</span>
+            <span @click="selectPrevious" class="btn btn-light">&lt;</span>
+            <span @click="selectCurrent" class="btn btn-light">Today</span>
+            <span @click="selectNext" class="btn btn-light">&gt;</span>
         </div>
     </div>
 </template>

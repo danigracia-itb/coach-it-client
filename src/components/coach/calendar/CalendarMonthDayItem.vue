@@ -6,13 +6,16 @@
             'calendar-day--today': isToday,
         }"
     >
-        <span :class="isToday ? 'bg-primary text-white' : ''">{{ label }}</span>
+        <span class="fw-bold" :class="isToday ? 'bg-primary text-white' : ''">{{ label }}</span>
 
-        <RouterLink v-if="day.isCurrentMonth" :to="`/coach/athlete/${athlete.id}/workout/create?date=${day.date}`" class="add-btn btn btn-success">
+        <RouterLink v-if="day.isCurrentMonth && !hasWorkout" :to="`/coach/athlete/${athlete.id}/workout/create?date=${day.date}`" class="add-btn btn btn-success">
             <font-awesome-icon icon="fa-solid fa-plus" />
         </RouterLink>
 
-        <p v-if="hasWorkout">Entreno</p>
+        <RouterLink v-if="hasWorkout" :to="`/coach/athlete/${athlete.id}/workout/${day.date}`" class="btn btn-primary">
+            <font-awesome-icon icon="fa-solid fa-dumbbell" />
+            Workout
+        </RouterLink>
     </li>
 </template>
 
@@ -96,9 +99,8 @@ export default {
 }
 
 .calendar-day--today > span {
-    color: black;
     border-radius: 9999px;
-    padding: 0.2rem 0.4rem;
+    padding: 0.4rem 1.2rem;
 }
 
 .calendar-day:hover .add-btn {

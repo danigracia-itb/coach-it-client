@@ -4,7 +4,6 @@
             :current-date="today"
             :selected-date="selectedDate"
             @dateSelected="selectDate"
-            class="mt-2"
         />
 
         <CalendarWeekdays />
