@@ -212,7 +212,6 @@ export function selectExercise(exercises, workout) {
 //Invite Athlete
 export function inviteAthlete(host, code) {
     Swal.fire({
-        html: `<div id="qrcode"></div>`,
-    });
-    new QRCode(document.getElementById("qrcode"), "http://jindo.dev.naver.com/collie");
+        html: `<h1>${code}</h1><a href="http://${host}/register?type=athlete?code=${code}">http://${host}/register?type=athlete?code=${code}</a>`,
+    })
 }
