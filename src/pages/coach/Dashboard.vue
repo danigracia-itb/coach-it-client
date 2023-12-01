@@ -1,10 +1,17 @@
 <template>
     <div>
-        <h1 class="text-center mt-5">Dashboard</h1>
+        <header class="mt-5">
+            <h1 class="text-center">Dashboard</h1>
 
-        <Spinner class="mt-5" v-if="loading" />
+            <Spinner class="mt-5" v-if="loading" />
 
-        <div class="athletes-grid h-100 w-100 p-5" v-else>
+            <div class="d-flex justify-content-end">
+                <InviteAthlete v-if="!loading"/>
+            </div>
+
+        </header>
+
+        <div class="athletes-grid h-100 w-100 mt-5" v-if="!loading">
             <RouterLink :to="`/coach/athlete/${athlete.id}`"
                 class="athlete-card p-3 border border-3 rounded text-decoration-none text-black align-middle"
                 v-for="athlete in athletes" :key="athlete.id">
@@ -20,6 +27,7 @@ import { onMounted, reactive, ref } from "vue";
 import { RouterLink } from "vue-router";
 import axiosClient from "../../config/axios";
 import Spinner from "../../components/utils/Spinner.vue";
+import InviteAthlete from '../../components/coach/InviteAthlete.vue'
 
 const loading = ref(true);
 var athletes = reactive([]);

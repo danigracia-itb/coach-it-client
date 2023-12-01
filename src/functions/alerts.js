@@ -208,3 +208,11 @@ export function selectExercise(exercises, workout) {
         });
     });
 }
+
+//Invite Athlete
+export function inviteAthlete(host, code) {
+    Swal.fire({
+        html: `<div id="qrcode"></div>`,
+    });
+    new QRCode(document.getElementById("qrcode"), "http://jindo.dev.naver.com/collie");
+}
