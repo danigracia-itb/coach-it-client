@@ -9,7 +9,7 @@
         <CalendarWeekdays />
 
         <ol class="days-grid">
-            <CalendarMonthDayItem
+            <CalendarDayItem
                 v-for="day in days"
                 :key="day.date"
                 :day="day"
@@ -25,7 +25,7 @@
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import weekOfYear from "dayjs/plugin/weekOfYear";
-import CalendarMonthDayItem from "./CalendarMonthDayItem.vue";
+import CalendarDayItem from "./CalendarDayItem.vue";
 import CalendarHeader from "./CalendarHeader.vue";
 import CalendarWeekdays from "./CalendarWeekdays.vue";
 
@@ -36,7 +36,7 @@ export default {
     name: "Calendar",
 
     components: {
-        CalendarMonthDayItem,
+        CalendarDayItem,
         CalendarHeader,
         CalendarWeekdays,
     },
