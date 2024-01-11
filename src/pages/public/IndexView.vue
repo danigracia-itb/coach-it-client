@@ -2,10 +2,7 @@
     <header>
         <section class="bg-dark d-flex">
             <a class="social" href="https://www.instagram.com">
-                <img
-                    class="social-net svg-container"
-                    src="/src/assets/img/instagram.svg"
-                />
+                <img class="social-net svg-container" src="/src/assets/img/instagram.svg" />
             </a>
             <a class="social" href="https://www.facebook.com">
                 <img class="social-net" src="/src/assets/img/facebook.svg" />
@@ -16,86 +13,51 @@
         </section>
 
         <section
-            class="bg-light px-5 py-2 d-flex flex-column flex-sm-row justify-content-between align-items-center shadow-sm"
-        >
-            <RouterLink to="/"
-                ><img width="300" src="../../assets/logo.png"
-            /></RouterLink>
+            class="bg-light px-5 py-2 d-flex flex-column flex-sm-row justify-content-between align-items-center shadow-sm">
+            <RouterLink to="/"><img width="300" src="../../assets/logo.png" /></RouterLink>
             <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
                 <div class="container-fluid">
-                    <button
-                        class="navbar-toggler"
-                        type="button"
-                        @click="toggleNav"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarNav"
-                        aria-controls="navbarNav"
-                        :aria-expanded="isNavOpen ? 'true' : 'false'"
-                        aria-label="Toggle navigation"
-                        style="font-size: 4rem"
-                    >
+                    <button class="navbar-toggler" type="button" @click="toggleNav" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav" aria-controls="navbarNav" :aria-expanded="isNavOpen ? 'true' : 'false'"
+                        aria-label="Toggle navigation" style="font-size: 4rem">
                         >
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div
-                        :class="[
-                            'collapse',
-                            'navbar-collapse',
-                            { show: isNavOpen },
-                        ]"
-                        id="navbarNav"
-                    >
+                    <div :class="[
+                        'collapse',
+                        'navbar-collapse',
+                        { show: isNavOpen },
+                    ]" id="navbarNav">
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item">
-                                <a class="nav-link home fw-bold" href="#"
-                                    >Home</a
-                                >
+                                <a class="nav-link home fw-bold" href="#">Home</a>
                             </li>
                             <li class="nav-item">
-                                <RouterLink to="/aboutus"
-                                    ><a class="nav-link" href="#"
-                                        >About us</a
-                                    ></RouterLink
-                                >
+                                <RouterLink to="/aboutus"><a class="nav-link" href="#">About us</a></RouterLink>
                             </li>
                             <li class="nav-item">
-                                <RouterLink to="/login"
-                                    ><a class="nav-link" href="#"
-                                        >Login</a
-                                    ></RouterLink
-                                >
+                                <RouterLink to="/login"><a class="nav-link" href="#">Login</a></RouterLink>
                             </li>
                         </ul>
                     </div>
-                    <RouterLink to="/register"
-                        ><button class="btn start-today-btn btn btn-primary">
+                    <RouterLink to="/register"><button class="btn start-today-btn btn btn-primary">
                             Start Today
-                        </button></RouterLink
-                    >
+                        </button></RouterLink>
                 </div>
             </nav>
         </section>
     </header>
 
     <section class="hero">
-        <div
-            class="hero-overlay d-flex flex-column justify-content-center align-items-center"
-        >
+        <div class="hero-overlay d-flex flex-column justify-content-center align-items-center">
             <h1 class="journey text-center text-white text-uppercase">
                 Start your journey as an
                 <br />
-                <img
-                    src="../../assets/img/Strength.png"
-                    width="1300"
-                    class="mb-2 fade-image"
-                    alt="strenght coach mt-5"
-                />
+                <img src="../../assets/img/Strength.png" width="1300" class="mb-2 fade-image" alt="strenght coach mt-5" />
             </h1>
             <div>
                 <RouterLink to="/register">
-                    <button
-                        class="free-trial-btn btn btn-primary text-uppercase btn-xl m5-5"
-                    >
+                    <button class="free-trial-btn btn btn-primary text-uppercase btn-xl m5-5">
                         Start now
                     </button>
                 </RouterLink>
@@ -150,85 +112,55 @@
                 </p>
 
                 <p class="mb-5 justified-text">
-                    <img
-                        class="social-net"
-                        src=" /src/assets/img/ux.svg"
-                    /><strong> Intuitive Interface:</strong> A user-friendly
+                    <img class="social-net" src=" /src/assets/img/ux.svg" /><strong> Intuitive Interface:</strong> A
+                    user-friendly
                     interface ensures a seamless experience. No tech hurdles,
                     just a straightforward platform for you to focus on what you
                     do best: coaching.
                 </p>
 
                 <p class="mb-5 justified-text">
-                    <strong
-                        ><img
-                            class="social-net"
-                            src="/src/assets/img/global.svg"
-                        />
-                        Global Reach:</strong
-                    >
+                    <strong><img class="social-net" src="/src/assets/img/global.svg" />
+                        Global Reach:</strong>
                     Connect with clients worldwide. Whether you're just starting
                     or looking to expand your reach, our platform empowers you
                     to make a global impact.
                 </p>
             </div>
             <div class="row gx-5">
-                <div
-                    class="col-md-6 d-flex justify-content-end align-items-center mb-5 mb-md-0"
-                >
+                <div class="col-md-6 d-flex justify-content-end align-items-center mb-5 mb-md-0">
                     <div class="image-container">
-                        <img
-                            src="../../assets/img/powerlifting2.jpg"
-                            alt="Powerlifting"
-                            class="pwl"
-                        />
+                        <img src="../../assets/img/powerlifting2.jpg" alt="Powerlifting" class="pwl" />
                     </div>
                 </div>
-                <div
-                    class="col-md-6 text-white d-flex flex-column justify-content-center"
-                ></div>
+                <div class="col-md-6 text-white d-flex flex-column justify-content-center"></div>
             </div>
 
             <div class="row gx-5">
                 <h3 class="text-center text-white fw-bold pb-4">
                     Athlete Dashboard example
                 </h3>
-                <img
-                    :src="currentImage.src"
-                    :alt="currentImage.alt"
-                    class="calendar-img2 justify-content-end align-items-center"
-                />
+                <img :src="currentImage.src" :alt="currentImage.alt"
+                    class="calendar-img2 justify-content-end align-items-center" />
             </div>
 
             <div class="row gx-5">
                 <h3 class="text-center text-white fw-bold pb-4 mt-5 mb-5">
                     Perform Tracking
                 </h3>
-                <div
-                    class="col-md-6 d-flex justify-content-end align-items-center mb-5 mb-md-0"
-                >
+                <div class="col-md-6 d-flex justify-content-end align-items-center mb-5 mb-md-0">
                     <div class="image-container">
-                        <img
-                            src="../../assets/img/tracking.jpg"
-                            alt="Tracking"
-                            class="ptk"
-                        />
+                        <img src="../../assets/img/tracking.jpg" alt="Tracking" class="ptk" />
                     </div>
                 </div>
-                <div
-                    class="col-md-6 text-white d-flex flex-column justify-content-center"
-                ></div>
+                <div class="col-md-6 text-white d-flex flex-column justify-content-center"></div>
             </div>
         </div>
     </section>
 
     <Footer />
 
-    <CookieBanner
-        :cookies-accepted="cookiesAccepted"
-        @accept-cookies="acceptCookies"
-        @decline-cookies="declineCookies"
-    />
+    <CookieBanner :cookies-accepted="cookiesAccepted" @accept-cookies="acceptCookies" @decline-cookies="declineCookies" />
 </template>
 
 <script>
