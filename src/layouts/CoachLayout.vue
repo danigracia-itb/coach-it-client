@@ -2,6 +2,20 @@
     <div class="vh-100">
         <header>
             <img width="200" class="mx-auto" src="../assets/logo.png" alt="logo" />
+            <!-- PC -->
+            <button class="float-right" @click="toogleMenu">
+                <img class="profile-img rounded-circle" width="40" :src="user.picture" alt="">
+            </button>            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <!-- MOVIL -->
             <button class="d-md-none button-mobile" @click="toggleMenu">
                 <img src="../assets/img/mobile-menu.png" width="20" alt="">
             </button>
@@ -34,6 +48,7 @@
 import { RouterView } from "vue-router";
 import CoachMenu from "../components/coach/CoachMenu.vue";
 import { ref } from "vue";
+import { getUser } from  "../functions/helpers.js";
 
 let showMenu = ref(false)
 
@@ -41,6 +56,9 @@ function toggleMenu() {
     showMenu.value = !showMenu.value
     console.log(showMenu.value)
 }
+
+let user = getUser();
+
 </script>
 
 <style scoped>
