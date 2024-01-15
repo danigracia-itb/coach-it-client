@@ -22,6 +22,7 @@ import CoachLayout from "./layouts/CoachLayout.vue";
 import CoachDashboard from "./pages/coach/Dashboard.vue";
 import CoachAthleteProfile from "./pages/coach/AthleteProfile.vue";
 import CoachExercises from "./pages/coach/Exercises.vue";
+import CoachProfile from "./pages/coach/Profile.vue";
 
 //Athlete
 import AthleteLayout from "./layouts/AthleteLayout.vue";
@@ -51,6 +52,7 @@ const routes = [
         children: [
             { path: "", component: CoachDashboard },
             { path: "exercises", component: CoachExercises },
+                { path: "profile", component: CoachProfile },
             { path: "athlete/:id", component: () => import('./pages/coach/Athlete.vue') },
             { path: "athlete/:id/profile", component: CoachAthleteProfile },
             { path: "athlete/:id/workout/create", component: () => import('./pages/coach/CreateWorkout.vue') },
