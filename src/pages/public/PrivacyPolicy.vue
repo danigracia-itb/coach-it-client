@@ -4,14 +4,14 @@
             <a class="social" href="https://www.instagram.com">
                 <img
                     class="social-net svg-container"
-                    src="/src/assets/img/instagram.svg"
+                    src="../../../public/assets/img/instagram.svg"
                 />
             </a>
             <a class="social" href="https://www.facebook.com">
-                <img class="social-net" src="/src/assets/img/facebook.svg" />
+                <img class="social-net" src="../../../public/assets/img/facebook.svg" />
             </a>
             <a class="social" href="https://www.twitter.com">
-                <img class="social-net" src="/src/assets/img/twitterX.svg" />
+                <img class="social-net" src="../../../public/assets/img/twitterX.svg" />
             </a>
         </section>
 
@@ -19,7 +19,7 @@
             class="bg-light px-5 py-2 d-flex flex-column flex-sm-row justify-content-between align-items-center shadow-sm"
         >
             <RouterLink to="/"
-                ><img width="300" src="../../assets/logo.png"
+                ><img width="300" src="../../../public/assets/logo.png"
             /></RouterLink>
             <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
                 <div class="container-fluid">
@@ -84,7 +84,7 @@
             <h2 class="text-center mt-5 mb-5 primary">Privacy Policy</h2>
             <img
                 class="center-image mb-5"
-                src="/src/assets/img/privacy-policy.jpg"
+                src="../../../public/assets/img/privacy-policy.jpg"
             />
             <div class="privacy-content">
                 <p>

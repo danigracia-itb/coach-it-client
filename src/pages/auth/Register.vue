@@ -5,7 +5,7 @@
             class="col-md-5 d-flex flex-column align-items-center justify-content-center"
         >
             <RouterLink to="/"
-                ><img class="auth-logo-img" src="../../assets/logo.png" alt=""
+                ><img class="auth-logo-img" src="../../../public/assets/logo.png" alt=""
             /></RouterLink>
             <div class="p-5 mx-2 mx-md-0 border rounded-5">
                 <h1 class="text-uppercase text-center fw-bold">
@@ -296,7 +296,7 @@ watch(
 
 <style scoped>
 .img-register {
-    background-image: url(./src/assets/img/img-register.webp);
+    background-image: url(../../../public/assets/img/img-register.webp);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center right;

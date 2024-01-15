@@ -1,6 +1,6 @@
 <template>
     <div class="full-width-image">
-        <img src="../../assets/img/calendar2.png" class="img-fluid" alt="Calendar Image">
+        <img src="../../../public/assets/img/calendar2.png" class="img-fluid" alt="Calendar Image">
     </div>
 </template>
 

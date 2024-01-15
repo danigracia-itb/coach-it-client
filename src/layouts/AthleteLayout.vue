@@ -1,11 +1,11 @@
 <template>
     <div class="vh-100">
         <header>
-            <img width="200" class="mx-auto" src="../assets/logo.png" alt="logo" />
+            <img width="200" class="mx-auto" src="../../public/assets/img/logo.png" alt="logo" />
             <button></button>
             <button class="d-md-none" @click="toggleMenu"
                 style="border: none; background-color: transparent; outline: none;">
-                <img src="../assets/img/mobile-menu.png" width="20" alt="">
+                <img src="../../public/assets/img/mobile-menu.png" width="20" alt="">
             </button>
             <div v-if="showMenu" class="text-center border-bottom bg-primary">
 

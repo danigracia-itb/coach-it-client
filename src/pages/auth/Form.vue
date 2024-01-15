@@ -8,7 +8,7 @@
         >
             <img
                 class="auth-logo-img mx-auto"
-                src="../../assets/logo.png"
+                src="../../../public/assets/logo.png"
                 alt=""
             />
 

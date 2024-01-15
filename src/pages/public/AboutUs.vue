@@ -4,14 +4,14 @@
             <a class="social" href="https://www.instagram.com">
                 <img
                     class="social-net svg-container"
-                    src="/src/assets/img/instagram.svg"
+                    src="../../../public/assets/img/instagram.svg"
                 />
             </a>
             <a class="social" href="https://www.facebook.com">
-                <img class="social-net" src="/src/assets/img/facebook.svg" />
+                <img class="social-net" src="../../../public/assets/img/facebook.svg" />
             </a>
             <a class="social" href="https://www.twitter.com">
-                <img class="social-net" src="/src/assets/img/twitterX.svg" />
+                <img class="social-net" src="../../../public/assets/img/twitterX.svg" />
             </a>
         </section>
 
@@ -19,7 +19,7 @@
             class="bg-light px-5 py-2 d-flex flex-column flex-sm-row justify-content-between align-items-center shadow-sm"
         >
             <RouterLink to="/"
-                ><img width="300" src="../../assets/logo.png"
+                ><img width="300" src="../../../public/assets/logo.png"
             /></RouterLink>
             <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
                 <div class="container-fluid">
@@ -49,7 +49,7 @@
                             <li class="nav-item">
                                 <RouterLink to="/"
                                     ><a class="nav-link" href="#"
-                                        >Home</a
+                                        ><font-awesome-icon size="2xl" icon="fa-solid fa-house" /></a
                                     ></RouterLink
                                 >
                             </li>
@@ -84,7 +84,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <img
-                        src="/src/assets/img/company-image.jpg"
+                        src="../../../public/assets/img/company-image.jpg"
                         alt="Company Image"
                         class="img-fluid mb-4"
                     />
@@ -109,7 +109,7 @@
             <div class="row mt-5">
                 <div class="col-md-6 order-md-2">
                     <img
-                        src="/src/assets/img/team-image.jpg"
+                        src="../../../public/assets/img/team-image.jpg"
                         alt="Team Image"
                         class="img-fluid mb-4"
                     />

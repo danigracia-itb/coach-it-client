@@ -5,7 +5,7 @@
             class="col-md-5 d-flex flex-column align-items-center justify-content-center"
         >
             <RouterLink to="/"
-                ><img class="auth-logo-img" src="../../assets/logo.png" alt=""
+                ><img class="auth-logo-img" src="../../../public/assets/logo.png" alt=""
             /></RouterLink>
             <div class="p-5 px-5 border rounded-5">
                 <h1 class="text-uppercase text-center fw-bold">
@@ -41,7 +41,7 @@
                 </form>
             </div>
 
-            <RouterLink to="/" class="mt-5">Home</RouterLink>
+            <RouterLink to="/" class="mt-5"><font-awesome-icon size="2xl" icon="fa-solid fa-house" /></RouterLink>
         </div>
     </div>
 </template>

@@ -2,19 +2,19 @@
     <header>
         <section class="bg-dark d-flex">
             <a class="social" href="https://www.instagram.com">
-                <img class="social-net svg-container" src="/src/assets/img/instagram.svg" />
+                <img class="social-net svg-container" src="../../../public/assets/img/instagram.svg" />
             </a>
             <a class="social" href="https://www.facebook.com">
-                <img class="social-net" src="/src/assets/img/facebook.svg" />
+                <img class="social-net" src="../../../public/assets/img/facebook.svg" />
             </a>
             <a class="social" href="https://www.twitter.com">
-                <img class="social-net" src="/src/assets/img/twitterX.svg" />
+                <img class="social-net" src="../../../public/assets/img/twitterX.svg" />
             </a>
         </section>
 
         <section
             class="bg-light px-5 py-2 d-flex flex-column flex-sm-row justify-content-between align-items-center shadow-sm">
-            <RouterLink to="/"><img width="300" src="../../assets/logo.png" /></RouterLink>
+            <RouterLink to="/"><img width="300" src="../../../public/assets/logo.png" /></RouterLink>
             <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
                 <div class="container-fluid">
                     <button class="navbar-toggler" type="button" @click="toggleNav" data-bs-toggle="collapse"
@@ -53,7 +53,7 @@
             <h1 class="journey text-center text-white text-uppercase">
                 Start your journey as an
                 <br />
-                <img src="../../assets/img/Strength.png" width="1300" class="mb-2 fade-image" alt="strenght coach mt-5" />
+                <img src="../../../public/assets/img/Strength.png" width="1300" class="mb-2 fade-image" alt="strenght coach mt-5" />
             </h1>
             <div>
                 <RouterLink to="/register">
@@ -93,7 +93,7 @@
             <h3 class="text-center text-white fw-bold">Why Join Us?</h3>
             <div class="motivational-text container py-5">
                 <p class="mb-5 justified-text">
-                    <img class="social-net" src="/src/assets/img/tools.svg" />
+                    <img class="social-net" src="../../../public/assets/img/tools.svg" />
 
                     <strong>Comprehensive Tools:</strong> Access cutting-edge
                     tools tailored for powerlifting coaching—RPE calculators,
@@ -103,7 +103,7 @@
                 </p>
 
                 <p class="mb-5 justified-text">
-                    <img class="social-net" src="/src/assets/img/track.svg" />
+                    <img class="social-net" src="../../../public/assets/img/track.svg" />
                     <strong> Be the Performance Tracking:</strong>
                     architect of success! Follow your clients' journeys, analyze
                     their progress, and elevate their performance to new
@@ -112,7 +112,7 @@
                 </p>
 
                 <p class="mb-5 justified-text">
-                    <img class="social-net" src=" /src/assets/img/ux.svg" /><strong> Intuitive Interface:</strong> A
+                    <img class="social-net" src=" ../../../public/assets/img/ux.svg" /><strong> Intuitive Interface:</strong> A
                     user-friendly
                     interface ensures a seamless experience. No tech hurdles,
                     just a straightforward platform for you to focus on what you
@@ -120,7 +120,7 @@
                 </p>
 
                 <p class="mb-5 justified-text">
-                    <strong><img class="social-net" src="/src/assets/img/global.svg" />
+                    <strong><img class="social-net" src="../../../public/assets/img/global.svg" />
                         Global Reach:</strong>
                     Connect with clients worldwide. Whether you're just starting
                     or looking to expand your reach, our platform empowers you
@@ -130,7 +130,7 @@
             <div class="row gx-5">
                 <div class="col-md-6 d-flex justify-content-end align-items-center mb-5 mb-md-0">
                     <div class="image-container">
-                        <img src="../../assets/img/powerlifting2.jpg" alt="Powerlifting" class="pwl" />
+                        <img src="../../../public/assets/img/powerlifting2.jpg" alt="Powerlifting" class="pwl" />
                     </div>
                 </div>
                 <div class="col-md-6 text-white d-flex flex-column justify-content-center"></div>
@@ -150,7 +150,7 @@
                 </h3>
                 <div class="col-md-6 d-flex justify-content-end align-items-center mb-5 mb-md-0">
                     <div class="image-container">
-                        <img src="../../assets/img/tracking.jpg" alt="Tracking" class="ptk" />
+                        <img src="../../../public/assets/img/tracking.jpg" alt="Tracking" class="ptk" />
                     </div>
                 </div>
                 <div class="col-md-6 text-white d-flex flex-column justify-content-center"></div>
@@ -175,22 +175,22 @@ export default {
             currentImageIndex: 0,
             images: [
                 {
-                    src: "../src/assets/img/DashboardCoach.png",
+                    src: "../../../public/assets/img/DashboardCoach.png",
                     alt: "Dashboard",
                 },
                 {
-                    src: "../src/assets/img/DashboardAthlete.png",
+                    src: "../../../public/assets/img/DashboardAthlete.png",
                     alt: "Dashboard",
                 },
             ],
             currentImageIndex: 0,
             images: [
                 {
-                    src: "../src/assets/img/DashboardAthlete.png",
+                    src: "../../../public/assets/img/DashboardAthlete.png",
                     alt: "Calendar",
                 },
                 {
-                    src: "../src/assets/img/DashboardCoach.png",
+                    src: "../../../public/assets/img/DashboardCoach.png",
                     alt: "Dashboard",
                 },
             ],
@@ -338,7 +338,7 @@ svg {
 }
 
 .hero {
-    background-image: url("../../assets/img/hero-img.jpeg");
+    background-image: url("../../../public/assets/img/hero-img.jpeg");
     height: 75rem;
     background-size: cover;
     background-position: center;

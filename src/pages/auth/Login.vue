@@ -6,7 +6,7 @@
         <div
             class="col-md-5 d-flex flex-column align-items-center justify-content-center"
         >
-            <img class="auth-logo-img" src="../../assets/logo.png" alt="Logo Coach IT" />
+            <img class="auth-logo-img" src="../../../public/assets/logo.png" alt="Logo Coach IT" />
             <div class="p-5 mx-2 mx-md-0 border rounded-5">
                 <h1 class="text-uppercase text-center fw-bold">login</h1>
                 <form @submit.prevent="login" class="">
@@ -72,7 +72,7 @@
                     </p>
                 </div>
             </div>
-            <RouterLink to="/" class="mt-5">Home</RouterLink>
+            <RouterLink to="/" class="mt-5"><font-awesome-icon size="2xl" icon="fa-solid fa-house" /></RouterLink>
         </div>
     </div>
 </template>
@@ -133,7 +133,7 @@ const login = async (e) => {
 
 <style scoped>
 .img-login {
-    background-image: url(./src/assets/img/img-login.webp);
+    background-image: url(../../../public/assets/img/img-login.webp);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center right;
