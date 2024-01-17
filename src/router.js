@@ -52,7 +52,7 @@ const routes = [
         children: [
             { path: "", component: CoachDashboard },
             { path: "exercises", component: CoachExercises },
-                { path: "profile", component: CoachProfile },
+            { path: "profile", component: CoachProfile },
             { path: "athlete/:id", component: () => import('./pages/coach/Athlete.vue') },
             { path: "athlete/:id/profile", component: CoachAthleteProfile },
             { path: "athlete/:id/workout/create", component: () => import('./pages/coach/CreateWorkout.vue') },

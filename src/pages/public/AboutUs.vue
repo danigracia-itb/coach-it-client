@@ -49,7 +49,7 @@
                             <li class="nav-item">
                                 <RouterLink to="/"
                                     ><a class="nav-link" href="#"
-                                        ><font-awesome-icon size="2xl" icon="fa-solid fa-house" /></a
+                                        >Home</a
                                     ></RouterLink
                                 >
                             </li>
