@@ -11,8 +11,10 @@
           />
         </button>
       </div>
-      <div class="col-8 bg-warning">
-        <p>{{ user.name }}</p>
+      <div class="col-8">
+        <p v-if="!editName">{{ user.name }}</p>
+        <input v-if="editName" type="text" name="" id="">
+        <font-awesome-icon icon="fa-solid fa-pen" size="2xl" class="pen"/>
         <p>
           Recuperar contraseña:
           <RouterLink to="/request-password-recover">
@@ -35,19 +37,6 @@
     user.value = getUser();
   });
   
-  function uploadFileButton() {
-    if (selectedFile.value) {
-      // Simulación de carga (reemplázalo con tu lógica real)
-      setTimeout(() => {
-        // Actualizar la imagen de perfil con la nueva URL después de la carga
-        user.value.picture = "nueva_url_de_la_imagen.jpg";
-        // Limpiar el archivo seleccionado y la previsualización después de la carga
-        selectedFile.value = null;
-        imagenPrevisualizacion.value = "";
-      }, 2000); // Simular una carga de 2 segundos (puedes ajustar según tu necesidad)
-    }
-  }
-  
   function handleFileChange(event) {
     // Obtener el archivo seleccionado
     selectedFile.value = event.target.files[0];
@@ -65,6 +54,12 @@
     // Abrir el selector de archivos al hacer clic en el ícono
     document.getElementById("seleccionArchivos").click();
   }
+  
+  let coachName = ref(false);
+  function editName(){
+    
+  }
+
   </script>
   
   <style scoped>
@@ -77,6 +72,9 @@
     border: none;
     background-color: transparent;
     outline: none;
+  }
+  .pen{
+    color: #711bba;
   }
   </style>
   
