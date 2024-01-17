@@ -14,6 +14,9 @@ import "bootstrap/dist/js/bootstrap.bundle"
 
 // import './scss/main.scss';
 
+// import ContextMenu
+import '@imengyu/vue3-context-menu/lib/vue3-context-menu.css'
+import ContextMenu from '@imengyu/vue3-context-menu'
 
 
 // FONTAWESOME
@@ -31,4 +34,5 @@ library.add(fas, far, fab)
 createApp(App)
 .component('font-awesome-icon', FontAwesomeIcon)
 .use(router)
+.use(ContextMenu)
 .mount('#app')
