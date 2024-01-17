@@ -48,3 +48,10 @@ export function calculateTonelage(sets) {
     
     return tonelage
 }
+
+export function logOut(router) {
+    localStorage.removeItem('user');
+    localStorage.removeItem('id');
+    localStorage.removeItem('token');
+    router.push({ path: "/login" })
+}

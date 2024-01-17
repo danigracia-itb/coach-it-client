@@ -1,19 +1,17 @@
 <template>
     <div class="vh-100">
-        <header class="d-flex justify-content-between">
+        <header class="d-flex justify-content-between overflow-hidden">
             <!-- PC -->
-                <img width="200" src="../../public/assets/logo.png" alt="logo" />
-                <button class="float-right border-0 bg-transparent" @click="toogleUserMenu">
-                    <img class="profile-img rounded-circle" width="50" :src="user.picture" alt="">
-                </button>
-                <!-- <div class="" >
-                    <RouterLink to="" class="text-center border-bottom bg-primary">
-                        <p class="mt-4 fs-1">Edit profile</p>
-                    </RouterLink>
-                    <button @click="logOut">LOG OUT</button>
-                </div> -->
-                
-            
+            <img width="200" src="../../public/assets/logo.png" alt="logo" />
+            <button class="float-right border-0 bg-transparent" @click="toogleUserMenu">
+                <img class="profile-img rounded-circle" width="50" :src="user.picture" alt="">
+            </button>
+            <!-- <div class="" >
+                <RouterLink to="" class="text-center border-bottom bg-primary">
+                    <p class="mt-4 fs-1">Edit profile</p>
+                </RouterLink>
+                <button @click="logOut">LOG OUT</button>
+            </div> -->
             <!-- MOVIL -->
             <button class="d-md-none button-mobile" @click="toggleMenu">
                 <img src="../assets/img/mobile-menu.png" width="20" alt="">
@@ -33,7 +31,7 @@
                 </RouterLink><br />
             </div>
         </header>
-        <UserMenu class="userMenu" v-if="showUserMenu"></UserMenu>
+        <UserMenu class="userMenu" :class="showUserMenu ? 'd-block' : 'd-none'"></UserMenu>
         <div class="h-100">
             <CoachMenu  class="d-none d-md-block"></CoachMenu>
             <main class="main-content px-3 px-md-0">
@@ -72,7 +70,7 @@ let user = getUser();
 .userMenu {
     position: relative;
     top: 0px;
-    width: 200px;
+    width: 300px;
     float: right;
     text-align: right;
     border: 1px solid red;
