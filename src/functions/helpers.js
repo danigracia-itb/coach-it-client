@@ -43,20 +43,6 @@ export function calculateTonelage(sets, edit=false) {
         return tonelage
     }
 
-<<<<<<< Updated upstream
-    sets.map(set => {
-        tonelage += set.weight * set.reps
-    })
-    
-    return tonelage
-}
-
-export function logOut(router) {
-    localStorage.removeItem('user');
-    localStorage.removeItem('id');
-    localStorage.removeItem('token');
-    router.push({ path: "/login" })
-=======
     if(!edit) {
         sets.map(set => {
             tonelage += set.weight * set.reps
@@ -70,7 +56,11 @@ export function logOut(router) {
         
         return sets[0].target_weight ? tonelage : 0
     }
+}
 
-
->>>>>>> Stashed changes
+export function logOut(router) {
+    localStorage.removeItem('user');
+    localStorage.removeItem('id');
+    localStorage.removeItem('token');
+    router.push({ path: "/login" })
 }
