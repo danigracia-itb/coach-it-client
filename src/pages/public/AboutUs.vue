@@ -8,10 +8,16 @@
                 />
             </a>
             <a class="social" href="https://www.facebook.com">
-                <img class="social-net" src="../../../public/assets/img/facebook.svg" />
+                <img
+                    class="social-net"
+                    src="../../../public/assets/img/facebook.svg"
+                />
             </a>
             <a class="social" href="https://www.twitter.com">
-                <img class="social-net" src="../../../public/assets/img/twitterX.svg" />
+                <img
+                    class="social-net"
+                    src="../../../public/assets/img/twitterX.svg"
+                />
             </a>
         </section>
 
@@ -90,7 +96,6 @@
                     />
                 </div>
                 <div class="col-md-6">
-                    YOUR_API_ENDPOINT_URL
                     <p>
                         Welcome to Coach IT, your gateway to a transformative
                         fitness coaching experience. We are dedicated to
@@ -191,6 +196,12 @@
                         <div v-else class="message-sent">
                             Message Sent Successfully!
                         </div>
+                        <div
+                            v-if="messageNotSent"
+                            class="text-danger p-4 error-message"
+                        >
+                            {{ messageNotSent }}
+                        </div>
                     </div>
                 </form>
             </div>
@@ -209,6 +220,7 @@ const subject = ref("");
 const message = ref("");
 
 const messageSent = ref(false);
+const messageNotSent = ref("");
 const errorMessage = ref("");
 const sending = ref(false);
 
@@ -239,7 +251,6 @@ const submitForm = async () => {
         email.value = "";
         subject.value = "";
         message.value = "";
-        errorMessage.value = "";
 
         setTimeout(() => {
             messageSent.value = false;
@@ -247,9 +258,14 @@ const submitForm = async () => {
         }, 5000);
     } catch (error) {
         console.error("Error submitting the form:", error);
-        errorMessage.value = "Error submitting the form. Please try again.";
+        messageNotSent.value =
+            "Error submitting the form. Please try again later.";
 
         sending.value = false;
+
+        setTimeout(() => {
+            messageNotSent.value = "";
+        }, 2000);
     }
 };
 </script>
@@ -378,6 +394,8 @@ svg {
 .btn-primary {
     background-color: #9329f4;
     border: none;
+    border-radius: 5px;
+    padding: 6px;
 }
 
 .btn-primary:hover {
@@ -387,8 +405,13 @@ svg {
 .message-sent {
     background-color: #4caf50;
     color: #ffffff;
-    padding: 5px;
+    padding: 6px;
     border-radius: 5px;
     display: inline-block;
+}
+
+.error-message {
+    margin: auto;
+    display: block;
 }
 </style>
