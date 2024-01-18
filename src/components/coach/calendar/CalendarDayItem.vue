@@ -12,7 +12,11 @@
             <font-awesome-icon icon="fa-solid fa-plus" />
         </RouterLink>
 
-        <RouterLink v-if="hasWorkout" :to="`/coach/athlete/${athlete.id}/workout/${day.date}`" class="btn btn-primary">
+        <RouterLink
+            v-if="hasWorkout"
+            :to="`/coach/athlete/${athlete.id}/workout/${workout.id}`"
+            class="btn btn-primary"
+        >
             <font-awesome-icon icon="fa-solid fa-dumbbell" />
             Workout
         </RouterLink>
@@ -34,6 +38,7 @@ const props = defineProps([
     "isToday",
     "athlete",
     "hasWorkout",
+    "workout",
 ]);
 
 const label = computed(() => {

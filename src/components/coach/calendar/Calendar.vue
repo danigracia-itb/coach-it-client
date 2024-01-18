@@ -16,6 +16,7 @@
                 :is-today="day.date === today"
                 :athlete="athlete"
                 :has-workout="hasWorkout(day.date)"
+                :workout="getWorkout(day.date)"
             />
         </ol>
     </div>
@@ -166,6 +167,9 @@ export default {
             // Verifica si hay un workout en la fecha dada
             return this.workouts.some((workout) => workout.date === date);
         },
+        getWorkout(date) {
+            return this.workouts.find((workout) => workout.date === date);
+        }
     },
 };
 </script>

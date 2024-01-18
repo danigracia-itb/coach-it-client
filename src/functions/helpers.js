@@ -36,17 +36,26 @@ export function getUser() {
     }
 }
 
-export function calculateTonelage(sets) {
+export function calculateTonelage(sets, edit=false) {
     var tonelage = 0
+    
     if(!sets[0]) {
         return tonelage
     }
 
-    sets.map(set => {
-        tonelage += set.weight * set.reps
-    })
-    
-    return tonelage
+    if(!edit) {
+        sets.map(set => {
+            tonelage += set.weight * set.reps
+        })
+        
+        return sets[0].weight ? tonelage : 0
+    } else {
+        sets.map(set => {
+            tonelage += set.target_weight * set.target_reps
+        })
+        
+        return sets[0].target_weight ? tonelage : 0
+    }
 }
 
 export function logOut(router) {

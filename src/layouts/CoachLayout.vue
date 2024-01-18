@@ -76,15 +76,6 @@ let user = getUser();
     border: 1px solid red;
 }
 
-
-
-
-
-
-
-
-
-
 .button-mobile {
     border: none;
     background-color: transparent;

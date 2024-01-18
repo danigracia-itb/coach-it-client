@@ -195,15 +195,17 @@ export function selectExercise(exercises, workout) {
                 }
 
                 //Si el ejercicio ya esta añadido dar error
-                if(workout.filter(e => e.id == exercise)[0]) {
-                    Swal.showValidationMessage("This exercise has already been added.");
+                if (workout.filter((e) => e.id == exercise)[0]) {
+                    Swal.showValidationMessage(
+                        "This exercise has already been added."
+                    );
                 }
 
                 return exercise;
             },
         }).then((result) => {
             if (result.value) {
-                resolve(result.value)
+                resolve(result.value);
             }
         });
     });
@@ -212,6 +214,9 @@ export function selectExercise(exercises, workout) {
 //Invite Athlete
 export function inviteAthlete(host, code) {
     Swal.fire({
-        html: `<h1>${code}</h1><a href="http://${host}/register?type=athlete?code=${code}">http://${host}/register?type=athlete?code=${code}</a>`,
-    })
+        width: "700px",
+        html: `<h1 class="text-black">Your code is: <span class="text-primary">${code}</span></h1>
+        <a href="http://${host}/register?type=athlete&code=${code}" class="d-block border p-3 text-nowrap">http://${host}/register?type=athlete?code=${code}</a>`,
+        confirmButtonColor: "#711bba"
+    });
 }

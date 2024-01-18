@@ -2,7 +2,10 @@
     <Spinner v-if="loading" class="mx-auto mt-5" />
     <div class="mt-5" v-else>
         <header>
-            <h1 class="text-center">Create Workout</h1>
+            <h1 class="text-center">
+                Edit
+                <span class="text-primary">{{ workout_date }}</span> Workout
+            </h1>
             <p class="text-primary text-center fw-bold">{{ date }}</p>
         </header>
 
@@ -52,20 +55,38 @@
                                 {{ exercise.sets.length }}
                             </p>
                             <p class="mb-0">
-                                <span class="fw-bold">Tonelage:</span>
-                                {{ calculateTonelage(exercise.sets) }}kg
+                                <span class="fw-bold">Target Tonelage:</span>
+                                {{ calculateTonelage(exercise.sets, true) }}kg
                             </p>
                         </div>
                     </header>
 
                     <!-- Sets header -->
                     <section
+                        class="set-headers-group"
                         v-if="exercise.sets.length > 0"
-                        class="set-header p-0 text-center"
                     >
-                        <div class="fw-normal">WEIGHT</div>
-                        <div class="fw-normal">REPS</div>
-                        <div class="fw-normal">RPE</div>
+                        <section class="text-center bg-light set-header-target">
+                            <div class="fw-normal">TARGET</div>
+
+                            <div class="set-labels">
+                                <div class="fw-normal">WEIGHT</div>
+                                <div class="fw-normal">REPS</div>
+                                <div class="fw-normal">RPE</div>
+                            </div>
+                        </section>
+
+                        <section
+                            class="text-center bg-white set-header-actual"
+                        >
+                            <div class="fw-normal">ACTUAL</div>
+
+                            <div class="set-labels">
+                                <div class="fw-normal">WEIGHT</div>
+                                <div class="fw-normal">REPS</div>
+                                <div class="fw-normal">RPE</div>
+                            </div>
+                        </section>
                     </section>
 
                     <!-- Sets list -->
@@ -86,26 +107,47 @@
                             </p>
 
                             <!-- Set content -->
-                            <div class="m-3 w-100 d-flex gap-2">
+                            <div
+                                class="p-3 w-100 d-flex gap-2 bg-light border-end"
+                            >
                                 <input
                                     type="number"
                                     class="form-control text-center"
-                                    v-model="set.weight"
+                                    v-model="set.target_weight"
                                 />
                                 <input
                                     type="number"
                                     class="form-control text-center"
-                                    v-model="set.reps"
+                                    v-model="set.target_reps"
                                 />
                                 <input
                                     type="number"
                                     class="form-control text-center"
-                                    v-model="set.rpe"
+                                    v-model="set.target_rpe"
+                                />
+                            </div>
+
+                            <div class="p-3 w-100 d-flex gap-2">
+                                <!-- ACTUAL -->
+                                <input
+                                    type="number"
+                                    class="form-control text-center"
+                                    v-model="set.actual_weight"
+                                />
+                                <input
+                                    type="number"
+                                    class="form-control text-center"
+                                    v-model="set.actual_reps"
+                                />
+                                <input
+                                    type="number"
+                                    class="form-control text-center"
+                                    v-model="set.actual_rpe"
                                 />
                             </div>
 
                             <button
-                                class="set-number btn btn-danger mx-2 my-3 text-white"
+                                class="btn btn-danger mx-2 my-3 text-white"
                                 @click="() => deleteSet(exercise.id, set.id)"
                             >
                                 <font-awesome-icon icon="fa-solid fa-trash" />
@@ -140,15 +182,16 @@ import { onMounted, reactive, ref, computed } from "vue";
 import { useRoute } from "vue-router";
 import _ from "lodash";
 
-import axiosClient from "../../config/axios";
+import axiosClient from "../../../config/axios";
 
-import { selectExercise } from "../../functions/alerts";
-import { calculateTonelage } from "../../functions/helpers";
-import Spinner from "../../components/utils/Spinner.vue";
+import { selectExercise } from "../../../functions/alerts";
+import { calculateTonelage } from "../../../functions/helpers";
+import Spinner from "../../../components/utils/Spinner.vue";
 
 const route = useRoute();
 const athlete_id = route.params.id;
-const date = route.query.date;
+const workout_id = route.params.workout_id;
+const workout_date = ref(null);
 
 const loading = ref(false);
 
@@ -168,6 +211,24 @@ async function getExercises() {
         );
 
         exercises.value = response.data;
+
+        loading.value = false;
+    } catch (e) {
+        console.log(e);
+        loading.value = false;
+    }
+}
+
+async function getWorkout() {
+    loading.value = true;
+    try {
+        const response = await axiosClient("workout/" + workout_id);
+        workout_date.value = response.data[0].date;
+
+        for (let i of response.data) {
+            workout.push(i);
+        }
+
         loading.value = false;
     } catch (e) {
         console.log(e);
@@ -253,29 +314,63 @@ async function saveWorkout() {
         const respuesta = await axiosClient.post("workout", {
             user_id: athlete_id,
             date,
-            workout
-        })
-        console.log(respuesta)
+            workout,
+        });
+        console.log(respuesta);
         loading.value = false;
     } catch (error) {
-        console.log(error)
+        console.log(error);
         loading.value = false;
     }
 }
 
 onMounted(() => {
     getExercises();
+    getWorkout();
 });
 </script>
 
 <style scoped>
+.set-headers-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+}
+.set-headers-group section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.set-header-target {
+    padding: 0 2rem 0 6rem !important; 
+}
+
+.set-header-actual {
+    padding: 0 6rem 0 2rem !important; 
+}
+
+.set-labels {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: center;
+}
+
+.set-super-header {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+}
 .set-header {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     margin: 0 6rem 0 3.5rem;
 }
 .set-number {
-    width: 3.5rem;
+    width: 10rem;
 }
 
 .exercise-card {

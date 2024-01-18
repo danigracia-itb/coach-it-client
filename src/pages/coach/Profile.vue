@@ -12,9 +12,9 @@
         </button>
       </div>
       <div class="col-8">
-        <p v-if="!editName">{{ user.name }}</p>
-        <input v-if="editName" type="text" name="" id="">
-        <font-awesome-icon icon="fa-solid fa-pen" size="2xl" class="pen"/>
+        <span v-if="!coachName">{{ user.name }}</span>
+        <input v-if="coachName" type="text" :value="user.name">
+        <button class="bg-transparent border-0" @click="editName"><font-awesome-icon icon="fa-solid fa-pen" size="2xl" class="text-primary"/></button>
         <p>
           Recuperar contraseña:
           <RouterLink to="/request-password-recover">
@@ -22,6 +22,7 @@
           </RouterLink>
         </p>
       </div>
+      <button>Guardar</button>
     </div>
   </template>
   
@@ -57,7 +58,7 @@
   
   let coachName = ref(false);
   function editName(){
-    
+    coachName.value = ! coachName.value;
   }
 
   </script>
@@ -72,9 +73,6 @@
     border: none;
     background-color: transparent;
     outline: none;
-  }
-  .pen{
-    color: #711bba;
   }
   </style>
   
