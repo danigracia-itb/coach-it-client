@@ -1,44 +1,18 @@
 <template>
-    <li
-        class="calendar-day"
-        :class="{
-            'calendar-day--not-current': !day.isCurrentMonth,
-            'calendar-day--today': isToday,
-        }"
-    >
+    <li @contextmenu="onContextMenu($event)" class="calendar-day" :class="{
+        'calendar-day--not-current': !day.isCurrentMonth,
+        'calendar-day--today': isToday,
+    }">
         <span class="fw-bold" :class="isToday ? 'bg-primary text-white' : ''">{{
             label
         }}</span>
 
-        <button
-            v-if="day.isCurrentMonth && !hasWorkout"
-            @mouseenter="showMenu"
-            @mouseleave="showMenu"
-            class="add-btn btn btn-success"
-        >
+        <RouterLink :to="`/coach/athlete/${athlete.id}/workout/create?date=${day.date}`" v-if="day.isCurrentMonth && !hasWorkout"
+            class="add-btn btn btn-success">
             <font-awesome-icon icon="fa-solid fa-plus" />
-            <div
-                class="dropdown-menu"
-                :class="menuShown ? 'd-block' : 'd-none'"
-            >
-                <RouterLink
-                    :to="`/coach/athlete/${athlete.id}/workout/create?date=${day.date}`"
-                    class="text-black text-decoration-none px-2 py-1 d-block"
-                    >Add Workout</RouterLink
-                >
-                <RouterLink
-                    :to="`#`"
-                    class="text-black text-decoration-none px-2 py-1 d-block"
-                    >Mark as Rest Day</RouterLink
-                >
-            </div>
-        </button>
+        </RouterLink>
 
-        <RouterLink
-            v-if="hasWorkout"
-            :to="`/coach/athlete/${athlete.id}/workout/${day.date}`"
-            class="btn btn-primary"
-        >
+        <RouterLink v-if="hasWorkout" :to="`/coach/athlete/${athlete.id}/workout/${day.date}`" class="btn btn-primary">
             <font-awesome-icon icon="fa-solid fa-dumbbell" />
             Workout
         </RouterLink>
@@ -46,9 +20,13 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, h } from "vue";
 import dayjs from "dayjs";
 import { RouterLink } from "vue-router";
+import ContextMenu from '@imengyu/vue3-context-menu'
+import { useRouter } from "vue-router";
+const router = useRouter()
+
 
 const props = defineProps([
     "day",
@@ -57,15 +35,75 @@ const props = defineProps([
     "athlete",
     "hasWorkout",
 ]);
-const menuShown = ref(false);
 
 const label = computed(() => {
     return dayjs(props.day.date).format("D");
 });
 
-function showMenu() {
-    menuShown.value = !menuShown.value;
+function onContextMenu(e) {
+    //prevent the browser's default menu
+    e.preventDefault();
+    //show your menu
+    ContextMenu.showContextMenu({
+        x: e.x,
+        y: e.y,
+        zIndex: 3,
+        items: [
+            ...props.hasWorkout ? [{
+                label: "Edit",
+                icon: h('img', {
+                    src: "../../../../public/assets/icons/pen-solid.svg",
+                    style: {
+                        width: '15',
+                        height: '15',
+                        zIndex: 100,
+                    },
+                }),
+
+                divided: true,
+                onClick: () => {
+                    router.push({ path: `/coach/athlete/${props.athlete.id}/workout/{$workout.id}` })
+                },
+            },
+            {
+                label: "Delete",
+                icon: h('img', {
+                    src: "../../../../public/assets/icons/trash-solid.svg",
+                    style: {
+                        width: '15',
+                        height: '15',
+                        zIndex: 100,
+                    },
+                }),
+
+                onClick: () => {
+                    router.push({ path: `/coach/athlete/${props.athlete.id}/workout/${workout.id}` })
+                },
+            }] : [{
+                label: "Add",
+                icon: h('img', {
+                    src: "../../../../public/assets/icons/plus-solid.svg",
+                    style: {
+                        width: '15',
+                        height: '15',
+                        zIndex: 100,
+                    },
+                }),
+                onClick: () => {
+                    router.push({ path: `/coach/athlete/${props.athlete.id}/workout/create?date=${props.day.date}` })
+                },
+            }]
+        ]
+    });
 }
+
+//add
+
+
+//view
+//edit
+//delete
+
 </script>
 
 <style scoped>
@@ -84,7 +122,7 @@ function showMenu() {
     align-items: center;
 }
 
-.calendar-day > span {
+.calendar-day>span {
     align-self: flex-start;
     display: flex;
     justify-content: center;
@@ -104,7 +142,7 @@ function showMenu() {
     padding-top: 4px;
 }
 
-.calendar-day--today > span {
+.calendar-day--today>span {
     border-radius: 9999px;
     padding: 0.4rem 1.2rem;
 }
@@ -113,6 +151,7 @@ function showMenu() {
     opacity: 1;
     transition: all ease-in-out 0.4s;
 }
+
 .add-btn {
     padding: 0.5rem 1rem;
     opacity: 0;
