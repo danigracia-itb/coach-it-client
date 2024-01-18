@@ -55,7 +55,8 @@ const routes = [
             { path: "profile", component: CoachProfile },
             { path: "athlete/:id", component: () => import('./pages/coach/Athlete.vue') },
             { path: "athlete/:id/profile", component: CoachAthleteProfile },
-            { path: "athlete/:id/workout/create", component: () => import('./pages/coach/CreateWorkout.vue') },
+            { path: "athlete/:id/workout/create", component: () => import('./pages/coach/workouts/CreateWorkout.vue') },
+            { path: "athlete/:id/workout/:workout_id", component: () => import('./pages/coach/workouts/EditWorkout.vue') },
         ],
     },
 

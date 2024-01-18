@@ -36,12 +36,14 @@ export function getUser() {
     }
 }
 
-export function calculateTonelage(sets) {
+export function calculateTonelage(sets, edit=false) {
     var tonelage = 0
+    
     if(!sets[0]) {
         return tonelage
     }
 
+<<<<<<< Updated upstream
     sets.map(set => {
         tonelage += set.weight * set.reps
     })
@@ -54,4 +56,21 @@ export function logOut(router) {
     localStorage.removeItem('id');
     localStorage.removeItem('token');
     router.push({ path: "/login" })
+=======
+    if(!edit) {
+        sets.map(set => {
+            tonelage += set.weight * set.reps
+        })
+        
+        return sets[0].weight ? tonelage : 0
+    } else {
+        sets.map(set => {
+            tonelage += set.target_weight * set.target_reps
+        })
+        
+        return sets[0].target_weight ? tonelage : 0
+    }
+
+
+>>>>>>> Stashed changes
 }

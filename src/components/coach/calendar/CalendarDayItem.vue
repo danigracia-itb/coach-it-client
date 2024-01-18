@@ -36,7 +36,7 @@
 
         <RouterLink
             v-if="hasWorkout"
-            :to="`/coach/athlete/${athlete.id}/workout/${day.date}`"
+            :to="`/coach/athlete/${athlete.id}/workout/${workout.id}`"
             class="btn btn-primary"
         >
             <font-awesome-icon icon="fa-solid fa-dumbbell" />
@@ -56,6 +56,7 @@ const props = defineProps([
     "isToday",
     "athlete",
     "hasWorkout",
+    "workout",
 ]);
 const menuShown = ref(false);
 
