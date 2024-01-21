@@ -20,7 +20,6 @@
                     <button class="navbar-toggler" type="button" @click="toggleNav" data-bs-toggle="collapse"
                         data-bs-target="#navbarNav" aria-controls="navbarNav" :aria-expanded="isNavOpen ? 'true' : 'false'"
                         aria-label="Toggle navigation" style="font-size: 4rem">
-                        >
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div :class="[
@@ -53,7 +52,8 @@
             <h1 class="journey text-center text-white text-uppercase">
                 Start your journey as an
                 <br />
-                <img src="../../../public/assets/img/Strength.png" width="1300" class="mb-2 fade-image" alt="strenght coach mt-5" />
+                <img src="../../../public/assets/img/Strength.png" width="1300" class="mb-2 fade-image"
+                    alt="strenght coach mt-5" />
             </h1>
             <div>
                 <RouterLink to="/register">
@@ -112,7 +112,8 @@
                 </p>
 
                 <p class="mb-5 justified-text">
-                    <img class="social-net" src=" ../../../public/assets/img/ux.svg" /><strong> Intuitive Interface:</strong> A
+                    <img class="social-net" src=" ../../../public/assets/img/ux.svg" /><strong> Intuitive
+                        Interface:</strong> A
                     user-friendly
                     interface ensures a seamless experience. No tech hurdles,
                     just a straightforward platform for you to focus on what you
@@ -395,7 +396,7 @@ svg {
 
 .fade-image {
     animation: fade 5s infinite;
-    animation-delay: 20s;
+    animation-delay: 8s;
 }
 
 @keyframes grow {
