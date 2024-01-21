@@ -1,6 +1,6 @@
 <template>
     <header>
-        <section class="bg-dark d-flex">
+        <div class="bg-dark d-flex">
             <a class="social" href="https://www.instagram.com">
                 <img class="social-net svg-container" src="../../../public/assets/img/instagram.svg" />
             </a>
@@ -10,10 +10,9 @@
             <a class="social" href="https://www.twitter.com">
                 <img class="social-net" src="../../../public/assets/img/twitterX.svg" />
             </a>
-        </section>
+        </div>
 
-        <section
-            class="bg-light px-5 py-2 d-flex flex-column flex-sm-row justify-content-between align-items-center shadow-sm">
+        <div class="bg-light px-5 py-2 d-flex flex-column flex-sm-row justify-content-between align-items-center shadow-sm">
             <RouterLink to="/"><img width="300" src="../../../public/assets/logo.png" /></RouterLink>
             <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
                 <div class="container-fluid">
@@ -44,7 +43,7 @@
                         </button></RouterLink>
                 </div>
             </nav>
-        </section>
+        </div>
     </header>
 
     <section class="hero">
@@ -52,18 +51,18 @@
             <h1 class="journey text-center text-white text-uppercase">
                 Start your journey as an
                 <br />
-                <img src="../../../public/assets/img/Strength.png" width="1300" class="mb-2 fade-image"
-                    alt="strenght coach mt-5" />
+                <img src="../../../public/assets/img/Strength.png" class="mb-2 fade-image" alt="strength coach"
+                    style="max-width: 100%;" />
             </h1>
             <div>
                 <RouterLink to="/register">
-                    <button class="free-trial-btn btn btn-primary text-uppercase btn-xl m5-5">
+                    <button class="free-trial-btn btn btn-primary text-uppercase btn-xl m-5">
                         Start now
                     </button>
                 </RouterLink>
             </div>
             <div class="motivational-text container py-5">
-                <p class="justified-text">
+                <p class="text-justify">
                     Are you ready to transform your passion for fitness into a
                     fulfilling and rewarding career? Welcome to a revolutionary
                     web app designed for aspiring strength coaches like you!
@@ -71,7 +70,7 @@
 
                 <h3 class="mt-4">Embark on your coaching pathway:</h3>
 
-                <p class="justified-text">
+                <p class="text-justify">
                     The path to becoming a force in the world of strength
                     coaching starts here. Our web app is not just a platform;
                     it's a gateway to your dreams. Imagine guiding individuals
@@ -80,10 +79,9 @@
                     turn your passion into purpose!
                 </p>
             </div>
+            <img src="../../../public/assets/img/calendar2.png" alt="Calendar Image" class="calendar-img" />
         </div>
     </section>
-
-    <img :src="currentImage.src" :alt="currentImage.alt" class="calendar-img" />
 
     <section class="info-ci bg-dark py-5">
         <div class="container">
@@ -92,7 +90,7 @@
             </h2>
             <h3 class="text-center text-white fw-bold">Why Join Us?</h3>
             <div class="motivational-text container py-5">
-                <p class="mb-5 justified-text">
+                <p class="mb-5 text-justify">
                     <img class="social-net" src="../../../public/assets/img/tools.svg" />
 
                     <strong>Comprehensive Tools:</strong> Access cutting-edge
@@ -102,7 +100,7 @@
                     ease.
                 </p>
 
-                <p class="mb-5 justified-text">
+                <p class="mb-5 text-justify">
                     <img class="social-net" src="../../../public/assets/img/track.svg" />
                     <strong> Be the Performance Tracking:</strong>
                     architect of success! Follow your clients' journeys, analyze
@@ -111,7 +109,7 @@
                     goals awaits.
                 </p>
 
-                <p class="mb-5 justified-text">
+                <p class="mb-5 text-justify">
                     <img class="social-net" src=" ../../../public/assets/img/ux.svg" /><strong> Intuitive
                         Interface:</strong> A
                     user-friendly
@@ -120,7 +118,7 @@
                     do best: coaching.
                 </p>
 
-                <p class="mb-5 justified-text">
+                <p class="mb-5 text-justify">
                     <strong><img class="social-net" src="../../../public/assets/img/global.svg" />
                         Global Reach:</strong>
                     Connect with clients worldwide. Whether you're just starting
@@ -128,34 +126,32 @@
                     to make a global impact.
                 </p>
             </div>
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <div class="m-5">
+                    <img src="../../../public/assets/img/powerlifting2.jpg" alt="Powerlifting Image" class="calendar-img" />
+                </div>
+            </div>
+
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <div class="row gx-5 ">
+                    <h3 class="text-center text-white fw-bold pb-4">
+                        Athlete Dashboard example
+                    </h3>
+                </div>
+                <img src="../../../public/assets/img/calendar2.png" alt="Calendar Image" class="calendar-img" />
+            </div>
+
             <div class="row gx-5">
-                <div class="col-md-6 d-flex justify-content-end align-items-center mb-5 mb-md-0">
-                    <div class="image-container">
-                        <img src="../../../public/assets/img/powerlifting2.jpg" alt="Powerlifting" class="pwl" />
+                <div class="row gx-5">
+                    <h3 class="text-center text-white fw-bold pb-4 mt-5 mb-2">
+                        Perform Tracking
+                    </h3>
+                    <div class="perform-tracking-container">
                     </div>
                 </div>
                 <div class="col-md-6 text-white d-flex flex-column justify-content-center"></div>
             </div>
-
-            <div class="row gx-5">
-                <h3 class="text-center text-white fw-bold pb-4">
-                    Athlete Dashboard example
-                </h3>
-                <img :src="currentImage.src" :alt="currentImage.alt"
-                    class="calendar-img2 justify-content-end align-items-center" />
-            </div>
-
-            <div class="row gx-5">
-                <h3 class="text-center text-white fw-bold pb-4 mt-5 mb-5">
-                    Perform Tracking
-                </h3>
-                <div class="col-md-6 d-flex justify-content-end align-items-center mb-5 mb-md-0">
-                    <div class="image-container">
-                        <img src="../../../public/assets/img/tracking.jpg" alt="Tracking" class="ptk" />
-                    </div>
-                </div>
-                <div class="col-md-6 text-white d-flex flex-column justify-content-center"></div>
-            </div>
+            <img src="../../../public/assets/img/tracking.jpg" alt="Tracking Image" class="calendar-img" />
         </div>
     </section>
 
@@ -237,9 +233,9 @@ export default {
 </script>
 
 <style scoped>
-.bg-dark {
-    background-color: #000;
-    padding: 15px;
+header {
+    position: relative;
+    z-index: 1000;
 }
 
 .d-flex {
@@ -249,6 +245,11 @@ export default {
 
 svg {
     color: #ffffff;
+}
+
+.bg-dark {
+    background-color: #000;
+    padding: 15px;
 }
 
 .social {
@@ -339,40 +340,44 @@ svg {
 }
 
 .hero {
-    background-image: url("../../../public/assets/img/hero-img.jpeg");
-    height: 75rem;
+    background-image: url('../../../public/assets/img/hero-img2.jpg');
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
     position: relative;
-}
-
-@media (min-width: 768px) {
-    .hero {
-        height: 82rem;
-    }
-}
-
-.hero-overlay {
-    height: 100%;
-    padding: 22rem 10% 0 10%;
-    background-color: rgba(0, 0, 0, 0.75);
-}
-
-@media (min-width: 768px) {
-    .hero-overlay {
-        padding: 8rem 10% 0 10%;
-    }
 }
 
 .hero-overlay h1 {
     font-size: 5rem;
     font-weight: 900;
+    color: #fff;
+    /* Añadido color al texto para mejorar la legibilidad */
 }
 
-@media (min-width: 768px) {
-    .hero-overlay h1 {
-        font-size: 7rem;
-    }
+.journey {
+    margin-top: 5rem;
+}
+
+.motivational-text {
+    text-align: center;
+    padding: 3rem;
+    position: relative;
+    /* Agregado para establecer un contexto de apilamiento */
+    z-index: 2;
+    /* Ajustado el valor del z-index */
+}
+
+.motivational-text p {
+    color: #fff;
+    font-size: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.motivational-text h3 {
+    color: #ffffff;
+    margin-top: 1.5rem;
 }
 
 .hero-overlay h1 span {
@@ -419,10 +424,6 @@ svg {
     border-radius: 10px;
 }
 
-.justified-text {
-    text-align: justify;
-}
-
 .motivational-text {
     text-align: center;
     padding: 3rem;
@@ -441,18 +442,14 @@ svg {
 }
 
 .calendar-img {
-    display: block;
-    margin: 0 auto;
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1;
-    margin-top: 60px;
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+    margin: 10px;
 }
 
 .info-ci h2 {
-    margin: 75rem 0;
+    margin: 5rem 0;
 }
 
 .image-container {
@@ -461,32 +458,12 @@ svg {
     overflow: hidden;
 }
 
-.pwl {
-    display: block;
-    margin: 0 auto;
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1;
-    margin-top: 1440px;
-    max-width: 1200px;
-}
-
-.ptk {
-    display: block;
-    margin: 0 auto;
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1;
-    margin-top: 2940px;
-    max-width: 1200px;
+.perform-tracking-container {
+    position: relative;
 }
 
 .image-container img {
-    width: 100%;
+    max-width: 100%;
     height: auto;
 }
 </style>
