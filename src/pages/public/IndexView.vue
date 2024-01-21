@@ -446,6 +446,7 @@ svg {
     height: auto;
     margin-top: 10px;
     margin: 10px;
+    border-radius: 10px;
 }
 
 .info-ci h2 {
