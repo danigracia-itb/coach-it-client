@@ -1,18 +1,14 @@
 <template>
     <div class="row">
         <div class="img-register vh-100 col-7 d-none d-md-block"></div>
-        <div
-            class="col-md-5 d-flex flex-column align-items-center justify-content-center"
-        >
-            <RouterLink to="/"
-                ><img class="auth-logo-img" src="../../../public/assets/logo.png" alt=""
-            /></RouterLink>
-            <div class="p-5 mx-2 mx-md-0 border rounded-5">
+        <div class="col-md-5 d-flex flex-column align-items-center justify-content-center">
+            <RouterLink to="/"><img class="auth-logo-img" src="../../../public/assets/logo.png" alt="" /></RouterLink>
+            <div class="p-5 mx-auto border rounded-5">
                 <h1 class="text-uppercase text-center fw-bold">
                     Register as {{ is_coach ? "a" : "an" }}
-                    <span class="text-primary">{{
-                        is_coach ? "Coach" : "Athlete"
-                    }}</span>
+                    <span :class="{ 'text-primary': is_coach }">
+                        {{ is_coach ? "Coach" : "Athlete" }}
+                    </span>
                 </h1>
                 <p v-if="!is_coach && code" class="text-center fw-bold mt-4">
                     Registering using code:
@@ -21,15 +17,8 @@
                 <form @submit.prevent="register" novalidate>
                     <div class="form-group mt-5">
                         <label for="name">Name</label>
-                        <input
-                            type="name"
-                            id="name"
-                            class="form-control p-3"
-                            :class="errors.name ? 'is-invalid' : ''"
-                            placeholder="Introduce your name"
-                            required
-                            v-model="name"
-                        />
+                        <input type="name" id="name" class="form-control p-3" :class="errors.name ? 'is-invalid' : ''"
+                            placeholder="Introduce your name" required v-model="name" />
 
                         <div v-if="errors.name" class="invalid-feedback">
                             {{ errors.name }}
@@ -38,15 +27,8 @@
 
                     <div class="form-group mt-5">
                         <label for="email">Email</label>
-                        <input
-                            type="email"
-                            id="email"
-                            class="form-control p-3"
-                            :class="errors.email ? 'is-invalid' : ''"
-                            placeholder="Introduce your email"
-                            required
-                            v-model="email"
-                        />
+                        <input type="email" id="email" class="form-control p-3" :class="errors.email ? 'is-invalid' : ''"
+                            placeholder="Introduce your email" required v-model="email" />
 
                         <div v-if="errors.email" class="invalid-feedback">
                             {{ errors.email }}
@@ -55,79 +37,37 @@
 
                     <div class="form-group mt-5">
                         <label for="password">Password</label>
-                        <input
-                            type="password"
-                            id="password"
-                            class="form-control p-3"
-                            :class="
-                                errors.password_confirmation ? 'is-invalid' : ''
-                            "
-                            placeholder="Introduce your password"
-                            required
-                            v-model="password"
-                        />
-                        <input
-                            type="password"
-                            id="password"
-                            class="form-control p-3 mt-4"
-                            :class="
-                                errors.password_confirmation ? 'is-invalid' : ''
-                            "
-                            placeholder="Repeat your password"
-                            required
-                            v-model="password_confirmation"
-                        />
+                        <input type="password" id="password" class="form-control p-3" :class="errors.password_confirmation ? 'is-invalid' : ''
+                            " placeholder="Introduce your password" required v-model="password" />
+                        <input type="password" id="password" class="form-control p-3 mt-4" :class="errors.password_confirmation ? 'is-invalid' : ''
+                            " placeholder="Repeat your password" required v-model="password_confirmation" />
 
-                        <div
-                            v-if="errors.password_confirmation"
-                            class="invalid-feedback"
-                        >
+                        <div v-if="errors.password_confirmation" class="invalid-feedback">
                             {{ errors.password_confirmation }}
                         </div>
                     </div>
 
                     <div class="form-check mt-4">
-                        <input
-                            class="form-check-input"
-                            :class="errors.terms_conditions ? 'is-invalid' : ''"
-                            type="checkbox"
-                            required
-                            v-model="terms_conditions"
-                        />
+                        <input class="form-check-input" :class="errors.terms_conditions ? 'is-invalid' : ''" type="checkbox"
+                            required v-model="terms_conditions" />
                         <label class="form-check-label" for="flexCheckDefault">
                             I agree to the
-                            <span
-                                class="text-primary fw-bold text-decoration-underline cursor-pointer"
-                                @click="callTermsAndConditions"
-                                >Terms & Conditions</span
-                            >
+                            <span class="text-primary fw-bold text-decoration-underline cursor-pointer"
+                                @click="callTermsAndConditions">Terms & Conditions</span>
                         </label>
-                        <div
-                            v-if="errors.terms_conditions"
-                            class="invalid-feedback"
-                        >
+                        <div v-if="errors.terms_conditions" class="invalid-feedback">
                             {{ errors.terms_conditions }}
                         </div>
                     </div>
 
                     <div class="form-check mt-2">
-                        <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value=""
-                            checked
-                            v-model="comunications"
-                        />
+                        <input class="form-check-input" type="checkbox" value="" checked v-model="comunications" />
                         <label class="form-check-label" for="flexCheckChecked">
                             I agree to recive communications from Coach IT
                         </label>
                     </div>
 
-                    <button
-                        v-if="!loading"
-                        type="submit"
-                        class="text-uppercase btn btn-primary mt-5 rounded-4 w-100"
-                    >
+                    <button v-if="!loading" type="submit" class="text-uppercase btn btn-primary mt-5 rounded-4 w-100">
                         Register
                     </button>
                     <Spinner v-else />
@@ -139,25 +79,17 @@
                 <div class="mt-5 text-center">
                     <p>
                         Already have an account?
-                        <RouterLink to="/login" class="text-primary fw-bolder"
-                            >Login</RouterLink
-                        >
+                        <RouterLink to="/login" class="text-primary fw-bolder">Login</RouterLink>
                     </p>
                     <p v-if="is_coach">
                         You are not a coach?
-                        <RouterLink
-                            to="/register?type=athlete"
-                            class="text-primary fw-bolder"
-                            >Register as an athlete</RouterLink
-                        >
+                        <RouterLink to="/register?type=athlete" class="text-primary fw-bolder">Register as an athlete
+                        </RouterLink>
                     </p>
                     <p v-else>
                         You are a coach?
-                        <RouterLink
-                            to="/register?type=coach"
-                            class="text-primary fw-bolder"
-                            >Register as a coach</RouterLink
-                        >
+                        <RouterLink to="/register?type=coach" class="text-primary fw-bolder">Register as a coach
+                        </RouterLink>
                     </p>
                 </div>
             </div>
@@ -259,7 +191,7 @@ async function register() {
         if (is_coach.value) {
             router.push({ path: "/coach" });
         } else {
-            router.push({ path: `/form`, query: {id: user.id} });
+            router.push({ path: `/form`, query: { id: user.id } });
         }
 
         console.log(response);
@@ -295,10 +227,39 @@ watch(
 </script>
 
 <style scoped>
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+html,
+body {
+    height: 100%;
+    overflow-y: hidden;
+}
+
+.col-md-5 {
+    overflow-y: auto;
+    max-height: 100vh;
+    /* Ajusta la altura máxima según sea necesario */
+}
+
+.img-register {}
+
+.row {
+    max-width: 100%;
+    overflow: hidden;
+}
+
 .img-register {
     background-image: url(../../../public/assets/img/img-register.webp);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center right;
+    max-width: 100%;
+    background-position: center;
+    max-width: 100%;
+    height: 100%;
 }
 </style>
