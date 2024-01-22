@@ -3,12 +3,12 @@
         <div class="img-register vh-100 col-7 d-none d-md-block"></div>
         <div class="col-md-5 d-flex flex-column align-items-center justify-content-center">
             <RouterLink to="/"><img class="auth-logo-img" src="../../../public/assets/logo.png" alt="" /></RouterLink>
-            <div class="p-5 mx-2 mx-md-0 border rounded-5">
+            <div class="p-5 mx-auto border rounded-5">
                 <h1 class="text-uppercase text-center fw-bold">
                     Register as {{ is_coach ? "a" : "an" }}
-                    <span class="text-primary">{{
-                        is_coach ? "Coach" : "Athlete"
-                    }}</span>
+                    <span :class="{ 'text-primary': is_coach }">
+                        {{ is_coach ? "Coach" : "Athlete" }}
+                    </span>
                 </h1>
                 <p v-if="!is_coach && code" class="text-center fw-bold mt-4">
                     Registering using code:
@@ -240,12 +240,16 @@ body {
 }
 
 .col-md-5 {
-    overflow: hidden;
+    overflow-y: auto;
+    max-height: 100vh;
+    /* Ajusta la altura máxima según sea necesario */
 }
+
+.img-register {}
 
 .row {
     max-width: 100%;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 .img-register {
@@ -254,5 +258,8 @@ body {
     background-size: cover;
     background-position: center right;
     max-width: 100%;
+    background-position: center;
+    max-width: 100%;
+    height: 100%;
 }
 </style>

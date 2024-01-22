@@ -46,7 +46,7 @@
         </div>
     </header>
 
-    <section class="hero">
+    <section class="hero bg-dark">
         <div class="hero-overlay d-flex flex-column justify-content-center align-items-center">
             <h1 class="journey text-center text-white text-uppercase">
                 Start your journey as an
@@ -68,7 +68,7 @@
                     web app designed for aspiring strength coaches like you!
                 </p>
 
-                <h3 class="mt-4">Embark on your coaching pathway:</h3>
+                <h3 class="mt-4 mb-4">Embark on your coaching pathway:</h3>
 
                 <p class="text-justify">
                     The path to becoming a force in the world of strength
@@ -77,13 +77,32 @@
                     on their transformative fitness journey, witnessing their
                     strength soar, and celebrating their victories. It's time to
                     turn your passion into purpose!
+                </p><br />
+                <p class="text-justify">
+                    This is more than coaching; it's a profound connection to the human spirit. Your canvas extends beyond
+                    the
+                    gym walls, painting a tapestry of empowerment, resilience, and personal triumphs. It's the art of
+                    sculpting
+                    dreams into reality and transforming passion into a legacy.
                 </p>
             </div>
-            <img src="../../../public/assets/img/calendar2.png" alt="Calendar Image" class="calendar-img" />
         </div>
     </section>
 
-    <section class="info-ci bg-dark py-5">
+    <section class="bg-dark">
+        <div class="row gx-5 ">
+            <h3 class="text-center text-white fw-bold pb-4 mt-5">
+                Coach Dashboard example
+            </h3>
+        </div>
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <div class="mb-5">
+                <img src="../../../public/assets/img/DashboardCoach.png" alt="Dashboard Image" class="img-req" />
+            </div>
+        </div>
+
+
+
         <div class="container">
             <h2 class="text-center text-white fw-bold mb-4">
                 THE BEST TOOL FOR PERSONAL TRAINERS
@@ -118,7 +137,7 @@
                     do best: coaching.
                 </p>
 
-                <p class="mb-5 text-justify">
+                <p class="text-justify">
                     <strong><img class="social-net" src="../../../public/assets/img/global.svg" />
                         Global Reach:</strong>
                     Connect with clients worldwide. Whether you're just starting
@@ -127,8 +146,8 @@
                 </p>
             </div>
             <div class="d-flex flex-column justify-content-center align-items-center">
-                <div class="m-5">
-                    <img src="../../../public/assets/img/powerlifting2.jpg" alt="Powerlifting Image" class="calendar-img" />
+                <div class="mb-5">
+                    <img src="../../../public/assets/img/powerlifting2.jpg" alt="Powerlifting Image" class="img-req" />
                 </div>
             </div>
 
@@ -138,7 +157,7 @@
                         Athlete Dashboard example
                     </h3>
                 </div>
-                <img src="../../../public/assets/img/calendar2.png" alt="Calendar Image" class="calendar-img" />
+                <img src="../../../public/assets/img/DashboardAthlete.png" alt="Calendar Image" class="img-req" />
             </div>
 
             <div class="row gx-5">
@@ -148,10 +167,10 @@
                     </h3>
                     <div class="perform-tracking-container">
                     </div>
+                    <div class="col-md-6 text-white d-flex flex-column justify-content-center"></div>
                 </div>
-                <div class="col-md-6 text-white d-flex flex-column justify-content-center"></div>
+                <img src="../../../public/assets/img/tracking.jpg" alt="Tracking Image" class="img-req mb-5" />
             </div>
-            <img src="../../../public/assets/img/tracking.jpg" alt="Tracking Image" class="calendar-img" />
         </div>
     </section>
 
@@ -249,7 +268,6 @@ svg {
 
 .bg-dark {
     background-color: #000;
-    padding: 15px;
 }
 
 .social {
@@ -297,7 +315,6 @@ svg {
 }
 
 .nav-link::after {
-    content: "";
     position: absolute;
     width: 100%;
     height: 2px;
@@ -331,7 +348,7 @@ svg {
     font-size: 20px;
     width: 150px;
     height: 50px;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .start-today-btn:active {
@@ -344,15 +361,14 @@ svg {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    height: 100vh;
     position: relative;
+    padding: 100px 0;
 }
 
 .hero-overlay h1 {
     font-size: 5rem;
     font-weight: 900;
     color: #fff;
-    /* Añadido color al texto para mejorar la legibilidad */
 }
 
 .journey {
@@ -363,9 +379,7 @@ svg {
     text-align: center;
     padding: 3rem;
     position: relative;
-    /* Agregado para establecer un contexto de apilamiento */
     z-index: 2;
-    /* Ajustado el valor del z-index */
 }
 
 .motivational-text p {
@@ -441,7 +455,7 @@ svg {
     margin-top: 1.5rem;
 }
 
-.calendar-img {
+.img-req {
     max-width: 100%;
     height: auto;
     margin-top: 10px;

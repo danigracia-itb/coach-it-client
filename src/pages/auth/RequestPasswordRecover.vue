@@ -1,12 +1,8 @@
 <template>
     <div class="row vh-100">
         <div class="img-password col-7 d-none d-md-block"></div>
-        <div
-            class="col-md-5 d-flex flex-column align-items-center justify-content-center"
-        >
-            <RouterLink to="/"
-                ><img class="auth-logo-img" src="../../../public/assets/logo.png" alt=""
-            /></RouterLink>
+        <div class="col-md-5 d-flex flex-column align-items-center justify-content-center">
+            <RouterLink to="/"><img class="auth-logo-img" src="../../../public/assets/logo.png" alt="" /></RouterLink>
             <div class="p-5 px-5 border rounded-5">
                 <h1 class="text-uppercase text-center fw-bold">
                     Forgot your <span class="text-primary">Password?</span>
@@ -14,15 +10,8 @@
                 <form @submit.prevent="requestPasswordRecover">
                     <div class="form-group mt-5">
                         <label for="email">Email</label>
-                        <input
-                            v-model="email"
-                            type="email"
-                            id="email"
-                            class="form-control p-3"
-                            :class="errors.email ? 'is-invalid' : ''"
-                            placeholder="Introduce your email"
-                            required
-                        />
+                        <input v-model="email" type="email" id="email" class="form-control p-3"
+                            :class="errors.email ? 'is-invalid' : ''" placeholder="Introduce your email" required />
 
                         <div v-if="errors.email" class="invalid-feedback">
                             {{ errors.email }}
@@ -31,11 +20,7 @@
 
                     <Spinner v-if="loading" />
 
-                    <button
-                        v-else
-                        type="submit"
-                        class="text-uppercase btn btn-primary mt-5 rounded-4 w-100"
-                    >
+                    <button v-else type="submit" class="text-uppercase btn btn-primary mt-5 rounded-4 w-100">
                         Send mail
                     </button>
                 </form>
@@ -98,3 +83,16 @@ async function requestPasswordRecover() {
     }
 }
 </script>
+
+<style scoped>
+html,
+body {
+    height: 100%;
+    overflow-y: hidden;
+}
+
+.row {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+</style>
