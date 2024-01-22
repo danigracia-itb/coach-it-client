@@ -213,10 +213,37 @@ export function selectExercise(exercises, workout) {
 
 //Invite Athlete
 export function inviteAthlete(host, code) {
+    const url = `http://${host}/register?type=athlete&code=${code}`;
+
     Swal.fire({
         width: "700px",
         html: `<h1 class="text-black">Your code is: <span class="text-primary">${code}</span></h1>
-        <a href="http://${host}/register?type=athlete&code=${code}" class="d-block border p-3 text-nowrap">http://${host}/register?type=athlete?code=${code}</a>`,
-        confirmButtonColor: "#711bba"
+        <a id="registrationLink" href="${url}" class="d-block border p-3 text-nowrap">${url}</a> 
+            <svg id="copyButton" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="24" height="24">
+                <path d="M384 336H192c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16l140.1 0L400 115.9V320c0 8.8-7.2 16-16 16zM192 384H384c35.3 0 64-28.7 64-64V115.9c0-12.7-5.1-24.9-14.1-33.9L366.1 14.1c-9-9-21.2-14.1-33.9-14.1H192c-35.3 0-64 28.7-64 64V320c0 35.3 28.7 64 64 64zM64 128c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H256c35.3 0 64-28.7 64-64V416H272v32c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192c0-8.8 7.2-16 16-16H96V128H64z"/>
+            </svg>
+        <div id="copiedMessage" style="display: none; color: green;">Copied</div>`,
+        confirmButtonColor: "#711bba",
+    });
+
+    const copyButton = document.getElementById("copyButton");
+    const copiedMessage = document.getElementById("copiedMessage");
+
+    copyButton.addEventListener("click", () => {
+        const tempInput = document.createElement("input");
+        tempInput.value = url;
+        document.body.appendChild(tempInput);
+
+        tempInput.select();
+        tempInput.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+
+        document.body.removeChild(tempInput);
+
+        copiedMessage.style.display = "block";
+
+        setTimeout(() => {
+            copiedMessage.style.display = "none";
+        }, 3000);
     });
 }
