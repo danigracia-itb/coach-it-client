@@ -1,15 +1,17 @@
 <template>
     <header>
         <div class="bg-dark d-flex">
-            <a class="social" href="https://www.instagram.com">
-                <img class="social-net svg-container" src="../../../public/assets/img/instagram.svg" />
-            </a>
-            <a class="social" href="https://www.facebook.com">
-                <img class="social-net" src="../../../public/assets/img/facebook.svg" />
-            </a>
-            <a class="social" href="https://www.twitter.com">
-                <img class="social-net" src="../../../public/assets/img/twitterX.svg" />
-            </a>
+            <div class="m-4">
+                <a class="social" href="https://www.instagram.com">
+                    <img class="social-net svg-container" src="../../../public/assets/img/instagram.svg" />
+                </a>
+                <a class="social" href="https://www.facebook.com">
+                    <img class="social-net" src="../../../public/assets/img/facebook.svg" />
+                </a>
+                <a class="social" href="https://www.twitter.com">
+                    <img class="social-net" src="../../../public/assets/img/twitterX.svg" />
+                </a>
+            </div>
         </div>
 
         <div class="bg-light px-5 py-2 d-flex flex-column flex-sm-row justify-content-between align-items-center shadow-sm">
