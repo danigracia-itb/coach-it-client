@@ -22,7 +22,6 @@
                     <button class="navbar-toggler" type="button" @click="toggleNav" data-bs-toggle="collapse"
                         data-bs-target="#navbarNav" aria-controls="navbarNav" :aria-expanded="isNavOpen ? 'true' : 'false'"
                         aria-label="Toggle navigation" style="font-size: 4rem">
-                        >
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div :class="[
