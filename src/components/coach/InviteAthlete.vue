@@ -1,9 +1,9 @@
 <template>
     <div>
-        <button class="btn btn-primary">
+        <button class="btn btn-primary" @click="inviteAthletePopup">
             <font-awesome-icon
                 icon="fa-solid fa-user-plus"
-                @click="inviteAthletePopup"
+                
             />
         </button>
 

@@ -3,15 +3,9 @@
         <header class="d-flex justify-content-between overflow-hidden">
             <!-- PC -->
             <img width="200" src="../../public/assets/logo.png" alt="logo" />
-            <button class="float-right border-0 bg-transparent" @click="toogleUserMenu">
-                <img class="profile-img rounded-circle" width="50" :src="user.picture" alt="">
-            </button>
-            <!-- <div class="" >
-                <RouterLink to="" class="text-center border-bottom bg-primary">
-                    <p class="mt-4 fs-1">Edit profile</p>
-                </RouterLink>
-                <button @click="logOut">LOG OUT</button>
-            </div> -->
+
+            <UserMenu></UserMenu>
+
             <!-- MOVIL -->
             <button class="d-md-none button-mobile" @click="toggleMenu">
                 <img src="../assets/img/mobile-menu.png" width="20" alt="">
@@ -31,7 +25,7 @@
                 </RouterLink><br />
             </div>
         </header>
-        <UserMenu class="userMenu" :class="showUserMenu ? 'd-block' : 'd-none'"></UserMenu>
+
         <div class="h-100">
             <CoachMenu  class="d-none d-md-block"></CoachMenu>
             <main class="main-content px-3 px-md-0">
@@ -45,14 +39,7 @@
 import { RouterView } from "vue-router";
 import CoachMenu from "../components/coach/CoachMenu.vue";
 import { ref } from "vue";
-import { getUser } from  "../functions/helpers.js";
-import UserMenu from "../components/utils/userMenu.vue";
-
-let showUserMenu = ref(false)
-function toogleUserMenu(){
-    showUserMenu.value = !showUserMenu.value
-}
-
+import UserMenu from "../components/utils/UserMenu.vue";
 
 
 let showMenu = ref(false)
@@ -61,20 +48,9 @@ function toggleMenu() {
     console.log(showMenu.value)
 }
 
-let user = getUser();
-
 </script>
 
 <style scoped>
-
-.userMenu {
-    position: relative;
-    top: 0px;
-    width: 300px;
-    float: right;
-    text-align: right;
-    border: 1px solid red;
-}
 
 .button-mobile {
     border: none;
