@@ -39,7 +39,7 @@
 import { RouterView } from "vue-router";
 import CoachMenu from "../components/coach/CoachMenu.vue";
 import { ref } from "vue";
-import UserMenu from "../components/utils/UserMenu.vue";
+import UserMenu from "../components/utils/userMenu.vue";
 
 
 let showMenu = ref(false)
