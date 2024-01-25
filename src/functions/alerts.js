@@ -256,7 +256,8 @@ export function inviteAthlete(host, code) {
     });
 
     shareButton.addEventListener("click", () => {
-        const gmailLoginUrl = "https://mail.google.com/";
+        const gmailLoginUrl =
+            "whatsapp://send?text=This is WhatsApp sharing example using link";
         window.open(gmailLoginUrl, "_blank");
     });
 }
