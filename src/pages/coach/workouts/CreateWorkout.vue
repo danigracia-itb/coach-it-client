@@ -137,7 +137,7 @@
 
 <script setup>
 import { onMounted, reactive, ref, computed } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import _ from "lodash";
 
 import axiosClient from "../../../config/axios";
@@ -147,6 +147,8 @@ import { calculateTonelage } from "../../../functions/helpers";
 import Spinner from "../../../components/utils/Spinner.vue";
 
 const route = useRoute();
+const router = useRouter();
+
 const athlete_id = route.params.id;
 const date = route.query.date;
 
@@ -255,8 +257,9 @@ async function saveWorkout() {
             date,
             workout
         })
-        console.log(respuesta)
         loading.value = false;
+
+        router.push("/coach/athlete/" + athlete_id)
     } catch (error) {
         console.log(error)
         loading.value = false;

@@ -195,7 +195,7 @@ export function selectExercise(exercises, workout) {
                 }
 
                 //Si el ejercicio ya esta añadido dar error
-                if (workout.filter((e) => e.id == exercise)[0]) {
+                if (workout.filter((e) => e.exercise_id ? e.exercise_id : e.id == exercise)[0]) {
                     Swal.showValidationMessage(
                         "This exercise has already been added."
                     );
