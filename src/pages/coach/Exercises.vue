@@ -3,10 +3,15 @@
         <h1 class="text-center mt-5">Exercises</h1>
 
         <!-- Acciones -->
-        <div class="d-flex justify-content-end">
+        <!-- <div class="d-flex justify-content-end">
             <button class="btn btn-primary" @click="addExercise">Add</button>
+        </div> -->
+        
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-primary" @click="addExercise">
+                <font-awesome-icon icon="fa-solid fa-plus" />
+            </button>
         </div>
-
         <Spinner class="mt-5" v-if="loading" />
 
         <div v-else>

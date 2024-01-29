@@ -9,9 +9,9 @@
                 <div class="d-flex gap-2">
                     <RouterLink
                         :to="`/coach/athlete/${athlete.id}/profile`"
-                        class="btn btn-primary py-3 px-4"
+                        class="btn btn-primary"
                     >
-                        <font-awesome-icon icon="fa-solid fa-user" size="xl" />
+                        <font-awesome-icon icon="fa-solid fa-user"/>
                     </RouterLink>
                 </div>
             </header>
