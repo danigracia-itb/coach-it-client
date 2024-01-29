@@ -2,7 +2,12 @@
     <div>
         <Spinner v-if="loading" />
 
-        <div v-else>
+        <div v-else class="mt-5">
+            <div class="d-flex justify-content-start">
+                <RouterLink :to="`/coach/athlete/${athlete.id}`" class="btn btn-primary">
+                    <font-awesome-icon icon="fa-solid fa-left-long" />
+                </RouterLink>
+            </div>
             <h1 class="text-center p-5">{{ athlete.name }}</h1>
             <div class="row">
                 <div class="col-lg-4 mb-4 mb-lg-0 d-flex justify-content-center align-items-center">
@@ -80,7 +85,7 @@
 
 <script setup>
 import { onMounted, reactive, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, RouterLink } from "vue-router";
 import axiosClient from "../../config/axios";
 import Spinner from "../../components/utils/Spinner.vue";
 import AvailableDaysTable from '../../components/coach/AvailableDaysTable.vue'

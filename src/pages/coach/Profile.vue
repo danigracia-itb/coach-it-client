@@ -1,27 +1,64 @@
 <template>
   <div class="row container">
-    <div class="col-6 align-bottom text-center">
-      <img class="img-user rounded-circle" :src="imagenPrevisualizacion || user.picture" />
-      <input type="file" id="seleccionArchivos" accept="image/*" @change="handleFileChange" style="display: none" />
-      <button class="align-bottom bg-transparent border-0" @click="openFilePicker">
+    <p class="text-center display-3 fw-bold">Profile</p>
+    <div class="col-lg-6 align-bottom text-center">
+      <img
+        class="img-user rounded-circle"
+        :src="imagenPrevisualizacion || user.picture"
+      />
+      <input
+        type="file"
+        id="seleccionArchivos"
+        accept="image/*"
+        @change="handleFileChange"
+        style="display: none"
+      />
+      <button
+        class="align-bottom bg-transparent border-0"
+        @click="openFilePicker"
+      >
         <font-awesome-icon
           class="text-primary"
           icon="fa-solid fa-arrow-up-from-bracket"
-          size="2xl"
+          size="xl"
         />
       </button>
     </div>
-    <div class="col-6 row align-items-center">
-      <span v-if="!coachName">{{ user.name }}</span>
-      <input v-if="coachName" type="text" :value="user.name">
-      <button class="bg-transparent border-0" @click="editName"><font-awesome-icon icon="fa-solid fa-pen" size="2xl" class="text-primary"/></button>
-      <p>
-        Recuperar contraseña:
-        <RouterLink to="/request-password-recover">
-          <font-awesome-icon icon="fa-solid fa-key" size="2xl" />
-        </RouterLink>
-      </p>
-      <button class="border-0 bg-primary text-white">Guardar</button>
+    <div class="col-lg-6 row align-items-center camposPerfil">
+      <p class="fw-bold">Name</p>
+      <div class="d-inline-flex align-items-center" v-if="!coachName">
+        <span class="flex-grow-1">{{ user.name }}</span>
+      </div>
+      <div v-else>
+        <input
+          v-model="namePerfil"
+          style="width: 50%"
+          type="text"
+          class="form-control"
+        />
+      </div>
+      <button
+        class="bg-transparent border-0 ms-3"
+        style="width: 20%"
+        @click="editName"
+      >
+        <font-awesome-icon
+          icon="fa-solid fa-pen"
+          size="xl"
+          class="text-primary"
+        />
+      </button>
+      <div class="d-flex flex-column ms-3">
+        <p>
+          Recover password
+          <RouterLink to="/request-password-recover">
+            <font-awesome-icon icon="fa-solid fa-key" size="xl" />
+          </RouterLink>
+        </p>
+        <button class="btn btn-primary mt-2" @click="saveChanges">
+          Save
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -33,32 +70,38 @@ import { ref, onMounted } from "vue";
 const user = ref({});
 const selectedFile = ref(null);
 const imagenPrevisualizacion = ref("");
+const namePerfil = ref("");
 
 onMounted(() => {
   user.value = getUser();
+  namePerfil.value = user.value.name; // Asignar el valor inicial de user.name a namePerfil
 });
 
 function handleFileChange(event) {
-  // Obtener el archivo seleccionado
   selectedFile.value = event.target.files[0];
-
   if (selectedFile.value) {
-    // Crear un objeto URL para la previsualización
     imagenPrevisualizacion.value = URL.createObjectURL(selectedFile.value);
   } else {
-    // Limpiar la previsualización si no hay archivo seleccionado
     imagenPrevisualizacion.value = "";
   }
 }
 
 function openFilePicker() {
-  // Abrir el selector de archivos al hacer clic en el ícono
   document.getElementById("seleccionArchivos").click();
 }
 
 let coachName = ref(false);
 function editName() {
   coachName.value = !coachName.value;
+}
+
+function saveChanges() {
+  if (coachName.value) {
+    // Si el campo de edición de nombre está visible, actualiza el nombre del usuario
+    user.value.name = namePerfil.value;
+    coachName.value = false; // Cambia el estado de coachName a falso para cambiar el input a span
+  }
+  console.log("Nuevo nombre:", user.value.name); // Imprimir nuevo nombre en la consola
 }
 </script>
 
@@ -70,5 +113,11 @@ function editName() {
 .img-user {
   width: 25rem;
   height: 25rem;
+}
+
+@media (max-width: 768px) {
+  .camposPerfil {
+    margin-top: 15%;
+  }
 }
 </style>

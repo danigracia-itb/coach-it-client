@@ -33,11 +33,10 @@ import UserMenu from "../components/utils/userMenu.vue";
 import Footer from "../pages/public/Footer.vue";
 import MobileMenu from "../components/coach/MobileMenu.vue"
 
-
-let showMenu = ref(false)
+let showMenu = ref(false);
 function toggleMenu() {
-    showMenu.value = !showMenu.value
-    console.log(showMenu.value)
+    showMenu.value = !showMenu.value;
+    console.log(showMenu.value);
 }
 </script>
 
@@ -45,7 +44,6 @@ function toggleMenu() {
 header {
     background-color: rgb(230, 230, 230);
 }
-
 
 @media (min-width: 768px) {
     header {
@@ -62,7 +60,7 @@ header {
         margin-left: 30rem;
         margin-right: 5rem;
         margin-top: 8rem;
-        padding: .5rem 4rem 4rem 4rem;
+        padding: 0.5rem 4rem 4rem 4rem;
     }
 }
 </style>

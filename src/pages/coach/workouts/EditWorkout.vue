@@ -21,16 +21,16 @@
                 >
                     <button
                         class="delete-exercise btn"
-                        @click="() => deleteExercise(exercise.id)"
+                        @click="() => deleteExercise(exercise.exercise_id)"
                     >
                         <font-awesome-icon icon="fa-solid fa-xmark" />
                     </button>
 
-                    <div class="order-exercise">
+                    <!-- <div class="order-exercise">
                         <button
                             class="btn"
                             @click="
-                                () => changeExerciseOrder(exercise.id, true)
+                                () => changeExerciseOrder(exercise.exercise_id, true)
                             "
                         >
                             <font-awesome-icon icon="fa-solid fa-arrow-up" />
@@ -38,12 +38,12 @@
                         <button
                             class="btn"
                             @click="
-                                () => changeExerciseOrder(exercise.id, false)
+                                () => changeExerciseOrder(exercise.exercise_id, false)
                             "
                         >
                             <font-awesome-icon icon="fa-solid fa-arrow-down" />
                         </button>
-                    </div>
+                    </div> -->
 
                     <header class="text-center mb-4">
                         <p class="fw-bold mb-0 h4">{{ exercise.name }}</p>
@@ -148,7 +148,7 @@
 
                             <button
                                 class="btn btn-danger mx-2 my-3 text-white"
-                                @click="() => deleteSet(exercise.id, set.id)"
+                                @click="() => deleteSet(exercise.exercise_id, set.id)"
                             >
                                 <font-awesome-icon icon="fa-solid fa-trash" />
                             </button>
@@ -156,7 +156,7 @@
                     </ol>
                     <button
                         class="btn btn-secondary"
-                        @click="() => addSet(exercise.id)"
+                        @click="() => addSet(exercise.exercise_id)"
                     >
                         Add Set
                     </button>
@@ -223,21 +223,19 @@ async function getWorkout() {
     loading.value = true;
     try {
         const response = await axiosClient("workout/" + workout_id);
+        console.log(response.data)
         workout_date.value = response.data[0].date;
 
         for (let i of response.data) {
             workout.push(i);
         }
-
-        loading.value = false;
     } catch (e) {
         console.log(e);
-        loading.value = false;
     }
 }
 
 function findExerciseInWorkout(exercise_id) {
-    return workout.findIndex((e) => e.id === exercise_id);
+    return workout.findIndex((e) => e.exercise_id === exercise_id);
 }
 
 function findExercise(exercise_id) {
@@ -251,6 +249,8 @@ function addExercise() {
 
         workout.push({
             ...exerciceToAdd,
+            exercise_id: exerciceToAdd.id,
+            order: workout[workout.length - 1].order + 1,
             sets: [],
         });
     });
@@ -264,24 +264,6 @@ function deleteExercise(exercise_id) {
     }
 }
 
-//go_up is a boolean
-function changeExerciseOrder(exercise_id, go_up) {
-    const index = findExerciseInWorkout(exercise_id);
-
-    if (go_up && index > 0) {
-        // Swap the current exercise with the one above it
-        [workout[index - 1], workout[index]] = [
-            workout[index],
-            workout[index - 1],
-        ];
-    } else if (!go_up && index < workout.length - 1) {
-        // Swap the current exercise with the one below it
-        [workout[index], workout[index + 1]] = [
-            workout[index + 1],
-            workout[index],
-        ];
-    }
-}
 
 //Sets
 function addSet(exercise_id) {
@@ -289,9 +271,12 @@ function addSet(exercise_id) {
 
     workout[index].sets.push({
         id: counter.value,
-        weight: 0,
-        reps: 0,
-        rpe: 0,
+        actual_weight: 0,
+        actual_reps: 0,
+        actual_rpe: 0,
+        target_weight: 0,
+        target_reps: 0,
+        target_rpe: 0,
     });
     counter.value = counter.value + 1;
 }
@@ -325,8 +310,9 @@ async function saveWorkout() {
 }
 
 onMounted(() => {
-    getExercises();
     getWorkout();
+    getExercises();
+
 });
 </script>
 
