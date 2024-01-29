@@ -34,7 +34,6 @@ import Routines from "./pages/athlete/Routines.vue";
 
 const routes = [
     
-    { path: "/menuderecho", component: () => import('./pages/pruebaMenuClicDerecho.vue') },
     { path: "/", component: IndexView },
     { path: "/privacy-policy", component: PrivacyPolicy },
 
