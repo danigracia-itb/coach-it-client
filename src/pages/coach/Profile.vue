@@ -1,63 +1,76 @@
 <template>
-  <div class="row container">
-    <p class="text-center display-3 fw-bold">Profile</p>
-    <div class="col-lg-6 align-bottom text-center">
-      <img
-        class="img-user rounded-circle"
-        :src="imagenPrevisualizacion || user.picture"
-      />
-      <input
-        type="file"
-        id="seleccionArchivos"
-        accept="image/*"
-        @change="handleFileChange"
-        style="display: none"
-      />
-      <button
-        class="align-bottom bg-transparent border-0"
-        @click="openFilePicker"
-      >
-        <font-awesome-icon
-          class="text-primary"
-          icon="fa-solid fa-arrow-up-from-bracket"
-          size="xl"
+  <div class="container text-center"> <!-- Contenedor principal -->
+    <p class="mt-3 display-3 fw-bold">Profile</p>
+    <div class="row justify-content-center"> <!-- Centra el contenido horizontalmente -->
+      <div class="align-bottom text-center col-6">
+        <img
+          class="img-user rounded-circle"
+          :src="imagenPrevisualizacion || user.picture"
         />
-      </button>
-    </div>
-    <div class="col-lg-6 row align-items-center camposPerfil">
-      <p class="fw-bold">Name</p>
-      <div class="d-inline-flex align-items-center" v-if="!coachName">
-        <span class="flex-grow-1">{{ user.name }}</span>
-      </div>
-      <div v-else>
         <input
-          v-model="namePerfil"
-          style="width: 50%"
-          type="text"
-          class="form-control"
+          type="file"
+          id="seleccionArchivos"
+          accept="image/*"
+          @change="handleFileChange"
+          style="display: none"
         />
-      </div>
-      <button
-        class="bg-transparent border-0 ms-3"
-        style="width: 20%"
-        @click="editName"
-      >
-        <font-awesome-icon
-          icon="fa-solid fa-pen"
-          size="xl"
-          class="text-primary"
-        />
-      </button>
-      <div class="d-flex flex-column ms-3">
-        <p>
-          Recover password
-          <RouterLink to="/request-password-recover">
-            <font-awesome-icon icon="fa-solid fa-key" size="xl" />
-          </RouterLink>
-        </p>
-        <button class="btn btn-primary mt-2" @click="saveChanges">
-          Save
+        <button
+          class="align-bottom bg-transparent border-0"
+          @click="openFilePicker"
+        >
+          <font-awesome-icon
+            class="text-primary"
+            icon="fa-solid fa-arrow-up-from-bracket"
+            size="xl"
+          />
         </button>
+      </div>
+      <div class="row camposPerfil col-6 align-items-center"> <!-- Alinea verticalmente los elementos -->
+        <div class="col-12">
+          <div class="mb-3 d-flex align-items-center"> <!-- Utiliza flexbox para alinear elementos horizontalmente -->
+            <p class="fw-bold">Name</p>
+            <div v-if="!editing" class="flex-grow-1">
+              <span>{{ namePerfil }}</span>
+            </div>
+            <div v-else class="flex-grow-1">
+              <input
+                v-model="namePerfil"
+                style="width: 100%;"
+                type="text"
+                class="form-control"
+              />
+            </div>
+            <button
+              v-if="!editing && !loading"
+              class="bg-transparent border-0 ms-3"
+              @click="editName"
+            >
+              <font-awesome-icon
+                icon="fa-solid fa-pen"
+                size="xl"
+                class="text-primary"
+              />
+            </button>
+            <button
+              v-if="editing"
+              class="bg-transparent border-0 ms-3"
+              @click="saveName"
+            >
+              <font-awesome-icon
+                icon="fa-solid fa-floppy-disk"
+                size="xl"
+                class="text-primary"
+              />
+            </button>
+            <Spinner v-if="loading"/>
+          </div>
+          <div class="mb-3 d-flex align-items-center"> <!-- Utiliza flexbox para alinear elementos horizontalmente -->
+            <p class="fw-bold">Change password</p>
+            <RouterLink to="/request-password-recover" class="flex-grow-1">
+              <font-awesome-icon icon="fa-solid fa-key" size="xl" />
+            </RouterLink>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -66,6 +79,8 @@
 <script setup>
 import { getUser } from "../../functions/helpers";
 import { ref, onMounted } from "vue";
+import axiosClient from "../../config/axios";
+import Spinner from "../../components/utils/Spinner.vue";
 
 const user = ref({});
 const selectedFile = ref(null);
@@ -74,7 +89,7 @@ const namePerfil = ref("");
 
 onMounted(() => {
   user.value = getUser();
-  namePerfil.value = user.value.name; // Asignar el valor inicial de user.name a namePerfil
+  namePerfil.value = user.value.name; 
 });
 
 function handleFileChange(event) {
@@ -90,29 +105,38 @@ function openFilePicker() {
   document.getElementById("seleccionArchivos").click();
 }
 
-let coachName = ref(false);
+let editing = ref(false);
 function editName() {
-  coachName.value = !coachName.value;
+  editing.value = !editing.value;
 }
 
-function saveChanges() {
-  if (coachName.value) {
-    // Si el campo de edición de nombre está visible, actualiza el nombre del usuario
-    user.value.name = namePerfil.value;
-    coachName.value = false; // Cambia el estado de coachName a falso para cambiar el input a span
-  }
-  console.log("Nuevo nombre:", user.value.name); // Imprimir nuevo nombre en la consola
+const loading = ref(false);
+async function saveName(){
+  editName()
+  console.log(namePerfil.value)
+
+  loading.value = true;
+
+  const response = await axiosClient.put("users/change-name/" + user.value.id, { 
+    name: namePerfil.value
+   })
+   loading.value = false;
+
+   localStorage.removeItem("user")
+   localStorage.setItem("user", JSON.stringify({
+    ...user.value,
+    name: namePerfil.value
+   }) )
+
+   console.log(response)
 }
 </script>
 
 <style scoped>
-.container {
-  margin-top: 18%;
-}
 
 .img-user {
-  width: 25rem;
-  height: 25rem;
+  width: 30rem;
+  height: 30rem;
 }
 
 @media (max-width: 768px) {
