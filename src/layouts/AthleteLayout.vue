@@ -1,8 +1,8 @@
 <template>
     <div class="vh-100">
-        <header>
+        <header class="d-flex justify-content-between overflow-hidden px-md-5 w-vw">
             <img width="200" src="../../public/assets/logo.png" alt="logo" />
-        
+            <UserMenu class="d-none d-md-block" :athlete="true"></UserMenu>
         </header>
         <div class="h-100">
             <main class="main-content px-3 px-md-0">
@@ -14,6 +14,7 @@
 
 <script setup>
 import { RouterView } from "vue-router";
+import UserMenu from "../components/utils/userMenu.vue";
 </script>
 
 <style scoped>

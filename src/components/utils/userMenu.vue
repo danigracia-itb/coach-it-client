@@ -1,5 +1,8 @@
 <template>
-    <button @click="onContextMenu($event)" class="float-right border-0 bg-transparent">
+    <button
+        @click="onContextMenu($event)"
+        class="float-right border-0 bg-transparent"
+    >
         <img
             class="profile-img rounded-circle border border-1 border-secondary bg-white"
             width="50"
@@ -10,10 +13,12 @@
 </template>
 
 <script setup>
-import {h} from "vue"
+import { h } from "vue";
 import { useRouter } from "vue-router";
-import ContextMenu from '@imengyu/vue3-context-menu'
+import ContextMenu from "@imengyu/vue3-context-menu";
 import { logOut, getUser } from "../../functions/helpers";
+
+const { athlete } = defineProps(["athlete"]);
 
 const user = getUser();
 const router = useRouter();
@@ -40,9 +45,13 @@ function onContextMenu(e) {
 
                 divided: true,
                 onClick: () => {
-                    router.push({
-                        path: "/coach/profile",
-                    });
+                    if (athlete) {
+                        console.log("redirigir a athlete profile");
+                    } else {
+                        router.push({
+                            path: "/coach/profile",
+                        });
+                    }
                 },
             },
             {
@@ -52,12 +61,12 @@ function onContextMenu(e) {
                     src: "../../../../public/assets/icons/right-from-bracket-solid.svg",
                     style: {
                         zIndex: 100,
-                        color: "red"
+                        color: "red",
                     },
                 }),
 
                 onClick: () => {
-                    logOut(router)
+                    logOut(router);
                 },
             },
         ],

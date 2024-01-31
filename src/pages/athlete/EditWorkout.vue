@@ -154,17 +154,17 @@
                             </button>
                         </li>
                     </ol>
-                    <button
+                    <!-- <button
                         class="btn btn-secondary"
                         @click="() => addSet(exercise.exercise_id)"
                     >
                         Add Set
-                    </button>
+                    </button> -->
                 </li>
             </ul>
-            <button class="btn btn-dark w-100" @click="addExercise">
+            <!-- <button class="btn btn-dark w-100" @click="addExercise">
                 Add Exercise
-            </button>
+            </button> -->
 
             <button
                 v-if="workout.length > 0"
@@ -172,6 +172,13 @@
                 @click="saveWorkout"
             >
                 Save Workout
+            </button>
+            <button
+                v-if="workout.length > 0"
+                class="btn btn-dark w-100 mt-3"
+                @click="saveWorkout(true)"
+            >
+                Save Workout and Close
             </button>
         </section>
     </div>
@@ -294,7 +301,7 @@ function deleteSet(exercise_id, set_id) {
 }
 
 //Enviar api
-async function saveWorkout() {
+async function saveWorkout(close = false) {
     loading.value = true;
     try {
         const respuesta = await axiosClient.put("workout/" + workout_id, {
@@ -302,7 +309,12 @@ async function saveWorkout() {
         });
         console.log(respuesta);
         loading.value = false;
-        router.push("/athlete")
+
+        if(close) {
+            router.push("/athlete")
+        }
+
+
     } catch (error) {
         console.log(error);
         loading.value = false;
