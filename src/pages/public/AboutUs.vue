@@ -3,47 +3,82 @@
         <section class="bg-dark d-flex">
             <div class="m-4">
                 <a class="social" href="https://www.instagram.com">
-                    <img class="social-net svg-container" src="../../../public/assets/img/instagram.svg" />
+                    <img
+                        class="social-net svg-container"
+                        src="../../../public/assets/img/instagram.svg"
+                    />
                 </a>
                 <a class="social" href="https://www.facebook.com">
-                    <img class="social-net" src="../../../public/assets/img/facebook.svg" />
+                    <img
+                        class="social-net"
+                        src="../../../public/assets/img/facebook.svg"
+                    />
                 </a>
                 <a class="social" href="https://www.twitter.com">
-                    <img class="social-net" src="../../../public/assets/img/twitterX.svg" />
+                    <img
+                        class="social-net"
+                        src="../../../public/assets/img/twitterX.svg"
+                    />
                 </a>
             </div>
         </section>
 
         <section
-            class="bg-light px-5 py-2 d-flex flex-column flex-sm-row justify-content-between align-items-center shadow-sm">
-            <RouterLink to="/"><img width="300" src="../../../public/assets/logo.png" /></RouterLink>
+            class="bg-light px-5 py-2 d-flex flex-column flex-sm-row justify-content-between align-items-center shadow-sm"
+        >
+            <RouterLink to="/"
+                ><img width="300" src="../../../public/assets/logo.png"
+            /></RouterLink>
             <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
                 <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" @click="toggleNav" data-bs-toggle="collapse"
-                        data-bs-target="#navbarNav" aria-controls="navbarNav" :aria-expanded="isNavOpen ? 'true' : 'false'"
-                        aria-label="Toggle navigation" style="font-size: 4rem">
+                    <button
+                        class="navbar-toggler"
+                        type="button"
+                        @click="toggleNav"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        :aria-expanded="isNavOpen ? 'true' : 'false'"
+                        aria-label="Toggle navigation"
+                        style="font-size: 4rem"
+                    >
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div :class="[
-                        'collapse',
-                        'navbar-collapse',
-                        { show: isNavOpen },
-                    ]" id="navbarNav">
+                    <div
+                        :class="[
+                            'collapse',
+                            'navbar-collapse',
+                            { show: isNavOpen },
+                        ]"
+                        id="navbarNav"
+                    >
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item">
-                                <RouterLink to="/"><a class="nav-link" href="#">Home</a></RouterLink>
+                                <RouterLink to="/"
+                                    ><a class="nav-link" href="#"
+                                        >Home</a
+                                    ></RouterLink
+                                >
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link aboutus fw-bold" href="#">About us</a>
+                                <a class="nav-link aboutus fw-bold" href="#"
+                                    >About us</a
+                                >
                             </li>
                             <li class="nav-item">
-                                <RouterLink to="/login"><a class="nav-link" href="#">Login</a></RouterLink>
+                                <RouterLink to="/login"
+                                    ><a class="nav-link" href="#"
+                                        >Login</a
+                                    ></RouterLink
+                                >
                             </li>
                         </ul>
                     </div>
-                    <RouterLink to="/register"><button class="btn start-today-btn btn btn-primary">
+                    <RouterLink to="/register"
+                        ><button class="btn start-today-btn btn btn-primary">
                             Start Today
-                        </button></RouterLink>
+                        </button></RouterLink
+                    >
                 </div>
             </nav>
         </section>
@@ -55,7 +90,11 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <img src="../../../public/assets/img/company-image.jpg" alt="Company Image" class="img-fluid mb-4" />
+                    <img
+                        src="../../../public/assets/img/company-image.jpg"
+                        alt="Company Image"
+                        class="img-fluid mb-4"
+                    />
                 </div>
                 <div class="col-md-6">
                     <p>
@@ -75,7 +114,11 @@
 
             <div class="row mt-5">
                 <div class="col-md-6 order-md-2">
-                    <img src="../../../public/assets/img/team-image.jpg" alt="Team Image" class="img-fluid mb-4" />
+                    <img
+                        src="../../../public/assets/img/team-image.jpg"
+                        alt="Team Image"
+                        class="img-fluid mb-4"
+                    />
                 </div>
                 <div class="col-md-6 order-md-1">
                     <p>
@@ -102,22 +145,50 @@
                 <form @submit.prevent="submitForm" class="col-md-8">
                     <div class="mb-3">
                         <label for="inputEmail" class="form-label">Email</label>
-                        <input v-model="email" type="email" class="form-control" id="inputEmail" placeholder="Your email"
-                            required />
+                        <input
+                            v-model="email"
+                            type="email"
+                            class="form-control"
+                            id="inputEmail"
+                            placeholder="Your email"
+                            required
+                        />
                     </div>
                     <div class="mb-3">
-                        <label for="inputSubject" class="form-label">Subject</label>
-                        <input v-model="subject" type="text" class="form-control" id="inputSubject" placeholder="Subject"
-                            required />
+                        <label for="inputSubject" class="form-label"
+                            >Subject</label
+                        >
+                        <input
+                            v-model="subject"
+                            type="text"
+                            class="form-control"
+                            id="inputSubject"
+                            placeholder="Subject"
+                            required
+                        />
                     </div>
                     <div class="mb-3">
-                        <label for="inputMessage" class="form-label">Message</label>
-                        <textarea v-model="message" class="form-control" id="inputMessage" rows="10"
-                            placeholder="Your message" style="font-size: 16px" required></textarea>
+                        <label for="inputMessage" class="form-label"
+                            >Message</label
+                        >
+                        <textarea
+                            v-model="message"
+                            class="form-control"
+                            id="inputMessage"
+                            rows="10"
+                            placeholder="Your message"
+                            style="font-size: 16px"
+                            required
+                        ></textarea>
                     </div>
                     <div class="mb-3 text-center">
-                        <button v-if="!messageSent" type="submit" @click="submitForm" class="btn btn-primary"
-                            :disabled="sending">
+                        <button
+                            v-if="!messageSent"
+                            type="submit"
+                            @click="submitForm"
+                            class="btn btn-primary"
+                            :disabled="sending"
+                        >
                             <span v-if="!sending">Submit</span>
                             <span v-else>
                                 <i class="fa fa-spinner fa-spin"></i> Sending...
@@ -126,7 +197,10 @@
                         <div v-else class="message-sent">
                             Message Sent Successfully!
                         </div>
-                        <div v-if="messageNotSent" class="text-danger p-4 error-message">
+                        <div
+                            v-if="messageNotSent"
+                            class="text-danger p-4 error-message"
+                        >
                             {{ messageNotSent }}
                         </div>
                     </div>
