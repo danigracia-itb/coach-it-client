@@ -179,17 +179,18 @@
 
 <script setup>
 import { onMounted, reactive, ref, computed } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import _ from "lodash";
 
-import axiosClient from "../../../config/axios";
+import axiosClient from "../../config/axios";
 
-import { selectExercise } from "../../../functions/alerts";
-import { calculateTonelage } from "../../../functions/helpers";
-import Spinner from "../../../components/utils/Spinner.vue";
+import { selectExercise } from "../../functions/alerts";
+import { calculateTonelage, getUser } from "../../functions/helpers";
+import Spinner from "../../components/utils/Spinner.vue";
 
 const route = useRoute();
-const athlete_id = route.params.id;
+const router = useRouter();
+const athlete_id = getUser().id;
 const workout_id = route.params.workout_id;
 const workout_date = ref(null);
 
@@ -301,6 +302,7 @@ async function saveWorkout() {
         });
         console.log(respuesta);
         loading.value = false;
+        router.push("/athlete")
     } catch (error) {
         console.log(error);
         loading.value = false;
