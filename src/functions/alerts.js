@@ -177,10 +177,10 @@ export function selectExercise(exercises, workout) {
             html: `
         <select id="exercise" class="form-select">
         ${exercises
-            .map((e) => {
-                return `<option value='${e.id}'>${e.name}</option>`;
-            })
-            .join("")}
+                    .map((e) => {
+                        return `<option value='${e.id}'>${e.name}</option>`;
+                    })
+                    .join("")}
         </select>
         `,
             showCloseButton: true,
@@ -215,18 +215,24 @@ export function selectExercise(exercises, workout) {
 export function inviteAthlete(host, code) {
     const url = `http://${host}/register?type=athlete&code=${code}`;
 
+
     Swal.fire({
-        width: "700px",
+        width: "750px",
         html: `
-            <div class="invite-container" style="display: flex; flex-direction: column; justify-content: center;">
+            <div class="invite-container mx-auto" style="display: flex; flex-direction: column; justify-content: center;">
                 <h1 class="text-black">Your code is: <span class="text-primary">${code}</span></h1>
                 <div style="display: flex; align-items: center; margin-top: 10px;">
                     <a id="registrationLink" href="${url}" class="d-block border p-3 text-nowrap">${url}</a> 
-                    <svg id="copyButton" style="margin-left: 10px; margin-right: none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="26" height="26">
-                        <path d="M384 336H192c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16l140.1 0L400 115.9V320c0 8.8-7.2 16-16 16zM192 384H384c35.3 0 64-28.7 64-64V115.9c0-12.7-5.1-24.9-14.1-33.9L366.1 14.1c-9-9-21.2-14.1-33.9-14.1H192c-35.3 0-64 28.7-64 64V320c0 35.3 28.7 64 64 64zM64 128c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H256c35.3 0 64-28.7 64-64V416H272v32c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192c0-8.8 7.2-16 16-16H96V128H64z"/>
-                    </svg>
-                   <svg id="shareButton" style="margin-left: 10px; margin-right: none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="26" height="26">
-                   <path xmlns="http://www.w3.org/2000/svg" d="M64 80c-8.8 0-16 7.2-16 16V416c0 8.8 7.2 16 16 16H384c8.8 0 16-7.2 16-16V96c0-8.8-7.2-16-16-16H64zM0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zm352 80c0 26.5-21.5 48-48 48c-9.8 0-18.9-2.9-26.5-7.9L197.7 256l79.9 39.9c7.6-5 16.7-7.9 26.5-7.9c26.5 0 48 21.5 48 48s-21.5 48-48 48c-25.5 0-46.4-20-47.9-45.1l-85.6-42.8c-7.6 5-16.7 7.9-26.5 7.9c-26.5 0-48-21.5-48-48s21.5-48 48-48c9.8 0 18.9 2.9 26.5 7.9l85.6-42.8C257.6 148 278.5 128 304 128c26.5 0 48 21.5 48 48z"/></svg>
+                    
+                    <button class="btn"  id="copyButton">
+                        <svg style="margin-left: 10px; margin-right: none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="26" height="26">
+                            <path d="M384 336H192c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16l140.1 0L400 115.9V320c0 8.8-7.2 16-16 16zM192 384H384c35.3 0 64-28.7 64-64V115.9c0-12.7-5.1-24.9-14.1-33.9L366.1 14.1c-9-9-21.2-14.1-33.9-14.1H192c-35.3 0-64 28.7-64 64V320c0 35.3 28.7 64 64 64zM64 128c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H256c35.3 0 64-28.7 64-64V416H272v32c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192c0-8.8 7.2-16 16-16H96V128H64z"/>
+                        </svg>
+
+                    <button class="btn"  id="shareButton">
+                        <svg    svg style="margin-left: 10px; margin-right: none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="26" height="26">
+                        <path xmlns="http://www.w3.org/2000/svg" d="M64 80c-8.8 0-16 7.2-16 16V416c0 8.8 7.2 16 16 16H384c8.8 0 16-7.2 16-16V96c0-8.8-7.2-16-16-16H64zM0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zm352 80c0 26.5-21.5 48-48 48c-9.8 0-18.9-2.9-26.5-7.9L197.7 256l79.9 39.9c7.6-5 16.7-7.9 26.5-7.9c26.5 0 48 21.5 48 48s-21.5 48-48 48c-25.5 0-46.4-20-47.9-45.1l-85.6-42.8c-7.6 5-16.7 7.9-26.5 7.9c-26.5 0-48-21.5-48-48s21.5-48 48-48c9.8 0 18.9 2.9 26.5 7.9l85.6-42.8C257.6 148 278.5 128 304 128c26.5 0 48 21.5 48 48z"/></svg>
+                    </button>
                 </div>
                 <div id="copiedMessage" style="display: none; color: green; margin-top: 10px; margin-bottom: 0;">Copied!</div>
             </div>`,
@@ -236,6 +242,7 @@ export function inviteAthlete(host, code) {
     const copyButton = document.getElementById("copyButton");
     const copiedMessage = document.getElementById("copiedMessage");
     const shareButton = document.getElementById("shareButton");
+
 
     copyButton.addEventListener("click", () => {
         const tempInput = document.createElement("input");
@@ -257,16 +264,42 @@ export function inviteAthlete(host, code) {
 
     shareButton.addEventListener("click", () => {
         const gmailLoginUrl =
-            "whatsapp://send?text=This is WhatsApp sharing example using link";
+            `whatsapp://send?text="Hello! Join my Coach It using: ${url}"`;
         window.open(gmailLoginUrl, "_blank");
     });
 }
 
-const style = document.createElement("style");
-style.innerHTML = `
-    .svg-hover:hover {
-        fill: #711bba; 
-        cursor: pointer;
-    }
-`;
-document.head.appendChild(style);
+
+export function copyWorkout(workout_id, workout_date, router) {
+    //copy
+    Swal.fire({
+        title: "Where do you want to copy the workout?",
+        input: "date",
+        inputValue: workout_date,
+        didOpen: () => {
+            const today = (new Date()).toISOString();
+            Swal.getInput().min = today.split("T")[0];
+        },
+        showCancelButton: true,
+        confirmButtonText: "Copy",
+        confirmButtonColor: "#711bba",
+        showLoaderOnConfirm: true,
+        preConfirm: async (date) => {
+            try {
+                const response = await axiosClient.post("workout/copy/" + workout_id, {date});
+
+                return response.data;
+            } catch (error) {
+                Swal.showValidationMessage(`
+                    Request failed: ${error}
+                `);
+            }
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+        if (result.isConfirmed) {
+            //actualizar pagina para mostrar el nuevo entreno en el calendario como?
+            router.go(0)
+        }
+    });
+}

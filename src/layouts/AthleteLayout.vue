@@ -14,7 +14,7 @@
 
 <script setup>
 import { RouterView } from "vue-router";
-import UserMenu from "../components/utils/userMenu.vue";
+import UserMenu from "../components/utils/UserMenu.vue";
 </script>
 
 <style scoped>

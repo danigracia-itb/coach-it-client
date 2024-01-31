@@ -1,15 +1,18 @@
 <template>
-    <button
-        @click="onContextMenu($event)"
-        class="float-right border-0 bg-transparent"
-    >
-        <img
-            class="profile-img rounded-circle border border-1 border-secondary bg-white"
-            width="50"
-            :src="user.picture"
-            alt=""
-        />
-    </button>
+    <div class="d-flex flex-row gap-2 align-items-center my-auto">
+        <span>{{ user.name }}</span>
+        <button
+            @click="onContextMenu($event)"
+            class="border-0 bg-transparent"
+        >
+            <img
+                class="profile-img rounded-circle border border-1 border-secondary bg-white"
+                width="50"
+                :src="user.picture"
+                alt=""
+            />
+        </button>
+    </div>
 </template>
 
 <script setup>

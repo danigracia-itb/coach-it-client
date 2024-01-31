@@ -1,6 +1,12 @@
 <template>
     <Spinner v-if="loading" class="mx-auto mt-5" />
     <div class="mt-5" v-else>
+        <div class="d-flex justify-content-start">
+            <RouterLink class="btn btn-primary" to="/athlete">
+                <font-awesome-icon icon="fa-solid fa-left-long" />
+            </RouterLink>
+        </div>
+
         <header>
             <h1 class="text-center">
                 Edit
@@ -169,7 +175,7 @@
             <button
                 v-if="workout.length > 0"
                 class="btn btn-primary w-100 mt-5"
-                @click="saveWorkout"
+                @click="saveWorkout(false)"
             >
                 Save Workout
             </button>
@@ -302,19 +308,20 @@ function deleteSet(exercise_id, set_id) {
 
 //Enviar api
 async function saveWorkout(close = false) {
-    loading.value = true;
+    if(close) {
+        loading.value = true;
+    }
+
     try {
         const respuesta = await axiosClient.put("workout/" + workout_id, {
             workout,
         });
         console.log(respuesta);
-        loading.value = false;
-
         if(close) {
             router.push("/athlete")
         }
 
-
+        loading.value = false;
     } catch (error) {
         console.log(error);
         loading.value = false;

@@ -29,8 +29,8 @@ import dayjs from "dayjs";
 import { RouterLink } from "vue-router";
 import ContextMenu from '@imengyu/vue3-context-menu'
 import { useRouter } from "vue-router";
+import { copyWorkout } from "../../../functions/alerts";
 const router = useRouter()
-
 
 const props = defineProps([
     "day",
@@ -40,6 +40,7 @@ const props = defineProps([
     "hasWorkout",
     "workout",
 ]);
+
 
 const label = computed(() => {
     return dayjs(props.day.date).format("D");
@@ -67,7 +68,23 @@ function onContextMenu(e) {
 
                 divided: true,
                 onClick: () => {
-                    router.push({ path: `/coach/athlete/${props.athlete.id}/workout/{$workout.id}` })
+                    router.push({ path: `/coach/athlete/${props.athlete.id}/workout/${props.workout.id}` })
+                },
+            },
+            {
+                label: "Copy",
+                icon: h('img', {
+                    src: "../../../../public/assets/icons/copy-solid.svg",
+                    style: {
+                        width: '15',
+                        height: '15',
+                        zIndex: 100,
+                    },
+                }),
+
+                divided: true,
+                onClick: () => {
+                    copyWorkout(props.workout.id, props.day.date, router)
                 },
             },
             {

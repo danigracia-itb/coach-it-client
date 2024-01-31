@@ -1,6 +1,12 @@
 <template>
     <Spinner v-if="loading" class="mx-auto mt-5" />
     <div class="mt-5" v-else>
+        <div class="d-flex justify-content-start">
+            <RouterLink class="btn btn-primary" :to="`/coach/athlete/${athlete_id}`">
+                <font-awesome-icon icon="fa-solid fa-left-long" />
+            </RouterLink>
+        </div>
+
         <header>
             <h1 class="text-center">
                 Edit
