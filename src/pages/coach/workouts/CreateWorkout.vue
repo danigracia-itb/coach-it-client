@@ -89,16 +89,22 @@
                             <div class="m-3 w-100 d-flex gap-2">
                                 <input
                                     type="number"
+                                    min="0"
+                                    max="500"
                                     class="form-control text-center"
                                     v-model="set.weight"
                                 />
                                 <input
                                     type="number"
+                                    min="1"
+                                    max="30"
                                     class="form-control text-center"
                                     v-model="set.reps"
                                 />
                                 <input
                                     type="number"
+                                    min="1"
+                                    max="10"
                                     class="form-control text-center"
                                     v-model="set.rpe"
                                 />

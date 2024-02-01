@@ -2,7 +2,7 @@
     <Spinner v-if="loading" class="mx-auto mt-5" />
     <div class="mt-5" v-else>
         <div class="d-flex justify-content-start">
-            <RouterLink class="btn btn-primary" :to="`/coach/athlete/${athlete_id}`">
+            <RouterLink class="btn btn-primary" to="/athlete">
                 <font-awesome-icon icon="fa-solid fa-left-long" />
             </RouterLink>
         </div>
@@ -160,24 +160,31 @@
                             </button>
                         </li>
                     </ol>
-                    <button
+                    <!-- <button
                         class="btn btn-secondary"
                         @click="() => addSet(exercise.exercise_id)"
                     >
                         Add Set
-                    </button>
+                    </button> -->
                 </li>
             </ul>
-            <button class="btn btn-dark w-100" @click="addExercise">
+            <!-- <button class="btn btn-dark w-100" @click="addExercise">
                 Add Exercise
-            </button>
+            </button> -->
 
             <button
                 v-if="workout.length > 0"
                 class="btn btn-primary w-100 mt-5"
-                @click="saveWorkout"
+                @click="saveWorkout(false)"
             >
                 Save Workout
+            </button>
+            <button
+                v-if="workout.length > 0"
+                class="btn btn-dark w-100 mt-3"
+                @click="saveWorkout(true)"
+            >
+                Save Workout and Close
             </button>
         </section>
     </div>
@@ -185,17 +192,18 @@
 
 <script setup>
 import { onMounted, reactive, ref, computed } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import _ from "lodash";
 
-import axiosClient from "../../../config/axios";
+import axiosClient from "../../config/axios";
 
-import { selectExercise } from "../../../functions/alerts";
-import { calculateTonelage } from "../../../functions/helpers";
-import Spinner from "../../../components/utils/Spinner.vue";
+import { selectExercise } from "../../functions/alerts";
+import { calculateTonelage, getUser } from "../../functions/helpers";
+import Spinner from "../../components/utils/Spinner.vue";
 
 const route = useRoute();
-const athlete_id = route.params.id;
+const router = useRouter();
+const athlete_id = getUser().id;
 const workout_id = route.params.workout_id;
 const workout_date = ref(null);
 
@@ -299,13 +307,20 @@ function deleteSet(exercise_id, set_id) {
 }
 
 //Enviar api
-async function saveWorkout() {
-    loading.value = true;
+async function saveWorkout(close = false) {
+    if(close) {
+        loading.value = true;
+    }
+
     try {
         const respuesta = await axiosClient.put("workout/" + workout_id, {
             workout,
         });
         console.log(respuesta);
+        if(close) {
+            router.push("/athlete")
+        }
+
         loading.value = false;
     } catch (error) {
         console.log(error);

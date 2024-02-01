@@ -8,7 +8,6 @@
                 <font-awesome-icon icon="fa-solid fa-plus" />
             </button>
         </div>
-
         <Spinner class="mt-5" v-if="loading" />
 
         <div v-else>

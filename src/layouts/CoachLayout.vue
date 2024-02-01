@@ -4,7 +4,7 @@
             <!-- PC -->
             <img width="200" src="../../public/assets/logo.png" alt="logo" />
 
-            <UserMenu class="d-none d-md-block"></UserMenu>
+            <UserMenu class="d-none d-md-flex"></UserMenu>
 
             <!-- MOVIL -->
             <button class="d-block d-md-none btn btn-outline-secondary border-0 px-4 py-0" @click="toggleMenu">
@@ -29,7 +29,7 @@
 import { RouterView } from "vue-router";
 import CoachMenu from "../components/coach/CoachMenu.vue";
 import { ref } from "vue";
-import UserMenu from "../components/utils/userMenu.vue";
+import UserMenu from "../components/utils/UserMenu.vue";
 import Footer from "../pages/public/Footer.vue";
 import MobileMenu from "../components/coach/MobileMenu.vue"
 

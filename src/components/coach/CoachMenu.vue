@@ -1,34 +1,48 @@
 <template>
     <div class="menu bg-primary col-2 ml-0 text-center pr-0">
-        <RouterLink to="/coach" class="text-white d-flex text-decoration-none mt-3" :class="route.path=='/coach'? 'bg-white':''">
+        <RouterLink
+            to="/coach"
+            class="text-white d-flex align-items-center text-decoration-none mt-3"
+            :class="route.path == '/coach' ? 'bg-white' : ''"
+        >
             <font-awesome-icon
                 class="w-25 mt-1 p-3"
-                :class="route.path=='/coach'? 'text-primary':''"
+                :class="route.path == '/coach' ? 'text-primary' : ''"
                 size="2xl"
                 icon="fa-regular fa-calendar-days"
             />
-            <p class="mt-4 fs-1" :class="route.path=='/coach'? 'text-primary':''">Dashboard</p> </RouterLink
-        >
+            <p
+                class="mt-4 fs-1"
+                :class="route.path == '/coach' ? 'text-primary' : ''"
+            >
+                Dashboard
+            </p>
+        </RouterLink>
         <RouterLink
             to="/coach/exercises"
-            class="text-white d-flex text-decoration-none mt-3"
-            :class="route.path=='/coach/exercises'? 'bg-white':''"
+            class="text-white d-flex align-items-center text-decoration-none mt-3"
+            :class="route.path == '/coach/exercises' ? 'bg-white' : ''"
         >
             <font-awesome-icon
                 class="w-25 mt-1 p-3"
-                :class="route.path=='/coach/exercises'? 'text-primary':''"
+                :class="route.path == '/coach/exercises' ? 'text-primary' : ''"
                 size="2xl"
                 icon="fa-solid fa-dumbbell"
             />
-            <p class="mt-4 fs-1" :class="route.path=='/coach/exercises'? 'text-primary':''">Exercises</p> </RouterLink
-        >
+            <p
+                class="mt-4 fs-1"
+                :class="route.path == '/coach/exercises' ? 'text-primary' : ''"
+            >
+                Exercises
+            </p>
+        </RouterLink>
     </div>
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router';
-const route = useRoute()
-console.log(route.path)
+import { useRoute } from "vue-router";
+const route = useRoute();
+console.log(route.path);
 </script>
 
 <style scoped>
