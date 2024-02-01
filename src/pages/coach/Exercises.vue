@@ -4,7 +4,9 @@
 
         <!-- Acciones -->
         <div class="d-flex justify-content-end">
-            <button class="btn btn-primary" @click="addExercise">Add</button>
+            <button class="btn btn-primary" @click="addExercise">
+                <font-awesome-icon icon="fa-solid fa-plus" />
+            </button>
         </div>
 
         <Spinner class="mt-5" v-if="loading" />

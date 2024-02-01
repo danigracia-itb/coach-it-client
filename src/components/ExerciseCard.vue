@@ -7,7 +7,7 @@
             class="p-3 d-flex flex-row justify-content-between align-items-center"
         >
             <p class="fw-bold mb-0">{{ exercise.name }}</p>
-
+            <a target="_blank" :href="`https://www.google.com/search?tbm=isch&q=${exercise.name}`"><font-awesome-icon icon="fa-solid fa-eye" /></a>
             <button class="delete-btn btn btn-danger" v-if="!exercise.is_default" @click="() => deleteExercise(exercise.id)">
                 <font-awesome-icon icon="fa-solid fa-trash" />
             </button>

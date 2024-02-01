@@ -13,7 +13,7 @@
         </RouterLink>
 
         <RouterLink
-            v-if="hasWorkout"
+            v-if="hasWorkout && !workoutDeleted"
             :to="`/coach/athlete/${athlete.id}/workout/${workout.id}`"
             class="btn btn-primary"
         >
@@ -29,6 +29,7 @@ import dayjs from "dayjs";
 import { RouterLink } from "vue-router";
 import ContextMenu from '@imengyu/vue3-context-menu'
 import { useRouter } from "vue-router";
+import axiosClient from "../../../config/axios";
 const router = useRouter()
 
 
@@ -40,6 +41,8 @@ const props = defineProps([
     "hasWorkout",
     "workout",
 ]);
+
+const workoutDeleted = ref(false)
 
 const label = computed(() => {
     return dayjs(props.day.date).format("D");
@@ -81,8 +84,9 @@ function onContextMenu(e) {
                     },
                 }),
 
-                onClick: () => {
-                    router.push({ path: `/coach/athlete/${props.athlete.id}/workout/${workout.id}` })
+                onClick: async () => {
+                    await axiosClient.delete('workout/' + props.workout.id)
+                    router.go(0)
                 },
             }] : [{
                 label: "Add",
