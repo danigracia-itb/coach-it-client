@@ -29,6 +29,8 @@ import dayjs from "dayjs";
 import { RouterLink } from "vue-router";
 import ContextMenu from '@imengyu/vue3-context-menu'
 import { useRouter } from "vue-router";
+import axiosClient from "../../../config/axios";
+import { copyWorkout } from "../../../functions/alerts";
 const router = useRouter()
 
 const props = defineProps([
