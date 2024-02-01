@@ -26,11 +26,8 @@ import CoachProfile from "./pages/coach/Profile.vue";
 
 //Athlete
 import AthleteLayout from "./layouts/AthleteLayout.vue";
-import Calendar from "./pages/athlete/Calendar.vue";
-import Routines from "./pages/athlete/Routines.vue";
-
-
-
+import AthleteDashboard from "./pages/athlete/Dashboard.vue";
+import AthleteEditWorkout from "./pages/athlete/EditWorkout.vue";
 
 const routes = [
     
@@ -71,8 +68,8 @@ const routes = [
         //meta: { requiresAuth: true }, // Requiere autenticación
 
         children: [
-            { path: "", component: Calendar },
-            { path: "", component: Routines },
+            { path: "", component: AthleteDashboard },
+            { path: "workout/:workout_id", component: AthleteEditWorkout },
         ],
     },
 

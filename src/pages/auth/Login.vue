@@ -1,25 +1,46 @@
 <template>
     <div class="row">
         <div class="img-login vh-100 col-7 d-none d-md-block"></div>
-        <div class="col-md-5 d-flex flex-column align-items-center justify-content-center">
-            <img class="auth-logo-img" src="../../../public/assets/logo.png" alt="Logo Coach IT" />
+        <div
+            class="col-md-5 d-flex flex-column align-items-center justify-content-center"
+        >
+            <RouterLink to="/"
+                ><img width="300" src="../../../public/assets/logo.png"
+            /></RouterLink>
             <div class="p-5 mx-2 mx-md-0 border rounded-5">
                 <h1 class="text-uppercase text-center fw-bold">login</h1>
                 <form @submit.prevent="login" class="">
                     <div class="form-group mt-5">
                         <label for="email">Email</label>
-                        <input v-model="email" type="email" id="email" class="form-control p-3"
-                            placeholder="Introduce your email" />
+                        <input
+                            v-model="email"
+                            type="email"
+                            id="email"
+                            class="form-control p-3"
+                            placeholder="Introduce your email"
+                        />
                     </div>
 
                     <div class="form-group mt-5">
                         <label for="password">Password</label>
-                        <input v-model="password" type="password" id="password" class="form-control p-3"
-                            placeholder="Introduce your password" />
+                        <input
+                            v-model="password"
+                            type="password"
+                            id="password"
+                            class="form-control p-3"
+                            placeholder="Introduce your password"
+                        />
                     </div>
 
-                    <div style="height: 4rem;" class="mt-5 d-flex align-items-center">
-                        <button v-if="!loading" type="submit" class="text-uppercase btn btn-primary rounded-4 w-100">
+                    <div
+                        style="height: 4rem"
+                        class="mt-5 d-flex align-items-center"
+                    >
+                        <button
+                            v-if="!loading"
+                            type="submit"
+                            class="text-uppercase btn btn-primary rounded-4 w-100"
+                        >
                             Login
                         </button>
                         <Spinner v-else />
@@ -32,18 +53,31 @@
                 <div class="mt-5 text-small">
                     <p class="text-lg">
                         Don't you have account? Create one <br />
-                        <RouterLink to="/register?type=coach" class="text-primary fw-bold">Coach</RouterLink>
+                        <RouterLink
+                            to="/register?type=coach"
+                            class="text-primary fw-bold"
+                            >Coach</RouterLink
+                        >
                         or
-                        <RouterLink to="/register?type=athlete" class="text-primary fw-bold">Athlete</RouterLink>
+                        <RouterLink
+                            to="/register?type=athlete"
+                            class="text-primary fw-bold"
+                            >Athlete</RouterLink
+                        >
                     </p>
                     <p>
                         Forgot password?
-                        <RouterLink to="/request-password-recover" class="text-primary fw-bold">Recover it
+                        <RouterLink
+                            to="/request-password-recover"
+                            class="text-primary fw-bold"
+                            >Recover it
                         </RouterLink>
                     </p>
                 </div>
             </div>
-            <RouterLink to="/" class="mt-5"><font-awesome-icon size="2xl" icon="fa-solid fa-house" /></RouterLink>
+            <RouterLink to="/" class="mt-5"
+                ><font-awesome-icon size="2xl" icon="fa-solid fa-house"
+            /></RouterLink>
         </div>
     </div>
 </template>
