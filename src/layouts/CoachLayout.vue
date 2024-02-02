@@ -1,5 +1,5 @@
 <template>
-    <div class="vh-100">
+    <div>
         <header class="d-flex justify-content-between overflow-hidden px-md-5 w-vw">
             <!-- PC -->
             <img width="200" src="../../public/assets/logo.png" alt="logo" />

@@ -6,13 +6,21 @@
                 <RouterLink class="btn btn-primary" to="/coach">
                     <font-awesome-icon icon="fa-solid fa-left-long" />
                 </RouterLink>
-                <h1>{{ athlete.name }}</h1>
-                <RouterLink
-                    :to="`/coach/athlete/${athlete.id}/profile`"
-                    class="btn btn-primary"
-                >
-                    <font-awesome-icon icon="fa-solid fa-user" />
-                </RouterLink>
+                <h1 class="text-primary">{{ athlete.name }}</h1>
+                <div class="d-flex gap-2">
+                    <RouterLink
+                        :to="`/coach/athlete/${athlete.id}/stats`"
+                        class="btn btn-primary"
+                    >
+                    <font-awesome-icon icon="fa-solid fa-chart-line" />
+                    </RouterLink>
+                    <RouterLink
+                        :to="`/coach/athlete/${athlete.id}/profile`"
+                        class="btn btn-primary"
+                    >
+                        <font-awesome-icon icon="fa-solid fa-user" />
+                    </RouterLink>
+                </div>
             </header>
 
             <div>

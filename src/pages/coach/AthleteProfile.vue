@@ -8,7 +8,7 @@
                     <font-awesome-icon icon="fa-solid fa-left-long" />
                 </RouterLink>
             </div>
-            <h1 class="text-center p-5">{{ athlete.name }}</h1>
+            <h1 class="text-center p-5"><span class="text-primary">{{ athlete.name }}</span> Profile</h1>
             <div class="row">
                 <div class="col-lg-4 mb-4 mb-lg-0 d-flex justify-content-center align-items-center">
                     <img class="rounded-circle img-user-small" width="400" :src="athlete.picture" alt="">
