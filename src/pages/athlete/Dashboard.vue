@@ -3,7 +3,7 @@
         <h1 class="text-center">Hello <span class="text-primary">{{ user.name }}</span></h1>
 
         <div v-if="!loading">
-            <Calendar :athlete="athlete" :workouts="workouts" />
+            <Calendar :athlete="athlete" :workouts="workouts" :restDays="restDays"/>
         </div>
         <Spinner v-else />
     </div>
@@ -24,6 +24,7 @@ const route = useRoute();
 const loading = ref(true);
 var athlete = reactive({});
 var workouts = reactive({});
+var restDays = reactive({});
 
 async function getAthleteProfile() {
     loading.value = true;
@@ -31,12 +32,13 @@ async function getAthleteProfile() {
         const profileResponse = await axiosClient(
             "coach/get-athlete-profile/" + user.id
         );
-        const workoutsResponse = await axiosClient(
-            "coach/get-athlete-workouts/" + user.id
+        const calendarResponse = await axiosClient(
+            "coach/get-athlete-calendar/" + user.id
         );
 
         athlete = profileResponse.data;
-        workouts = workoutsResponse.data;
+        workouts = calendarResponse.data.workouts;
+        restDays = calendarResponse.data.restDays;
 
         console.log(athlete);
 

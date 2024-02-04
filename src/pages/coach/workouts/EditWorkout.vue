@@ -2,7 +2,10 @@
     <Spinner v-if="loading" class="mx-auto mt-5" />
     <div class="mt-5" v-else>
         <div class="d-flex justify-content-start">
-            <RouterLink class="btn btn-primary" :to="`/coach/athlete/${athlete_id}`">
+            <RouterLink
+                class="btn btn-primary"
+                :to="`/coach/athlete/${athlete_id}`"
+            >
                 <font-awesome-icon icon="fa-solid fa-left-long" />
             </RouterLink>
         </div>
@@ -61,8 +64,8 @@
                                 {{ exercise.sets.length }}
                             </p>
                             <p class="mb-0">
-                                <span class="fw-bold">Target Tonelage:</span>
-                                {{ calculateTonelage(exercise.sets, true) }}kg
+                                <span class="fw-bold">Actual / Target Tonelage:</span>
+                                {{ calculateTonelage(exercise.sets, true, false) }}kg / {{ calculateTonelage(exercise.sets, true) }}kg
                             </p>
                         </div>
                     </header>
@@ -76,21 +79,19 @@
                             <div class="fw-normal">TARGET</div>
 
                             <div class="set-labels">
-                                <div class="fw-normal">WEIGHT</div>
-                                <div class="fw-normal">REPS</div>
-                                <div class="fw-normal">RPE</div>
+                                <div class="fw-normal cursor-pointer" v-tooltip="'WEIGHT: number of KG used in the set'">WEIGHT</div>
+                                <div class="fw-normal cursor-pointer" v-tooltip="'REPS: number of repetitions that should be performed in the set'">REPS</div>
+                                <div class="fw-normal cursor-pointer" v-tooltip="'RPE: effort level for the set, on a scale of 1 to 10'">RPE</div>
                             </div>
                         </section>
 
-                        <section
-                            class="text-center bg-white set-header-actual"
-                        >
+                        <section class="text-center bg-white set-header-actual">
                             <div class="fw-normal">ACTUAL</div>
 
                             <div class="set-labels">
-                                <div class="fw-normal">WEIGHT</div>
-                                <div class="fw-normal">REPS</div>
-                                <div class="fw-normal">RPE</div>
+                                <div class="fw-normal cursor-pointer" v-tooltip="'WEIGHT: number of KG used in the set'">WEIGHT</div>
+                                <div class="fw-normal cursor-pointer" v-tooltip="'REPS: number of repetitions that should be performed in the set'">REPS</div>
+                                <div class="fw-normal cursor-pointer" v-tooltip="'RPE: effort level for the set, on a scale of 1 to 10'">RPE</div>
                             </div>
                         </section>
                     </section>
@@ -133,6 +134,15 @@
                                 />
                             </div>
 
+                            <button
+                                class="btn btn-primary rounded-0"
+                                @click="copyToActual(set)"
+                            >
+                                <font-awesome-icon
+                                    icon="fa-solid fa-arrow-right"
+                                />
+                            </button>
+
                             <div class="p-3 w-100 d-flex gap-2">
                                 <!-- ACTUAL -->
                                 <input
@@ -154,9 +164,22 @@
 
                             <button
                                 class="btn btn-danger mx-2 my-3 text-white"
-                                @click="() => deleteSet(exercise.exercise_id, set.id)"
+                                @click="
+                                    () =>
+                                        deleteSet(exercise.exercise_id, set.id)
+                                "
                             >
                                 <font-awesome-icon icon="fa-solid fa-trash" />
+                            </button>
+
+                            <button
+                                class="btn btn-primary rounded-0"
+                                :disabled="(index + 1) == exercise.sets.length"
+                                @click="copyToNextSet(exercise, index,set)"
+                            >
+                                <font-awesome-icon
+                                    icon="fa-solid fa-arrow-down"
+                                />
                             </button>
                         </li>
                     </ol>
@@ -229,7 +252,7 @@ async function getWorkout() {
     loading.value = true;
     try {
         const response = await axiosClient("workout/" + workout_id);
-        console.log(response.data)
+        console.log(response.data);
         workout_date.value = response.data[0].date;
 
         for (let i of response.data) {
@@ -270,7 +293,6 @@ function deleteExercise(exercise_id) {
     }
 }
 
-
 //Sets
 function addSet(exercise_id) {
     const index = findExerciseInWorkout(exercise_id);
@@ -298,6 +320,23 @@ function deleteSet(exercise_id, set_id) {
     }
 }
 
+function copyToNextSet(exercise, index, set) {
+    const targetSet = exercise.sets[index + 1];
+
+    targetSet.actual_weight = set.actual_weight
+    targetSet.actual_reps = set.actual_reps
+    targetSet.actual_rpe = set.actual_rpe
+    targetSet.target_weight = set.target_weight
+    targetSet.target_reps = set.target_reps
+    targetSet.target_rpe = set.target_rpe
+}
+
+function copyToActual(set) {
+    set.actual_weight = set.target_weight;
+    set.actual_reps = set.target_reps;
+    set.actual_rpe = set.target_rpe;
+}
+
 //Enviar api
 async function saveWorkout() {
     loading.value = true;
@@ -316,7 +355,6 @@ async function saveWorkout() {
 onMounted(() => {
     getWorkout();
     getExercises();
-
 });
 </script>
 
@@ -324,22 +362,20 @@ onMounted(() => {
 .set-headers-group {
     display: grid;
     grid-template-columns: 1fr 1fr;
-
 }
 .set-headers-group section {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-
 }
 
 .set-header-target {
-    padding: 0 2rem 0 6rem !important; 
+    padding: 0 5rem 0 6rem !important;
 }
 
 .set-header-actual {
-    padding: 0 6rem 0 2rem !important; 
+    padding: 0 10rem 0 2rem !important;
 }
 
 .set-labels {
@@ -352,7 +388,6 @@ onMounted(() => {
 .set-super-header {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-
 }
 .set-header {
     display: grid;

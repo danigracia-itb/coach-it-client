@@ -24,7 +24,7 @@
             </header>
 
             <div>
-                <Calendar :athlete="athlete" :workouts="workouts" />
+                <Calendar :athlete="athlete" :workouts="workouts" :restDays="restDays"/>
             </div>
         </div>
     </div>
@@ -42,6 +42,7 @@ const route = useRoute();
 const loading = ref(true);
 var athlete = reactive({});
 var workouts = reactive({});
+var restDays = reactive({});
 
 async function getAthleteProfile() {
     loading.value = true;
@@ -49,14 +50,15 @@ async function getAthleteProfile() {
         const profileResponse = await axiosClient(
             "coach/get-athlete-profile/" + route.params.id
         );
-        const workoutsResponse = await axiosClient(
-            "coach/get-athlete-workouts/" + route.params.id
+        const calendarResponse = await axiosClient(
+            "coach/get-athlete-calendar/" + route.params.id
         );
 
         athlete = profileResponse.data;
-        workouts = workoutsResponse.data;
+        workouts = calendarResponse.data.workouts;
+        restDays = calendarResponse.data.restDays;
 
-        console.log(athlete);
+        console.log(restDays)
 
         loading.value = false;
     } catch (e) {

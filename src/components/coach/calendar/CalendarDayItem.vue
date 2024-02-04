@@ -2,12 +2,17 @@
     <li @contextmenu="onContextMenu($event)" class="calendar-day" :class="{
         'calendar-day--not-current': !day.isCurrentMonth,
         'calendar-day--today': isToday,
+        'calendar-day--rest-day': isRestday
     }">
         <span class="fw-bold" :class="isToday ? 'bg-primary text-white' : ''">{{
             label
         }}</span>
 
-        <RouterLink :to="`/coach/athlete/${athlete.id}/workout/create?date=${day.date}`" v-if="day.isCurrentMonth && !hasWorkout"
+        <p class="fw-bold mb-0" v-if="isRestday">
+            Rest
+        </p>
+
+        <RouterLink :to="`/coach/athlete/${athlete.id}/workout/create?date=${day.date}`" v-if="day.isCurrentMonth && !hasWorkout && !isRestday"
             class="add-btn btn btn-success">
             <font-awesome-icon icon="fa-solid fa-plus" />
         </RouterLink>
@@ -37,6 +42,7 @@ const props = defineProps([
     "day",
     "isCurrentMonth",
     "isToday",
+    "isRestday",
     "athlete",
     "hasWorkout",
     "workout",
@@ -47,6 +53,9 @@ const label = computed(() => {
 });
 
 function onContextMenu(e) {
+    if(isRestday) {
+        return
+    }
     //prevent the browser's default menu
     e.preventDefault();
     //show your menu
@@ -168,6 +177,10 @@ function onContextMenu(e) {
 .calendar-day--today>span {
     border-radius: 9999px;
     padding: 0.4rem 1.2rem;
+}
+
+.calendar-day--rest-day {
+    background-color: rgb(236, 114, 114) !important;
 }
 
 .calendar-day:hover .add-btn {

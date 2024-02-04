@@ -1,11 +1,20 @@
 <template>
-    <li class="calendar-day" :class="{
-        'calendar-day--not-current': !day.isCurrentMonth,
-        'calendar-day--today': isToday,
-    }">
-        <span class="fw-bold" :class="isToday ? 'bg-primary text-white' : ''">{{
-            label
-        }}</span>
+    <li
+        @contextmenu="onContextMenu($event)"
+        class="calendar-day"
+        :class="{
+            'calendar-day--not-current': !day.isCurrentMonth,
+            'calendar-day--today': isToday,
+            'calendar-day--rest-day': isRestday || newRestDay
+        }"
+    >
+        <span class="fw-bold" :class="isToday ? 'bg-primary text-white' : ''">
+            {{ label }}</span
+        >
+
+        <p class="fw-bold mb-0" v-if="isRestday || newRestDay">
+            Rest
+        </p>
 
         <RouterLink
             v-if="hasWorkout"
@@ -19,22 +28,59 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, h, ref } from "vue";
 import dayjs from "dayjs";
 import { RouterLink } from "vue-router";
+import ContextMenu from "@imengyu/vue3-context-menu";
+import axiosClient from "../../../config/axios";
 
 const props = defineProps([
     "day",
     "isCurrentMonth",
     "isToday",
+    "isRestday",
     "athlete",
     "hasWorkout",
     "workout",
 ]);
 
+const newRestDay = ref(false)
+
 const label = computed(() => {
     return dayjs(props.day.date).format("D");
 });
+
+function onContextMenu(e) {
+    //prevent the browser's default menu
+    e.preventDefault();
+    //show your menu
+    ContextMenu.showContextMenu({
+        x: e.x,
+        y: e.y,
+        zIndex: 3,
+        items: [
+            {
+                label: "Rest Day",
+                icon: h("img", {
+                    src: "../../../../public/assets/icons/calendar-check-solid.svg",
+                    style: {
+                        width: "15",
+                        height: "15",
+                        zIndex: 100,
+                    },
+                }),
+                onClick: () => {
+                    axiosClient.post("rest-day", {
+                        user_id: props.athlete.id,
+                        date: props.day.date
+                    })
+
+                    newRestDay.value = true
+                },
+            },
+        ],
+    });
+}
 </script>
 
 <style scoped>
@@ -53,7 +99,7 @@ const label = computed(() => {
     align-items: center;
 }
 
-.calendar-day>span {
+.calendar-day > span {
     align-self: flex-start;
     display: flex;
     justify-content: center;
@@ -73,9 +119,13 @@ const label = computed(() => {
     padding-top: 4px;
 }
 
-.calendar-day--today>span {
+.calendar-day--today > span {
     border-radius: 9999px;
     padding: 0.4rem 1.2rem;
+}
+
+.calendar-day--rest-day {
+    background-color: rgb(236, 114, 114) !important;
 }
 
 .calendar-day:hover .add-btn {

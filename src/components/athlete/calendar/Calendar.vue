@@ -14,6 +14,7 @@
                 :key="day.date"
                 :day="day"
                 :is-today="day.date === today"
+                :is-restday="isRestDay(day.date)"
                 :athlete="athlete"
                 :has-workout="hasWorkout(day.date)"
                 :workout="getWorkout(day.date)"
@@ -50,6 +51,10 @@ export default {
             type: Array,
             required: true,
         },
+        restDays: {
+            type: Array,
+            required: true, 
+        }
     },
 
     data() {
@@ -166,6 +171,9 @@ export default {
         hasWorkout(date) {
             // Verifica si hay un workout en la fecha dada
             return this.workouts.some((workout) => workout.date === date);
+        },
+        isRestDay(date) {
+            return this.restDays.some((day) => day.date === date);
         },
         getWorkout(date) {
             return this.workouts.find((workout) => workout.date === date);

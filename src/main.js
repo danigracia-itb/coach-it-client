@@ -18,6 +18,9 @@ import "bootstrap/dist/js/bootstrap.bundle"
 import '@imengyu/vue3-context-menu/lib/vue3-context-menu.css'
 import ContextMenu from '@imengyu/vue3-context-menu'
 
+//tooltips
+import FloatingVue from 'floating-vue'
+import 'floating-vue/dist/style.css'
 
 // FONTAWESOME
 
@@ -35,4 +38,5 @@ createApp(App)
 .component('font-awesome-icon', FontAwesomeIcon)
 .use(router)
 .use(ContextMenu)
+.use(FloatingVue)
 .mount('#app')
