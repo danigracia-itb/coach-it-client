@@ -19,19 +19,19 @@
             </p>
         </RouterLink>
         <RouterLink
-            to="/coach/exercises"
+            to="/coach/manage"
             class="text-white d-flex align-items-center text-decoration-none mt-3"
-            :class="route.path == '/coach/exercises' ? 'bg-white' : ''"
+            :class="route.path == '/coach/manage' ? 'bg-white' : ''"
         >
             <font-awesome-icon
                 class="w-25 mt-1 p-3"
-                :class="route.path == '/coach/exercises' ? 'text-primary' : ''"
+                :class="route.path == '/coach/manage' ? 'text-primary' : ''"
                 size="2xl"
                 icon="fa-solid fa-credit-card"
             />
             <p
                 class="mt-4 fs-1"
-                :class="route.path == '/coach/exercises' ? 'text-primary' : ''"
+                :class="route.path == '/coach/manage' ? 'text-primary' : ''"
             >
                 Manage
             </p>

@@ -53,6 +53,7 @@ const routes = [
         children: [
             { path: "", component: CoachDashboard },
             { path: "exercises", component: CoachExercises },
+            { path: "manage", component: () => import('./pages/coach/Manage.vue') },
             { path: "profile", component: CoachProfile },
             { path: "athlete/:id", component: () => import('./pages/coach/Athlete.vue') },
             { path: "athlete/:id/profile", component: CoachAthleteProfile },
