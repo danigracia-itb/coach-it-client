@@ -16,9 +16,10 @@
           :key="group"
           class="mt-5"
         >
-          <h4>
-            {{ group }}<font-awesome-icon v-tooltip="getTooltipContent(group)" icon="fa-regular fa-circle-question" class="fa-xs pr-2"/>
-          </h4>
+          <div class="d-flex gap-2">
+            <h4>{{ group }}</h4>
+            <font-awesome-icon v-tooltip="getTooltipContent(group)" icon="fa-regular fa-circle-question" class="fa-xs"/>
+          </div>
           <div class="exercises-grid">
             <ExerciseCard
               v-for="exercise in exercises"
@@ -121,10 +122,10 @@
   function getTooltipContent(group) {
     const tooltips = {
       Push: "Excercises that involves: chest, shoulders and triceps",
-      Pull: "Exercises that involves: dorsal, biceps and shoulders",
-      Leg: "Exercises that envolves: ",
-      Core: "Exercises that envolves: ",
-      "No Type": "Comentario genérico",
+      Pull: "Exercises that involves: all back muscles and biceps",
+      Leg: "Exercises that involves all leg muscles such as quadriceps, femoral and glutes",
+      Core: "Exercises that involves all core muscles such as abdominals, obliques and lumbar",
+      "No Type": "Generic exercises",
     };
     return tooltips[group];
   }

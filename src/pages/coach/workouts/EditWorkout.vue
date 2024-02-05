@@ -243,14 +243,8 @@
                     </button>
                 </li>
             </ul>
-            <button class="btn btn-dark w-100" @click="addExercise">
-                Add Exercise
-            </button>
-
             <button
-                v-if="workout.length > 0"
-                class="btn btn-primary w-100 mt-5"
-                @click="saveWorkout"
+                class="btn btn-dark w-100" @click="addExercise"
                 :disabled="workout.length >= 15"
             >
                 {{
@@ -258,6 +252,14 @@
                         ? "You have reached the exercises limit"
                         : "Add Exercise"
                 }}
+            </button>
+
+            <button
+                v-if="workout.length > 0"
+                class="btn btn-primary w-100 mt-5"
+                @click="saveWorkout"
+            >
+                Save Workout
             </button>
         </section>
     </div>

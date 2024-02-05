@@ -73,3 +73,30 @@ export function logOut(router) {
     localStorage.removeItem('token');
     router.push({ path: "/login" })
 }
+
+
+export function formatDate(fecha) {
+    var fechaObj = new Date(fecha);
+    var dia = ("0" + fechaObj.getDate()).slice(-2); // Agrega un cero inicial si es necesario
+    var mes = ("0" + (fechaObj.getMonth() + 1)).slice(-2); // Agrega un cero inicial si es necesario
+    var año = fechaObj.getFullYear();
+    return dia + '/' + mes + '/' + año;
+}
+
+
+export function addOneMonth(date) {
+    var newDate = new Date(date);
+    newDate.setMonth(newDate.getMonth() + 1);
+    return formatDate(newDate);
+}
+
+export function isDateBeforeOrEqualToToday(date) {
+    // Obtener la fecha de hoy
+    var today = new Date();
+    // Convertir la fecha proporcionada a un objeto Date
+    var providedDate = new Date(date);
+    providedDate.setMonth(providedDate.getMonth() + 1);
+
+    // Comprobar si la fecha proporcionada es igual o anterior a hoy
+    return providedDate <= today;
+}

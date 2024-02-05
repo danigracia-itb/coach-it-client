@@ -286,7 +286,7 @@ export function copyWorkout(workout_id, workout_date, router) {
         showLoaderOnConfirm: true,
         preConfirm: async (date) => {
             try {
-                const response = await axiosClient.post("workout/copy/" + workout_id, {date});
+                const response = await axiosClient.post("workout/copy/" + workout_id, { date });
 
                 return response.data;
             } catch (error) {
@@ -301,5 +301,83 @@ export function copyWorkout(workout_id, workout_date, router) {
             //actualizar pagina para mostrar el nuevo entreno en el calendario como?
             router.go(0)
         }
+    });
+}
+
+
+export function addPaymentPopUp(coach_id, athlete_id) {
+    return new Promise((resolve, reject) => {
+        Swal.fire({
+            title: "Add Payment",
+            html: `<div class="form-group">
+                    <label for="date" class="form-label d-block">Date</label>
+                    <input type="date" id="date" name="date" class="form-control">
+                </div>
+    
+                <div class="form-group mt-5">
+                    <label for="quantity" class="form-label d-block">Quantity (€)</label>
+                    <input type="number" id="quantity" name="quantity" class="form-control">
+                </div>`,
+            focusConfirm: false,
+            showCancelButton: true,
+            confirmButtonText: "Add",
+            confirmButtonColor: "#711bba",
+            preConfirm: () => {
+                const date = Swal.getPopup().querySelector("#date").value;
+                const quantity =
+                    Swal.getPopup().querySelector("#quantity").value;
+
+                if (!date || !quantity) {
+                    Swal.showValidationMessage("Both fields are mandatory.");
+                }
+
+                return { date, quantity };
+            },
+        }).then(async (result) => {
+            if (result.value) {
+                const { date, quantity } = result.value;
+
+                try {
+                    const response = await axiosClient.post(
+                        "payments",
+                        {
+                            date,
+                            quantity,
+                            coach_id,
+                            athlete_id
+                        },
+                        {
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                        }
+                    );
+                    return resolve(response.data);
+                } catch (e) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Something went wrong!",
+                    });
+                }
+            }
+        });
+    });
+}
+
+export function athletePaymentsHistoric(athlete) {
+    Swal.fire({
+        title: `<h4><span class="fw-bold text-primary">${athlete.name}</span> Payment Historial</h4>`,
+        iconHtml: "",
+        html: `
+        <ul class="list-unstyled">
+        ${athlete.payments.map(payment => {
+            return `<li>${payment.date} for <span class="fw-bold">${payment.quantity}€</span></li>`;
+        }).join("")}
+    </ul>
+ `,
+        confirmButtonText: "Ok",
+        confirmButtonColor: "#711bba",
+        showCancelButton: true,
     });
 }
