@@ -116,18 +116,30 @@
                             >
                                 <font-awesome-icon icon="fa-solid fa-trash" />
                             </button>
+
+                            
+                            <button
+                                class="btn btn-primary rounded-0"
+                                :disabled="(index + 1) == exercise.sets.length"
+                                @click="copyToNextSet(exercise, index,set)"
+                            >
+                                <font-awesome-icon
+                                    icon="fa-solid fa-arrow-down"
+                                />
+                            </button>
                         </li>
                     </ol>
                     <button
                         class="btn btn-secondary"
                         @click="() => addSet(exercise.id)"
+                        :disabled="exercise.sets.length >= 8"
                     >
-                        Add Set
+                        {{exercise.sets.length >= 8 ? "You have reached the sets limit" : "Add Set"}}
                     </button>
                 </li>
             </ul>
-            <button class="btn btn-dark w-100" @click="addExercise">
-                Add Exercise
+            <button class="btn btn-dark w-100" @click="addExercise" :disabled="orderedWorkout.length >= 15" >
+                {{orderedWorkout.length >= 15 ? "You have reached the exercises limit" : "Add Exercise"}}
             </button>
 
             <button
@@ -254,6 +266,14 @@ function deleteSet(exercise_id, set_id) {
     }
 }
 
+function copyToNextSet(exercise, index, set) {
+    const targetSet = exercise.sets[index + 1];
+
+    targetSet.weight = set.weight
+    targetSet.reps = set.reps
+    targetSet.rpe = set.rpe
+}
+
 //Enviar api
 async function saveWorkout() {
     loading.value = true;
@@ -281,7 +301,7 @@ onMounted(() => {
 .set-header {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    margin: 0 6rem 0 3.5rem;
+    margin: 0 9rem 0 3.5rem;
 }
 .set-number {
     width: 3.5rem;

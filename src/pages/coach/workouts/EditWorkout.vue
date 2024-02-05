@@ -64,8 +64,17 @@
                                 {{ exercise.sets.length }}
                             </p>
                             <p class="mb-0">
-                                <span class="fw-bold">Actual / Target Tonelage:</span>
-                                {{ calculateTonelage(exercise.sets, true, false) }}kg / {{ calculateTonelage(exercise.sets, true) }}kg
+                                <span class="fw-bold"
+                                    >Actual / Target Tonelage:</span
+                                >
+                                {{
+                                    calculateTonelage(
+                                        exercise.sets,
+                                        true,
+                                        false
+                                    )
+                                }}kg /
+                                {{ calculateTonelage(exercise.sets, true) }}kg
                             </p>
                         </div>
                     </header>
@@ -79,9 +88,30 @@
                             <div class="fw-normal">TARGET</div>
 
                             <div class="set-labels">
-                                <div class="fw-normal cursor-pointer" v-tooltip="'WEIGHT: number of KG used in the set'">WEIGHT</div>
-                                <div class="fw-normal cursor-pointer" v-tooltip="'REPS: number of repetitions that should be performed in the set'">REPS</div>
-                                <div class="fw-normal cursor-pointer" v-tooltip="'RPE: effort level for the set, on a scale of 1 to 10'">RPE</div>
+                                <div
+                                    class="fw-normal cursor-pointer"
+                                    v-tooltip="
+                                        'WEIGHT: number of KG used in the set'
+                                    "
+                                >
+                                    WEIGHT
+                                </div>
+                                <div
+                                    class="fw-normal cursor-pointer"
+                                    v-tooltip="
+                                        'REPS: number of repetitions that should be performed in the set'
+                                    "
+                                >
+                                    REPS
+                                </div>
+                                <div
+                                    class="fw-normal cursor-pointer"
+                                    v-tooltip="
+                                        'RPE: effort level for the set, on a scale of 1 to 10'
+                                    "
+                                >
+                                    RPE
+                                </div>
                             </div>
                         </section>
 
@@ -89,9 +119,30 @@
                             <div class="fw-normal">ACTUAL</div>
 
                             <div class="set-labels">
-                                <div class="fw-normal cursor-pointer" v-tooltip="'WEIGHT: number of KG used in the set'">WEIGHT</div>
-                                <div class="fw-normal cursor-pointer" v-tooltip="'REPS: number of repetitions that should be performed in the set'">REPS</div>
-                                <div class="fw-normal cursor-pointer" v-tooltip="'RPE: effort level for the set, on a scale of 1 to 10'">RPE</div>
+                                <div
+                                    class="fw-normal cursor-pointer"
+                                    v-tooltip="
+                                        'WEIGHT: number of KG used in the set'
+                                    "
+                                >
+                                    WEIGHT
+                                </div>
+                                <div
+                                    class="fw-normal cursor-pointer"
+                                    v-tooltip="
+                                        'REPS: number of repetitions that should be performed in the set'
+                                    "
+                                >
+                                    REPS
+                                </div>
+                                <div
+                                    class="fw-normal cursor-pointer"
+                                    v-tooltip="
+                                        'RPE: effort level for the set, on a scale of 1 to 10'
+                                    "
+                                >
+                                    RPE
+                                </div>
                             </div>
                         </section>
                     </section>
@@ -174,8 +225,8 @@
 
                             <button
                                 class="btn btn-primary rounded-0"
-                                :disabled="(index + 1) == exercise.sets.length"
-                                @click="copyToNextSet(exercise, index,set)"
+                                :disabled="index + 1 == exercise.sets.length"
+                                @click="copyToNextSet(exercise, index, set)"
                             >
                                 <font-awesome-icon
                                     icon="fa-solid fa-arrow-down"
@@ -186,8 +237,9 @@
                     <button
                         class="btn btn-secondary"
                         @click="() => addSet(exercise.exercise_id)"
+                        :disabled="exercise.sets.length >= 8"
                     >
-                        Add Set
+                    {{exercise.sets.length >= 8 ? "You have reached the sets limit" : "Add Set"}}
                     </button>
                 </li>
             </ul>
@@ -199,8 +251,13 @@
                 v-if="workout.length > 0"
                 class="btn btn-primary w-100 mt-5"
                 @click="saveWorkout"
+                :disabled="workout.length >= 15"
             >
-                Save Workout
+                {{
+                    workout.length >= 15
+                        ? "You have reached the exercises limit"
+                        : "Add Exercise"
+                }}
             </button>
         </section>
     </div>
@@ -323,12 +380,12 @@ function deleteSet(exercise_id, set_id) {
 function copyToNextSet(exercise, index, set) {
     const targetSet = exercise.sets[index + 1];
 
-    targetSet.actual_weight = set.actual_weight
-    targetSet.actual_reps = set.actual_reps
-    targetSet.actual_rpe = set.actual_rpe
-    targetSet.target_weight = set.target_weight
-    targetSet.target_reps = set.target_reps
-    targetSet.target_rpe = set.target_rpe
+    targetSet.actual_weight = set.actual_weight;
+    targetSet.actual_reps = set.actual_reps;
+    targetSet.actual_rpe = set.actual_rpe;
+    targetSet.target_weight = set.target_weight;
+    targetSet.target_reps = set.target_reps;
+    targetSet.target_rpe = set.target_rpe;
 }
 
 function copyToActual(set) {

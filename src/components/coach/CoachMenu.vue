@@ -9,13 +9,31 @@
                 class="w-25 mt-1 p-3"
                 :class="route.path == '/coach' ? 'text-primary' : ''"
                 size="2xl"
-                icon="fa-regular fa-calendar-days"
+                icon="fa-solid fa-users"
             />
             <p
                 class="mt-4 fs-1"
                 :class="route.path == '/coach' ? 'text-primary' : ''"
             >
                 Dashboard
+            </p>
+        </RouterLink>
+        <RouterLink
+            to="/coach/exercises"
+            class="text-white d-flex align-items-center text-decoration-none mt-3"
+            :class="route.path == '/coach/exercises' ? 'bg-white' : ''"
+        >
+            <font-awesome-icon
+                class="w-25 mt-1 p-3"
+                :class="route.path == '/coach/exercises' ? 'text-primary' : ''"
+                size="2xl"
+                icon="fa-solid fa-credit-card"
+            />
+            <p
+                class="mt-4 fs-1"
+                :class="route.path == '/coach/exercises' ? 'text-primary' : ''"
+            >
+                Manage
             </p>
         </RouterLink>
         <RouterLink

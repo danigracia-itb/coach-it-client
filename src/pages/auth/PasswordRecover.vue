@@ -7,7 +7,7 @@
             <RouterLink to="/"
                 ><img class="auth-logo-img" src="../../../public/assets/logo.png" alt=""
             /></RouterLink>
-            <div class="p-5 px-5 border rounded-5">
+            <div class="p-5 px-5 border rounded-5 bg-white">
                 <img
                     class="key-img mx-auto d-block mb-4"
                     src="../../../public/assets/img/key-solid.svg"

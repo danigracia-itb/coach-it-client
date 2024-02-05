@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex flex-row gap-2 align-items-center my-auto">
-        <span>{{ user.name }}</span>
+        <!-- <span>{{ user.name }}</span> -->
         <button
             @click="onContextMenu($event)"
             class="border-0 bg-transparent"
@@ -16,14 +16,14 @@
 </template>
 
 <script setup>
-import { h } from "vue";
+import { h, ref} from "vue";
 import { useRouter } from "vue-router";
 import ContextMenu from "@imengyu/vue3-context-menu";
 import { logOut, getUser } from "../../functions/helpers";
 
 const { athlete } = defineProps(["athlete"]);
 
-const user = getUser();
+const user = ref(getUser());
 const router = useRouter();
 
 function onContextMenu(e) {

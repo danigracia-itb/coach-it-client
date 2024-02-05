@@ -3,7 +3,7 @@
         <div class="img-register vh-100 col-7 d-none d-md-block"></div>
         <div class="col-md-5 d-flex flex-column align-items-center justify-content-center">
             <RouterLink to="/"><img class="auth-logo-img" src="../../../public/assets/logo.png" alt="" /></RouterLink>
-            <div class="p-5 mx-auto border rounded-5">
+            <div class="p-5 mx-auto border rounded-5 bg-white">
                 <h1 class="text-uppercase text-center fw-bold">
                     Register as {{ is_coach ? "a" : "an" }}
                     <span :class="{ 'text-primary': is_coach }">

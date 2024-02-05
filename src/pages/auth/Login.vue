@@ -7,7 +7,7 @@
             <RouterLink to="/"
                 ><img width="300" src="../../../public/assets/logo.png"
             /></RouterLink>
-            <div class="p-5 mx-2 mx-md-0 border rounded-5">
+            <div class="p-5 mx-2 mx-md-0 border rounded-5 bg-white">
                 <h1 class="text-uppercase text-center fw-bold">login</h1>
                 <form @submit.prevent="login" class="">
                     <div class="form-group mt-5">
