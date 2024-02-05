@@ -8,8 +8,8 @@
             label
         }}</span>
 
-        <p class="fw-bold mb-0" v-if="isRestday">
-            Rest
+        <p v-if="isRestday" v-tooltip="'Rest day'" style="font-size: 2rem;" >
+            <font-awesome-icon icon="fa-solid fa-bed" />
         </p>
 
         <RouterLink :to="`/coach/athlete/${athlete.id}/workout/create?date=${day.date}`" v-if="day.isCurrentMonth && !hasWorkout && !isRestday"
@@ -52,8 +52,10 @@ const label = computed(() => {
     return dayjs(props.day.date).format("D");
 });
 
+const workoutDeleted = ref(false)
+
 function onContextMenu(e) {
-    if(isRestday) {
+    if(props.isRestday) {
         return
     }
     //prevent the browser's default menu
@@ -108,8 +110,9 @@ function onContextMenu(e) {
                 }),
 
                 onClick: async () => {
+                    workoutDeleted.value = true
                     await axiosClient.delete('workout/' + props.workout.id)
-                    router.go(0)
+                    // router.go(0)
                 },
             }] : [{
                 label: "Add",

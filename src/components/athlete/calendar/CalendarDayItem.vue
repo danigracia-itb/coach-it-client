@@ -5,15 +5,19 @@
         :class="{
             'calendar-day--not-current': !day.isCurrentMonth,
             'calendar-day--today': isToday,
-            'calendar-day--rest-day': isRestday || newRestDay
+            'calendar-day--rest-day': (isRestday || newRestDay) && !newAvailableDay,
         }"
     >
         <span class="fw-bold" :class="isToday ? 'bg-primary text-white' : ''">
             {{ label }}</span
         >
 
-        <p class="fw-bold mb-0" v-if="isRestday || newRestDay">
-            Rest
+        <p
+            v-if="(isRestday || newRestDay) && !newAvailableDay"
+            v-tooltip="'Rest day'"
+            style="font-size: 2rem"
+        >
+            <font-awesome-icon icon="fa-solid fa-bed" />
         </p>
 
         <RouterLink
@@ -44,7 +48,8 @@ const props = defineProps([
     "workout",
 ]);
 
-const newRestDay = ref(false)
+const newRestDay = ref(false);
+const newAvailableDay = ref(false);
 
 const label = computed(() => {
     return dayjs(props.day.date).format("D");
@@ -59,25 +64,51 @@ function onContextMenu(e) {
         y: e.y,
         zIndex: 3,
         items: [
-            {
-                label: "Rest Day",
-                icon: h("img", {
-                    src: "../../../../public/assets/icons/calendar-check-solid.svg",
-                    style: {
-                        width: "15",
-                        height: "15",
-                        zIndex: 100,
-                    },
-                }),
-                onClick: () => {
-                    axiosClient.post("rest-day", {
-                        user_id: props.athlete.id,
-                        date: props.day.date
-                    })
+            ...((props.isRestday || newRestDay.value) && !newAvailableDay.value
+                ? [
+                      {
+                          label: "Available Day",
+                          icon: h("img", {
+                              src: "../../../../public/assets/icons/calendar-check-solid.svg",
+                              style: {
+                                  width: "15",
+                                  height: "15",
+                                  zIndex: 100,
+                              },
+                          }),
+                          onClick: () => {
+                              axiosClient.post("available-day", {
+                                  user_id: props.athlete.id,
+                                  date: props.day.date,
+                              });
 
-                    newRestDay.value = true
-                },
-            },
+                              newRestDay.value = false;
+                              newAvailableDay.value = true;
+                          },
+                      },
+                  ]
+                : [
+                      {
+                          label: "Rest Day",
+                          icon: h("img", {
+                              src: "../../../../public/assets/icons/calendar-xmark-solid.svg",
+                              style: {
+                                  width: "15",
+                                  height: "15",
+                                  zIndex: 100,
+                              },
+                          }),
+                          onClick: () => {
+                              axiosClient.post("rest-day", {
+                                  user_id: props.athlete.id,
+                                  date: props.day.date,
+                              });
+
+                              newRestDay.value = true;
+                              newAvailableDay.value = false;
+                          },
+                      },
+                  ]),
         ],
     });
 }

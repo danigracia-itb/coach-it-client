@@ -133,6 +133,16 @@
                                 />
                             </div>
 
+                            
+                            <button
+                                class="btn btn-primary rounded-0"
+                                @click="copyToActual(set)"
+                            >
+                                <font-awesome-icon
+                                    icon="fa-solid fa-arrow-right"
+                                />
+                            </button>
+
                             <div class="p-3 w-100 d-flex gap-2">
                                 <!-- ACTUAL -->
                                 <input
@@ -157,6 +167,16 @@
                                 @click="() => deleteSet(exercise.exercise_id, set.id)"
                             >
                                 <font-awesome-icon icon="fa-solid fa-trash" />
+                            </button>
+
+                            <button
+                                class="btn btn-primary rounded-0"
+                                :disabled="(index + 1) == exercise.sets.length"
+                                @click="copyToNextSet(exercise, index,set)"
+                            >
+                                <font-awesome-icon
+                                    icon="fa-solid fa-arrow-down"
+                                />
                             </button>
                         </li>
                     </ol>
@@ -306,6 +326,24 @@ function deleteSet(exercise_id, set_id) {
     }
 }
 
+function copyToNextSet(exercise, index, set) {
+    const targetSet = exercise.sets[index + 1];
+
+    targetSet.actual_weight = set.actual_weight
+    targetSet.actual_reps = set.actual_reps
+    targetSet.actual_rpe = set.actual_rpe
+    targetSet.target_weight = set.target_weight
+    targetSet.target_reps = set.target_reps
+    targetSet.target_rpe = set.target_rpe
+}
+
+function copyToActual(set) {
+    set.actual_weight = set.target_weight;
+    set.actual_reps = set.target_reps;
+    set.actual_rpe = set.target_rpe;
+}
+
+
 //Enviar api
 async function saveWorkout(close = false) {
     if(close) {
@@ -350,11 +388,11 @@ onMounted(() => {
 }
 
 .set-header-target {
-    padding: 0 2rem 0 6rem !important; 
+    padding: 0 5rem 0 6rem !important;
 }
 
 .set-header-actual {
-    padding: 0 6rem 0 2rem !important; 
+    padding: 0 10rem 0 2rem !important;
 }
 
 .set-labels {
