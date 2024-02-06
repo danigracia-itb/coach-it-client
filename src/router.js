@@ -7,6 +7,7 @@ import IndexView from "./pages/public/IndexView.vue";
 import PrivacyPolicy from "./pages/public/PrivacyPolicy.vue";
 import NotFound from "./pages/public/NotFound.vue";
 import AboutUs from "./pages/public/AboutUs.vue";
+import Calculator from "./pages/public/Calculator.vue";
 
 //Auth
 import Login from "./pages/auth/Login.vue";
@@ -30,7 +31,6 @@ import AthleteDashboard from "./pages/athlete/Dashboard.vue";
 import AthleteEditWorkout from "./pages/athlete/EditWorkout.vue";
 
 const routes = [
-    
     { path: "/", component: IndexView },
     { path: "/privacy-policy", component: PrivacyPolicy },
 
@@ -53,13 +53,30 @@ const routes = [
         children: [
             { path: "", component: CoachDashboard },
             { path: "exercises", component: CoachExercises },
-            { path: "manage", component: () => import('./pages/coach/Manage.vue') },
+            {
+                path: "manage",
+                component: () => import("./pages/coach/Manage.vue"),
+            },
             { path: "profile", component: CoachProfile },
-            { path: "athlete/:id", component: () => import('./pages/coach/Athlete.vue') },
+            {
+                path: "athlete/:id",
+                component: () => import("./pages/coach/Athlete.vue"),
+            },
             { path: "athlete/:id/profile", component: CoachAthleteProfile },
-            { path: "athlete/:id/stats", component: () => import('./pages/coach/AthleteStats.vue') },
-            { path: "athlete/:id/workout/create", component: () => import('./pages/coach/workouts/CreateWorkout.vue') },
-            { path: "athlete/:id/workout/:workout_id", component: () => import('./pages/coach/workouts/EditWorkout.vue') },
+            {
+                path: "athlete/:id/stats",
+                component: () => import("./pages/coach/AthleteStats.vue"),
+            },
+            {
+                path: "athlete/:id/workout/create",
+                component: () =>
+                    import("./pages/coach/workouts/CreateWorkout.vue"),
+            },
+            {
+                path: "athlete/:id/workout/:workout_id",
+                component: () =>
+                    import("./pages/coach/workouts/EditWorkout.vue"),
+            },
         ],
     },
 
