@@ -9,7 +9,7 @@
             /></RouterLink>
             <div class="p-5 mx-2 mx-md-0 border rounded-5 bg-white">
                 <h1 class="text-uppercase text-center fw-bold">login</h1>
-                <form @submit.prevent="login" class="">
+                <form @submit.prevent="handleLogin" class="">
                     <div class="form-group mt-5">
                         <label for="email">Email</label>
                         <input
@@ -37,7 +37,7 @@
                         class="mt-5 d-flex align-items-center"
                     >
                         <button
-                            v-if="!loading"
+                            v-if="!configStore.loading"
                             type="submit"
                             class="text-uppercase btn btn-primary rounded-4 w-100"
                         >
@@ -46,7 +46,7 @@
                         <Spinner v-else />
                     </div>
 
-                    <div v-if="error" class="alert alert-danger mt-5">
+                    <div v-if="configStore.error" class="alert alert-danger mt-5">
                         Error: Incorrect credentials.
                     </div>
                 </form>
@@ -84,56 +84,21 @@
 
 <script setup>
 import { ref } from "vue";
-import axiosClient from "../../config/axios";
-import { useRouter, RouterLink } from "vue-router";
-
+import { RouterLink } from "vue-router";
+import authController from "../../controllers/authController";
+import useAuthStore from "../../stores/useAuthStore"
+import useConfigStore from "../../stores/useConfigStore";
 import Spinner from "../../components/utils/Spinner.vue";
+
+const authStore = useAuthStore()
+const configStore = useConfigStore()
 
 const email = ref("");
 const password = ref("");
 
-const error = ref("");
-const loading = ref(false);
-const router = useRouter();
-
-const login = async (e) => {
-    e.preventDefault();
-    loading.value = true;
-
-    try {
-        const response = await axiosClient.post(
-            "login",
-            {
-                email: email.value,
-                password: password.value,
-            },
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            }
-        );
-        loading.value = false;
-        error.value = false;
-
-        const { token, user } = response.data;
-
-        localStorage.setItem("token", token);
-        localStorage.setItem("id", user.id);
-        localStorage.setItem("user", JSON.stringify(user));
-
-        if (user.is_coach) {
-            router.push({ path: "/coach" });
-        } else {
-            router.push({ path: "/athlete" });
-        }
-    } catch (e) {
-        loading.value = false;
-        error.value = true;
-    }
+const handleLogin = async () => {
+    await authController.login({email: email.value, password: password.value})
 };
-
-// const Spinner = defineAsyncComponent(() => import("../components/layout/Spinner.vue"));
 </script>
 
 <style scoped>

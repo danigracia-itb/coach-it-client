@@ -3,12 +3,13 @@
         <!-- <span>{{ user.name }}</span> -->
         <button
             @click="onContextMenu($event)"
-            class="border-0 bg-transparent"
+            class="border-0 bg-transparent d-flex gap-3 align-items-center"
         >
+            <span>{{ authStore.user.name }}</span>
             <img
                 class="profile-img rounded-circle border border-1 border-secondary bg-white"
                 width="50"
-                :src="user.picture"
+                :src="authStore.user.picture"
                 alt=""
             />
         </button>
@@ -19,11 +20,12 @@
 import { h, ref} from "vue";
 import { useRouter } from "vue-router";
 import ContextMenu from "@imengyu/vue3-context-menu";
-import { logOut, getUser } from "../../functions/helpers";
+import { logOut } from "../../functions/helpers";
 
-const { athlete } = defineProps(["athlete"]);
+import useAuthStore from "../../stores/useAuthStore";
 
-const user = ref(getUser());
+const authStore = useAuthStore();
+
 const router = useRouter();
 
 function onContextMenu(e) {

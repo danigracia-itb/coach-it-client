@@ -98,18 +98,20 @@ import {
     addPaymentPopUp,
     athletePaymentsHistoric,
 } from "../../functions/alerts";
-import axios from "axios";
+
+import useAuthStore from "../../stores/useAuthStore";
+
+const authStore = useAuthStore()
 
 const loading = ref(true);
 var athletes = ref([]);
 var athlete = ref(null);
-const coach_id = localStorage.getItem("id");
 
 async function getLastPayments() {
     loading.value = true;
     try {
         const response = await axiosClient(
-            "coach/get-athletes-with-last-payments/" + coach_id
+            "coach/get-athletes-with-last-payments/" + authStore.user.id
         );
 
         athletes.value = response.data;

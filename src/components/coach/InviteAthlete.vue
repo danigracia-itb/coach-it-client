@@ -13,11 +13,13 @@
 
 <script setup>
 import { inviteAthlete } from "../../functions/alerts";
+import useAuthStore from "../../stores/useAuthStore";
+
+const authStore = useAuthStore();
 
 const host = window.location.host
-const code = localStorage.getItem("id")
 
 function inviteAthletePopup() {
-    inviteAthlete(host, code);
+    inviteAthlete(host, authStore.user.id);
 }
 </script>

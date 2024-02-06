@@ -105,17 +105,20 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-    if (to.matched.some((record) => record.meta.requiresAuth)) {
-        // Verificar la autenticación aquí
-        const isAuthenticated = await checkAuth(); // Lógica para verificar si el usuario está autenticado
-        if (!isAuthenticated) {
-            next("/login"); // Redirigir al usuario al inicio de sesión si no está autenticado
-        } else {
-            next(); // Permitir acceso a la ruta protegida si el usuario está autenticado
-        }
-    } else {
-        next(); // Permitir acceso a rutas que no requieren autenticación
-    }
+    // if (to.matched.some((record) => record.meta.requiresAuth)) {
+    //     // Verificar la autenticación aquí
+    //     const isAuthenticated = await checkAuth(); // Lógica para verificar si el usuario está autenticado
+    //     if (!isAuthenticated) {
+    //         next("/login"); // Redirigir al usuario al inicio de sesión si no está autenticado
+    //     } else {
+    //         next(); // Permitir acceso a la ruta protegida si el usuario está autenticado
+    //     }
+    // } else {
+    //     next(); // Permitir acceso a rutas que no requieren autenticación
+    // }
+    next()
 });
 
 export default router;
+
+

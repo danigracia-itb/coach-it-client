@@ -14,7 +14,7 @@
             <RouterLink
                 :to="`/coach/athlete/${athlete.id}`"
                 class="athlete-card p-3 border border-black border-1 rounded text-decoration-none text-black align-middle bg-white"
-                v-for="athlete in athletes"
+                v-for="athlete in coachStore.athletes"
                 :key="athlete.id"
             >
                 <img
@@ -33,25 +33,29 @@
 import { onMounted, reactive, ref } from "vue";
 import { RouterLink } from "vue-router";
 import axiosClient from "../../config/axios";
+
+import useAuthStore from "../../stores/useAuthStore";
+import useCoachStore from "../../stores/useCoachStore";
+
 import Spinner from "../../components/utils/Spinner.vue";
 import InviteAthlete from "../../components/coach/InviteAthlete.vue";
 
+
+const authStore = useAuthStore()
+const coachStore = useCoachStore()
+
 const loading = ref(true);
-var athletes = reactive([]);
 
 async function getAthletes() {
-    loading.value = true;
     try {
         const response = await axiosClient(
-            "coach/get-athletes/" + localStorage.getItem("id")
+            "coach/get-athletes-with-last-payments/" + authStore.user.id
         );
-
-        athletes = response.data;
-
-        loading.value = false;
+        coachStore.setAthletes(response.data)
+        loading.value = false
     } catch (e) {
+        loading.value = false
         console.log(e);
-        loading.value = false;
     }
 }
 

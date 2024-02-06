@@ -32,11 +32,19 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 
+//Pinia
+import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
+
 library.add(fas, far, fab)
 
 createApp(App)
 .component('font-awesome-icon', FontAwesomeIcon)
 .use(router)
+.use(pinia)
 .use(ContextMenu)
 .use(FloatingVue)
 .mount('#app')
