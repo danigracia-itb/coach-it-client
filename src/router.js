@@ -39,6 +39,7 @@ const routes = [
     { path: "/register", component: Register },
     { path: "/form", component: Form },
     { path: "/aboutus", component: AboutUs },
+    { path: "/calculator", component: Calculator },
 
     //Password
     { path: "/request-password-recover", component: RequestPasswordRecover },
