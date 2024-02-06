@@ -1,8 +1,9 @@
 import axiosClient from "../config/axios";
+import { rpeTable } from "./const";
 
 // Función para verificar la autenticación utilizando la API
 export async function checkAuth() {
-    if(localStorage.getItem("token")) return true
+    if (localStorage.getItem("token")) return true
     else return false
     // try {
     //     const token = localStorage.getItem("token");
@@ -31,39 +32,39 @@ export async function checkAuth() {
 export function getUser() {
     const userRaw = localStorage.getItem("user")
 
-    if(userRaw) {
+    if (userRaw) {
         return JSON.parse(userRaw)
     } else {
         return false
     }
 }
 
-export function calculateTonelage(sets, edit=false, target=true) {
+export function calculateTonelage(sets, edit = false, target = true) {
     var tonelage = 0
-    
-    if(!sets[0]) {
+
+    if (!sets[0]) {
         return tonelage
     }
 
-    if(target) {
-        if(!edit) {
+    if (target) {
+        if (!edit) {
             sets.map(set => {
                 tonelage += set.weight * set.reps
             })
-            
+
             return sets[0].weight ? tonelage : 0
         } else {
             sets.map(set => {
                 tonelage += set.target_weight * set.target_reps
             })
-            
+
             return sets[0].target_weight ? tonelage : 0
         }
     } else {
         sets.map(set => {
             tonelage += set.actual_weight * set.actual_reps
         })
-        
+
         return sets[0].actual_weight ? tonelage : 0
     }
 
@@ -101,4 +102,20 @@ export function isDateBeforeOrEqualToToday(date) {
 
     // Comprobar si la fecha proporcionada es igual o anterior a hoy
     return providedDate <= today;
+}
+
+export function calculateMaxRpe(sets) {
+    let max = 0;
+    for(let set of sets) {
+        const rpeForReps = rpeTable[`${set.reps}`]
+        if(rpeForReps) {
+            const e1rm = set.weight * ((100+((-1) *( rpeForReps[`${set.rpe}`] - 100)))/ 100)
+            
+            if(e1rm >= max) {
+                max = e1rm
+            }
+        }
+
+    }
+    return max
 }

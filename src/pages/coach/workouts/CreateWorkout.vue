@@ -51,10 +51,17 @@
                                 <span class="fw-bold">Total Sets:</span>
                                 {{ exercise.sets.length }}
                             </p>
-                            <p class="mb-0">
-                                <span class="fw-bold">Tonelage:</span>
-                                {{ calculateTonelage(exercise.sets) }}kg
-                            </p>
+
+                            <div>
+                                <p class="mb-0">
+                                    <span class="fw-bold">Tonelage: </span>
+                                    {{ calculateTonelage(exercise.sets) }}kg
+                                </p>
+                                <p class="mb-0">
+                                    <span class="fw-bold">E1RM: </span>
+                                    {{ calculateMaxRpe(exercise.sets) }}kg
+                                </p>
+                            </div>
                         </div>
                     </header>
 
@@ -117,11 +124,10 @@
                                 <font-awesome-icon icon="fa-solid fa-trash" />
                             </button>
 
-                            
                             <button
                                 class="btn btn-primary rounded-0"
-                                :disabled="(index + 1) == exercise.sets.length"
-                                @click="copyToNextSet(exercise, index,set)"
+                                :disabled="index + 1 == exercise.sets.length"
+                                @click="copyToNextSet(exercise, index, set)"
                             >
                                 <font-awesome-icon
                                     icon="fa-solid fa-arrow-down"
@@ -134,12 +140,24 @@
                         @click="() => addSet(exercise.id)"
                         :disabled="exercise.sets.length >= 8"
                     >
-                        {{exercise.sets.length >= 8 ? "You have reached the sets limit" : "Add Set"}}
+                        {{
+                            exercise.sets.length >= 8
+                                ? "You have reached the sets limit"
+                                : "Add Set"
+                        }}
                     </button>
                 </li>
             </ul>
-            <button class="btn btn-dark w-100" @click="addExercise" :disabled="orderedWorkout.length >= 15" >
-                {{orderedWorkout.length >= 15 ? "You have reached the exercises limit" : "Add Exercise"}}
+            <button
+                class="btn btn-dark w-100"
+                @click="addExercise"
+                :disabled="orderedWorkout.length >= 15"
+            >
+                {{
+                    orderedWorkout.length >= 15
+                        ? "You have reached the exercises limit"
+                        : "Add Exercise"
+                }}
             </button>
 
             <button
@@ -161,7 +179,7 @@ import _ from "lodash";
 import axiosClient from "../../../config/axios";
 
 import { selectExercise } from "../../../functions/alerts";
-import { calculateTonelage } from "../../../functions/helpers";
+import { calculateMaxRpe, calculateTonelage } from "../../../functions/helpers";
 import Spinner from "../../../components/utils/Spinner.vue";
 
 const route = useRoute();
@@ -269,9 +287,9 @@ function deleteSet(exercise_id, set_id) {
 function copyToNextSet(exercise, index, set) {
     const targetSet = exercise.sets[index + 1];
 
-    targetSet.weight = set.weight
-    targetSet.reps = set.reps
-    targetSet.rpe = set.rpe
+    targetSet.weight = set.weight;
+    targetSet.reps = set.reps;
+    targetSet.rpe = set.rpe;
 }
 
 //Enviar api
@@ -281,13 +299,13 @@ async function saveWorkout() {
         const respuesta = await axiosClient.post("workout", {
             user_id: athlete_id,
             date,
-            workout
-        })
+            workout,
+        });
         loading.value = false;
 
-        router.push("/coach/athlete/" + athlete_id)
+        router.push("/coach/athlete/" + athlete_id);
     } catch (error) {
-        console.log(error)
+        console.log(error);
         loading.value = false;
     }
 }
