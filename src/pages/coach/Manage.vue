@@ -72,7 +72,7 @@
                         >
                             <font-awesome-icon icon="fa-solid fa-bell" />
                         </button>
-                        <button class="btn btn-danger">
+                        <button class="btn btn-danger" @click="deleteAthlete(athlete.id)">
                             <font-awesome-icon icon="fa-solid fa-trash" />
                         </button>
                     </td>
@@ -101,7 +101,7 @@ import {
 import axios from "axios";
 
 const loading = ref(true);
-var athletes = reactive([]);
+var athletes = ref([]);
 var athlete = ref(null);
 const coach_id = localStorage.getItem("id");
 
@@ -112,7 +112,7 @@ async function getLastPayments() {
             "coach/get-athletes-with-last-payments/" + coach_id
         );
 
-        athletes = response.data;
+        athletes.value = response.data;
 
         loading.value = false;
     } catch (e) {
@@ -154,6 +154,43 @@ async function sendPaymentReminder(athlete) {
         loading.value = false;
         console.log(e);
     }
+}
+
+async function deleteAthlete(id) {
+    Swal.fire({
+        title: "¿Do you want to delete this athlete?",
+        text: "Once deleted, it cannot be recovered",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#711bba",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          //Enviar la petición al servidor
+          axiosClient
+            .delete(`/athlete/${id}`)
+            .then(() => {
+            console.log()
+              Swal.fire({
+                title: "Athlete deleted",
+                text: "Athlete deleted successfully",
+                icon: "success",
+              });
+
+              //Eliminar categoría del DOM
+              athletes.value = athletes.value.filter((a) => a.id != id)
+            })
+            .catch((error) => {
+                Swal.fire({
+                    title: "Error 505!",
+                    text: "Server error, contact with webmaster for more info",
+                    icon: "error",
+              });
+            });
+        }
+      });
 }
 
 function handleAthleteHistoric(id) {
