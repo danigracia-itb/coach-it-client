@@ -48,7 +48,7 @@ const routes = [
     {
         path: "/coach",
         component: CoachLayout,
-        //meta: { requiresAuth: true }, // Requiere autenticación
+        meta: { requiresAuth: true }, // Requiere autenticación
 
         children: [
             { path: "", component: CoachDashboard },
@@ -67,7 +67,7 @@ const routes = [
     {
         path: "/athlete",
         component: AthleteLayout,
-        //meta: { requiresAuth: true }, // Requiere autenticación
+        meta: { requiresAuth: true }, // Requiere autenticación
 
         children: [
             { path: "", component: AthleteDashboard },
