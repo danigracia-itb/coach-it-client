@@ -23,7 +23,7 @@
             class="btn btn-primary"
         >
             <font-awesome-icon icon="fa-solid fa-dumbbell" />
-            Workout
+            <span class="d-none d-md-inline">Workout</span>
         </RouterLink>
     </li>
 </template>

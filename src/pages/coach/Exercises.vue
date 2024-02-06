@@ -137,9 +137,19 @@
   
   <style scoped>
   .exercises-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    /* align-items: center; */
+  }
+
+  @media (min-width: 768px) {
+    .exercises-grid {
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(2, 1fr);
+  }
   }
   </style>
   
