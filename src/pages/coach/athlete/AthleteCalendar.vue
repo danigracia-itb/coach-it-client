@@ -24,41 +24,46 @@
             </header>
 
             <div>
-                <Calendar :athlete="athlete" :workouts="workouts" :restDays="restDays"/>
+                <Calendar :athlete="athlete" :workouts="coachStore.athleteCalendar.workouts" :restDays="coachStore.athleteCalendar.restDays"/>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-import { onMounted, reactive, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useRoute, RouterLink } from "vue-router";
-import axiosClient from "../../config/axios";
-import Spinner from "../../components/utils/Spinner.vue";
-import Calendar from "../../components/coach/calendar/Calendar.vue";
+import axiosClient from "../../../config/axios";
+
+//Components
+import Spinner from "../../../components/utils/Spinner.vue";
+import Calendar from "../../../components/coach/calendar/Calendar.vue";
+
+//Stores
+import useCoachStore from "../../../stores/useCoachStore";
+
+//Controllers
+import coachController from "../../../controllers/coachController";
+
+const coachStore = useCoachStore();
 
 const route = useRoute();
 
-const loading = ref(true);
-var athlete = reactive({});
-var workouts = reactive({});
-var restDays = reactive({});
+const athlete = computed(() => coachStore.getAthleteById(route.params.id))
 
-async function getAthleteProfile() {
+const loading = ref(true);
+
+async function getAthleteCalendar() {
     loading.value = true;
     try {
-        const profileResponse = await axiosClient(
-            "coach/get-athlete-profile/" + route.params.id
-        );
         const calendarResponse = await axiosClient(
             "coach/get-athlete-calendar/" + route.params.id
         );
 
-        athlete = profileResponse.data;
-        workouts = calendarResponse.data.workouts;
-        restDays = calendarResponse.data.restDays;
-
-        console.log(restDays)
+        coachStore.setAthleteCalendar({
+            workouts: calendarResponse.data.workouts,
+            restDays: calendarResponse.data.restDays
+        })
 
         loading.value = false;
     } catch (e) {
@@ -68,6 +73,9 @@ async function getAthleteProfile() {
 }
 
 onMounted(() => {
-    getAthleteProfile();
+    if (coachStore.athletes.length <= 0) {
+        coachController.getAthletes();
+    }
+    getAthleteCalendar();
 });
 </script>

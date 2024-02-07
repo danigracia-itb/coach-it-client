@@ -29,14 +29,14 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-import axiosClient from "../../config/axios";
+import axiosClient from "../../../config/axios";
 import { useRoute } from "vue-router";
 
 //Components
-import Spinner from "../../components/utils/Spinner.vue";
-import StatCard from "../../components/stats/StatCard.vue";
+import Spinner from "../../../components/utils/Spinner.vue";
+import StatCard from "../../../components/stats/StatCard.vue";
 
-import getAthleteStats from "../../functions/stats";
+import getAthleteStats from "../../../functions/stats";
 
 const route = useRoute();
 const loading = ref(true);

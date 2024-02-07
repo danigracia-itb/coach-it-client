@@ -26,7 +26,7 @@
                 <li
                     v-for="exercise in orderedWorkout"
                     :key="exercise.id"
-                    class="card exercise-card p-4 mb-2"
+                    class="card exercise-card p-4 mb-4"
                 >
                     <button
                         class="delete-exercise btn"
@@ -63,19 +63,28 @@
                                 <span class="fw-bold">Total Sets:</span>
                                 {{ exercise.sets.length }}
                             </p>
-                            <p class="mb-0">
-                                <span class="fw-bold"
-                                    >Actual / Target Tonelage:</span
-                                >
-                                {{
-                                    calculateTonelage(
-                                        exercise.sets,
-                                        true,
-                                        false
-                                    )
-                                }}kg /
-                                {{ calculateTonelage(exercise.sets, true) }}kg
-                            </p>
+
+                            <div class="d-flex flex-column align-items-end">
+                                <p class="mb-0">
+                                    <span class="fw-bold"
+                                        >Actual / Target Tonelage:</span
+                                    >
+                                    {{
+                                        calculateTonelage(
+                                            exercise.sets,
+                                            true,
+                                            false
+                                        )
+                                    }}kg /
+                                    {{
+                                        calculateTonelage(exercise.sets, true)
+                                    }}kg
+                                </p>
+                                <p class="mb-0">
+                                    <span class="fw-bold">E1RM: </span>
+                                    {{ calculateMaxRpe(exercise.sets) }}kg
+                                </p>
+                            </div>
                         </div>
                     </header>
 
@@ -239,12 +248,17 @@
                         @click="() => addSet(exercise.exercise_id)"
                         :disabled="exercise.sets.length >= 8"
                     >
-                    {{exercise.sets.length >= 8 ? "You have reached the sets limit" : "Add Set"}}
+                        {{
+                            exercise.sets.length >= 8
+                                ? "You have reached the sets limit"
+                                : "Add Set"
+                        }}
                     </button>
                 </li>
             </ul>
             <button
-                class="btn btn-dark w-100" @click="addExercise"
+                class="btn btn-dark w-100"
+                @click="addExercise"
                 :disabled="workout.length >= 15"
             >
                 {{
@@ -269,43 +283,35 @@
 import { onMounted, reactive, ref, computed } from "vue";
 import { useRoute } from "vue-router";
 import _ from "lodash";
+import axiosClient from "../../config/axios";
 
-import axiosClient from "../../../config/axios";
+//helpers
+import { selectExercise } from "../../functions/alerts";
+import { calculateTonelage, calculateMaxRpe } from "../../functions/helpers";
 
-import { selectExercise } from "../../../functions/alerts";
-import { calculateTonelage } from "../../../functions/helpers";
-import Spinner from "../../../components/utils/Spinner.vue";
+//components
+import Spinner from "../../components/utils/Spinner.vue";
 
+//stores
+import useExercisesStore from "../../stores/useExercisesStore";
+
+//controllers
+import exerciseController from "../../controllers/exerciseController";
+
+const exercisesStore = useExercisesStore();
+
+//route
 const route = useRoute();
 const athlete_id = route.params.id;
 const workout_id = route.params.workout_id;
+
 const workout_date = ref(null);
-
 const loading = ref(false);
-
-//API EXERCISES
-const exercises = ref([]);
 
 const workout = reactive([]);
 const orderedWorkout = computed(() => _.orderBy(workout, "order"));
 
 const counter = ref(1);
-
-async function getExercises() {
-    loading.value = true;
-    try {
-        const response = await axiosClient(
-            "exercises/get-all-user/" + localStorage.getItem("id")
-        );
-
-        exercises.value = response.data;
-
-        loading.value = false;
-    } catch (e) {
-        console.log(e);
-        loading.value = false;
-    }
-}
 
 async function getWorkout() {
     loading.value = true;
@@ -317,6 +323,7 @@ async function getWorkout() {
         for (let i of response.data) {
             workout.push(i);
         }
+        loading.value = false;
     } catch (e) {
         console.log(e);
     }
@@ -326,14 +333,13 @@ function findExerciseInWorkout(exercise_id) {
     return workout.findIndex((e) => e.exercise_id === exercise_id);
 }
 
-function findExercise(exercise_id) {
-    return exercises.value.findIndex((e) => e.id === exercise_id);
-}
-
 //Exercise
 function addExercise() {
-    selectExercise(exercises.value, workout).then((result) => {
-        const exerciceToAdd = exercises.value[findExercise(parseInt(result))];
+    selectExercise(exercisesStore.exercises, workout).then((result) => {
+        const exerciceToAdd =
+            exercisesStore.exercises[
+                exercisesStore.getExerciseIndex(parseInt(result))
+            ];
 
         workout.push({
             ...exerciceToAdd,
@@ -413,7 +419,9 @@ async function saveWorkout() {
 
 onMounted(() => {
     getWorkout();
-    getExercises();
+    if (exercisesStore.exercises.length <= 0) {
+        exerciseController.getExercises();
+    }
 });
 </script>
 

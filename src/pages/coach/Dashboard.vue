@@ -3,90 +3,62 @@
         <header class="mt-5">
             <h1 class="text-center">Dashboard</h1>
 
-            <Spinner class="mt-5" v-if="loading" />
+            <Spinner class="mt-5" v-if="configStore.loading" />
 
-            <div class="d-flex justify-content-end">
-                <InviteAthlete v-if="!loading" />
+            <div class="d-flex justify-content-end" v-if="!configStore.loading">
+                <InviteAthlete />
             </div>
         </header>
 
-        <div class="athletes-grid h-100 w-100 mt-5" v-if="!loading">
-            <RouterLink
-                :to="`/coach/athlete/${athlete.id}`"
-                class="athlete-card p-3 border border-black border-1 rounded text-decoration-none text-black align-middle bg-white"
+        <div class="athletes-grid h-100 w-100 mt-5" v-if="!configStore.loading">
+            <AthleteCard
                 v-for="athlete in coachStore.athletes"
                 :key="athlete.id"
-            >
-                <img
-                    width="130"
-                    class="p-2 rounded-circle"
-                    :src="athlete.picture"
-                    alt=""
-                />
-                <p class="display-6 fw-bold mx-4">{{ athlete.name }}</p>
-            </RouterLink>
+                :athlete="athlete"
+            />
         </div>
     </div>
 </template>
 
 <script setup>
-import { onMounted, reactive, ref } from "vue";
-import { RouterLink } from "vue-router";
-import axiosClient from "../../config/axios";
+import { onMounted } from "vue";
 
-import useAuthStore from "../../stores/useAuthStore";
-import useCoachStore from "../../stores/useCoachStore";
-
+//Components
 import Spinner from "../../components/utils/Spinner.vue";
 import InviteAthlete from "../../components/coach/InviteAthlete.vue";
+import AthleteCard from "../../components/coach/athletes/AthleteCard.vue";
 
+//Stores
+import useConfigStore from "../../stores/useConfigStore";
+import useCoachStore from "../../stores/useCoachStore";
 
-const authStore = useAuthStore()
-const coachStore = useCoachStore()
+//Controllers
+import coachController from "../../controllers/coachController";
 
-const loading = ref(true);
-
-async function getAthletes() {
-    try {
-        const response = await axiosClient(
-            "coach/get-athletes-with-last-payments/" + authStore.user.id
-        );
-        coachStore.setAthletes(response.data)
-        loading.value = false
-    } catch (e) {
-        loading.value = false
-        console.log(e);
-    }
-}
+const coachStore = useCoachStore();
+const configStore = useConfigStore();
 
 onMounted(() => {
-    getAthletes();
+    if (coachStore.athletes.length <= 0) {
+        coachController.getAthletes();
+    }
 });
 </script>
 
 <style scoped>
-
-
 .athletes-grid {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 1.5rem;
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}
 
 @media (min-width: 768px) {
     .athletes-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-}
-}
-
-.athlete-card {
-    height: 15rem;
-    display: flex;
-    gap: 1rem;
-    align-items: center;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
 }
 </style>

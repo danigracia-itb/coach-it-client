@@ -11,7 +11,7 @@
             target="_blank"
             :href="`https://www.google.com/search?tbm=isch&q=${exercise.name}`"
             :class="exercise.is_default ? 'text-primary' : 'text-white'"
-            ><font-awesome-icon icon="fa-solid fa-eye"
+            ><font-awesome-icon icon="fa-solid fa-search"
         /></a>
         <p class="fw-bold mb-0">{{ exercise.name }}</p>
 
@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-import axiosClient from "../config/axios";
+import axiosClient from "../../config/axios";
 const { exercise, deleteExercise } = defineProps([
     "exercise",
     "deleteExercise",

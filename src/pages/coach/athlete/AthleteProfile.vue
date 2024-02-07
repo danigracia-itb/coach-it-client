@@ -86,9 +86,9 @@
 <script setup>
 import { onMounted, reactive, ref } from "vue";
 import { useRoute, RouterLink } from "vue-router";
-import axiosClient from "../../config/axios";
-import Spinner from "../../components/utils/Spinner.vue";
-import AvailableDaysTable from '../../components/coach/AvailableDaysTable.vue'
+import axiosClient from "../../../config/axios";
+import Spinner from "../../../components/utils/Spinner.vue";
+import AvailableDaysTable from '../../../components/coach/AvailableDaysTable.vue'
 
 const route = useRoute();
 

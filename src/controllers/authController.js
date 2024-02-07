@@ -78,6 +78,12 @@ const authController = {
         }
     },
 
+    logout: () => {
+        const authStore = useAuthStore()
+        authStore.$reset()
+        router.push({ path: "/login" })
+    },
+
     validateRegister: (data) => {
         const configStore = useConfigStore()
         configStore.clearValidationErrors()
@@ -98,6 +104,23 @@ const authController = {
         if (data.terms_conditions == false) {
             configStore.setValidationError("terms_conditions", "You must accept our Terms & Conditions.")
         }
+    },
+
+    updateUserName: async (newName) => {
+        const authStore = useAuthStore()
+        const configStore = useConfigStore()
+
+        authStore.setName(newName);
+
+        configStore.setLoading(true)
+
+        const response = await axiosClient.put(
+            "users/change-name/" + authStore.id,
+            {
+                name: newName,
+            }
+        );
+        configStore.setLoading(false)
     }
 }
 

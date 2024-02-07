@@ -184,11 +184,11 @@ import { onMounted, reactive, ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import _ from "lodash";
 
-import axiosClient from "../../../config/axios";
+import axiosClient from "../../config/axios";
 
-import { selectExercise } from "../../../functions/alerts";
-import { calculateMaxRpe, calculateTonelage } from "../../../functions/helpers";
-import Spinner from "../../../components/utils/Spinner.vue";
+import { selectExercise } from "../../functions/alerts";
+import { calculateMaxRpe, calculateTonelage } from "../../functions/helpers";
+import Spinner from "../../components/utils/Spinner.vue";
 
 const route = useRoute();
 const router = useRouter();

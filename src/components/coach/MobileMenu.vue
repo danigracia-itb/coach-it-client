@@ -17,7 +17,7 @@
             >
             <RouterLink
                 to="/coach/exercises"
-                @click="() => {logOut(); handleClick();}"
+                @click="() => {authController.logout(); handleClick();}"
                 class="text-danger fw-bold d-flex gap-3 justify-content-center align-items-center"
             >
                 <font-awesome-icon icon="fa-solid fa-right-from-bracket" />
@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import { logOut } from '../../functions/helpers';
+import authController from '../../controllers/authController';
 
 const { showMenu, toggleMenu } = defineProps(["showMenu", "toggleMenu"]);
 

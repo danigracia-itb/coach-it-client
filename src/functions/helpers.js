@@ -3,8 +3,7 @@ import { rpeTable } from "./const";
 
 // Función para verificar la autenticación utilizando la API
 export async function checkAuth() {
-    if (localStorage.getItem("token")) return true
-    else return false
+    return true
     // try {
     //     const token = localStorage.getItem("token");
     //     if (!token) {
@@ -70,13 +69,6 @@ export function calculateTonelage(sets, edit = false, target = true) {
 
 }
 
-export function logOut(router) {
-    localStorage.removeItem('user');
-    localStorage.removeItem('id');
-    localStorage.removeItem('token');
-    router.push({ path: "/login" })
-}
-
 
 export function formatDate(fecha) {
     var fechaObj = new Date(fecha);
@@ -107,9 +99,10 @@ export function isDateBeforeOrEqualToToday(date) {
 export function calculateMaxRpe(sets) {
     let max = 0;
     for(let set of sets) {
-        const rpeForReps = rpeTable[`${set.reps}`]
+        const rpeForReps = rpeTable[`${set.actual_reps}`]
+        
         if(rpeForReps) {
-            const e1rm = set.weight * ((100+((-1) *( rpeForReps[`${set.rpe}`] - 100)))/ 100)
+            const e1rm = parseFloat(set.actual_weight * ((100+((-1) *( rpeForReps[`${set.actual_rpe}`] - 100)))/ 100))
             
             if(e1rm >= max) {
                 max = e1rm
@@ -117,5 +110,5 @@ export function calculateMaxRpe(sets) {
         }
 
     }
-    return max
+    return 2.5 * Math.ceil(max/2.5)
 }

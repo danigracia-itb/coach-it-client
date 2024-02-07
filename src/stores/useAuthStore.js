@@ -27,6 +27,12 @@ const useAuthStore = defineStore('auth', {
             this.picture = user.picture
             this.is_coach = user.is_coach
         },
+        setName(name) {
+            this.name = name
+        },
+        setPicture(pic) {
+            this.picture = pic
+        }
     },
     persist: true,
 })

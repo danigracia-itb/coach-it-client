@@ -1,15 +1,15 @@
 <template>
     <div class="d-flex flex-row gap-2 align-items-center my-auto">
-        <!-- <span>{{ user.name }}</span> -->
+        <span>{{ user.name }}</span>
         <button
             @click="onContextMenu($event)"
-            class="border-0 bg-transparent d-flex gap-3 align-items-center"
+            class="border-0 bg-transparent"
         >
-            <span>{{ authStore.user.name }}</span>
             <img
                 class="profile-img rounded-circle border border-1 border-secondary bg-white"
                 width="50"
-                :src="authStore.user.picture"
+                height="50"
+                :src="`${backendUrl}/${user.picture}`"
                 alt=""
             />
         </button>
@@ -17,14 +17,22 @@
 </template>
 
 <script setup>
-import { h, ref} from "vue";
+import { h, computed } from "vue";
 import { useRouter } from "vue-router";
 import ContextMenu from "@imengyu/vue3-context-menu";
-import { logOut } from "../../functions/helpers";
 
+//stores
 import useAuthStore from "../../stores/useAuthStore";
 
+//controllers
+import authController from '../../controllers/authController'
+
+const backendUrl = import.meta.env.VITE_API_URL;
+
+const { athlete } = defineProps(["athlete"]);
+
 const authStore = useAuthStore();
+const user = computed(() => authStore.user);
 
 const router = useRouter();
 
@@ -71,7 +79,7 @@ function onContextMenu(e) {
                 }),
 
                 onClick: () => {
-                    logOut(router);
+                    authController.logout();
                 },
             },
         ],
