@@ -59,7 +59,7 @@ const routes = [
                 path: "athlete/:id",
                 component: () => import("./pages/coach/athlete/AthleteCalendar.vue"),
             },
-            { path: "athlete/:id/profile",component: () => import("./pages/coach/athlete/AthleteProfile.vue") },
+            { path: "athlete/:id/profile", component: () => import("./pages/coach/athlete/AthleteProfile.vue") },
             {
                 path: "athlete/:id/stats",
                 component: () => import("./pages/coach/athlete/AthleteStats.vue"),
@@ -85,7 +85,10 @@ const routes = [
 
         children: [
             { path: "", component: AthleteDashboard },
-            { path: "workout/:workout_id", component: AthleteEditWorkout },
+            {
+                path: "workout/:workout_id", component: () =>
+                    import("./pages/workout/EditWorkout.vue"),
+            },
         ],
     },
 

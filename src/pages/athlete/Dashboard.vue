@@ -1,9 +1,9 @@
 <template>
     <div>
-        <h1 class="text-center">Hello <span class="text-primary">{{ user.name }}</span></h1>
+        <h1 class="text-center">Hello <span class="text-primary">{{ authStore.name }}</span></h1>
 
         <div v-if="!loading">
-            <Calendar :athlete="athlete" :workouts="workouts" :restDays="restDays"/>
+            <Calendar :athlete="authStore.user" :workouts="athleteStore.calendar.workouts" :restDays="athleteStore.calendar.restDays"/>
         </div>
         <Spinner v-else />
     </div>
@@ -13,34 +13,31 @@
 import { onMounted, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 import axiosClient from "../../config/axios";
-import { getUser } from "../../functions/helpers";
+
+//components
 import Spinner from "../../components/utils/Spinner.vue";
-import Calendar from "../../components/athlete/calendar/Calendar.vue"
+import Calendar from "../../components/calendar/Calendar.vue"
 
-const user = getUser();
+//Stores
+import useAuthStore from "../../stores/useAuthStore";
+import useAthleteStore from "../../stores/useAthleteStore";
 
-const route = useRoute();
+const authStore = useAuthStore();
+const athleteStore = useAthleteStore();
 
 const loading = ref(true);
-var athlete = reactive({});
-var workouts = reactive({});
-var restDays = reactive({});
 
-async function getAthleteProfile() {
+async function getCalendar() {
     loading.value = true;
     try {
-        const profileResponse = await axiosClient(
-            "coach/get-athlete-profile/" + user.id
-        );
         const calendarResponse = await axiosClient(
-            "coach/get-athlete-calendar/" + user.id
+            "coach/get-athlete-calendar/" + authStore.id
         );
 
-        athlete = profileResponse.data;
-        workouts = calendarResponse.data.workouts;
-        restDays = calendarResponse.data.restDays;
-
-        console.log(athlete);
+        athleteStore.setCalendar({
+            workouts: calendarResponse.data.workouts,
+            restDays: calendarResponse.data.restDays
+        })
 
         loading.value = false;
     } catch (e) {
@@ -50,6 +47,6 @@ async function getAthleteProfile() {
 }
 
 onMounted(() => {
-    getAthleteProfile();
+    getCalendar();
 });
 </script>
