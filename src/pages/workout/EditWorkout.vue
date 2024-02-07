@@ -2,12 +2,9 @@
     <Spinner v-if="loading" class="mx-auto mt-5" />
     <div class="mt-5" v-else>
         <div class="d-flex justify-content-start">
-            <RouterLink
-                class="btn btn-primary"
-                :to="`/coach/athlete/${athlete_id}`"
-            >
+            <button class="btn btn-primary" @click="$router.back()">
                 <font-awesome-icon icon="fa-solid fa-left-long" />
-            </RouterLink>
+            </button>
         </div>
 
         <header>
@@ -23,15 +20,8 @@
 
             <!-- workout List -->
             <ul class="list-unstyled mt-3">
-                <li
-                    v-for="exercise in orderedWorkout"
-                    :key="exercise.id"
-                    class="card exercise-card p-4 mb-4"
-                >
-                    <button
-                        class="delete-exercise btn"
-                        @click="() => deleteExercise(exercise.exercise_id)"
-                    >
+                <li v-for="exercise in orderedWorkout" :key="exercise.id" class="card exercise-card p-4 mb-4">
+                    <button class="delete-exercise btn" @click="() => deleteExercise(exercise.exercise_id)">
                         <font-awesome-icon icon="fa-solid fa-xmark" />
                     </button>
 
@@ -56,9 +46,7 @@
 
                     <header class="text-center mb-4">
                         <p class="fw-bold mb-0 h4">{{ exercise.name }}</p>
-                        <div
-                            class="d-flex justify-content-between align-items-center"
-                        >
+                        <div class="d-flex justify-content-between align-items-center">
                             <p class="mb-0">
                                 <span class="fw-bold">Total Sets:</span>
                                 {{ exercise.sets.length }}
@@ -66,9 +54,7 @@
 
                             <div class="d-flex flex-column align-items-end">
                                 <p class="mb-0">
-                                    <span class="fw-bold"
-                                        >Actual / Target Tonelage:</span
-                                    >
+                                    <span class="fw-bold">Actual / Target Tonelage:</span>
                                     {{
                                         calculateTonelage(
                                             exercise.sets,
@@ -89,36 +75,21 @@
                     </header>
 
                     <!-- Sets header -->
-                    <section
-                        class="set-headers-group"
-                        v-if="exercise.sets.length > 0"
-                    >
+                    <section class="set-headers-group" v-if="exercise.sets.length > 0">
                         <section class="text-center bg-light set-header-target">
                             <div class="fw-normal">TARGET</div>
 
                             <div class="set-labels">
-                                <div
-                                    class="fw-normal cursor-pointer"
-                                    v-tooltip="
-                                        'WEIGHT: number of KG used in the set'
-                                    "
-                                >
+                                <div class="fw-normal cursor-pointer" v-tooltip="'WEIGHT: number of KG used in the set'
+                                    ">
                                     WEIGHT
                                 </div>
-                                <div
-                                    class="fw-normal cursor-pointer"
-                                    v-tooltip="
-                                        'REPS: number of repetitions that should be performed in the set'
-                                    "
-                                >
+                                <div class="fw-normal cursor-pointer" v-tooltip="'REPS: number of repetitions that should be performed in the set'
+                                    ">
                                     REPS
                                 </div>
-                                <div
-                                    class="fw-normal cursor-pointer"
-                                    v-tooltip="
-                                        'RPE: effort level for the set, on a scale of 1 to 10'
-                                    "
-                                >
+                                <div class="fw-normal cursor-pointer" v-tooltip="'RPE: effort level for the set, on a scale of 1 to 10'
+                                    ">
                                     RPE
                                 </div>
                             </div>
@@ -128,28 +99,16 @@
                             <div class="fw-normal">ACTUAL</div>
 
                             <div class="set-labels">
-                                <div
-                                    class="fw-normal cursor-pointer"
-                                    v-tooltip="
-                                        'WEIGHT: number of KG used in the set'
-                                    "
-                                >
+                                <div class="fw-normal cursor-pointer" v-tooltip="'WEIGHT: number of KG used in the set'
+                                    ">
                                     WEIGHT
                                 </div>
-                                <div
-                                    class="fw-normal cursor-pointer"
-                                    v-tooltip="
-                                        'REPS: number of repetitions that should be performed in the set'
-                                    "
-                                >
+                                <div class="fw-normal cursor-pointer" v-tooltip="'REPS: number of repetitions that should be performed in the set'
+                                    ">
                                     REPS
                                 </div>
-                                <div
-                                    class="fw-normal cursor-pointer"
-                                    v-tooltip="
-                                        'RPE: effort level for the set, on a scale of 1 to 10'
-                                    "
-                                >
+                                <div class="fw-normal cursor-pointer" v-tooltip="'RPE: effort level for the set, on a scale of 1 to 10'
+                                    ">
                                     RPE
                                 </div>
                             </div>
@@ -157,123 +116,67 @@
                     </section>
 
                     <!-- Sets list -->
-                    <ol
-                        v-if="exercise.sets.length > 0"
-                        class="my-3 text-unstyled p-0 border rounded"
-                    >
-                        <li
-                            v-for="(set, index) in exercise.sets"
-                            :key="set.id"
-                            class="d-flex bg-white border-bottom"
-                        >
+                    <ol v-if="exercise.sets.length > 0" class="my-3 text-unstyled p-0 border rounded">
+                        <li v-for="(set, index) in exercise.sets" :key="set.id" class="d-flex bg-white border-bottom">
                             <!-- Set Number -->
                             <p
-                                class="set-number bg-primary d-flex align-items-center justify-content-center mb-0 text-white"
-                            >
+                                class="set-number bg-primary d-flex align-items-center justify-content-center mb-0 text-white">
                                 {{ index + 1 }}
                             </p>
 
                             <!-- Set content -->
-                            <div
-                                class="p-3 w-100 d-flex gap-2 bg-light border-end"
-                            >
-                                <input
-                                    type="number"
-                                    class="form-control text-center"
-                                    v-model="set.target_weight"
-                                />
-                                <input
-                                    type="number"
-                                    class="form-control text-center"
-                                    v-model="set.target_reps"
-                                />
-                                <input
-                                    type="number"
-                                    class="form-control text-center"
-                                    v-model="set.target_rpe"
-                                />
+                            <div class="p-3 w-100 d-flex gap-2 bg-light border-end">
+                                <input type="number" class="form-control text-center" v-model="set.target_weight" />
+                                <input type="number" class="form-control text-center" v-model="set.target_reps" />
+                                <input type="number" class="form-control text-center" v-model="set.target_rpe" />
                             </div>
 
-                            <button
-                                class="btn btn-primary rounded-0"
-                                @click="copyToActual(set)"
-                            >
-                                <font-awesome-icon
-                                    icon="fa-solid fa-arrow-right"
-                                />
+                            <button class="btn btn-primary rounded-0" @click="copyToActual(set)">
+                                <font-awesome-icon icon="fa-solid fa-arrow-right" />
                             </button>
 
                             <div class="p-3 w-100 d-flex gap-2">
                                 <!-- ACTUAL -->
-                                <input
-                                    type="number"
-                                    class="form-control text-center"
-                                    v-model="set.actual_weight"
-                                />
-                                <input
-                                    type="number"
-                                    class="form-control text-center"
-                                    v-model="set.actual_reps"
-                                />
-                                <input
-                                    type="number"
-                                    class="form-control text-center"
-                                    v-model="set.actual_rpe"
-                                />
+                                <input type="number" class="form-control text-center" v-model="set.actual_weight" />
+                                <input type="number" class="form-control text-center" v-model="set.actual_reps" />
+                                <input type="number" class="form-control text-center" v-model="set.actual_rpe" />
                             </div>
 
-                            <button
-                                class="btn btn-danger mx-2 my-3 text-white"
-                                @click="
-                                    () =>
-                                        deleteSet(exercise.exercise_id, set.id)
-                                "
-                            >
+                            <button class="btn btn-danger mx-2 my-3 text-white" @click="() =>
+                                deleteSet(exercise.exercise_id, set.id)
+                                ">
                                 <font-awesome-icon icon="fa-solid fa-trash" />
                             </button>
 
-                            <button
-                                class="btn btn-primary rounded-0"
-                                :disabled="index + 1 == exercise.sets.length"
-                                @click="copyToNextSet(exercise, index, set)"
-                            >
-                                <font-awesome-icon
-                                    icon="fa-solid fa-arrow-down"
-                                />
+                            <button class="btn btn-primary rounded-0" :disabled="index + 1 == exercise.sets.length"
+                                @click="copyToNextSet(exercise, index, set)">
+                                <font-awesome-icon icon="fa-solid fa-arrow-down" />
                             </button>
                         </li>
                     </ol>
-                    <button
-                        class="btn btn-secondary"
-                        @click="() => addSet(exercise.exercise_id)"
-                        :disabled="exercise.sets.length >= 8"
-                    >
+                    <button class="btn btn-secondary" @click="() => addSet(exercise.exercise_id)"
+                        :disabled="exercise.sets.length >= 8">
                         {{
                             exercise.sets.length >= 8
-                                ? "You have reached the sets limit"
-                                : "Add Set"
+                            ? "You have reached the sets limit"
+                            : "Add Set"
                         }}
                     </button>
                 </li>
             </ul>
-            <button
-                class="btn btn-dark w-100"
-                @click="addExercise"
-                :disabled="workout.length >= 15"
-            >
+            <button class="btn btn-dark w-100" @click="addExercise" :disabled="workout.length >= 15">
                 {{
                     workout.length >= 15
-                        ? "You have reached the exercises limit"
-                        : "Add Exercise"
+                    ? "You have reached the exercises limit"
+                    : "Add Exercise"
                 }}
             </button>
 
-            <button
-                v-if="workout.length > 0"
-                class="btn btn-primary w-100 mt-5"
-                @click="saveWorkout"
-            >
+            <button v-if="workout.length > 0" class="btn btn-primary w-100 mt-5" @click="saveWorkout(false)">
                 Save Workout
+            </button>
+            <button v-if="workout.length > 0" class="btn btn-dark w-100 mt-3" @click="saveWorkout(true)">
+                Save Workout and Close
             </button>
         </section>
     </div>
@@ -281,7 +184,7 @@
 
 <script setup>
 import { onMounted, reactive, ref, computed } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import _ from "lodash";
 import axiosClient from "../../config/axios";
 
@@ -302,6 +205,7 @@ const exercisesStore = useExercisesStore();
 
 //route
 const route = useRoute();
+const router = useRouter();
 const athlete_id = route.params.id;
 const workout_id = route.params.workout_id;
 
@@ -338,7 +242,7 @@ function addExercise() {
     selectExercise(exercisesStore.exercises, workout).then((result) => {
         const exerciceToAdd =
             exercisesStore.exercises[
-                exercisesStore.getExerciseIndex(parseInt(result))
+            exercisesStore.getExerciseIndex(parseInt(result))
             ];
 
         workout.push({
@@ -403,13 +307,20 @@ function copyToActual(set) {
 }
 
 //Enviar api
-async function saveWorkout() {
-    loading.value = true;
+async function saveWorkout(close = false) {
+    if (close) {
+        loading.value = true;
+    }
+
     try {
         const respuesta = await axiosClient.put("workout/" + workout_id, {
             workout,
         });
         console.log(respuesta);
+        if (close) {
+            router.push("/athlete")
+        }
+
         loading.value = false;
     } catch (error) {
         console.log(error);
@@ -430,6 +341,7 @@ onMounted(() => {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
+
 .set-headers-group section {
     display: flex;
     align-items: center;
@@ -456,11 +368,13 @@ onMounted(() => {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
 }
+
 .set-header {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     margin: 0 6rem 0 3.5rem;
 }
+
 .set-number {
     width: 10rem;
 }
