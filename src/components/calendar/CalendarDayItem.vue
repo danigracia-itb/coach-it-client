@@ -200,7 +200,7 @@ function onContextMenu(e) {
 <style scoped>
 .calendar-day {
     position: relative;
-    min-height: 100px;
+    min-height: 90px;
     font-size: 16px;
     background-color: #fff;
     padding: 5px;
@@ -211,6 +211,12 @@ function onContextMenu(e) {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@media (min-width: 768px) {
+    .calendar-day {
+    min-height: 110px;
+    }
 }
 
 .calendar-day>span {
