@@ -67,7 +67,7 @@ const routes = [
             {
                 path: "athlete/:id/workout/create",
                 component: () =>
-                    import("./pages/workout/CreateWorkout.vue"),
+                    import("./pages/workout/EditWorkout.vue"),
             },
             {
                 path: "athlete/:id/workout/:workout_id",

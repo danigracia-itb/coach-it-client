@@ -10,11 +10,15 @@
             </RouterLink>
         </div>
 
-        <header>
+        <header v-if="editing">
             <h1 class="text-center">
                 Edit
                 <span class="text-primary">{{ workout_date }}</span> Workout
             </h1>
+        </header>
+
+        <header v-else>
+            <h1 class="text-center">Create Workout</h1>
             <p class="text-primary text-center fw-bold">{{ date }}</p>
         </header>
 
@@ -305,7 +309,9 @@ const route = useRoute();
 const athlete_id = route.params.id;
 const workout_id = route.params.workout_id;
 
-const workout_date = ref(null);
+const editing = route.params.workout_id ? true : false;
+
+const workout_date = ref(route.query.date ?? null);
 const loading = ref(false);
 
 const workout = reactive([]);
@@ -344,7 +350,9 @@ function addExercise() {
         workout.push({
             ...exerciceToAdd,
             exercise_id: exerciceToAdd.id,
-            order: workout[workout.length - 1].order + 1,
+            order: workout[workout.length - 1]
+                ? workout[workout.length - 1].order + 1
+                : 1,
             sets: [],
         });
     });
@@ -406,10 +414,19 @@ function copyToActual(set) {
 async function saveWorkout() {
     loading.value = true;
     try {
-        const respuesta = await axiosClient.put("workout/" + workout_id, {
-            workout,
-        });
-        console.log(respuesta);
+        if (editing) {
+            const respuesta = await axiosClient.put("workout/" + workout_id, {
+                workout,
+            });
+            console.log(respuesta);
+        } else {
+            const respuesta = await axiosClient.post("workout", {
+                user_id: athlete_id,
+                date: workout_date.value,
+                workout,
+            });
+            console.log(respuesta);
+        }
         loading.value = false;
     } catch (error) {
         console.log(error);
@@ -418,7 +435,9 @@ async function saveWorkout() {
 }
 
 onMounted(() => {
-    getWorkout();
+    if (editing) {
+        getWorkout();
+    }
     if (exercisesStore.exercises.length <= 0) {
         exerciseController.getExercises();
     }
