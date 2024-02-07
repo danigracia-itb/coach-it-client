@@ -2,10 +2,7 @@
     <Spinner v-if="loading" class="mx-auto mt-5" />
     <div class="mt-5" v-else>
         <div class="d-flex justify-content-start">
-            <button
-                class="btn btn-primary"
-                @click="$router.back()"
-            >
+            <button class="btn btn-primary" @click="$router.back()">
                 <font-awesome-icon icon="fa-solid fa-left-long" />
             </button>
         </div>
@@ -39,7 +36,7 @@
                         <font-awesome-icon icon="fa-solid fa-xmark" />
                     </button>
 
-                    <!-- <div class="order-exercise">
+                    <div class="order-exercise">
                         <button
                             class="btn"
                             @click="
@@ -56,7 +53,7 @@
                         >
                             <font-awesome-icon icon="fa-solid fa-arrow-down" />
                         </button>
-                    </div> -->
+                    </div>
 
                     <header class="text-center mb-4">
                         <p class="fw-bold mb-0 h4">{{ exercise.name }}</p>
@@ -260,22 +257,25 @@
                     </button>
                 </li>
             </ul>
-            <button
-                class="btn btn-dark w-100"
-                @click="addExercise"
-                :disabled="workout.length >= 15"
-            >
-                {{
-                    workout.length >= 15
-                        ? "You have reached the exercises limit"
-                        : "Add Exercise"
-                }}
-            </button>
 
-            <button v-if="workout.length > 0" class="btn btn-primary w-100 mt-5" @click="saveWorkout(false)">
+            <AddExerciseToWorkout
+                :workout="workout"
+                :exercises="exercisesStore.getGroupedExercises"
+                :add-exercises="addExercises"
+            />
+
+            <button
+                v-if="workout.length > 0"
+                class="btn btn-primary w-100 mt-5"
+                @click="saveWorkout(false)"
+            >
                 Save Workout
             </button>
-            <button v-if="workout.length > 0" class="btn btn-dark w-100 mt-3" @click="saveWorkout(true)">
+            <button
+                v-if="workout.length > 0"
+                class="btn btn-dark w-100 mt-3"
+                @click="saveWorkout(true)"
+            >
                 Save Workout and Close
             </button>
         </section>
@@ -294,6 +294,7 @@ import { calculateTonelage, calculateMaxRpe } from "../../functions/helpers";
 
 //components
 import Spinner from "../../components/utils/Spinner.vue";
+import AddExerciseToWorkout from "../../components/workout/AddExerciseToWorkout.vue";
 
 //stores
 import useExercisesStore from "../../stores/useExercisesStore";
@@ -341,22 +342,18 @@ function findExerciseInWorkout(exercise_id) {
 }
 
 //Exercise
-function addExercise() {
-    selectExercise(exercisesStore.exercises, workout).then((result) => {
-        const exerciceToAdd =
-            exercisesStore.exercises[
-                exercisesStore.getExerciseIndex(parseInt(result))
-            ];
-
+function addExercises(exercises) {
+    for(let exercise of exercises) {
         workout.push({
-            ...exerciceToAdd,
-            exercise_id: exerciceToAdd.id,
-            order: workout[workout.length - 1]
-                ? workout[workout.length - 1].order + 1
-                : 1,
-            sets: [],
-        });
+        ...exercise,
+        exercise_id: exercise.id,
+        order: workout[workout.length - 1]
+            ? workout[workout.length - 1].order + 1
+            : 1,
+        sets: [],
     });
+    }
+
 }
 
 function deleteExercise(exercise_id) {
@@ -365,6 +362,24 @@ function deleteExercise(exercise_id) {
     if (index !== -1) {
         workout.splice(index, 1);
     }
+}
+
+function changeExerciseOrder(exercise_id, go_up) {
+    const index = findExerciseInWorkout(exercise_id);
+    const currentExercise = workout[index];
+    
+    if (go_up && index > 0) {
+        const previousExercise = workout[index - 1];
+        if (currentExercise.order === previousExercise.order) return; // No changes if both have the same order
+        currentExercise.order--; // Decrease current exercise order
+        previousExercise.order++; // Increase previous exercise order
+    } else if (!go_up && index < workout.length - 1) {
+        const nextExercise = workout[index + 1];
+        if (currentExercise.order === nextExercise.order) return; // No changes if both have the same order
+        currentExercise.order++; // Increase current exercise order
+        nextExercise.order--; // Decrease next exercise order
+    }
+    workout.sort((a, b) => a.order - b.order); // Sort workout based on order
 }
 
 //Sets
@@ -421,19 +436,18 @@ async function saveWorkout(close = false) {
             const respuesta = await axiosClient.put("workout/" + workout_id, {
                 workout,
             });
-            console.log(respuesta);
         } else {
             const respuesta = await axiosClient.post("workout", {
                 user_id: athlete_id,
                 date: workout_date.value,
                 workout,
             });
-            console.log(respuesta);
         }
         if (close) {
-            router.back()
+            router.back();
+        } else {
+            loading.value = false;
         }
-        loading.value = false;
     } catch (error) {
         console.log(error);
         loading.value = false;
