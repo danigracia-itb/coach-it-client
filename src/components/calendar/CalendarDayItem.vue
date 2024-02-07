@@ -2,26 +2,25 @@
     <li @contextmenu="onContextMenu($event)" class="calendar-day" :class="{
         'calendar-day--not-current': !day.isCurrentMonth,
         'calendar-day--today': isToday,
-        'calendar-day--rest-day': isRestday
+        'calendar-day--rest-day': (isRestday || newRestDay) && !newAvailableDay,
     }">
         <span class="fw-bold" :class="isToday ? 'bg-primary text-white' : ''">{{
             label
         }}</span>
 
-        <p v-if="isRestday" v-tooltip="'Rest day'" style="font-size: 2rem;" >
+
+        <p v-if="(isRestday || newRestDay) && !newAvailableDay" v-tooltip="'Rest day'" style="font-size: 2rem">
             <font-awesome-icon icon="fa-solid fa-bed" />
         </p>
 
-        <RouterLink :to="`/coach/athlete/${athlete.id}/workout/create?date=${day.date}`" v-if="day.isCurrentMonth && !hasWorkout && !isRestday"
-            class="add-btn btn btn-success">
+        <RouterLink :to="authStore.is_coach ? `/coach/athlete/${athlete.id}/workout/create?date=${day.date}` : `creatathlete`"
+            v-if="day.isCurrentMonth && !hasWorkout && (!props.isRestday && !newRestDay)" class="add-btn btn btn-success">
             <font-awesome-icon icon="fa-solid fa-plus" />
         </RouterLink>
 
-        <RouterLink
-            v-if="hasWorkout && !workoutDeleted"
-            :to="`/coach/athlete/${athlete.id}/workout/${workout.id}`"
-            class="btn btn-primary"
-        >
+        <RouterLink v-if="hasWorkout && !workoutDeleted"
+            :to="authStore.is_coach ? `/coach/athlete/${athlete.id}/workout/${workout.id}` : `/athlete/workout/${workout.id}`"
+            class="btn btn-primary">
             <font-awesome-icon icon="fa-solid fa-dumbbell" />
             <span class="d-none d-md-inline">Workout</span>
         </RouterLink>
@@ -34,8 +33,15 @@ import dayjs from "dayjs";
 import { RouterLink } from "vue-router";
 import ContextMenu from '@imengyu/vue3-context-menu'
 import { useRouter } from "vue-router";
-import axiosClient from "../../../config/axios";
-import { copyWorkout } from "../../../functions/alerts";
+import axiosClient from "../../config/axios";
+
+//helpers
+import { copyWorkout } from "../../functions/alerts";
+
+//stores
+import useAuthStore from "../../stores/useAuthStore";
+const authStore = useAuthStore()
+
 const router = useRouter()
 
 const props = defineProps([
@@ -48,6 +54,9 @@ const props = defineProps([
     "workout",
 ]);
 
+const newRestDay = ref(false);
+const newAvailableDay = ref(false);
+
 const label = computed(() => {
     return dayjs(props.day.date).format("D");
 });
@@ -55,9 +64,6 @@ const label = computed(() => {
 const workoutDeleted = ref(false)
 
 function onContextMenu(e) {
-    if(props.isRestday) {
-        return
-    }
     //prevent the browser's default menu
     e.preventDefault();
     //show your menu
@@ -66,6 +72,54 @@ function onContextMenu(e) {
         y: e.y,
         zIndex: 3,
         items: [
+            ...((props.isRestday || newRestDay.value) && !newAvailableDay.value
+                ? [
+                    {
+                        label: "Available Day",
+                        icon: h("img", {
+                            src: "../../../public/assets/icons/calendar-check-solid.svg",
+                            style: {
+                                width: "15",
+                                height: "15",
+                                zIndex: 100,
+                            },
+                        }),
+                        divided: true,
+                        onClick: () => {
+                            axiosClient.post("available-day", {
+                                user_id: props.athlete.id,
+                                date: props.day.date,
+                            });
+
+                            newRestDay.value = false;
+                            newAvailableDay.value = true;
+                        },
+                    },
+                ]
+                : [
+                    {
+                        label: "Rest Day",
+                        icon: h("img", {
+                            src: "../../../public/assets/icons/calendar-xmark-solid.svg",
+                            style: {
+                                width: "15",
+                                height: "15",
+                                zIndex: 100,
+                            },
+                        }),
+                        divided: true,
+                        onClick: () => {
+                            axiosClient.post("rest-day", {
+                                user_id: props.athlete.id,
+                                date: props.day.date,
+                            });
+
+                            newRestDay.value = true;
+                            newAvailableDay.value = false;
+                        },
+                    },
+                ]),
+
             ...props.hasWorkout ? [{
                 label: "Edit",
                 icon: h('img', {
@@ -79,7 +133,7 @@ function onContextMenu(e) {
 
                 divided: true,
                 onClick: () => {
-                    router.push({ path: `/coach/athlete/${props.athlete.id}/workout/${props.workout.id}` })
+                    router.push({ path: (authStore.is_coach ? `/coach/athlete/${props.athlete.id}/workout/${props.workout.id}` : `/athlete/workout/${workout.id}`) })
                 },
             },
             {
@@ -108,26 +162,28 @@ function onContextMenu(e) {
                         zIndex: 100,
                     },
                 }),
-
+                divided: true,
                 onClick: async () => {
                     workoutDeleted.value = true
                     await axiosClient.delete('workout/' + props.workout.id)
-                    // router.go(0)
                 },
-            }] : [{
-                label: "Add",
-                icon: h('img', {
-                    src: "../../../../public/assets/icons/plus-solid.svg",
-                    style: {
-                        width: '15',
-                        height: '15',
-                        zIndex: 100,
-                    },
-                }),
-                onClick: () => {
-                    router.push({ path: `/coach/athlete/${props.athlete.id}/workout/create?date=${props.day.date}` })
-                },
-            }]
+            }] : [
+
+                ...(props.isRestday || newRestDay.value) && !newAvailableDay.value ? [] : [{
+                    label: "Add",
+                    icon: h('img', {
+                        src: "../../../../public/assets/icons/plus-solid.svg",
+                        style: {
+                            width: '15',
+                            height: '15',
+                            zIndex: 100,
+                        },
+                    }),
+                    onClick: () => {
+                        router.push({ path: (authStore.is_coach ? `/coach/athlete/${props.athlete.id}/workout/create?date=${props.day.date}` : `creatathlete`) })
+                    }
+                }]],
+
         ]
     });
 }

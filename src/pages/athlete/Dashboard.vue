@@ -16,7 +16,7 @@ import axiosClient from "../../config/axios";
 
 //components
 import Spinner from "../../components/utils/Spinner.vue";
-import Calendar from "../../components/athlete/calendar/Calendar.vue"
+import Calendar from "../../components/calendar/Calendar.vue"
 
 //Stores
 import useAuthStore from "../../stores/useAuthStore";
