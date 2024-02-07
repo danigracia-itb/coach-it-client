@@ -24,7 +24,6 @@ import CoachLayout from "./layouts/CoachLayout.vue";
 //Athlete
 import AthleteLayout from "./layouts/AthleteLayout.vue";
 import AthleteDashboard from "./pages/athlete/Dashboard.vue";
-import AthleteEditWorkout from "./pages/athlete/EditWorkout.vue";
 
 const routes = [
     { path: "/", component: IndexView },

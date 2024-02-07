@@ -4,7 +4,7 @@ import useConfigStore from '../stores/useConfigStore'
 import useCoachStore from '../stores/useCoachStore';
 
 import Swal from "sweetalert2"
-import {addOneMonth} from "../functions/helpers"
+import {addMonths, paymentTypeToMonths} from "../functions/helpers"
 
 const coachController = {
     getAthletes: async () => {
@@ -75,14 +75,17 @@ const coachController = {
         const configStore = useConfigStore();
         const authStore = useAuthStore();
 
+        const payment_type = athlete.payments[athlete.payments.length - 1].payment_type
+
         configStore.setLoading(true)
         try {
             await axiosClient.post("send-payment-reminder", {
                 athlete_email: athlete.email,
                 athlete_name: athlete.name,
                 coach: authStore.user.name,
-                date: addOneMonth(athlete.payments[0].date),
-                quantity: athlete.payments[0].quantity,
+                date: addMonths(athlete.payments[athlete.payments.length - 1].date, paymentTypeToMonths(payment_type)),
+                quantity: athlete.payments[athlete.payments.length - 1].quantity,
+                payment_type
             });
             configStore.setLoading(false)
             Swal.fire({

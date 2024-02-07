@@ -240,7 +240,17 @@ export function addPaymentPopUp(coach_id, athlete_id) {
                 <div class="form-group mt-5">
                     <label for="quantity" class="form-label d-block">Quantity (€)</label>
                     <input type="number" id="quantity" name="quantity" class="form-control">
-                </div>`,
+                </div>
+                <div class="form-group mt-5">
+                    <label for="payment_type" class="form-label d-block">Payment Type</label>
+                    <select id="payment_type" name="payment_type" class="form-select">
+                        <option value="monthly" selected>Monthly (1 month)</option>
+                        <option value="quarterly">Quarterly (3 months)</option>
+                        <option value="annual">Annual (12 months)</option>
+                    </select>
+                </div>
+                
+                `,
             focusConfirm: false,
             showCancelButton: true,
             confirmButtonText: "Add",
@@ -249,16 +259,17 @@ export function addPaymentPopUp(coach_id, athlete_id) {
                 const date = Swal.getPopup().querySelector("#date").value;
                 const quantity =
                     Swal.getPopup().querySelector("#quantity").value;
+                    const payment_type = Swal.getPopup().querySelector("#payment_type").value;
 
-                if (!date || !quantity) {
-                    Swal.showValidationMessage("Both fields are mandatory.");
+                if (!date || !quantity || !payment_type) {
+                    Swal.showValidationMessage("All fields are mandatory.");
                 }
 
-                return { date, quantity };
+                return { date, quantity, payment_type };
             },
         }).then(async (result) => {
             if (result.value) {
-                const { date, quantity } = result.value;
+                const { date, quantity, payment_type } = result.value;
 
                 try {
                     const response = await axiosClient.post(
@@ -266,6 +277,7 @@ export function addPaymentPopUp(coach_id, athlete_id) {
                         {
                             date,
                             quantity,
+                            payment_type,
                             coach_id,
                             athlete_id
                         },

@@ -27,17 +27,6 @@ export async function checkAuth() {
     // }
 }
 
-//Obtiene el usuario del localstorage y lo convierte en objeto javascript
-export function getUser() {
-    const userRaw = localStorage.getItem("user")
-
-    if (userRaw) {
-        return JSON.parse(userRaw)
-    } else {
-        return false
-    }
-}
-
 export function calculateTonelage(sets, edit = false, target = true) {
     var tonelage = 0
 
@@ -78,10 +67,25 @@ export function formatDate(fecha) {
     return dia + '/' + mes + '/' + año;
 }
 
+export function paymentTypeToMonths(payment_type) {
+    switch (payment_type) {
+        case "monthly":
+            return 1
+            break;
+        case "quarterly":
+            return 3;
+            break;
+        case "annual":
+            return 12;
+        default:
+            return 1;
+            break;
+    }
+}
 
-export function addOneMonth(date) {
+export function addMonths(date, month_quantity) {
     var newDate = new Date(date);
-    newDate.setMonth(newDate.getMonth() + 1);
+    newDate.setMonth(newDate.getMonth() + month_quantity);
     return formatDate(newDate);
 }
 

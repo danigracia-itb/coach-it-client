@@ -2,12 +2,12 @@
     <Spinner v-if="loading" class="mx-auto mt-5" />
     <div class="mt-5" v-else>
         <div class="d-flex justify-content-start">
-            <RouterLink
+            <button
                 class="btn btn-primary"
-                :to="`/coach/athlete/${athlete_id}`"
+                @click="$router.back()"
             >
                 <font-awesome-icon icon="fa-solid fa-left-long" />
-            </RouterLink>
+            </button>
         </div>
 
         <header v-if="editing">
@@ -272,12 +272,11 @@
                 }}
             </button>
 
-            <button
-                v-if="workout.length > 0"
-                class="btn btn-primary w-100 mt-5"
-                @click="saveWorkout"
-            >
+            <button v-if="workout.length > 0" class="btn btn-primary w-100 mt-5" @click="saveWorkout(false)">
                 Save Workout
+            </button>
+            <button v-if="workout.length > 0" class="btn btn-dark w-100 mt-3" @click="saveWorkout(true)">
+                Save Workout and Close
             </button>
         </section>
     </div>
@@ -285,7 +284,7 @@
 
 <script setup>
 import { onMounted, reactive, ref, computed } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import _ from "lodash";
 import axiosClient from "../../config/axios";
 
@@ -306,6 +305,8 @@ const exercisesStore = useExercisesStore();
 
 //route
 const route = useRoute();
+const router = useRouter();
+
 const athlete_id = route.params.id;
 const workout_id = route.params.workout_id;
 
@@ -411,8 +412,10 @@ function copyToActual(set) {
 }
 
 //Enviar api
-async function saveWorkout() {
-    loading.value = true;
+async function saveWorkout(close = false) {
+    if (close) {
+        loading.value = true;
+    }
     try {
         if (editing) {
             const respuesta = await axiosClient.put("workout/" + workout_id, {
@@ -426,6 +429,9 @@ async function saveWorkout() {
                 workout,
             });
             console.log(respuesta);
+        }
+        if (close) {
+            router.back()
         }
         loading.value = false;
     } catch (error) {

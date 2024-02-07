@@ -40,7 +40,7 @@
                     <td>
                         {{
                             athlete.payments.length > 0
-                                ? addOneMonth(athlete.payments[athlete.payments.length - 1].date)
+                                ? addMonths(athlete.payments[athlete.payments.length - 1].date, paymentTypeToMonths(athlete.payments[athlete.payments.length - 1].payment_type))
                                 : "No data"
                         }}
                     </td>
@@ -49,7 +49,7 @@
                             athlete.payments.length > 0
                                 ? athlete.payments[athlete.payments.length - 1].quantity
                                 : "No data"
-                        }}
+                        }}€
                     </td>
                     <td class="d-flex gap-3">
                         <button
@@ -89,10 +89,10 @@ import Swal from "sweetalert2";
 import axiosClient from "../../config/axios";
 import Spinner from "../../components/utils/Spinner.vue";
 import {
-    addOneMonth,
+    addMonths,
     formatDate,
     isDateBeforeOrEqualToToday,
-    getUser,
+    paymentTypeToMonths
 } from "../../functions/helpers";
 import {
     addPaymentPopUp,

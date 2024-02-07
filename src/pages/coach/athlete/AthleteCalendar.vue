@@ -37,7 +37,7 @@ import axiosClient from "../../../config/axios";
 
 //Components
 import Spinner from "../../../components/utils/Spinner.vue";
-import Calendar from "../../../components/coach/calendar/Calendar.vue";
+import Calendar from "../../../components/calendar/Calendar.vue";
 
 //Stores
 import useCoachStore from "../../../stores/useCoachStore";
