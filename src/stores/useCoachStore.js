@@ -13,6 +13,18 @@ const useCoachStore = defineStore('coach', {
         getAthleteById: (state) => {
             return (id) => state.athletes.find(a => a.id == id)
         },
+        getFilteredAthletes: (state) => {
+            return (value) => {
+                if (!value) {
+                    return state.athletes;
+                } else {
+                    return state.athletes.filter((athlete) =>
+                        athlete.name.toLowerCase().includes(value)
+                    );
+                }
+
+            }
+        }
     },
     actions: {
         setAthletes(data) {

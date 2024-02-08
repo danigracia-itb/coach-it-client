@@ -21,7 +21,7 @@
 
         <div class="athletes-grid h-100 w-100 mt-5" v-if="!configStore.loading">
             <AthleteCard
-                v-for="athlete in coachStore.athletes"
+                v-for="athlete in coachStore.getFilteredAthletes(searchInput)"
                 :key="athlete.id"
                 :athlete="athlete"
             />
@@ -54,16 +54,16 @@ onMounted(() => {
     }
 });
 
-const filteredAthletes = computed(() => {
-    const searchTerm = searchInput.value.toLowerCase().trim();
-    if (!searchTerm) {
-        return coachStore.athletes;
-    } else {
-        return coachStore.athletes.filter((athlete) =>
-            athlete.name.toLowerCase().includes(searchTerm)
-        );
-    }
-});
+// const filteredAthletes = computed(() => {
+//     const searchTerm = searchInput.value.toLowerCase().trim();
+//     if (!searchTerm) {
+//         return coachStore.athletes;
+//     } else {
+//         return coachStore.athletes.filter((athlete) =>
+//             athlete.name.toLowerCase().includes(searchTerm)
+//         );
+//     }
+// });
 </script>
 
 <style scoped>
