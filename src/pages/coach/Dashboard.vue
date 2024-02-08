@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, ref, computed } from "vue";
 
 //Components
 import Spinner from "../../components/utils/Spinner.vue";
