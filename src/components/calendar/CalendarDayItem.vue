@@ -4,7 +4,7 @@
         class="calendar-day"
         :class="{
             'calendar-day--not-current': !day.isCurrentMonth,
-            'calendar-day--today': isToday,
+            'calendar-day--today bg-dark': isToday,
             'calendar-day--rest-day':
                 (isRestday || newRestDay) && !newAvailableDay,
         }"
@@ -12,13 +12,21 @@
             (isRestday || newRestDay) && !newAvailableDay ? 'Rest day' : ''
         "
     >
-        <span class="fw-bold" :class="isToday ? 'bg-primary text-white' : ''">{{
+        <span class="fw-bold" :class="isToday ? 'text-white' : ''">{{
             label
         }}</span>
 
+        <button
+            @click="onContextMenu($event)"
+            v-if="day.isCurrentMonth"
+            class="add-btn btn btn-success"
+        >
+            <font-awesome-icon icon="fa-solid fa-plus" />
+        </button>
+
         <!-- content -->
         <div
-            class="d-flex flex-column gap-1 justify-content-center align-items-center pt-5"
+            class="d-flex flex-column gap-1 justify-content-center align-items-center pt-5 pt-md-0"
         >
             <!-- <p
                 v-if="(isRestday || newRestDay) && !newAvailableDay"
@@ -50,14 +58,6 @@
                 <font-awesome-icon icon="fa-solid fa-weight-scale" />
                 <span class="d-none d-md-inline">{{ bodyWeight.value }}kg</span>
             </div>
-
-            <button
-                @click="onContextMenu($event)"
-                v-if="day.isCurrentMonth"
-                class="add-btn btn btn-success"
-            >
-                <font-awesome-icon icon="fa-solid fa-plus" />
-            </button>
         </div>
     </li>
 </template>
@@ -319,19 +319,40 @@ function onContextMenu(e) {
     justify-content: center;
     align-items: center;
     position: absolute;
+
     right: 1rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 1.2rem;
+}
+
+@media (min-width: 768px) {
+    .calendar-day > span {
     width: var(--day-label-size);
     height: var(--day-label-size);
+    }
+
+}
+
+.add-btn {
+    opacity: 0;
+    transition: all ease-in-out 0.4s;
+
+    align-self: flex-start;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
 .calendar-day--not-current {
     background-color: lightgray;
     color: rgb(59, 59, 59);
-}
-
-.calendar-day--today > span {
-    border-radius: 9999px;
-    padding: 0.4rem 1.2rem;
 }
 
 .calendar-day--rest-day {
@@ -343,11 +364,7 @@ function onContextMenu(e) {
     transition: all ease-in-out 0.4s;
 }
 
-.add-btn {
-    padding: 0.5rem 1rem;
-    opacity: 0;
-    transition: all ease-in-out 0.4s;
-}
+
 
 .dropdown-menu {
     width: 14rem;

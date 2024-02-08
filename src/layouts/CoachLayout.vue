@@ -18,7 +18,7 @@
 
         <div class="h-100">
             <CoachMenu class="d-none d-md-block"></CoachMenu>
-            <main class="main-content px-3 px-md-0">
+            <main class="main-content px-2 px-md-0">
                 <RouterView />
             </main>
         </div>
