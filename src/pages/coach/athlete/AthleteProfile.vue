@@ -11,7 +11,7 @@
             <h1 class="text-center p-5"><span class="text-primary">{{ athlete.name }}</span> Profile</h1>
             <div class="row">
                 <div class="col-lg-4 mb-4 mb-lg-0 d-flex justify-content-center align-items-center">
-                    <img class="rounded-circle img-user-small" width="400" :src="athlete.picture" alt="">
+                    <img class="rounded-circle img-user-small" width="400" :src="`${backendUrl}/${athlete.picture}`" alt="">
                 </div>
 
 
@@ -91,6 +91,8 @@ import Spinner from "../../../components/utils/Spinner.vue";
 import AvailableDaysTable from '../../../components/coach/AvailableDaysTable.vue'
 
 const route = useRoute();
+
+const backendUrl = import.meta.env.VITE_API_URL;
 
 const loading = ref(true);
 var athlete = reactive({});

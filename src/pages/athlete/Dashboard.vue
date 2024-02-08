@@ -3,7 +3,7 @@
         <h1 class="text-center">Hello <span class="text-primary">{{ authStore.name }}</span></h1>
 
         <div v-if="!loading">
-            <Calendar :isCoach="false" :athlete="authStore.user"  :workouts="athleteStore.calendar.workouts" :restDays="athleteStore.calendar.restDays" :bodyWeights="coachStore.calendar.bodyWeights"/>
+            <Calendar :isCoach="false" :athlete="authStore.user"  :workouts="athleteStore.calendar.workouts" :restDays="athleteStore.calendar.restDays" :bodyWeights="athleteStore.calendar.bodyWeights"/>
         </div>
         <Spinner v-else />
     </div>

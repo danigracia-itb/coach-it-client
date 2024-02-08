@@ -35,6 +35,24 @@ const options = {
     xaxis: {
         categories: data.map((item) => item.date),
     },
+
+    markers: {
+        size: 5,
+        strokeColors: "#fff",
+        strokeWidth: 2,
+        strokeOpacity: 0.9,
+        strokeDashArray: 0,
+        fillOpacity: 1,
+        shape: "circle",
+        radius: 2,
+        offsetX: 0,
+        offsetY: 0,
+        showNullDataPoints: true,
+        hover: {
+            size: 8,
+            sizeOffset: 3,
+        },
+    },
 };
 const series = [
     {

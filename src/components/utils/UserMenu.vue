@@ -59,7 +59,9 @@ function onContextMenu(e) {
                 divided: true,
                 onClick: () => {
                     if (athlete) {
-                        console.log("redirigir a athlete profile");
+                        router.push({
+                            path: "/athlete/profile",
+                        });
                     } else {
                         router.push({
                             path: "/coach/profile",

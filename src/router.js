@@ -84,6 +84,7 @@ const routes = [
 
         children: [
             { path: "", component: AthleteDashboard },
+            { path: "profile", component: () => import("./pages/coach/Profile.vue") },
             {
                 path: "workout/:workout_id", component: () =>
                     import("./pages/workout/EditWorkout.vue"),

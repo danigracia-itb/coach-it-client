@@ -1,7 +1,12 @@
 <template>
-    <div class="container text-center">
+    <div class="mt-5 text-center">
+        <div class="d-flex justify-content-start">
+            <button class="btn btn-primary" @click="$router.back()">
+                <font-awesome-icon icon="fa-solid fa-left-long" />
+            </button>
+        </div>
         <!-- Contenedor principal -->
-        <p class="mt-3 display-3 fw-bold">Profile</p>
+        <h1 class="text-center">Profile</h1>
         <div class="row justify-content-center">
             <!-- Centra el contenido horizontalmente -->
             <div class="align-bottom text-center col-4">
@@ -104,9 +109,9 @@ async function handleFileChange(event) {
             formData.append("image", selectedFile.value);
             const response = await axiosClient.post(
                 "users/change-picture/" + authStore.id,
-                formData,
+                formData
             );
-            authStore.setUser(response.data)
+            authStore.setUser(response.data);
         } catch (error) {
             console.error(error);
         }

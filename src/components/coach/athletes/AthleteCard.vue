@@ -5,8 +5,9 @@
     >
         <img
             width="130"
+            height="130"
             class="p-2 rounded-circle"
-            :src="athlete.picture"
+            :src="`${backendUrl}/${athlete.picture}`"
             alt=""
         />
         <p class="display-6 fw-bold mx-4">{{ athlete.name }}</p>
@@ -17,6 +18,8 @@
 import { RouterLink } from "vue-router";
 
 const { athlete } = defineProps(["athlete"]);
+
+const backendUrl = import.meta.env.VITE_API_URL;
 </script>
 
 <style scoped>
