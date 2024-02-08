@@ -12,6 +12,7 @@
                 <input
                     type="text"
                     id="searchTerm"
+                    class="form-control w-auto"
                     placeholder="Search athlete..."
                     v-model="searchInput"
                 />
