@@ -5,7 +5,16 @@
 
             <Spinner class="mt-5" v-if="configStore.loading" />
 
-            <div class="d-flex justify-content-end" v-if="!configStore.loading">
+            <div
+                class="d-flex justify-content-between"
+                v-if="!configStore.loading"
+            >
+                <input
+                    type="text"
+                    id="searchTerm"
+                    placeholder="Search athlete..."
+                    v-model="searchInput"
+                />
                 <InviteAthlete />
             </div>
         </header>
@@ -37,10 +46,22 @@ import coachController from "../../controllers/coachController";
 
 const coachStore = useCoachStore();
 const configStore = useConfigStore();
+const searchInput = ref("");
 
 onMounted(() => {
     if (coachStore.athletes.length <= 0) {
         coachController.getAthletes();
+    }
+});
+
+const filteredAthletes = computed(() => {
+    const searchTerm = searchInput.value.toLowerCase().trim();
+    if (!searchTerm) {
+        return coachStore.athletes;
+    } else {
+        return coachStore.athletes.filter((athlete) =>
+            athlete.name.toLowerCase().includes(searchTerm)
+        );
     }
 });
 </script>
