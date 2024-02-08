@@ -161,7 +161,7 @@ function onContextMenu(e) {
                           },
                       },
                   ]),
-            ...(props.hasWorkout
+            ...(props.hasWorkout && !workoutDeleted.value
                 ? [
                       {
                           label: "Edit",
@@ -179,7 +179,7 @@ function onContextMenu(e) {
                               router.push({
                                   path: authStore.is_coach
                                       ? `/coach/athlete/${props.athlete.id}/workout/${props.workout.id}`
-                                      : `/athlete/workout/${workout.id}`,
+                                      : `/athlete/workout/${props.workout.id}`,
                               });
                           },
                       },
@@ -242,7 +242,7 @@ function onContextMenu(e) {
                                         router.push(
                                             authStore.is_coach
                                                 ? `/coach/athlete/${props.athlete.id}/workout/create?date=${props.day.date}`
-                                                : `creatathlete`
+                                                : `/athlete/workout/create?date=${props.day.date}`
                                         );
                                     },
                                 },

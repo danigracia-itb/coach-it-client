@@ -1,5 +1,5 @@
 <template>
-    <div class="card mt-5">
+    <div class="card mt-5 user-select-none">
         <CalendarHeader
             :current-date="today"
             :selected-date="selectedDate"

@@ -13,7 +13,11 @@
 
                             <p>The page you are searching for does nott exist</p>
 
-                            <router-link to="/" class="btn btn-primary">Return Home</router-link>
+                            <div class="d-flex gap-2 justify-content-center align-items-center">
+                                <router-link to="/" class="btn btn-primary">Return Home</router-link>
+                            <button @click="$router.back()" class="btn btn-dark">Return Back</button>
+                            </div>
+
                         </div>
                     </div>
                 </div>

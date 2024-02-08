@@ -12,13 +12,12 @@ export function enterCoachCode(code, router) {
             autocapitalize: "off",
         },
         showCancelButton: true,
+        cancelButtonText: "I don't have a coach",
         confirmButtonText: "Confirm",
         confirmButtonColor: "#711bba",
     }).then((result) => {
         if (result.isConfirmed && result.value) {
             code.value = result.value;
-        } else {
-            router.push("/register");
         }
     });
 }

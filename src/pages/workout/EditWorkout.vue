@@ -89,161 +89,8 @@
                         </div>
                     </header>
 
-                    <!-- Sets header -->
-                    <section
-                        class="set-headers-group"
-                        v-if="exercise.sets.length > 0"
-                    >
-                        <section class="text-center bg-light set-header-target">
-                            <div class="fw-normal">TARGET</div>
+                    <SetsCard :exercise="exercise" :copy-to-next-set="copyToNextSet" :copy-to-actual="copyToActual" :delete-set="deleteSet" />
 
-                            <div class="set-labels">
-                                <div
-                                    class="fw-normal cursor-pointer"
-                                    v-tooltip="
-                                        'WEIGHT: number of KG used in the set'
-                                    "
-                                >
-                                    WEIGHT
-                                </div>
-                                <div
-                                    class="fw-normal cursor-pointer"
-                                    v-tooltip="
-                                        'REPS: number of repetitions that should be performed in the set'
-                                    "
-                                >
-                                    REPS
-                                </div>
-                                <div
-                                    class="fw-normal cursor-pointer"
-                                    v-tooltip="
-                                        'RPE: effort level for the set, on a scale of 1 to 10'
-                                    "
-                                >
-                                    RPE
-                                </div>
-                            </div>
-                        </section>
-
-                        <section class="text-center bg-white set-header-actual">
-                            <div class="fw-normal">ACTUAL</div>
-
-                            <div class="set-labels">
-                                <div
-                                    class="fw-normal cursor-pointer"
-                                    v-tooltip="
-                                        'WEIGHT: number of KG used in the set'
-                                    "
-                                >
-                                    WEIGHT
-                                </div>
-                                <div
-                                    class="fw-normal cursor-pointer"
-                                    v-tooltip="
-                                        'REPS: number of repetitions that should be performed in the set'
-                                    "
-                                >
-                                    REPS
-                                </div>
-                                <div
-                                    class="fw-normal cursor-pointer"
-                                    v-tooltip="
-                                        'RPE: effort level for the set, on a scale of 1 to 10'
-                                    "
-                                >
-                                    RPE
-                                </div>
-                            </div>
-                        </section>
-                    </section>
-
-                    <!-- Sets list -->
-                    <ol
-                        v-if="exercise.sets.length > 0"
-                        class="my-3 text-unstyled p-0 border rounded"
-                    >
-                        <li
-                            v-for="(set, index) in exercise.sets"
-                            :key="set.id"
-                            class="d-flex bg-white border-bottom"
-                        >
-                            <!-- Set Number -->
-                            <p
-                                class="set-number bg-primary d-flex align-items-center justify-content-center mb-0 text-white"
-                            >
-                                {{ index + 1 }}
-                            </p>
-
-                            <!-- Set content -->
-                            <div
-                                class="p-3 w-100 d-flex gap-2 bg-light border-end"
-                            >
-                                <input
-                                    type="number"
-                                    class="form-control text-center"
-                                    v-model="set.target_weight"
-                                />
-                                <input
-                                    type="number"
-                                    class="form-control text-center"
-                                    v-model="set.target_reps"
-                                />
-                                <input
-                                    type="number"
-                                    class="form-control text-center"
-                                    v-model="set.target_rpe"
-                                />
-                            </div>
-
-                            <button
-                                class="btn btn-primary rounded-0"
-                                @click="copyToActual(set)"
-                            >
-                                <font-awesome-icon
-                                    icon="fa-solid fa-arrow-right"
-                                />
-                            </button>
-
-                            <div class="p-3 w-100 d-flex gap-2">
-                                <!-- ACTUAL -->
-                                <input
-                                    type="number"
-                                    class="form-control text-center"
-                                    v-model="set.actual_weight"
-                                />
-                                <input
-                                    type="number"
-                                    class="form-control text-center"
-                                    v-model="set.actual_reps"
-                                />
-                                <input
-                                    type="number"
-                                    class="form-control text-center"
-                                    v-model="set.actual_rpe"
-                                />
-                            </div>
-
-                            <button
-                                class="btn btn-danger mx-2 my-3 text-white"
-                                @click="
-                                    () =>
-                                        deleteSet(exercise.exercise_id, set.id)
-                                "
-                            >
-                                <font-awesome-icon icon="fa-solid fa-trash" />
-                            </button>
-
-                            <button
-                                class="btn btn-primary rounded-0"
-                                :disabled="index + 1 == exercise.sets.length"
-                                @click="copyToNextSet(exercise, index, set)"
-                            >
-                                <font-awesome-icon
-                                    icon="fa-solid fa-arrow-down"
-                                />
-                            </button>
-                        </li>
-                    </ol>
                     <button
                         class="btn btn-secondary"
                         @click="() => addSet(exercise.exercise_id)"
@@ -309,14 +156,17 @@ import { calculateTonelage, calculateMaxRpe } from "../../functions/helpers";
 //components
 import Spinner from "../../components/utils/Spinner.vue";
 import AddExerciseToWorkout from "../../components/workout/AddExerciseToWorkout.vue";
+import SetsCard from "../../components/workout/SetsCard.vue";
 
 //stores
 import useExercisesStore from "../../stores/useExercisesStore";
+import useAuthStore from "../../stores/useAuthStore";
 
 //controllers
 import exerciseController from "../../controllers/exerciseController";
 
 const exercisesStore = useExercisesStore();
+const authStore = useAuthStore();
 
 //route
 const route = useRoute();
@@ -443,7 +293,7 @@ function copyToActual(set) {
 
 //Enviar api
 async function saveWorkout(close = false) {
-    if (close) {
+    if (close || !editing) {
         loading.value = true;
     }
     try {
@@ -453,12 +303,13 @@ async function saveWorkout(close = false) {
             });
         } else {
             const respuesta = await axiosClient.post("workout", {
-                user_id: athlete_id,
+                user_id: athlete_id ?? authStore.id,
                 date: workout_date.value,
                 workout,
             });
         }
         if (close) {
+            loading.value = false;
             router.back();
         } else {
             loading.value = false;
@@ -480,45 +331,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.set-headers-group {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-.set-headers-group section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.set-header-target {
-    padding: 0 5rem 0 6rem !important;
-}
-
-.set-header-actual {
-    padding: 0 10rem 0 2rem !important;
-}
-
-.set-labels {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    text-align: center;
-}
-
-.set-super-header {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-}
-.set-header {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    margin: 0 6rem 0 3.5rem;
-}
-.set-number {
-    width: 10rem;
-}
-
 .exercise-card {
     background-color: rgb(230, 230, 230);
 }

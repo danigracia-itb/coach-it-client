@@ -48,7 +48,7 @@ const routes = [
 
         children: [
             { path: "", component: () => import("./pages/coach/Dashboard.vue") },
-            { path: "exercises", component: () => import("./pages/coach/Exercises.vue") },
+            { path: "exercises", component: () => import("./pages/exercise/Exercises.vue") },
             {
                 path: "manage",
                 component: () => import("./pages/coach/Manage.vue"),
@@ -89,6 +89,12 @@ const routes = [
                 path: "workout/:workout_id", component: () =>
                     import("./pages/workout/EditWorkout.vue"),
             },
+            {
+                path: "workout/create",
+                component: () =>
+                    import("./pages/workout/EditWorkout.vue"),
+            },
+            { path: "exercises", component: () => import("./pages/exercise/Exercises.vue") },
         ],
     },
 

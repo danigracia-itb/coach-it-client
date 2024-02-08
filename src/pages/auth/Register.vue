@@ -28,13 +28,20 @@
                             type="name"
                             id="name"
                             class="form-control p-3"
-                            :class="configStore.validationErrors.name ? 'is-invalid' : ''"
+                            :class="
+                                configStore.validationErrors.name
+                                    ? 'is-invalid'
+                                    : ''
+                            "
                             placeholder="Introduce your name"
                             required
                             v-model="name"
                         />
 
-                        <div v-if="configStore.validationErrors.name" class="invalid-feedback">
+                        <div
+                            v-if="configStore.validationErrors.name"
+                            class="invalid-feedback"
+                        >
                             {{ configStore.validationErrors.name }}
                         </div>
                     </div>
@@ -45,13 +52,20 @@
                             type="email"
                             id="email"
                             class="form-control p-3"
-                            :class="configStore.validationErrors.email ? 'is-invalid' : ''"
+                            :class="
+                                configStore.validationErrors.email
+                                    ? 'is-invalid'
+                                    : ''
+                            "
                             placeholder="Introduce your email"
                             required
                             v-model="email"
                         />
 
-                        <div v-if="configStore.validationErrors.email" class="invalid-feedback">
+                        <div
+                            v-if="configStore.validationErrors.email"
+                            class="invalid-feedback"
+                        >
                             {{ configStore.validationErrors.email }}
                         </div>
                     </div>
@@ -63,7 +77,10 @@
                             id="password"
                             class="form-control p-3"
                             :class="
-                                configStore.validationErrors.password_confirmation ? 'is-invalid' : ''
+                                configStore.validationErrors
+                                    .password_confirmation
+                                    ? 'is-invalid'
+                                    : ''
                             "
                             placeholder="Introduce your password"
                             required
@@ -74,7 +91,10 @@
                             id="password"
                             class="form-control p-3 mt-4"
                             :class="
-                                configStore.validationErrors.password_confirmation ? 'is-invalid' : ''
+                                configStore.validationErrors
+                                    .password_confirmation
+                                    ? 'is-invalid'
+                                    : ''
                             "
                             placeholder="Repeat your password"
                             required
@@ -82,17 +102,27 @@
                         />
 
                         <div
-                            v-if="configStore.validationErrors.password_confirmation"
+                            v-if="
+                                configStore.validationErrors
+                                    .password_confirmation
+                            "
                             class="invalid-feedback"
                         >
-                            {{ configStore.validationErrors.password_confirmation }}
+                            {{
+                                configStore.validationErrors
+                                    .password_confirmation
+                            }}
                         </div>
                     </div>
 
                     <div class="form-check mt-4">
                         <input
                             class="form-check-input"
-                            :class="configStore.validationErrors.terms_conditions ? 'is-invalid' : ''"
+                            :class="
+                                configStore.validationErrors.terms_conditions
+                                    ? 'is-invalid'
+                                    : ''
+                            "
                             type="checkbox"
                             required
                             v-model="terms_conditions"
@@ -172,7 +202,7 @@
 import { onMounted, ref, watch } from "vue";
 import { RouterLink, useRoute, useRouter } from "vue-router";
 import authController from "../../controllers/authController";
-import useAuthStore from '../../stores/useAuthStore'
+import useAuthStore from "../../stores/useAuthStore";
 import useConfigStore from "../../stores/useConfigStore";
 
 //Alerts
@@ -216,7 +246,7 @@ async function handleRegister() {
         password: password.value,
         password_confirmation: password_confirmation.value,
         terms_conditions: terms_conditions.value,
-    })
+    });
 
     //If there's any error
     if (Object.entries(configStore.validationErrors).length > 0) {
