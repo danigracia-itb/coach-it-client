@@ -10,9 +10,10 @@
             </div>
             <h1 class="text-center p-5"><span class="text-primary">{{ athlete.name }}</span> Profile</h1>
             <div class="row">
-                <div class="col-lg-4 mb-4 mb-lg-0 d-flex justify-content-center align-items-top">
+                <div class="col-lg-4 mb-4 mb-lg-0 d-flex justify-content-center align-items-center">
                     <img class="rounded-circle img-user-small" width="400" :src="`${backendUrl}/${athlete.picture}`" alt="">
                 </div>
+
 
                 <div class="col-lg-8">
                     <div class="mb-4">
