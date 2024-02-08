@@ -121,7 +121,50 @@ const authController = {
             }
         );
         configStore.setLoading(false)
-    }
+    },
+
+    updateUserData: async (newName, newEmail) => {
+        const authStore = useAuthStore()
+        const configStore = useConfigStore()
+
+        authStore.setName(newName);
+        authStore.setEmail(newEmail);
+
+        configStore.setLoading(true)
+
+        await axiosClient.put(
+            "users/change-data/" + authStore.id,
+            {
+                name: newName,
+                email: newEmail,
+            }
+        );
+        configStore.setLoading(false)
+    },
+
+    updateUserCoach: async (newCoach) => {
+        const authStore = useAuthStore()
+        const configStore = useConfigStore()
+
+        configStore.setLoading(true)
+        configStore.setError(false)
+
+        try {
+            const response = await axiosClient.put(
+                "users/change-coach/" + authStore.id,
+                {
+                    coach_id: newCoach,
+                }
+            );
+            authStore.setCoach(newCoach);
+            configStore.setError(false)
+        } catch (error) {
+            configStore.setValidationError("coach_id", error.response.data.error.coach_id[0])
+            configStore.setError(true)
+        }
+
+        configStore.setLoading(false)
+    },
 }
 
 export default authController

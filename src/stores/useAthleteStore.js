@@ -1,4 +1,5 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
+import { getTodayDate } from "../functions/helpers";
 
 const useAthleteStore = defineStore('athlete', {
     state: () => ({
@@ -9,6 +10,16 @@ const useAthleteStore = defineStore('athlete', {
             bodyWeights: []
         }
     }),
+    getters: {
+        getTodayEvents: (state) => {
+            const today = getTodayDate()
+            return {
+                restDay: state.calendar.restDays.find(i => i.date == today),
+                workout: state.calendar.workouts.find(i => i.date == today),
+                bodyWeight: state.calendar.bodyWeights.find(i => i.date == today),
+            }
+        },
+    },
     actions: {
         setAthlete(data) {
             this.athlete = data

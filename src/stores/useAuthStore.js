@@ -8,6 +8,7 @@ const useAuthStore = defineStore('auth', {
             email: "",
             picture: "",
             is_coach: null,
+            coach_id: null,
         }
     },
     getters: {
@@ -16,7 +17,8 @@ const useAuthStore = defineStore('auth', {
             name: state.name,
             email: state.email,
             picture: state.picture,
-            is_coach: state.is_coach
+            is_coach: state.is_coach,
+            coach_id: state.coach_id,
         })
     },
     actions: {
@@ -26,9 +28,16 @@ const useAuthStore = defineStore('auth', {
             this.email = user.email
             this.picture = user.picture
             this.is_coach = user.is_coach
+            this.coach_id = user.coach_id
         },
         setName(name) {
             this.name = name
+        },
+        setEmail(email) {
+            this.email = email
+        },
+        setCoach(coach) {
+            this.coach_id = coach
         },
         setPicture(pic) {
             this.picture = pic

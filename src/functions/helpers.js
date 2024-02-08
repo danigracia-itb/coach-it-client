@@ -102,17 +102,43 @@ export function isDateBeforeOrEqualToToday(date) {
 
 export function calculateMaxRpe(sets) {
     let max = 0;
-    for(let set of sets) {
+    for (let set of sets) {
         const rpeForReps = rpeTable[`${set.actual_reps}`]
-        
-        if(rpeForReps) {
-            const e1rm = parseFloat(set.actual_weight * ((100+((-1) *( rpeForReps[`${set.actual_rpe}`] - 100)))/ 100))
-            
-            if(e1rm >= max) {
+
+        if (rpeForReps) {
+            const e1rm = parseFloat(set.actual_weight * ((100 + ((-1) * (rpeForReps[`${set.actual_rpe}`] - 100))) / 100))
+
+            if (e1rm >= max) {
                 max = e1rm
             }
         }
 
     }
-    return 2.5 * Math.ceil(max/2.5)
+    return 2.5 * Math.ceil(max / 2.5)
+}
+
+export function areAllEmptyArrays(obj) {
+    for (const key in obj) {
+        if (!Array.isArray(obj[key]) || obj[key].length !== 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+export function getTodayDate() {
+    const today = new Date();
+    var year = today.getFullYear();
+    var month = today.getMonth() + 1; // Months are zero-based, so we add 1
+    var day = today.getDate();
+    if (month < 10) {
+        month = '0' + month;
+    }
+
+    // Agregar cero adelante si el día es menor que 10
+    if (day < 10) {
+        day = '0' + day;
+    }
+
+    return `${year}-${month}-${day}`;
 }

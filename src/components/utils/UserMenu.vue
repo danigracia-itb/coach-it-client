@@ -70,7 +70,7 @@ function onContextMenu(e) {
                 },
             },
             {
-                label: "Logout",
+                label: "Log Out",
                 customClass: "text-danger",
                 icon: h("img", {
                     src: "../../../../public/assets/icons/right-from-bracket-solid.svg",

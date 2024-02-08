@@ -1,30 +1,69 @@
 <template>
-    <div class="mt-2">
-        <div class="d-flex justify-content-end justify-content-md-between">
-            <button class="btn btn-primary d-none d-md-block" @click="$router.back()">
-                <font-awesome-icon icon="fa-solid fa-left-long" />
-            </button>
-            <button class="btn btn-outline-secondary" @click="saveData()">
-                Save
+    <div class="mt-5">
+        <div class="d-flex justify-content-start">
+            <button class="btn btn-primary d-none d-md-block"
+                @click="$router.back()">
+                <font-awesome-icon
+                    icon="fa-solid fa-left-long" />
             </button>
         </div>
 
         <!-- Contenedor principal -->
-        <div class="d-flex flex-column align-items-center justify-content-center">
-            <img class="img-user rounded-circle" :src="`${backendUrl}/${authStore.picture}`" @click="openFilePicker" />
-            <input type="file" id="seleccionArchivos" accept="image/*" @change="handleFileChange" style="display: none" />
+        <div
+            class="d-flex flex-column align-items-center justify-content-center">
+            <img class="img-user rounded-circle"
+                :src="`${backendUrl}/${authStore.picture}`"
+                @click="openFilePicker" />
+            <input type="file" id="seleccionArchivos"
+                accept="image/*" @change="handleFileChange"
+                style="display: none" />
         </div>
 
         <section class="mt-5">
             <p class="text-uppercase mb-1">Profile settings</p>
-            <form class="d-flex flex-column gap-2">
+            <form class="d-flex flex-column gap-2"
+                @submit.prevent="saveData()">
                 <div>
-                    <input type="text" class="form-control" v-model="newName">
+                    <input type="text" class="form-control"
+                        placeholder="Enter your name..."
+                        v-model="newName" />
                 </div>
                 <div>
-                    <input type="text" class="form-control" v-model="authStore.email">
+                    <input type="text" class="form-control"
+                        placeholder="Enter your email..."
+                        v-model="newEmail" />
                 </div>
+
+                <button class="btn btn-secondary" type="submit">
+                    Save
+                </button>
             </form>
+        </section>
+
+        <section class="mt-5">
+            <p class="text-uppercase mb-1">Your Coach</p>
+            <form class="d-flex flex-column gap-2"
+                @submit.prevent="saveCoachCode()">
+                <div>
+                    <input type="text" class="form-control"
+                        placeholder="Enter your coach code..."
+                        v-model="newCoach" />
+                </div>
+
+                <button class="btn btn-secondary" type="submit">
+                    Save
+                </button>
+            </form>
+        </section>
+
+        <section class="mt-5">
+            <p class="text-uppercase mb-1">Others</p>
+            <div class="d-flex flex-column gap-2">
+                <button
+                    class="bg-white w-100 btn border border-1 text-danger fw-bold"
+                    @click="authController.logout()">Log
+                    Out</button>
+            </div>
         </section>
     </div>
 </template>
@@ -32,6 +71,8 @@
 <script setup>
 import { ref } from "vue";
 import axiosClient from "../../config/axios";
+
+import { useToast } from 'vue-toast-notification';
 
 //Components
 import Spinner from "../../components/utils/Spinner.vue";
@@ -46,9 +87,13 @@ import authController from "../../controllers/authController";
 const authStore = useAuthStore();
 const configStore = useConfigStore();
 
+const toast = useToast()
+
 const backendUrl = import.meta.env.VITE_API_URL;
 
 const newName = ref(authStore.name);
+const newEmail = ref(authStore.email);
+const newCoach = ref(authStore.coach_id);
 
 const selectedFile = ref(null);
 const imagenPrevisualizacion = ref("");
@@ -77,9 +122,34 @@ function openFilePicker() {
     document.getElementById("seleccionArchivos").click();
 }
 
-function saveData() {
-    authController.updateUserName(newName.value);
+async function saveData() {
+    await authController.updateUserData(newName.value, newEmail.value);
+     
+    if (configStore.error) {
+        toast.error("Server error", {
+            position: "top",
+        });
+    } else {
+        toast.success('Profile Settings Updated', {
+            position: "top",
+        });
+    }
 }
+
+async function saveCoachCode() {
+    await authController.updateUserCoach(newCoach.value)
+    if (configStore.error) {
+        toast.error(configStore.validationErrors.coach_id, {
+            position: "top",
+        });
+    } else {
+        toast.success('Coach Code Updated', {
+            position: "top",
+        });
+    }
+
+}
+
 </script>
 
 <style scoped>

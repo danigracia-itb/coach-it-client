@@ -74,7 +74,7 @@
             >
                 <!-- Set Number -->
                 <p
-                    class="set-number bg-primary d-flex align-items-center justify-content-center mb-0 text-white"
+                    class="set-number bg-dark d-flex align-items-center justify-content-center mb-0 text-white"
                 >
                     {{ index + 1 }}
                 </p>
@@ -209,7 +209,7 @@
                 >
                     <!-- Set Number -->
                     <p
-                        class="set-number bg-primary d-flex align-items-center justify-content-center mb-0 text-white"
+                        class="set-number bg-dark d-flex align-items-center justify-content-center mb-0 text-white"
                     >
                         {{ index + 1 }}
                     </p>

@@ -1,6 +1,6 @@
 <template>
     <div class="mt-5">
-        <h1 class="text-center">Calendar</h1>
+        <h1 class="text-center d-none d-md-block">Calendar</h1>
 
         <div v-if="!loading">
             <Calendar :isCoach="false" :athlete="authStore.user"  :workouts="athleteStore.calendar.workouts" :restDays="athleteStore.calendar.restDays" :bodyWeights="athleteStore.calendar.bodyWeights"/>
@@ -13,6 +13,7 @@
 import { onMounted, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 import axiosClient from "../../config/axios";
+import { areAllEmptyArrays } from "../../functions/helpers";
 
 //components
 import Spinner from "../../components/utils/Spinner.vue";
@@ -48,6 +49,8 @@ async function getCalendar() {
 }
 
 onMounted(() => {
-    getCalendar();
+    if(areAllEmptyArrays(athleteStore.calendar)) {
+        getCalendar();
+    }
 });
 </script>
