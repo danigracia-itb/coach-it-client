@@ -5,7 +5,8 @@ const useAthleteStore = defineStore('athlete', {
         athlete: {},
         calendar: {
             restDays: [],
-            workouts: []
+            workouts: [],
+            bodyWeights: []
         }
     }),
     actions: {
@@ -15,7 +16,14 @@ const useAthleteStore = defineStore('athlete', {
         setCalendar(data) {
             this.calendar.restDays = data.restDays
             this.calendar.workouts = data.workouts
-        }
+            this.calendar.bodyWeights = data.bodyWeights
+        },
+        addBodyWeight(data) {
+            this.calendar.bodyWeights.push(data)
+        },
+        updateBodyWeight(data) {
+            this.calendar.bodyWeights[this.calendar.bodyWeights.findIndex((a) => a.id == data.id)] = data;
+        },
     },
 })
 

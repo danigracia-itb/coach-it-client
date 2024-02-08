@@ -18,6 +18,9 @@
                 :athlete="athlete"
                 :has-workout="hasWorkout(day.date)"
                 :workout="getWorkout(day.date)"
+                :has-body-weight="hasBodyWeight(day.date)"
+                :bodyWeight="getBodyWeight(day.date)"
+                :isCoach="isCoach"
             />
         </ol>
     </div>
@@ -47,6 +50,10 @@ export default {
             type: Object,
             required: true,
         },
+        isCoach: {
+            type: Boolean,
+            required: true
+        },
         workouts: {
             type: Array,
             required: true,
@@ -54,7 +61,11 @@ export default {
         restDays: {
             type: Array,
             required: true, 
-        }
+        },
+        bodyWeights: {
+            type: Array,
+            required: true
+        },
     },
 
     data() {
@@ -172,11 +183,18 @@ export default {
             // Verifica si hay un workout en la fecha dada
             return this.workouts.some((workout) => workout.date === date);
         },
+        hasBodyWeight(date) {
+            // Verifica si hay un workout en la fecha dada
+            return this.bodyWeights.some((bodyWeights) => bodyWeights.date === date);
+        },
         isRestDay(date) {
             return this.restDays.some((day) => day.date === date);
         },
         getWorkout(date) {
             return this.workouts.find((workout) => workout.date === date);
+        },
+        getBodyWeight(date) {
+            return this.bodyWeights.find((bodyWeights) => bodyWeights.date === date);
         }
     },
 };

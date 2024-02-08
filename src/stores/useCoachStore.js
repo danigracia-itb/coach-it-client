@@ -5,7 +5,8 @@ const useCoachStore = defineStore('coach', {
         athletes: [],
         athleteCalendar: {
             restDays: [],
-            workouts: []
+            workouts: [],
+            bodyWeights: []
         }
     }),
     getters: {
@@ -26,7 +27,14 @@ const useCoachStore = defineStore('coach', {
         setAthleteCalendar(data) {
             this.athleteCalendar.restDays = data.restDays
             this.athleteCalendar.workouts = data.workouts
-        }
+            this.athleteCalendar.bodyWeights = data.bodyWeights
+        },
+        addBodyWeight(data) {
+            this.athleteCalendar.bodyWeights.push(data)
+        },
+        updateBodyWeight(data) {
+            this.athleteCalendar.bodyWeights[this.athleteCalendar.bodyWeights.findIndex((a) => a.id == data.id)] = data;
+        },
     },
 })
 

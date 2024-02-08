@@ -36,6 +36,8 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
+import VueApexCharts from "vue3-apexcharts";
+
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 
@@ -47,4 +49,5 @@ createApp(App)
 .use(pinia)
 .use(ContextMenu)
 .use(FloatingVue)
+.use(VueApexCharts)
 .mount('#app')

@@ -24,7 +24,7 @@
             </header>
 
             <div>
-                <Calendar :athlete="athlete" :workouts="coachStore.athleteCalendar.workouts" :restDays="coachStore.athleteCalendar.restDays"/>
+                <Calendar :isCoach="true" :useStore="athleteStore" :athlete="athlete" :workouts="coachStore.athleteCalendar.workouts" :restDays="coachStore.athleteCalendar.restDays" :bodyWeights="coachStore.athleteCalendar.bodyWeights"/>
             </div>
         </div>
     </div>
@@ -62,7 +62,8 @@ async function getAthleteCalendar() {
 
         coachStore.setAthleteCalendar({
             workouts: calendarResponse.data.workouts,
-            restDays: calendarResponse.data.restDays
+            restDays: calendarResponse.data.restDays,
+            bodyWeights: calendarResponse.data.bodyWeights,
         })
 
         loading.value = false;

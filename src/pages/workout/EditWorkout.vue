@@ -27,7 +27,7 @@
                 <li
                     v-for="exercise in orderedWorkout"
                     :key="exercise.id"
-                    class="card exercise-card p-4 mb-4"
+                    class="card exercise-card p-4 mb-5 border-2"
                 >
                     <button
                         class="delete-exercise btn"
@@ -255,6 +255,13 @@
                                 : "Add Set"
                         }}
                     </button>
+
+                    <!-- Comentarios -->
+                    <div  class="mt-4">
+                        <p>Exercise Notes</p>
+                        <textarea rows="1" class="form-control" v-model="exercise.notes"></textarea>
+                    </div>
+
                 </li>
             </ul>
 
@@ -350,6 +357,7 @@ function addExercises(exercises) {
         order: workout[workout.length - 1]
             ? workout[workout.length - 1].order + 1
             : 1,
+        notes: "",
         sets: [],
     });
     }

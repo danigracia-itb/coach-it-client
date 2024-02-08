@@ -1,6 +1,9 @@
 import Swal from "sweetalert2";
 import axiosClient from "../config/axios";
 
+import useAthleteStore from '../stores/useAthleteStore'
+import useCoachStore from "../stores/useCoachStore";
+
 export function enterCoachCode(code, router) {
     Swal.fire({
         title: "Enter your coach's referral code",
@@ -227,6 +230,131 @@ export function copyWorkout(workout_id, workout_date, router) {
     });
 }
 
+export function addBodyWeightPopUp(date, user_id, isCoach) {
+    return new Promise((resolve, reject) => {
+        Swal.fire({
+            title: "Add Body Weight",
+            html: `    
+                <div class="form-group mt-5">
+                    <label for="value" class="form-label d-block">KG</label>
+                    <input type="number" id="value" name="value" class="form-control">
+                </div>
+                `,
+            focusConfirm: false,
+            showCancelButton: true,
+            confirmButtonText: "Add",
+            confirmButtonColor: "#711bba",
+            preConfirm: () => {
+                const value = Swal.getPopup().querySelector("#value").value;
+                
+                if (!value) {
+                    Swal.showValidationMessage("KG field is mandatory");
+                }
+
+                return { value };
+            },
+        }).then(async (result) => {
+            if (result.value) {
+                const { value } = result.value;
+
+                try {
+                    const response = await axiosClient.post(
+                        "body-weights",
+                        {
+                            date,
+                            value,
+                            user_id
+                        },
+                        {
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                        }
+                    );
+                    
+                    if(isCoach) {
+                        const coachStore = useCoachStore();
+                        coachStore.addBodyWeight(response.data)
+                    } else {
+                        const athleteStore = useAthleteStore();
+                        athleteStore.addBodyWeight(response.data)
+                    }
+
+                    return resolve(response.data);
+                } catch (e) {
+                    console.log(e)
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Something went wrong!",
+                    });
+                }
+            }
+        });
+    });
+}
+
+export function editBodyWeightPopUp(value, id, isCoach) {
+    return new Promise((resolve, reject) => {
+        Swal.fire({
+            title: "Add Body Weight",
+            html: `    
+                <div class="form-group mt-5">
+                    <label for="value" class="form-label d-block">KG</label>
+                    <input type="number" id="value" name="value" value="${value}" class="form-control">
+                </div>
+                `,
+            focusConfirm: false,
+            showCancelButton: true,
+            confirmButtonText: "Add",
+            confirmButtonColor: "#711bba",
+            preConfirm: () => {
+                const value = Swal.getPopup().querySelector("#value").value;
+                
+                if (!value) {
+                    Swal.showValidationMessage("KG field is mandatory");
+                }
+
+                return { value };
+            },
+        }).then(async (result) => {
+            if (result.value) {
+                const { value } = result.value;
+
+                try {
+                    const response = await axiosClient.put(
+                        "body-weights/" + id,
+                        {
+                            value,
+                        },
+                        {
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                        }
+                    );
+                    
+                    if(isCoach) {
+                        const coachStore = useCoachStore();
+                        coachStore.updateBodyWeight(response.data)
+                    } else {
+                        const athleteStore = useAthleteStore();
+                        athleteStore.updateBodyWeight(response.data)
+                    }
+
+                    return resolve(response.data);
+                } catch (e) {
+                    console.log(e)
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Something went wrong!",
+                    });
+                }
+            }
+        });
+    });
+}
 
 export function addPaymentPopUp(coach_id, athlete_id) {
     return new Promise((resolve, reject) => {
