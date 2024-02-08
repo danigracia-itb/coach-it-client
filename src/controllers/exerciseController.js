@@ -14,7 +14,7 @@ const exerciseController = {
         configStore.setLoading(true)
         try {
             const response = await axiosClient(
-                "exercises/get-all-user/" + authStore.user.id
+                "exercises/get-all-user/" + authStore.id
             );
 
             exercisesStore.setExercises(response.data);

@@ -85,16 +85,19 @@
                         type="number"
                         class="form-control text-center"
                         v-model="set.target_weight"
+                        min="0"
                     />
                     <input
                         type="number"
                         class="form-control text-center"
                         v-model="set.target_reps"
+                        min="0"
                     />
                     <input
                         type="number"
                         class="form-control text-center"
                         v-model="set.target_rpe"
+                        min="0"
                     />
                 </div>
 
@@ -111,16 +114,19 @@
                         type="number"
                         class="form-control text-center"
                         v-model="set.actual_weight"
+                        min="0"
                     />
                     <input
                         type="number"
                         class="form-control text-center"
                         v-model="set.actual_reps"
+                        min="0"
                     />
                     <input
                         type="number"
                         class="form-control text-center"
                         v-model="set.actual_rpe"
+                        min="0"
                     />
                 </div>
 

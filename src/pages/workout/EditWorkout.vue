@@ -19,7 +19,7 @@
             <p class="text-primary text-center fw-bold">{{ date }}</p>
         </header>
 
-        <section class="container mt-5">
+        <section class="mt-5">
             <h4>Exercises List</h4>
 
             <!-- workout List -->
@@ -253,12 +253,12 @@ function addSet(exercise_id) {
 
     workout[index].sets.push({
         id: counter.value,
-        actual_weight: 0,
-        actual_reps: 0,
-        actual_rpe: 0,
-        target_weight: 0,
-        target_reps: 0,
-        target_rpe: 0,
+        actual_weight: "",
+        actual_reps: "",
+        actual_rpe: "",
+        target_weight: "",
+        target_reps: "",
+        target_rpe: "",
     });
     counter.value = counter.value + 1;
 }
