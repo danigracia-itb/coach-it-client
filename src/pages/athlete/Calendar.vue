@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <h1 class="text-center">Hello <span class="text-primary">{{ authStore.name }}</span></h1>
+    <div class="mt-5">
+        <h1 class="text-center">Calendar</h1>
 
         <div v-if="!loading">
             <Calendar :isCoach="false" :athlete="authStore.user"  :workouts="athleteStore.calendar.workouts" :restDays="athleteStore.calendar.restDays" :bodyWeights="athleteStore.calendar.bodyWeights"/>
@@ -25,7 +25,7 @@ import useAthleteStore from "../../stores/useAthleteStore";
 const authStore = useAuthStore();
 const athleteStore = useAthleteStore();
 
-const loading = ref(true);
+const loading = ref(false);
 
 async function getCalendar() {
     loading.value = true;

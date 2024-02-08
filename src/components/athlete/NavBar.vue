@@ -6,6 +6,10 @@
             <font-awesome-icon icon="fa-solid fa-house" />
         </RouterLink>
 
+        <RouterLink to="/athlete/calendar" class="text-primary btn p-4 rounded-0" :class="$route.path == '/athlete/calendar' ? 'bg-primary text-white' : ''">
+            <font-awesome-icon icon="fa-solid fa-calendar" />
+        </RouterLink>
+
         <RouterLink to="/athlete/exercises" class="text-primary btn p-4 rounded-0" :class="$route.path == '/athlete/exercises' ? 'bg-primary text-white' : ''">
             <font-awesome-icon icon="fa-solid fa-dumbbell" />
         </RouterLink>
@@ -22,7 +26,7 @@ import { RouterLink } from "vue-router";
 
 <style scoped>
 .podbar {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     bottom: 0;
     position: fixed;
     z-index: 150;

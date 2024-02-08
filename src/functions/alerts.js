@@ -154,7 +154,7 @@ export function inviteAthlete(host, code) {
 
 
     Swal.fire({
-        width: "700px",
+        width: "auto",
         html: `
             <div class="invite-container mx-auto" style="display: flex; flex-direction: column; justify-content: center;">
                 <h1 class="text-black">Your code is: <span class="text-primary">${code}</span></h1>

@@ -23,7 +23,6 @@ import CoachLayout from "./layouts/CoachLayout.vue";
 
 //Athlete
 import AthleteLayout from "./layouts/AthleteLayout.vue";
-import AthleteDashboard from "./pages/athlete/Dashboard.vue";
 
 const routes = [
     { path: "/", component: IndexView },
@@ -83,8 +82,9 @@ const routes = [
         meta: { requiresAuth: true }, // Requiere autenticación
 
         children: [
-            { path: "", component: AthleteDashboard },
-            { path: "profile", component: () => import("./pages/coach/Profile.vue") },
+            { path: "", component: () => import("./pages/athlete/Home.vue") },
+            { path: "calendar", component: () => import("./pages/athlete/Calendar.vue") },
+            { path: "profile", component: () => import("./pages/athlete/Profile.vue") },
             {
                 path: "workout/:workout_id", component: () =>
                     import("./pages/workout/EditWorkout.vue"),

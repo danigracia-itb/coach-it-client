@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <h1 class="text-center mt-5">Exercises</h1>
+    <div class="mt-5">
+        <h1 class="text-center">Exercises</h1>
 
         <!-- Acciones -->
         <div class="d-flex justify-content-end">
