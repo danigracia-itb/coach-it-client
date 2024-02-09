@@ -227,12 +227,14 @@
                     <h3 class="text-center text-white fw-bold pb-4">
                         Athlete Dashboard example
                     </h3>
-                    <p class="mb-5 text-justify text-white">
+                    <p class="athlete-dashboard mb-5 text-justify text-white">
                         This intuitive platform is designed to empower athletes
                         on their journey to peak performance. With comprehensive
                         tools and insightful tracking features, athletes can
                         seamlessly monitor their progress, analyze performance
-                        metrics, and set personalized goals.
+                        metrics, and set personalized goals. Our dashboard
+                        provides a centralized hub for athletes to optimize
+                        their training regimen and maximize their potential.
                     </p>
                 </div>
                 <img
@@ -247,6 +249,16 @@
                     <h3 class="text-center text-white fw-bold pb-4 mt-5 mb-2">
                         Perform Tracking
                     </h3>
+                    <p class="athlete-dashboard mb-5 text-justify text-white">
+                        Unlock the power of precision with our Perform Exercise
+                        Tracking feature. Seamlessly integrated into our
+                        platform, this tool empowers users to monitor and
+                        analyze their exercise performance with unparalleled
+                        accuracy. From sets and reps to intensity and progress,
+                        our tracking system provides invaluable insights to
+                        optimize your workouts and achieve your fitness goals.
+                    </p>
+
                     <div class="perform-tracking-container"></div>
                     <div
                         class="col-md-6 text-white d-flex flex-column justify-content-center"
@@ -563,22 +575,12 @@ h3 {
     border-radius: 10px;
 }
 
-.info-ci h2 {
-    margin: 5rem 0;
-}
-
-.image-container {
-    width: 60rem;
-    height: 50rem;
-    overflow: hidden;
+.athlete-dashboard {
+    font-size: 2rem;
+    text-align: center;
 }
 
 .perform-tracking-container {
     position: relative;
-}
-
-.image-container img {
-    max-width: 100%;
-    height: auto;
 }
 </style>
