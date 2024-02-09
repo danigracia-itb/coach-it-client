@@ -75,7 +75,7 @@
             <p class="text-uppercase mb-1">Others</p>
             <div class="d-flex flex-column gap-2">
                 <button
-                    class="bg-white w-100 btn border border-1 text-danger fw-bold"
+                    class="bg-danger w-100 btn border border-1 text-white  fw-bold"
                     @click="authController.logout()">Log
                     Out</button>
             </div>

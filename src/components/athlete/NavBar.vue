@@ -3,19 +3,19 @@
         class="d-grid d-md-none w-100 bg-white podbar border-top border-1 border-black"
     >
         <RouterLink to="/athlete" class="text-primary btn p-4 rounded-0" :class="$route.path == '/athlete' ? 'bg-primary text-white' : ''">
-            <font-awesome-icon icon="fa-solid fa-house" />
+            <font-awesome-icon size="xl" icon="fa-solid fa-house" />
         </RouterLink>
 
         <RouterLink to="/athlete/calendar" class="text-primary btn p-4 rounded-0" :class="$route.path == '/athlete/calendar' ? 'bg-primary text-white' : ''">
-            <font-awesome-icon icon="fa-solid fa-calendar" />
+            <font-awesome-icon size="xl" icon="fa-solid fa-calendar" />
         </RouterLink>
 
         <RouterLink to="/athlete/exercises" class="text-primary btn p-4 rounded-0" :class="$route.path == '/athlete/exercises' ? 'bg-primary text-white' : ''">
-            <font-awesome-icon icon="fa-solid fa-dumbbell" />
+            <font-awesome-icon size="xl" icon="fa-solid fa-dumbbell" />
         </RouterLink>
 
         <RouterLink to="/athlete/profile" class="text-primary btn p-4 rounded-0" :class="$route.path == '/athlete/profile' ? 'bg-primary text-white' : ''">
-            <font-awesome-icon icon="fa-solid fa-user" />
+            <font-awesome-icon size="xl" icon="fa-solid fa-user" />
         </RouterLink>
     </nav>
 </template>
