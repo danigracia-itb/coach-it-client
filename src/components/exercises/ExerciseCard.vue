@@ -9,7 +9,7 @@
     >
         <a
             target="_blank"
-            :href="`https://www.google.com/search?tbm=isch&q=${exercise.name}`"
+            :href="`https://www.google.com/search?tbm=isch&q=exercise+${exercise.name}`"
             :class="exercise.is_default ? 'text-primary' : 'text-white'"
             ><font-awesome-icon icon="fa-solid fa-search"
         /></a>
