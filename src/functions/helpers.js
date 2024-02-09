@@ -3,7 +3,7 @@ import { rpeTable } from "./const";
 
 // Función para verificar la autenticación utilizando la API
 export async function checkAuth() {
-    return true
+    return true;
     // try {
     //     const token = localStorage.getItem("token");
     //     if (!token) {
@@ -28,49 +28,57 @@ export async function checkAuth() {
 }
 
 export function calculateTonelage(sets, edit = false, target = true) {
-    var tonelage = 0
+    var tonelage = 0;
 
     if (!sets[0]) {
-        return tonelage
+        return tonelage;
     }
 
     if (target) {
         if (!edit) {
-            sets.map(set => {
-                tonelage += set.weight * set.reps
-            })
+            sets.map((set) => {
+                tonelage += set.weight * set.reps;
+            });
 
-            return sets[0].weight ? tonelage : 0
+            return sets[0].weight ? tonelage : 0;
         } else {
-            sets.map(set => {
-                tonelage += set.target_weight * set.target_reps
-            })
+            sets.map((set) => {
+                tonelage += set.target_weight * set.target_reps;
+            });
 
-            return sets[0].target_weight ? tonelage : 0
+            return sets[0].target_weight ? tonelage : 0;
         }
     } else {
-        sets.map(set => {
-            tonelage += set.actual_weight * set.actual_reps
-        })
+        sets.map((set) => {
+            tonelage += set.actual_weight * set.actual_reps;
+        });
 
-        return sets[0].actual_weight ? tonelage : 0
+        return sets[0].actual_weight ? tonelage : 0;
     }
-
 }
-
 
 export function formatDate(fecha) {
     var fechaObj = new Date(fecha);
     var dia = ("0" + fechaObj.getDate()).slice(-2); // Agrega un cero inicial si es necesario
     var mes = ("0" + (fechaObj.getMonth() + 1)).slice(-2); // Agrega un cero inicial si es necesario
     var año = fechaObj.getFullYear();
-    return dia + '/' + mes + '/' + año;
+    return dia + "/" + mes + "/" + año;
+}
+
+export function formatDateData(fecha) {
+    const options = { weekday: "long", day: "2-digit", month: "long" };
+    const fechaObj = new Date(fecha);
+    const dayOfWeek = fechaObj.toLocaleDateString("en-US", { weekday: "long" });
+    const dayOfMonth = fechaObj.toLocaleDateString("en-US", { day: "2-digit" });
+    const month = fechaObj.toLocaleDateString("en-US", { month: "long" });
+
+    return `${dayOfWeek} ${dayOfMonth}, ${month}`;
 }
 
 export function paymentTypeToMonths(payment_type) {
     switch (payment_type) {
         case "monthly":
-            return 1
+            return 1;
             break;
         case "quarterly":
             return 3;
@@ -103,18 +111,20 @@ export function isDateBeforeOrEqualToToday(date) {
 export function calculateMaxRpe(sets) {
     let max = 0;
     for (let set of sets) {
-        const rpeForReps = rpeTable[`${set.actual_reps}`]
+        const rpeForReps = rpeTable[`${set.actual_reps}`];
 
         if (rpeForReps) {
-            const e1rm = parseFloat(set.actual_weight * ((100 + ((-1) * (rpeForReps[`${set.actual_rpe}`] - 100))) / 100))
+            const e1rm = parseFloat(
+                set.actual_weight *
+                    ((100 + -1 * (rpeForReps[`${set.actual_rpe}`] - 100)) / 100)
+            );
 
             if (e1rm >= max) {
-                max = e1rm
+                max = e1rm;
             }
         }
-
     }
-    return 2.5 * Math.ceil(max / 2.5)
+    return 2.5 * Math.ceil(max / 2.5);
 }
 
 export function areAllEmptyArrays(obj) {
@@ -132,12 +142,12 @@ export function getTodayDate() {
     var month = today.getMonth() + 1; // Months are zero-based, so we add 1
     var day = today.getDate();
     if (month < 10) {
-        month = '0' + month;
+        month = "0" + month;
     }
 
     // Agregar cero adelante si el día es menor que 10
     if (day < 10) {
-        day = '0' + day;
+        day = "0" + day;
     }
 
     return `${year}-${month}-${day}`;

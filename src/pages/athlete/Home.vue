@@ -7,8 +7,7 @@
         <Spinner v-if="loading" />
 
         <div v-else class="d-flex flex-column gap-2">
-            
-        <h4>Today data</h4>
+            <h4>{{ todayDataDate }} Data</h4>
             <div
                 v-if="getTodayEvents.restDay"
                 class="d-flex p-3 rounded bg-danger"
@@ -17,13 +16,9 @@
             </div>
 
             <div
-            class="d-flex justify-content-between align-items-center p-3 rounded bg-primary text-white"
+                class="d-flex justify-content-between align-items-center p-3 rounded bg-primary text-white"
             >
-                <span
-                    class="text-white fw-bold my-2"
-                  
-                    >Workout</span
-                >
+                <span class="text-white fw-bold my-2"> Workout </span>
                 <RouterLink
                     v-if="!getTodayEvents.workout"
                     class="btn btn-light"
@@ -31,7 +26,11 @@
                 >
                     <font-awesome-icon icon="fa-solid fa-plus" />
                 </RouterLink>
-                <RouterLink v-else :to="`/athlete/workout/${getTodayEvents.workout.id}`" class="btn btn-light" >
+                <RouterLink
+                    v-else
+                    :to="`/athlete/workout/${getTodayEvents.workout.id}`"
+                    class="btn btn-light"
+                >
                     <font-awesome-icon icon="fa-solid fa-pen" />
                 </RouterLink>
             </div>
@@ -43,9 +42,7 @@
                 <button
                     v-if="!getTodayEvents.bodyWeight"
                     class="btn btn-light"
-                    @click="
-                        addBodyWeightPopUp(today, authStore.id, false)
-                    "
+                    @click="addBodyWeightPopUp(today, authStore.id, false)"
                 >
                     <font-awesome-icon icon="fa-solid fa-plus" />
                 </button>
@@ -56,25 +53,30 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 import axiosClient from "../../config/axios";
 import { storeToRefs } from "pinia";
 
-//helpers
-import { areAllEmptyArrays, getTodayDate } from "../../functions/helpers";
+// Helpers
+import {
+    areAllEmptyArrays,
+    getTodayDate,
+    formatDateData,
+} from "../../functions/helpers";
 import { addBodyWeightPopUp } from "../../functions/alerts";
 
-//components
+// Components
 import Spinner from "../../components/utils/Spinner.vue";
 
-//Stores
+// Stores
 import useAuthStore from "../../stores/useAuthStore";
 import useAthleteStore from "../../stores/useAthleteStore";
 
 const authStore = useAuthStore();
 const athleteStore = useAthleteStore();
 
-const today = getTodayDate()
+const today = getTodayDate();
+const todayDataDate = formatDateData(today);
 
 const { getTodayEvents } = storeToRefs(athleteStore);
 

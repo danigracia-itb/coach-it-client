@@ -569,7 +569,7 @@ h3 {
 }
 
 .img-req {
-    max-width: 100% important;
+    max-width: 100%;
     height: auto;
     margin-top: 10px;
     border-radius: 10px;
