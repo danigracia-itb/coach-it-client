@@ -40,11 +40,11 @@
                             >
                                 <font-awesome-icon
                                     v-if="!exercise.shown"
-                                    icon="fa-solid fa-plus"
+                                    icon="fa-solid fa-angle-down"
                                 />
                                 <font-awesome-icon
                                     v-else
-                                    icon="fa-solid fa-minus"
+                                    icon="fa-solid fa-angle-up"
                                 />
                             </button>
                             <p class="fw-bold mb-0 h4">{{ exercise.name }}</p>
