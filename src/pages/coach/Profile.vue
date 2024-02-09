@@ -5,12 +5,10 @@
                 <font-awesome-icon icon="fa-solid fa-left-long" />
             </button>
         </div>
-        <!-- Contenedor principal -->
         <h1 class="text-center mb-5">Profile</h1>
         <div class="container">
     <div class="row justify-content-center">
-        <!-- Centra el contenido horizontalmente -->
-        <div class="align-bottom text-center col-12 col-sm-8"> <!-- Utiliza col-12 para ocupar todo el ancho en pantallas pequeñas -->
+        <div class="align-bottom text-center col-12 col-sm-8">
             <img class="img-user rounded-circle" :src="`${backendUrl}/${authStore.picture}`" />
             <input type="file" id="seleccionArchivos" accept="image/*" @change="handleFileChange" style="display: none" />
             <button class="align-bottom bg-transparent border-0" @click="openFilePicker">
@@ -18,7 +16,7 @@
             </button>
         </div>
 
-        <div class="d-flex flex-column align-items-center justify-content-between camposPerfil col-12 col-sm-8"> <!-- Utiliza col-12 para ocupar todo el ancho en pantallas pequeñas -->
+        <div class="d-flex flex-column align-items-center justify-content-between camposPerfil col-12 col-sm-8">
             <p class="fw-bold mt-5">Name</p>
             <div v-if="!editing" class="flex-grow-1">
                 <p class="text-start">{{ authStore.name }}</p>

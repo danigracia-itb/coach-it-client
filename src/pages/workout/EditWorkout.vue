@@ -141,12 +141,12 @@
                 Save Workout
             </button>
             <button v-if="workout.length > 0 && editing"
-                class="btn btn-dark w-100 mt-3"
+                class="btn btn-danger w-100 mt-3"
                 @click="saveWorkout(true)">
                 Save Workout and Close
             </button>
             <button v-if="workout.length > 0 && !editing"
-                class="btn btn-dark w-100 mt-3"
+                class="btn btn-danger w-100 mt-3"
                 @click="$router.back()">
                 Close
             </button>
