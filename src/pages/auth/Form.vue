@@ -266,6 +266,12 @@
                 <div
                     class="mt-5 d-flex gap-2 align-items-center justify-content-center"
                 >
+                    <button
+                        @click.prevent="previousPage()"
+                        class="btn btn-primary"
+                    >
+                        <font-awesome-icon icon="fa-solid fa-arrow-left" />
+                    </button>
                     <p
                         class="bg-light py-1 px-2 rounded text-black border border-2 mb-0"
                     >
@@ -334,6 +340,12 @@
                 <div
                     class="mt-5 d-flex gap-2 align-items-center justify-content-center"
                 >
+                    <button
+                        @click.prevent="previousPage()"
+                        class="btn btn-primary"
+                    >
+                        <font-awesome-icon icon="fa-solid fa-arrow-left" />
+                    </button>
                     <p
                         class="bg-light py-1 px-2 rounded text-black border border-2 mb-0"
                     >
@@ -398,6 +410,12 @@
                 <div
                     class="mt-5 d-flex gap-2 align-items-center justify-content-center"
                 >
+                    <button
+                        @click.prevent="previousPage()"
+                        class="btn btn-primary"
+                    >
+                        <font-awesome-icon icon="fa-solid fa-arrow-left" />
+                    </button>
                     <p
                         class="bg-light py-1 px-2 rounded text-black border border-2 mb-0"
                     >
@@ -634,6 +652,10 @@ function nextPage() {
     if (currentPage.value < totalPages) {
         currentPage.value += 1;
     }
+}
+
+function previousPage() {
+    currentPage.value -= 1;
 }
 </script>
 
