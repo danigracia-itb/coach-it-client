@@ -8,9 +8,9 @@
                     </h5>
                     <span class="h2 font-weight-bold mb-0">{{ number == 0 ? "-" : number }}</span>
                 </div>
-                <div class="col-auto">
+                <div class="col-auto my-auto">
                     <div
-                        class="icon icon-shape text-white rounded-circle shadow"
+                        class="icon icon-shape text-white rounded-circle"
                         :style="{backgroundColor: color}"
                     >
                     <font-awesome-icon :icon="icon" />

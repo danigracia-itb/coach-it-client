@@ -1,20 +1,20 @@
 <template>
     <nav
-        class="d-grid d-md-none w-100 bg-white podbar border-top border-1 border-black"
+        class="d-grid d-md-none w-100 bg-primary podbar"
     >
-        <RouterLink to="/athlete" class="text-primary btn p-4 rounded-0" :class="$route.path == '/athlete' ? 'bg-primary text-white' : ''">
+        <RouterLink to="/athlete" class="btn p-4 rounded-0" :class="$route.path == '/athlete' ? 'bg-white text-primary' : 'text-white'">
             <font-awesome-icon size="xl" icon="fa-solid fa-house" />
         </RouterLink>
 
-        <RouterLink to="/athlete/calendar" class="text-primary btn p-4 rounded-0" :class="$route.path == '/athlete/calendar' ? 'bg-primary text-white' : ''">
+        <RouterLink to="/athlete/calendar" class="btn p-4 rounded-0" :class="$route.path == '/athlete/calendar' ? 'bg-white text-primary' : 'text-white'">
             <font-awesome-icon size="xl" icon="fa-solid fa-calendar" />
         </RouterLink>
 
-        <RouterLink to="/athlete/exercises" class="text-primary btn p-4 rounded-0" :class="$route.path == '/athlete/exercises' ? 'bg-primary text-white' : ''">
+        <RouterLink to="/athlete/exercises" class="btn p-4 rounded-0" :class="$route.path == '/athlete/exercises' ? 'bg-white text-primary' : 'text-white'">
             <font-awesome-icon size="xl" icon="fa-solid fa-dumbbell" />
         </RouterLink>
 
-        <RouterLink to="/athlete/profile" class="text-primary btn p-4 rounded-0" :class="$route.path == '/athlete/profile' ? 'bg-primary text-white' : ''">
+        <RouterLink to="/athlete/profile" class="btn p-4 rounded-0" :class="$route.path == '/athlete/profile' ? 'bg-white text-primary' : 'text-white'">
             <font-awesome-icon size="xl" icon="fa-solid fa-user" />
         </RouterLink>
     </nav>
@@ -31,5 +31,9 @@ import { RouterLink } from "vue-router";
     position: fixed;
     z-index: 150;
     width: 100%;
+}
+
+.btn {
+    border: none
 }
 </style>

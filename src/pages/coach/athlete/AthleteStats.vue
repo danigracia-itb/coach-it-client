@@ -41,7 +41,6 @@
 
             <div class="mt-5 row">
                 <BodyWeightChart
-                    v-if="bodyWeights.length > 0"
                     :data="bodyWeights"
                     class="col-md-6"
                 />

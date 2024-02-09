@@ -53,6 +53,16 @@ const options = {
             sizeOffset: 3,
         },
     },
+    noData: {
+        text: "No body weight entries",
+        align: "center",
+        verticalAlign: "middle",
+        offsetX: 0,
+        offsetY: 0,
+        style: {
+            fontSize: "20px",
+        },
+    },
 };
 const series = [
     {
