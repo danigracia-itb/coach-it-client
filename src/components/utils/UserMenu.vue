@@ -48,7 +48,7 @@ function onContextMenu(e) {
             {
                 label: "Profile",
                 icon: h("img", {
-                    src: "../../../../public/assets/icons/pen-solid.svg",
+                    src: "/assets/icons/pen-solid.svg",
                     style: {
                         width: "15",
                         height: "15",
@@ -73,7 +73,7 @@ function onContextMenu(e) {
                 label: "Log Out",
                 customClass: "text-danger",
                 icon: h("img", {
-                    src: "../../../../public/assets/icons/right-from-bracket-solid.svg",
+                    src: "/assets/icons/right-from-bracket-solid.svg",
                     style: {
                         zIndex: 100,
                         color: "red",

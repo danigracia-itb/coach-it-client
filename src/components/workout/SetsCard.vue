@@ -5,58 +5,70 @@
         <section class="set-headers-group" v-if="exercise.sets.length > 0">
             <section class="text-center bg-light set-header-target">
                 <div class="fw-normal">TARGET</div>
-                <hr class="border border-1 border-black w-100">
+                <hr class="border border-1 border-black w-100" />
                 <div class="set-labels">
-                    <div
-                        class="fw-normal cursor-pointer"
-                        v-tooltip="'WEIGHT: number of KG used in the set'"
-                    >
+                    <div class="fw-normal cursor-pointer">
                         WEIGHT
+                        <font-awesome-icon
+                            v-tooltip="'WEIGHT: number of KG used in the set'"
+                            icon="fa-regular fa-circle-question"
+                            class="fa-s"
+                        />
                     </div>
-                    <div
-                        class="fw-normal cursor-pointer"
-                        v-tooltip="
-                            'REPS: number of repetitions that should be performed in the set'
-                        "
-                    >
+                    <div class="fw-normal cursor-pointer">
                         REPS
+                        <font-awesome-icon
+                            v-tooltip="
+                                'REPS: number of repetitions that should be performed in the set'
+                            "
+                            icon="fa-regular fa-circle-question"
+                            class="fa-s"
+                        />
                     </div>
-                    <div
-                        class="fw-normal cursor-pointer"
-                        v-tooltip="
-                            'RPE: effort level for the set, on a scale of 1 to 10'
-                        "
-                    >
+                    <div class="fw-normal cursor-pointer">
                         RPE
+                        <font-awesome-icon
+                            v-tooltip="
+                                'RPE: effort level for the set, on a scale of 1 to 10'
+                            "
+                            icon="fa-regular fa-circle-question"
+                            class="fa-s"
+                        />
                     </div>
                 </div>
             </section>
 
             <section class="text-center bg-white set-header-actual">
                 <div class="fw-normal">ACTUAL</div>
-                <hr class="border border-1 border-black w-100">
+                <hr class="border border-1 border-black w-100" />
                 <div class="set-labels">
-                    <div
-                        class="fw-normal cursor-pointer"
-                        v-tooltip="'WEIGHT: number of KG used in the set'"
-                    >
+                    <div class="fw-normal cursor-pointer">
                         WEIGHT
+                        <font-awesome-icon
+                            v-tooltip="'WEIGHT: number of KG used in the set'"
+                            icon="fa-regular fa-circle-question"
+                            class="fa-s"
+                        />
                     </div>
-                    <div
-                        class="fw-normal cursor-pointer"
-                        v-tooltip="
-                            'REPS: number of repetitions that should be performed in the set'
-                        "
-                    >
+                    <div class="fw-normal cursor-pointer">
                         REPS
+                        <font-awesome-icon
+                            v-tooltip="
+                                'REPS: number of repetitions that should be performed in the set'
+                            "
+                            icon="fa-regular fa-circle-question"
+                            class="fa-s"
+                        />
                     </div>
-                    <div
-                        class="fw-normal cursor-pointer"
-                        v-tooltip="
-                            'RPE: effort level for the set, on a scale of 1 to 10'
-                        "
-                    >
+                    <div class="fw-normal cursor-pointer">
                         RPE
+                        <font-awesome-icon
+                            v-tooltip="
+                                'RPE: effort level for the set, on a scale of 1 to 10'
+                            "
+                            icon="fa-regular fa-circle-question"
+                            class="fa-s"
+                        />
                     </div>
                 </div>
             </section>
@@ -116,7 +128,7 @@
 
     <!-- Mobile -->
     <div class="d-block d-md-none">
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs border-1 border-black nav-fill">
             <li class="nav-item">
                 <button
                     class="nav-link"
@@ -138,28 +150,34 @@
         </ul>
 
         <div>
-            <div class="set-labels">
-                <div
-                    class="fw-normal cursor-pointer"
-                    v-tooltip="'WEIGHT: number of KG used in the set'"
-                >
+            <div class="set-labels mt-2">
+                <div class="fw-normal cursor-pointer">
                     WEIGHT
+                    <font-awesome-icon
+                        v-tooltip="'WEIGHT: number of KG used in the set'"
+                        icon="fa-regular fa-circle-question"
+                        class="fa-s"
+                    />
                 </div>
-                <div
-                    class="fw-normal cursor-pointer"
-                    v-tooltip="
-                        'REPS: number of repetitions that should be performed in the set'
-                    "
-                >
+                <div class="fw-normal cursor-pointer">
                     REPS
+                    <font-awesome-icon
+                        v-tooltip="
+                            'REPS: number of repetitions that should be performed in the set'
+                        "
+                        icon="fa-regular fa-circle-question"
+                        class="fa-s"
+                    />
                 </div>
-                <div
-                    class="fw-normal cursor-pointer"
-                    v-tooltip="
-                        'RPE: effort level for the set, on a scale of 1 to 10'
-                    "
-                >
+                <div class="fw-normal cursor-pointer">
                     RPE
+                    <font-awesome-icon
+                        v-tooltip="
+                            'RPE: effort level for the set, on a scale of 1 to 10'
+                        "
+                        icon="fa-regular fa-circle-question"
+                        class="fa-s"
+                    />
                 </div>
             </div>
 
@@ -201,7 +219,7 @@
                         class="set-grid-mobile w-100 p-3"
                         :class="curretTabTarget ? 'd-none' : 'd-grid'"
                     >
-                    <SetInputs :set="set" :target="false" />
+                        <SetInputs :set="set" :target="false" />
 
                         <button
                             class="btn btn-danger text-white"
@@ -291,7 +309,7 @@ function tagToggle(value) {
 
 .set-grid-mobile {
     display: grid;
-    gap: .75rem;
+    gap: 0.75rem;
     grid-template-columns: 2fr 2fr 2fr 1fr;
 }
 </style>

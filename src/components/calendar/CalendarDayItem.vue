@@ -119,7 +119,7 @@ function onContextMenu(e) {
                       {
                           label: "Available Day",
                           icon: h("img", {
-                              src: "../../../public/assets/icons/calendar-check-solid.svg",
+                              src: "../../../assets/icons/calendar-check-solid.svg",
                               style: {
                                   width: "15",
                                   height: "15",
@@ -142,7 +142,7 @@ function onContextMenu(e) {
                       {
                           label: "Rest Day",
                           icon: h("img", {
-                              src: "../../../public/assets/icons/calendar-xmark-solid.svg",
+                              src: "../../../assets/icons/calendar-xmark-solid.svg",
                               style: {
                                   width: "15",
                                   height: "15",
@@ -166,7 +166,7 @@ function onContextMenu(e) {
                       {
                           label: "Edit",
                           icon: h("img", {
-                              src: "../../../../public/assets/icons/pen-solid.svg",
+                              src: "/assets/icons/pen-solid.svg",
                               style: {
                                   width: "15",
                                   height: "15",
@@ -186,7 +186,7 @@ function onContextMenu(e) {
                       {
                           label: "Copy",
                           icon: h("img", {
-                              src: "../../../../public/assets/icons/copy-solid.svg",
+                              src: "/assets/icons/copy-solid.svg",
                               style: {
                                   width: "15",
                                   height: "15",
@@ -206,7 +206,7 @@ function onContextMenu(e) {
                       {
                           label: "Delete",
                           icon: h("img", {
-                              src: "../../../../public/assets/icons/trash-solid.svg",
+                              src: "/assets/icons/trash-solid.svg",
                               style: {
                                   width: "15",
                                   height: "15",
@@ -230,7 +230,7 @@ function onContextMenu(e) {
                                 {
                                     label: "Workout",
                                     icon: h("img", {
-                                        src: "../../../../public/assets/icons/plus-solid.svg",
+                                        src: "/assets/icons/plus-solid.svg",
                                         style: {
                                             width: "15",
                                             height: "15",
@@ -254,7 +254,7 @@ function onContextMenu(e) {
                       {
                           label: "Body Weight",
                           icon: h("img", {
-                              src: "../../../../public/assets/icons/pen-solid.svg",
+                              src: "/assets/icons/pen-solid.svg",
                               style: {
                                   width: "15",
                                   height: "15",
@@ -274,7 +274,7 @@ function onContextMenu(e) {
                       {
                           label: "Body Weight",
                           icon: h("img", {
-                              src: "../../../../public/assets/icons/plus-solid.svg",
+                              src: "/assets/icons/plus-solid.svg",
                               style: {
                                   width: "15",
                                   height: "15",
