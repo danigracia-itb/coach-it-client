@@ -72,6 +72,18 @@
         </section>
 
         <section class="mt-5">
+            <div class="d-flex flex-column gap-2">
+        <button class="btn btn-primary w-25">
+            <RouterLink class="text-white text-decoration-none fw-normal" :to="`/form?id=${id}`">
+            <font-awesome-icon class="px-2" icon="fa-regular fa-address-card" />
+                EDIT PERSONAL DATA<font-awesome-icon class="px-2" icon="fa-solid fa-pen" />
+            </RouterLink>
+        </button>
+</div>
+
+        </section>
+
+        <section class="mt-5">
             <p class="text-uppercase mb-1">Others</p>
             <div class="d-flex flex-column gap-2">
                 <button
@@ -106,6 +118,7 @@ const toast = useToast()
 
 const backendUrl = import.meta.env.VITE_API_URL;
 
+const id = ref(authStore.id)
 const newName = ref(authStore.name);
 const newEmail = ref(authStore.email);
 const newCoach = ref(authStore.coach_id);
