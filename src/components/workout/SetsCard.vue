@@ -93,7 +93,30 @@
 
                 <!-- Set content -->
                 <div class="p-3 w-100 d-flex gap-2 bg-light border-end">
-                    <SetInputs :set="set" :target="true" />
+                    <input
+                        type="number"
+                        class="form-control text-center"
+                        v-model="set.target_weight"
+                        min="0"
+                        step="0.25"
+                    />
+
+                    <input
+                        type="number"
+                        class="form-control text-center"
+                        v-model="set.target_reps"
+                        min="0"
+                        step="1"
+                    />
+
+                    <input
+                        type="number"
+                        class="form-control text-center"
+                        v-model="set.target_rpe"
+                        min="0"
+                        max="10"
+                        step="0.5"
+                    />
                 </div>
 
                 <button
@@ -105,7 +128,30 @@
 
                 <div class="p-3 w-100 d-flex gap-2">
                     <!-- ACTUAL -->
-                    <SetInputs :set="set" :target="false" />
+                    <input
+                        type="number"
+                        class="form-control text-center"
+                        v-model="set.actual_weight"
+                        min="0"
+                        step="0.25"
+                    />
+
+                    <input
+                        type="number"
+                        class="form-control text-center"
+                        v-model="set.actual_reps"
+                        min="0"
+                        step="1"
+                    />
+
+                    <input
+                        type="number"
+                        class="form-control text-center"
+                        v-model="set.actual_rpe"
+                        min="0"
+                        max="10"
+                        step="0.5"
+                    />
                 </div>
 
                 <button
@@ -204,7 +250,30 @@
                         :class="curretTabTarget ? 'd-grid' : 'd-none'"
                     >
                         <!-- Set content -->
-                        <SetInputs :set="set" :target="true" />
+                        <input
+                            type="number"
+                            class="form-control text-center"
+                            v-model="set.target_weight"
+                            min="0"
+                            step="0.25"
+                        />
+
+                        <input
+                            type="number"
+                            class="form-control text-center"
+                            v-model="set.target_reps"
+                            min="0"
+                            step="1"
+                        />
+
+                        <input
+                            type="number"
+                            class="form-control text-center"
+                            v-model="set.target_rpe"
+                            min="0"
+                            max="10"
+                            step="0.5"
+                        />
 
                         <button
                             class="btn btn-primary rounded-0"
@@ -219,7 +288,30 @@
                         class="set-grid-mobile w-100 p-3"
                         :class="curretTabTarget ? 'd-none' : 'd-grid'"
                     >
-                        <SetInputs :set="set" :target="false" />
+                        <input
+                            type="number"
+                            class="form-control text-center"
+                            v-model="set.actual_weight"
+                            min="0"
+                            step="0.25"
+                        />
+
+                        <input
+                            type="number"
+                            class="form-control text-center"
+                            v-model="set.actual_reps"
+                            min="0"
+                            step="1"
+                        />
+
+                        <input
+                            type="number"
+                            class="form-control text-center"
+                            v-model="set.actual_rpe"
+                            min="0"
+                            max="10"
+                            step="0.5"
+                        />
 
                         <button
                             class="btn btn-danger text-white"
@@ -246,7 +338,6 @@
 
 <script setup>
 import { ref } from "vue";
-import SetInputs from "./SetInputs.vue";
 
 const { exercise, copyToNextSet, deleteSet, copyToActual } = defineProps([
     "exercise",
