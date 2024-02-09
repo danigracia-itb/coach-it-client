@@ -6,73 +6,38 @@
             </button>
         </div>
         <!-- Contenedor principal -->
-        <h1 class="text-center">Profile</h1>
-        <div class="row justify-content-center">
-            <!-- Centra el contenido horizontalmente -->
-            <div class="align-bottom text-center col-4">
-                <img
-                    class="img-user rounded-circle"
-                    :src="`${backendUrl}/${authStore.picture}`"
-                />
-                <input
-                    type="file"
-                    id="seleccionArchivos"
-                    accept="image/*"
-                    @change="handleFileChange"
-                    style="display: none"
-                />
-                <button
-                    class="align-bottom bg-transparent border-0"
-                    @click="openFilePicker"
-                >
-                    <font-awesome-icon
-                        class="text-primary"
-                        icon="fa-solid fa-arrow-up-from-bracket"
-                        size="xl"
-                    />
-                </button>
-            </div>
-
-            <div
-                class="d-flex gap-3 align-items-center justify-content-between camposPerfil col-8 align-items-center"
-            >
-                <p class="fw-bold">Name</p>
-                <!-- <p class="fw-bold">Change password</p> -->
-                <div v-if="!editing" class="flex-grow-1">
-                    <p class="text-start">{{ authStore.name }}</p>
-                </div>
-                <div v-else class="flex-grow-1">
-                    <input
-                        v-model="newName"
-                        style="width: 100%"
-                        type="text"
-                        class="form-control"
-                    />
-                </div>
-
-                <button
-                    v-if="!editing && !configStore.loading"
-                    class="btn btn-primary ms-3"
-                    @click="editName"
-                >
-                    <font-awesome-icon
-                        icon="fa-solid fa-pen"
-                        class="text-white"
-                    />
-                </button>
-                <button
-                    v-if="editing"
-                    class="btn btn-primary ms-3"
-                    @click="saveName"
-                >
-                    <font-awesome-icon
-                        icon="fa-solid fa-floppy-disk"
-                        class="text-white"
-                    />
-                </button>
-                <Spinner v-if="configStore.loading" />
-            </div>
+        <h1 class="text-center mb-5">Profile</h1>
+        <div class="container">
+    <div class="row justify-content-center">
+        <!-- Centra el contenido horizontalmente -->
+        <div class="align-bottom text-center col-12 col-sm-8"> <!-- Utiliza col-12 para ocupar todo el ancho en pantallas pequeñas -->
+            <img class="img-user rounded-circle" :src="`${backendUrl}/${authStore.picture}`" />
+            <input type="file" id="seleccionArchivos" accept="image/*" @change="handleFileChange" style="display: none" />
+            <button class="align-bottom bg-transparent border-0" @click="openFilePicker">
+                <font-awesome-icon class="text-primary" icon="fa-solid fa-arrow-up-from-bracket" size="xl" />
+            </button>
         </div>
+
+        <div class="d-flex flex-column align-items-center justify-content-between camposPerfil col-12 col-sm-8"> <!-- Utiliza col-12 para ocupar todo el ancho en pantallas pequeñas -->
+            <p class="fw-bold mt-5">Name</p>
+            <div v-if="!editing" class="flex-grow-1">
+                <p class="text-start">{{ authStore.name }}</p>
+            </div>
+            <div v-else class="flex-grow-1">
+                <input v-model="newName" style="width: 100%" type="text" class="form-control" />
+            </div>
+
+            <button v-if="!editing && !configStore.loading" class="btn btn-primary mt-3" @click="editName"> <!-- Utiliza mt-3 para añadir margen superior en pantallas pequeñas -->
+                <font-awesome-icon icon="fa-solid fa-pen" class="text-white" />
+            </button>
+            <button v-if="editing" class="btn btn-primary mt-3" @click="saveName"> <!-- Utiliza mt-3 para añadir margen superior en pantallas pequeñas -->
+                <font-awesome-icon icon="fa-solid fa-floppy-disk" class="text-white" />
+            </button>
+            <Spinner v-if="configStore.loading" />
+        </div>
+    </div>
+</div>
+
     </div>
 </template>
 
