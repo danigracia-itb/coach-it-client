@@ -9,7 +9,7 @@
                 </button>
             </div>
             <h1 class="text-center p-5">
-                <span class="text-primary">{{ athlete.name }}</span> Stats
+                <span class="text-primary text-capitalize">{{ athlete.name }}</span> Stats
             </h1>
 
             <div class="row">

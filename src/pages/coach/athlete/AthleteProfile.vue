@@ -12,9 +12,9 @@
                 </RouterLink>
             </div>
             <h1 class="text-center p-5">
-                <span class="text-primary">{{ athlete.name }}</span> Profile
+                <span class="text-primary text-capitalize">{{ athlete.name }}</span> Profile
             </h1>
-            <div class="row">
+            <div class="row" v-if="athleteData.user_data">
                 <div
                     class="col-lg-4 mb-4 mb-lg-0 d-flex justify-content-center"
                 >
@@ -43,7 +43,7 @@
                                 size="2xl"
                             />
                             <p class="m-0">
-                                {{ athlete.user_data.date_birth }}
+                                {{ athleteData.user_data.date_birth }}
                             </p>
                         </div>
                         <div class="d-flex align-items-center">
@@ -52,7 +52,7 @@
                                 icon="fa-solid fa-ruler-vertical"
                                 size="2xl"
                             />
-                            <p class="m-0">{{ athlete.user_data.height }}cm</p>
+                            <p class="m-0">{{ athleteData.user_data.height }}cm</p>
                         </div>
                         <div class="d-flex align-items-center">
                             <font-awesome-icon
@@ -61,21 +61,21 @@
                                 size="2xl"
                             />
                             <p class="m-0">
-                                {{ athlete.user_data.body_weight }}kg
+                                {{ athleteData.user_data.body_weight }}kg
                             </p>
                         </div>
 
                         <p>
                             <strong>Time training: </strong
-                            >{{ athlete.user_data.time_training }}
+                            >{{ athleteData.user_data.time_training }}
                         </p>
                         <p>
                             <strong>Time for training: </strong
-                            >{{ athlete.user_data.train_available_time }}
+                            >{{ athleteData.user_data.train_available_time }}
                         </p>
 
                         <AvailableDaysTable
-                            :available_days="athlete.user_data.available_days"
+                            :available_days="athleteData.user_data.available_days"
                         ></AvailableDaysTable>
 
                         <section>
@@ -91,13 +91,13 @@
                                     <tr>
                                         <td>
                                             {{
-                                                athlete.user_data
+                                                athleteData.user_data
                                                     .wishlist_exercises
                                             }}
                                         </td>
                                         <td>
                                             {{
-                                                athlete.user_data
+                                                athleteData.user_data
                                                     .banlist_exercises
                                             }}
                                         </td>
@@ -119,13 +119,13 @@
                                     <tr>
                                         <td>
                                             {{
-                                                athlete.user_data
+                                                athleteData.user_data
                                                     .short_term_goals
                                             }}
                                         </td>
                                         <td>
                                             {{
-                                                athlete.user_data
+                                                athleteData.user_data
                                                     .short_term_goals
                                             }}
                                         </td>
@@ -136,23 +136,35 @@
                     </div>
                 </div>
             </div>
+            <div v-else>
+                <h4 class="text-center">This user has no data.</h4>
+                <p class="text-center">Please advise them to fill in the required information, or you can fill it out yourself using <a :href="`/form?code=${athlete.id}`" target="_blank">this link</a>.</p>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup>
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 import { useRoute, RouterLink } from "vue-router";
 import axiosClient from "../../../config/axios";
+
 import Spinner from "../../../components/utils/Spinner.vue";
 import AvailableDaysTable from "../../../components/coach/AvailableDaysTable.vue";
+
+import useCoachStore from "../../../stores/useCoachStore";
+
+import coachController from '../../../controllers/coachController'
 
 const route = useRoute();
 
 const backendUrl = import.meta.env.VITE_API_URL;
 
+const coachStore = useCoachStore();
+const athlete = computed(() => coachStore.getAthleteById(route.params.id))
+
 const loading = ref(true);
-var athlete = reactive({});
+var athleteData = ref({});
 
 async function getAthleteProfile() {
     loading.value = true;
@@ -161,9 +173,7 @@ async function getAthleteProfile() {
             "coach/get-athlete-profile/" + route.params.id
         );
 
-        athlete = response.data;
-
-        console.log(athlete);
+        athleteData.value = response.data;
 
         loading.value = false;
     } catch (e) {
@@ -173,6 +183,9 @@ async function getAthleteProfile() {
 }
 
 onMounted(() => {
+    if (coachStore.athletes.length <= 0) {
+        coachController.getAthletes();
+    }
     getAthleteProfile();
 });
 </script>

@@ -12,7 +12,7 @@
                     </RouterLink>
                 </div>
 
-                <h1 class="text-center text-primary">{{
+                <h1 class="text-center text-primary  text-capitalize">{{
                     athlete.name }}</h1>
                 <div
                     class="d-flex justify-content-end align-items-center gap-2">
