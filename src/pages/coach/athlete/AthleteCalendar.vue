@@ -2,29 +2,41 @@
     <div class="mt-5">
         <Spinner v-if="loading" />
         <div v-else>
-            <header class="d-flex justify-content-between">
-                <RouterLink class="btn btn-primary" to="/coach">
-                    <font-awesome-icon icon="fa-solid fa-left-long" />
-                </RouterLink>
-                <h1 class="text-primary">{{ athlete.name }}</h1>
-                <div class="d-flex gap-2">
+            <header class="d-grid grid-header w-100">
+                <div
+                    class="d-flex justify-content-start align-items-center">
+                    <RouterLink class="btn btn-primary"
+                        to="/coach">
+                        <font-awesome-icon
+                            icon="fa-solid fa-left-long" />
+                    </RouterLink>
+                </div>
+
+                <h1 class="text-center text-primary">{{
+                    athlete.name }}</h1>
+                <div
+                    class="d-flex justify-content-end align-items-center gap-2">
                     <RouterLink
                         :to="`/coach/athlete/${athlete.id}/stats`"
-                        class="btn btn-primary"
-                    >
-                    <font-awesome-icon icon="fa-solid fa-chart-line" />
+                        class="btn btn-primary">
+                        <font-awesome-icon
+                            icon="fa-solid fa-chart-line" />
                     </RouterLink>
                     <RouterLink
                         :to="`/coach/athlete/${athlete.id}/profile`"
-                        class="btn btn-primary"
-                    >
-                        <font-awesome-icon icon="fa-solid fa-user" />
+                        class="btn btn-primary">
+                        <font-awesome-icon
+                            icon="fa-solid fa-user" />
                     </RouterLink>
                 </div>
             </header>
 
             <div>
-                <Calendar :isCoach="true" :useStore="athleteStore" :athlete="athlete" :workouts="coachStore.athleteCalendar.workouts" :restDays="coachStore.athleteCalendar.restDays" :bodyWeights="coachStore.athleteCalendar.bodyWeights"/>
+                <Calendar :isCoach="true"
+                    :useStore="athleteStore" :athlete="athlete"
+                    :workouts="coachStore.athleteCalendar.workouts"
+                    :restDays="coachStore.athleteCalendar.restDays"
+                    :bodyWeights="coachStore.athleteCalendar.bodyWeights" />
             </div>
         </div>
     </div>
@@ -80,3 +92,7 @@ onMounted(() => {
     getAthleteCalendar();
 });
 </script>
+
+<style scoped>.grid-header {
+    grid-template-columns: repeat(3, 1fr);
+}</style>

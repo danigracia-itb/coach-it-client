@@ -133,7 +133,6 @@
             </ul>
 
             <AddExerciseToWorkout :workout="workout"
-                :exercises="exercisesStore.getGroupedExercises"
                 :add-exercises="addExercises" />
 
             <button v-if="workout.length > 0"

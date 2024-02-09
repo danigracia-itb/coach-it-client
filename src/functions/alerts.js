@@ -360,11 +360,14 @@ export function editBodyWeightPopUp(value, id, isCoach) {
 //PAYMENTS
 export function addPaymentPopUp(coach_id, athlete_id) {
     return new Promise((resolve, reject) => {
+        // Obtiene la fecha actual en el formato deseado (YYYY-MM-DD)
+        const today = new Date().toISOString().split('T')[0];
+    
         Swal.fire({
             title: "Add Payment",
             html: `<div class="form-group">
                     <label for="date" class="form-label d-block">Date</label>
-                    <input type="date" id="date" name="date" class="form-control">
+                    <input type="date" id="date" name="date" class="form-control" value="${today}">
                 </div>
     
                 <div class="form-group mt-5">
@@ -390,17 +393,17 @@ export function addPaymentPopUp(coach_id, athlete_id) {
                 const quantity =
                     Swal.getPopup().querySelector("#quantity").value;
                 const payment_type = Swal.getPopup().querySelector("#payment_type").value;
-
+    
                 if (!date || !quantity || !payment_type) {
                     Swal.showValidationMessage("All fields are mandatory.");
                 }
-
+    
                 return { date, quantity, payment_type };
             },
         }).then(async (result) => {
             if (result.value) {
                 const { date, quantity, payment_type } = result.value;
-
+    
                 try {
                     const response = await axiosClient.post(
                         "payments",
@@ -428,6 +431,7 @@ export function addPaymentPopUp(coach_id, athlete_id) {
             }
         });
     });
+    
 }
 
 export function athletePaymentsHistoric(athlete) {
