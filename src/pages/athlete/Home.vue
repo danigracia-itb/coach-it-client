@@ -7,7 +7,7 @@
         <Spinner v-if="loading" />
 
         <div v-else class="d-flex flex-column gap-2">
-            <h4>{{ todayDataDate }} Data</h4>
+            <h4>{{ todayDataDate }}</h4>
             <div
                 v-if="getTodayEvents.restDay"
                 class="d-flex p-3 rounded bg-danger"

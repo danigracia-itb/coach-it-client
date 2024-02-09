@@ -66,13 +66,20 @@ export function formatDate(fecha) {
 }
 
 export function formatDateData(fecha) {
-    const options = { weekday: "long", day: "2-digit", month: "long" };
     const fechaObj = new Date(fecha);
     const dayOfWeek = fechaObj.toLocaleDateString("en-US", { weekday: "long" });
-    const dayOfMonth = fechaObj.toLocaleDateString("en-US", { day: "2-digit" });
+    const dayOfMonth = addOrdinalSuffix(fechaObj.getDate());
     const month = fechaObj.toLocaleDateString("en-US", { month: "long" });
 
-    return `${dayOfWeek} ${dayOfMonth}, ${month}`;
+    return `${dayOfWeek}, ${month} ${dayOfMonth}`;
+}
+
+
+
+export function addOrdinalSuffix(n) {
+    const suffixes = ["th", "st", "nd", "rd"];
+    const v = n % 100;
+    return n + (suffixes[(v - 20) % 10] || suffixes[v] || suffixes[0]);
 }
 
 export function paymentTypeToMonths(payment_type) {
