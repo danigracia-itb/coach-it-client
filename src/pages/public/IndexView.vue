@@ -137,8 +137,8 @@
     </section>
 
     <section class="bg-dark">
-        <div class="row gx-5">
-            <h3 class="text-center text-white fw-bold pb-4 mt-5">
+        <div class="gx-5">
+            <h3 class="text-center text-white fw-bold pb-4">
                 Coach Dashboard example
             </h3>
         </div>
@@ -227,6 +227,13 @@
                     <h3 class="text-center text-white fw-bold pb-4">
                         Athlete Dashboard example
                     </h3>
+                    <p class="mb-5 text-justify text-white">
+                        This intuitive platform is designed to empower athletes
+                        on their journey to peak performance. With comprehensive
+                        tools and insightful tracking features, athletes can
+                        seamlessly monitor their progress, analyze performance
+                        metrics, and set personalized goals.
+                    </p>
                 </div>
                 <img
                     src="../../../public/assets/img/DashboardAthlete.png"
@@ -336,6 +343,10 @@ export default {
 </script>
 
 <style scoped>
+body {
+    overflow-x: hidden;
+}
+
 header {
     position: relative;
     z-index: 1000;
@@ -460,6 +471,11 @@ svg {
     margin-top: 5rem;
 }
 
+h3 {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
 .motivational-text {
     text-align: center;
     padding: 3rem;
@@ -541,7 +557,7 @@ svg {
 }
 
 .img-req {
-    max-width: 100%;
+    max-width: 100% important;
     height: auto;
     margin-top: 10px;
     border-radius: 10px;
