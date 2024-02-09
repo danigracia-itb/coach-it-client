@@ -165,7 +165,7 @@
 
             <button
                 v-if="workout.length > 0"
-                class="btn btn-primary w-100 mt-5"
+                class="btn btn-success w-100 mt-5"
                 @click="saveWorkout(false)"
             >
                 Save Workout

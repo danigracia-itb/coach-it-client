@@ -99,3 +99,19 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+.floating-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:90px;
+	right:30px;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+    border: none;
+    z-index: 999;
+}

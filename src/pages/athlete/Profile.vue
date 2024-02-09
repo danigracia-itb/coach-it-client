@@ -88,7 +88,7 @@
         <section class="mt-5">
             <p class="text-uppercase mb-1">Others</p>
             <div class="d-flex flex-column gap-2">
-                <RouterLink class="bg-white text-black w-100 btn btn-outline-secondary border border-1" :to="`/form?id=${id}`">
+                <RouterLink class="w-100 btn btn-secondary" :to="`/form?id=${id}`">
                     Edit personal data
                 </RouterLink>
 

@@ -99,6 +99,7 @@
                         v-model="set.target_weight"
                         min="0"
                         step="0.25"
+                        oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
                     />
 
                     <input
@@ -107,6 +108,7 @@
                         v-model="set.target_reps"
                         min="0"
                         step="1"
+                        oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
                     />
 
                     <input
@@ -116,6 +118,7 @@
                         min="0"
                         max="10"
                         step="0.5"
+                        oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
                     />
                 </div>
 
@@ -134,6 +137,7 @@
                         v-model="set.actual_weight"
                         min="0"
                         step="0.25"
+                        oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
                     />
 
                     <input
@@ -142,6 +146,7 @@
                         v-model="set.actual_reps"
                         min="0"
                         step="1"
+                        oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
                     />
 
                     <input
@@ -151,6 +156,7 @@
                         min="0"
                         max="10"
                         step="0.5"
+                        oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
                     />
                 </div>
 
@@ -256,6 +262,7 @@
                             v-model="set.target_weight"
                             min="0"
                             step="0.25"
+                            oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
                         />
 
                         <input
@@ -264,6 +271,7 @@
                             v-model="set.target_reps"
                             min="0"
                             step="1"
+                            oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
                         />
 
                         <input
@@ -273,6 +281,7 @@
                             min="0"
                             max="10"
                             step="0.5"
+                            oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
                         />
 
                         <button
@@ -294,6 +303,7 @@
                             v-model="set.actual_weight"
                             min="0"
                             step="0.25"
+                            oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
                         />
 
                         <input
@@ -302,6 +312,7 @@
                             v-model="set.actual_reps"
                             min="0"
                             step="1"
+                            oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
                         />
 
                         <input
@@ -311,6 +322,7 @@
                             min="0"
                             max="10"
                             step="0.5"
+                            oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
                         />
 
                         <button

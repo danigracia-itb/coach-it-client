@@ -4,7 +4,7 @@
         type="button"
         data-bs-toggle="modal"
         data-bs-target="#addExerciseModal"
-        class="btn btn-success w-100"
+        class="btn btn-primary w-100"
         :disabled="workout.length >= 15"
     >
         {{
