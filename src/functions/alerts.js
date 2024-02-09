@@ -4,6 +4,7 @@ import axiosClient from "../config/axios";
 import useAthleteStore from '../stores/useAthleteStore'
 import useCoachStore from "../stores/useCoachStore";
 
+//AUTH
 export function enterCoachCode(code, router) {
     Swal.fire({
         title: "Enter your coach's referral code",
@@ -105,7 +106,7 @@ export function passwordChangedSuccessfully() {
     });
 }
 
-//Select Exercise
+//EXERCISES
 export function selectExercise(exercises, workout) {
     return new Promise((resolve, reject) => {
         Swal.fire({
@@ -194,7 +195,7 @@ export function inviteAthlete(host, code) {
     });
 }
 
-
+//WORKOUTS
 export function copyWorkout(workout_id, workout_date, router) {
     //copy
     Swal.fire({
@@ -229,6 +230,7 @@ export function copyWorkout(workout_id, workout_date, router) {
     });
 }
 
+//BODY WEIGHT
 export function addBodyWeightPopUp(date, user_id, isCoach) {
     return new Promise((resolve, reject) => {
         Swal.fire({
@@ -245,7 +247,7 @@ export function addBodyWeightPopUp(date, user_id, isCoach) {
             confirmButtonColor: "#711bba",
             preConfirm: () => {
                 const value = Swal.getPopup().querySelector("#value").value;
-                
+
                 if (!value) {
                     Swal.showValidationMessage("KG field is mandatory");
                 }
@@ -270,8 +272,8 @@ export function addBodyWeightPopUp(date, user_id, isCoach) {
                             },
                         }
                     );
-                    
-                    if(isCoach) {
+
+                    if (isCoach) {
                         const coachStore = useCoachStore();
                         coachStore.addBodyWeight(response.data)
                     } else {
@@ -309,7 +311,7 @@ export function editBodyWeightPopUp(value, id, isCoach) {
             confirmButtonColor: "#711bba",
             preConfirm: () => {
                 const value = Swal.getPopup().querySelector("#value").value;
-                
+
                 if (!value) {
                     Swal.showValidationMessage("KG field is mandatory");
                 }
@@ -332,8 +334,8 @@ export function editBodyWeightPopUp(value, id, isCoach) {
                             },
                         }
                     );
-                    
-                    if(isCoach) {
+
+                    if (isCoach) {
                         const coachStore = useCoachStore();
                         coachStore.updateBodyWeight(response.data)
                     } else {
@@ -355,6 +357,7 @@ export function editBodyWeightPopUp(value, id, isCoach) {
     });
 }
 
+//PAYMENTS
 export function addPaymentPopUp(coach_id, athlete_id) {
     return new Promise((resolve, reject) => {
         Swal.fire({
@@ -386,7 +389,7 @@ export function addPaymentPopUp(coach_id, athlete_id) {
                 const date = Swal.getPopup().querySelector("#date").value;
                 const quantity =
                     Swal.getPopup().querySelector("#quantity").value;
-                    const payment_type = Swal.getPopup().querySelector("#payment_type").value;
+                const payment_type = Swal.getPopup().querySelector("#payment_type").value;
 
                 if (!date || !quantity || !payment_type) {
                     Swal.showValidationMessage("All fields are mandatory.");

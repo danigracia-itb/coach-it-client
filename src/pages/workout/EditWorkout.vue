@@ -2,21 +2,25 @@
     <Spinner v-if="loading" class="mx-auto mt-5" />
     <div class="mt-5" v-else>
         <div class="d-flex justify-content-start">
-            <button class="btn btn-primary" @click="$router.back()">
-                <font-awesome-icon icon="fa-solid fa-left-long" />
+            <button class="btn btn-primary"
+                @click="$router.back()">
+                <font-awesome-icon
+                    icon="fa-solid fa-left-long" />
             </button>
         </div>
 
         <header v-if="editing">
             <h1 class="text-center">
                 Edit
-                <span class="text-primary">{{ workout_date }}</span> Workout
+                <span class="text-primary">{{ workout_date
+                }}</span> Workout
             </h1>
         </header>
 
         <header v-else>
             <h1 class="text-center">Create Workout</h1>
-            <p class="text-primary text-center fw-bold">{{ date }}</p>
+            <p class="text-primary text-center fw-bold">{{ date
+            }}</p>
         </header>
 
         <section class="mt-5">
@@ -24,52 +28,62 @@
 
             <!-- workout List -->
             <ul class="list-unstyled mt-3">
-                <li
-                    v-for="exercise in orderedWorkout"
+                <li v-for="exercise in orderedWorkout"
                     :key="exercise.id"
-                    class="card exercise-card p-4 mb-5 border-2"
-                >
-                    <button
-                        class="delete-exercise btn"
-                        @click="() => deleteExercise(exercise.exercise_id)"
-                    >
-                        <font-awesome-icon icon="fa-solid fa-xmark" />
-                    </button>
+                    class="card exercise-card p-4 mb-3 border-2">
+                    <header
+                        class="d-flex justify-content-between align-items-center">
+                        <!-- Right -->
+                        <div class="d-flex align-items-center gap-3">
+                            <button
+                            class="btn btn-dark"
+                                @click="exercise.shown = !exercise.shown">
+                                <font-awesome-icon
+                                        icon="fa-solid fa-plus" />
+                            </button>
+                            <p class="fw-bold mb-0 h4">{{
+                                exercise.name }}</p>
+                        </div>
+                        <!-- Left -->
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="d-flex align-items-center gap-1">
+                                <button class="btn btn-outline-dark" @click="() => changeExerciseOrder(exercise.exercise_id, true)
+                                    ">
+                                    <font-awesome-icon
+                                        icon="fa-solid fa-arrow-up" />
+                                </button>
+                                <button class="btn btn-outline-dark" @click="() => changeExerciseOrder(exercise.exercise_id, false)
+                                    ">
+                                    <font-awesome-icon
+                                        icon="fa-solid fa-arrow-down" />
+                                </button>
+                            </div>
 
-                    <div class="order-exercise">
-                        <button
-                            class="btn"
-                            @click="
-                                () => changeExerciseOrder(exercise.exercise_id, true)
-                            "
-                        >
-                            <font-awesome-icon icon="fa-solid fa-arrow-up" />
-                        </button>
-                        <button
-                            class="btn"
-                            @click="
-                                () => changeExerciseOrder(exercise.exercise_id, false)
-                            "
-                        >
-                            <font-awesome-icon icon="fa-solid fa-arrow-down" />
-                        </button>
-                    </div>
+                            <button class="btn btn-danger"
+                                @click="() => deleteExercise(exercise.exercise_id)">
+                                <font-awesome-icon
+                                    icon="fa-solid fa-trash" />
+                            </button>
 
-                    <header class="text-center mb-4">
-                        <p class="fw-bold mb-0 h4">{{ exercise.name }}</p>
-                        <div
-                            class="d-flex justify-content-between align-items-center"
-                        >
+                        </div>
+                    </header>
+
+                    <!-- Main exercise content -->
+                    <section v-if="exercise.shown" class="mt-5">
+                        <header
+                            class="d-flex justify-content-between align-items-center mb-3">
                             <p class="mb-0">
-                                <span class="fw-bold">Total Sets:</span>
+                                <span class="fw-bold">Total
+                                    Sets:</span>
                                 {{ exercise.sets.length }}
                             </p>
 
-                            <div class="d-flex flex-column align-items-end">
+                            <div
+                                class="d-flex flex-column align-items-end">
                                 <p class="mb-0">
-                                    <span class="fw-bold"
-                                        >Actual / Target Tonelage:</span
-                                    >
+                                    <span class="fw-bold">Actual
+                                        / Target
+                                        Tonelage:</span>
                                     {{
                                         calculateTonelage(
                                             exercise.sets,
@@ -78,65 +92,63 @@
                                         )
                                     }}kg /
                                     {{
-                                        calculateTonelage(exercise.sets, true)
+                                        calculateTonelage(exercise.sets,
+                                            true)
                                     }}kg
                                 </p>
                                 <p class="mb-0">
-                                    <span class="fw-bold">E1RM: </span>
-                                    {{ calculateMaxRpe(exercise.sets) }}kg
+                                    <span class="fw-bold">E1RM:
+                                    </span>
+                                    {{
+                                        calculateMaxRpe(exercise.sets)
+                                    }}kg
                                 </p>
                             </div>
-                        </div>
-                    </header>
+                        </header>
 
-                    <SetsCard :exercise="exercise" :copy-to-next-set="copyToNextSet" :copy-to-actual="copyToActual" :delete-set="deleteSet" />
+                        <SetsCard :exercise="exercise"
+                            :copy-to-next-set="copyToNextSet"
+                            :copy-to-actual="copyToActual"
+                            :delete-set="deleteSet" />
 
-                    <button
-                        class="btn btn-secondary"
-                        @click="() => addSet(exercise.exercise_id)"
-                        :disabled="exercise.sets.length >= 8"
-                    >
-                        {{
-                            exercise.sets.length >= 8
+                        <button class="btn btn-secondary w-100"
+                            @click="() => addSet(exercise.exercise_id)"
+                            :disabled="exercise.sets.length >= 8">
+                            {{
+                                exercise.sets.length >= 8
                                 ? "You have reached the sets limit"
                                 : "Add Set"
-                        }}
-                    </button>
+                            }}
+                        </button>
 
-                    <!-- Comentarios -->
-                    <div  class="mt-4">
-                        <p>Exercise Notes</p>
-                        <textarea rows="1" class="form-control" v-model="exercise.notes"></textarea>
-                    </div>
-
+                        <!-- Comentarios -->
+                        <div class="mt-4">
+                            <p>Exercise Notes</p>
+                            <textarea rows="1"
+                                class="form-control"
+                                v-model="exercise.notes"></textarea>
+                        </div>
+                    </section>
                 </li>
             </ul>
 
-            <AddExerciseToWorkout
-                :workout="workout"
+            <AddExerciseToWorkout :workout="workout"
                 :exercises="exercisesStore.getGroupedExercises"
-                :add-exercises="addExercises"
-            />
+                :add-exercises="addExercises" />
 
-            <button
-                v-if="workout.length > 0"
+            <button v-if="workout.length > 0"
                 class="btn btn-primary w-100 mt-5"
-                @click="saveWorkout(false)"
-            >
+                @click="saveWorkout(false)">
                 Save Workout
             </button>
-            <button
-                v-if="workout.length > 0 && editing"
+            <button v-if="workout.length > 0 && editing"
                 class="btn btn-dark w-100 mt-3"
-                @click="saveWorkout(true)"
-            >
+                @click="saveWorkout(true)">
                 Save Workout and Close
             </button>
-            <button
-                v-if="workout.length > 0 && !editing"
+            <button v-if="workout.length > 0 && !editing"
                 class="btn btn-dark w-100 mt-3"
-                @click="$router.back()"
-            >
+                @click="$router.back()">
                 Close
             </button>
         </section>
@@ -152,6 +164,7 @@ import axiosClient from "../../config/axios";
 //helpers
 import { selectExercise } from "../../functions/alerts";
 import { calculateTonelage, calculateMaxRpe } from "../../functions/helpers";
+import { useToast } from "vue-toast-notification";
 
 //components
 import Spinner from "../../components/utils/Spinner.vue";
@@ -171,6 +184,8 @@ const authStore = useAuthStore();
 //route
 const route = useRoute();
 const router = useRouter();
+
+const toast = useToast();
 
 const athlete_id = route.params.id;
 const workout_id = route.params.workout_id;
@@ -207,16 +222,17 @@ function findExerciseInWorkout(exercise_id) {
 
 //Exercise
 function addExercises(exercises) {
-    for(let exercise of exercises) {
+    for (let exercise of exercises) {
         workout.push({
-        ...exercise,
-        exercise_id: exercise.id,
-        order: workout[workout.length - 1]
-            ? workout[workout.length - 1].order + 1
-            : 1,
-        notes: "",
-        sets: [],
-    });
+            ...exercise,
+            exercise_id: exercise.id,
+            order: workout[workout.length - 1]
+                ? workout[workout.length - 1].order + 1
+                : 1,
+            notes: "",
+            sets: [],
+            shown: true,
+        });
     }
 
 }
@@ -232,7 +248,7 @@ function deleteExercise(exercise_id) {
 function changeExerciseOrder(exercise_id, go_up) {
     const index = findExerciseInWorkout(exercise_id);
     const currentExercise = workout[index];
-    
+
     if (go_up && index > 0) {
         const previousExercise = workout[index - 1];
         if (currentExercise.order === previousExercise.order) return; // No changes if both have the same order
@@ -298,11 +314,11 @@ async function saveWorkout(close = false) {
     }
     try {
         if (editing) {
-            const respuesta = await axiosClient.put("workout/" + workout_id, {
+            await axiosClient.put("workout/" + workout_id, {
                 workout,
             });
         } else {
-            const respuesta = await axiosClient.post("workout", {
+            await axiosClient.post("workout", {
                 user_id: athlete_id ?? authStore.id,
                 date: workout_date.value,
                 workout,
@@ -313,10 +329,12 @@ async function saveWorkout(close = false) {
             router.back();
         } else {
             loading.value = false;
+            toast.success("Workout saved", { position: "top" })
         }
     } catch (error) {
         console.log(error);
         loading.value = false;
+        toast.error("Error, changes have not been saved", { position: "top" })
     }
 }
 
@@ -333,33 +351,5 @@ onMounted(() => {
 <style scoped>
 .exercise-card {
     background-color: rgb(230, 230, 230);
-}
-
-.delete-exercise {
-    position: absolute;
-    right: 0;
-    top: 0;
-
-    border: 1px solid lightgray;
-    border-radius: 0px 2px 0px 0px;
-}
-
-.delete-exercise:hover {
-    background-color: white;
-}
-
-.order-exercise {
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-
-.order-exercise .btn {
-    border: 1px solid lightgray;
-    border-radius: 0px 2px 0px 0px;
-}
-
-.order-exercise .btn:hover {
-    background-color: white;
 }
 </style>

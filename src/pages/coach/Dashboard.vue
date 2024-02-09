@@ -6,7 +6,7 @@
             <Spinner class="mt-5" v-if="configStore.loading" />
 
             <div
-                class="d-flex justify-content-between"
+                class="d-flex justify-content-between mt-5 mt-md-0"
                 v-if="!configStore.loading"
             >
                 <input
@@ -20,18 +20,23 @@
             </div>
         </header>
 
-        <div class="athletes-grid h-100 w-100 mt-5" v-if="!configStore.loading">
+        <div class="athletes-grid h-100 w-100 mt-5" v-if="!configStore.loading && coachStore.athletes.length > 0">
+
             <AthleteCard
                 v-for="athlete in coachStore.getFilteredAthletes(searchInput)"
                 :key="athlete.id"
                 :athlete="athlete"
             />
         </div>
+        <div class="w-100 mt-5" v-if="!configStore.loading && coachStore.athletes.length <= 0">
+            <h4 class="text-center">You have no athletes, <span class="cursor-pointer text-primary" @click="inviteAthlete(host, authStore.id)">invite your first athlete</span></h4>
+        </div>
     </div>
 </template>
 
 <script setup>
 import { onMounted, ref, computed } from "vue";
+import { inviteAthlete } from "../../functions/alerts";
 
 //Components
 import Spinner from "../../components/utils/Spinner.vue";
@@ -41,30 +46,23 @@ import AthleteCard from "../../components/coach/athletes/AthleteCard.vue";
 //Stores
 import useConfigStore from "../../stores/useConfigStore";
 import useCoachStore from "../../stores/useCoachStore";
+import useAuthStore from "../../stores/useAuthStore";
 
 //Controllers
 import coachController from "../../controllers/coachController";
 
 const coachStore = useCoachStore();
 const configStore = useConfigStore();
+const authStore = useAuthStore();
 const searchInput = ref("");
+
+const host = window.location.host
 
 onMounted(() => {
     if (coachStore.athletes.length <= 0) {
         coachController.getAthletes();
     }
 });
-
-// const filteredAthletes = computed(() => {
-//     const searchTerm = searchInput.value.toLowerCase().trim();
-//     if (!searchTerm) {
-//         return coachStore.athletes;
-//     } else {
-//         return coachStore.athletes.filter((athlete) =>
-//             athlete.name.toLowerCase().includes(searchTerm)
-//         );
-//     }
-// });
 </script>
 
 <style scoped>

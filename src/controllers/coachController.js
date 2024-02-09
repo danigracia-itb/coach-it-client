@@ -35,7 +35,7 @@ const coachController = {
 
         Swal.fire({
             title: "¿Do you want to delete this athlete?",
-            text: "Once deleted, it cannot be recovered",
+            text: "Once eliminated, he will no longer be your athlete, and will have to re-enter your code.",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#711bba",
@@ -46,11 +46,11 @@ const coachController = {
             if (result.isConfirmed) {
               //Enviar la petición al servidor
               axiosClient
-                .delete(`/athlete/${id}`)
+                .delete(`/athlete/no-coach/${id}`)
                 .then(() => {
                 console.log()
                   Swal.fire({
-                    title: "Athlete deleted",
+                    title: "Deleted",
                     text: "Athlete deleted successfully",
                     icon: "success",
                   });

@@ -6,7 +6,7 @@
             <Spinner class="mt-5" v-if="configStore.loading" />
         </header>
 
-        <table class="table table-striped mt-5" v-if="!configStore.loading">
+        <table class="table table-striped mt-5" v-if="!configStore.loading && coachStore.athletes.length > 0">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -80,13 +80,14 @@
                 </tr>
             </tbody>
         </table>
+        <div class="w-100 mt-5" v-if="!configStore.loading && coachStore.athletes.length <= 0">
+            <h4 class="text-center">You have no athletes, <span class="cursor-pointer text-primary" @click="inviteAthlete(host, authStore.id)">invite your first athlete</span></h4>
+        </div>
     </div>
 </template>
 
 <script setup>
 import { onMounted, ref } from "vue";
-import Swal from "sweetalert2";
-import axiosClient from "../../config/axios";
 import Spinner from "../../components/utils/Spinner.vue";
 import {
     addMonths,
@@ -97,6 +98,7 @@ import {
 import {
     addPaymentPopUp,
     athletePaymentsHistoric,
+    inviteAthlete
 } from "../../functions/alerts";
 
 import useCoachStore from "../../stores/useCoachStore";
@@ -107,6 +109,8 @@ import coachController from "../../controllers/coachController";
 const coachStore = useCoachStore()
 const configStore = useConfigStore()
 const authStore = useAuthStore()
+
+const host = window.location.host
 
 function handleAthleteHistoric(id) {
     athletePaymentsHistoric(coachStore.getAthleteById(id));

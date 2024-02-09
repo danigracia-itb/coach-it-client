@@ -156,7 +156,7 @@ const authController = {
                     coach_id: newCoach,
                 }
             );
-            authStore.setCoach(newCoach);
+            authStore.setCoach(newCoach == "nocoach" ? null : newCoach);
             configStore.setError(false)
         } catch (error) {
             configStore.setValidationError("coach_id", error.response.data.error.coach_id[0])

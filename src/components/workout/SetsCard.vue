@@ -5,7 +5,7 @@
         <section class="set-headers-group" v-if="exercise.sets.length > 0">
             <section class="text-center bg-light set-header-target">
                 <div class="fw-normal">TARGET</div>
-
+                <hr class="border border-1 border-black w-100">
                 <div class="set-labels">
                     <div
                         class="fw-normal cursor-pointer"
@@ -34,7 +34,7 @@
 
             <section class="text-center bg-white set-header-actual">
                 <div class="fw-normal">ACTUAL</div>
-
+                <hr class="border border-1 border-black w-100">
                 <div class="set-labels">
                     <div
                         class="fw-normal cursor-pointer"
@@ -81,24 +81,7 @@
 
                 <!-- Set content -->
                 <div class="p-3 w-100 d-flex gap-2 bg-light border-end">
-                    <input
-                        type="number"
-                        class="form-control text-center"
-                        v-model="set.target_weight"
-                        min="0"
-                    />
-                    <input
-                        type="number"
-                        class="form-control text-center"
-                        v-model="set.target_reps"
-                        min="0"
-                    />
-                    <input
-                        type="number"
-                        class="form-control text-center"
-                        v-model="set.target_rpe"
-                        min="0"
-                    />
+                    <SetInputs :set="set" :target="true" />
                 </div>
 
                 <button
@@ -110,24 +93,7 @@
 
                 <div class="p-3 w-100 d-flex gap-2">
                     <!-- ACTUAL -->
-                    <input
-                        type="number"
-                        class="form-control text-center"
-                        v-model="set.actual_weight"
-                        min="0"
-                    />
-                    <input
-                        type="number"
-                        class="form-control text-center"
-                        v-model="set.actual_reps"
-                        min="0"
-                    />
-                    <input
-                        type="number"
-                        class="form-control text-center"
-                        v-model="set.actual_rpe"
-                        min="0"
-                    />
+                    <SetInputs :set="set" :target="false" />
                 </div>
 
                 <button
@@ -220,21 +186,7 @@
                         :class="curretTabTarget ? 'd-grid' : 'd-none'"
                     >
                         <!-- Set content -->
-                        <input
-                            type="number"
-                            class="form-control text-center"
-                            v-model="set.target_weight"
-                        />
-                        <input
-                            type="number"
-                            class="form-control text-center"
-                            v-model="set.target_reps"
-                        />
-                        <input
-                            type="number"
-                            class="form-control text-center"
-                            v-model="set.target_rpe"
-                        />
+                        <SetInputs :set="set" :target="true" />
 
                         <button
                             class="btn btn-primary rounded-0"
@@ -249,21 +201,7 @@
                         class="set-grid-mobile w-100 p-3"
                         :class="curretTabTarget ? 'd-none' : 'd-grid'"
                     >
-                        <input
-                            type="number"
-                            class="form-control text-center"
-                            v-model="set.actual_weight"
-                        />
-                        <input
-                            type="number"
-                            class="form-control text-center"
-                            v-model="set.actual_reps"
-                        />
-                        <input
-                            type="number"
-                            class="form-control text-center"
-                            v-model="set.actual_rpe"
-                        />
+                    <SetInputs :set="set" :target="false" />
 
                         <button
                             class="btn btn-danger text-white"
@@ -290,6 +228,7 @@
 
 <script setup>
 import { ref } from "vue";
+import SetInputs from "./SetInputs.vue";
 
 const { exercise, copyToNextSet, deleteSet, copyToActual } = defineProps([
     "exercise",

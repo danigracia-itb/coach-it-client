@@ -45,9 +45,24 @@
             <form class="d-flex flex-column gap-2"
                 @submit.prevent="saveCoachCode()">
                 <div>
+                    <select class="form-select"
+                        v-model="newHaveCoach">
+                        <option :value="true">I have a coach
+                        </option>
+                        <option :value="false">I don't have a
+                            coach
+                        </option>
+                    </select>
+                </div>
+
+                <div v-if="newHaveCoach">
                     <input type="text" class="form-control"
                         placeholder="Enter your coach code..."
                         v-model="newCoach" />
+                </div>
+                <div v-else>
+                    <input type="text" class="form-control"
+                        placeholder="No coach code" disabled />
                 </div>
 
                 <button class="btn btn-secondary" type="submit">
@@ -94,6 +109,7 @@ const backendUrl = import.meta.env.VITE_API_URL;
 const newName = ref(authStore.name);
 const newEmail = ref(authStore.email);
 const newCoach = ref(authStore.coach_id);
+const newHaveCoach = ref(authStore.coach_id ? true : false)
 
 const selectedFile = ref(null);
 const imagenPrevisualizacion = ref("");
@@ -124,7 +140,7 @@ function openFilePicker() {
 
 async function saveData() {
     await authController.updateUserData(newName.value, newEmail.value);
-     
+
     if (configStore.error) {
         toast.error("Server error", {
             position: "top",
@@ -137,7 +153,7 @@ async function saveData() {
 }
 
 async function saveCoachCode() {
-    await authController.updateUserCoach(newCoach.value)
+    await authController.updateUserCoach(!newHaveCoach.value ? "nocoach" : newCoach.value)
     if (configStore.error) {
         toast.error(configStore.validationErrors.coach_id, {
             position: "top",
@@ -147,6 +163,7 @@ async function saveCoachCode() {
             position: "top",
         });
     }
+
 
 }
 
