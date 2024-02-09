@@ -1,95 +1,105 @@
 <template>
     <div class="mt-5">
         <div class="d-flex justify-content-start">
-            <button class="btn btn-primary d-none d-md-block"
-                @click="$router.back()">
-                <font-awesome-icon
-                    icon="fa-solid fa-left-long" />
+            <button
+                class="btn btn-primary d-none d-md-block"
+                @click="$router.back()"
+            >
+                <font-awesome-icon icon="fa-solid fa-left-long" />
             </button>
         </div>
 
         <!-- Contenedor principal -->
         <div
-            class="d-flex flex-column align-items-center justify-content-center">
-            <img class="img-user rounded-circle"
+            class="d-flex flex-column align-items-center justify-content-center"
+        >
+            <img
+                class="img-user rounded-circle"
                 :src="`${backendUrl}/${authStore.picture}`"
-                @click="openFilePicker" />
-            <input type="file" id="seleccionArchivos"
-                accept="image/*" @change="handleFileChange"
-                style="display: none" />
+                @click="openFilePicker"
+            />
+            <input
+                type="file"
+                id="seleccionArchivos"
+                accept="image/*"
+                @change="handleFileChange"
+                style="display: none"
+            />
         </div>
 
         <section class="mt-5">
             <p class="text-uppercase mb-1">Profile settings</p>
-            <form class="d-flex flex-column gap-2"
-                @submit.prevent="saveData()">
+            <form class="d-flex flex-column gap-2" @submit.prevent="saveData()">
                 <div>
-                    <input type="text" class="form-control"
+                    <input
+                        type="text"
+                        class="form-control"
                         placeholder="Enter your name..."
-                        v-model="newName" />
+                        v-model="newName"
+                    />
                 </div>
                 <div>
-                    <input type="text" class="form-control"
+                    <input
+                        type="text"
+                        class="form-control"
                         placeholder="Enter your email..."
-                        v-model="newEmail" />
+                        v-model="newEmail"
+                    />
                 </div>
 
-                <button class="btn btn-secondary" type="submit">
-                    Save
-                </button>
+                <button class="btn btn-secondary" type="submit">Save</button>
             </form>
         </section>
 
         <section class="mt-5">
             <p class="text-uppercase mb-1">Your Coach</p>
-            <form class="d-flex flex-column gap-2"
-                @submit.prevent="saveCoachCode()">
+            <form
+                class="d-flex flex-column gap-2"
+                @submit.prevent="saveCoachCode()"
+            >
                 <div>
-                    <select class="form-select"
-                        v-model="newHaveCoach">
-                        <option :value="true">I have a coach
-                        </option>
-                        <option :value="false">I don't have a
-                            coach
-                        </option>
+                    <select class="form-select" v-model="newHaveCoach">
+                        <option :value="true">I have a coach</option>
+                        <option :value="false">I don't have a coach</option>
                     </select>
                 </div>
 
                 <div v-if="newHaveCoach">
-                    <input type="text" class="form-control"
+                    <input
+                        type="text"
+                        class="form-control"
                         placeholder="Enter your coach code..."
-                        v-model="newCoach" />
+                        v-model="newCoach"
+                    />
                 </div>
                 <div v-else>
-                    <input type="text" class="form-control"
-                        placeholder="No coach code" disabled />
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="No coach code"
+                        disabled
+                    />
                 </div>
 
-                <button class="btn btn-secondary" type="submit">
-                    Save
-                </button>
+                <button class="btn btn-secondary" type="submit">Save</button>
             </form>
-        </section>
-
-        <section class="mt-5">
-            <div class="d-flex flex-column gap-2">
-        <button class="btn btn-primary w-25">
-            <RouterLink class="text-white text-decoration-none fw-normal" :to="`/form?id=${id}`">
-            <font-awesome-icon class="px-2" icon="fa-regular fa-address-card" />
-                EDIT PERSONAL DATA<font-awesome-icon class="px-2" icon="fa-solid fa-pen" />
-            </RouterLink>
-        </button>
-</div>
-
         </section>
 
         <section class="mt-5">
             <p class="text-uppercase mb-1">Others</p>
             <div class="d-flex flex-column gap-2">
+                <RouterLink class="bg-white text-black w-100 btn btn-outline-secondary border border-1" :to="`/form?id=${id}`">
+                    Edit personal data
+                </RouterLink>
+
                 <button
-                    class="bg-danger w-100 btn border border-1 text-white fw-bold"
-                    @click="authController.logout()">Log
-                    Out</button>
+                    class="bg-white text-danger w-100 btn btn-outline-danger border border-1 fw-bold"
+                    @click="authController.logout()"
+                >
+                    Log Out
+                </button>
+
+
             </div>
         </section>
     </div>
@@ -99,7 +109,7 @@
 import { ref } from "vue";
 import axiosClient from "../../config/axios";
 
-import { useToast } from 'vue-toast-notification';
+import { useToast } from "vue-toast-notification";
 
 //Components
 import Spinner from "../../components/utils/Spinner.vue";
@@ -114,15 +124,15 @@ import authController from "../../controllers/authController";
 const authStore = useAuthStore();
 const configStore = useConfigStore();
 
-const toast = useToast()
+const toast = useToast();
 
 const backendUrl = import.meta.env.VITE_API_URL;
 
-const id = ref(authStore.id)
+const id = ref(authStore.id);
 const newName = ref(authStore.name);
 const newEmail = ref(authStore.email);
 const newCoach = ref(authStore.coach_id);
-const newHaveCoach = ref(authStore.coach_id ? true : false)
+const newHaveCoach = ref(authStore.coach_id ? true : false);
 
 const selectedFile = ref(null);
 const imagenPrevisualizacion = ref("");
@@ -159,27 +169,26 @@ async function saveData() {
             position: "top",
         });
     } else {
-        toast.success('Profile Settings Updated', {
+        toast.success("Profile Settings Updated", {
             position: "top",
         });
     }
 }
 
 async function saveCoachCode() {
-    await authController.updateUserCoach(!newHaveCoach.value ? "nocoach" : newCoach.value)
+    await authController.updateUserCoach(
+        !newHaveCoach.value ? "nocoach" : newCoach.value
+    );
     if (configStore.error) {
         toast.error(configStore.validationErrors.coach_id, {
             position: "top",
         });
     } else {
-        toast.success('Coach Code Updated', {
+        toast.success("Coach Code Updated", {
             position: "top",
         });
     }
-
-
 }
-
 </script>
 
 <style scoped>

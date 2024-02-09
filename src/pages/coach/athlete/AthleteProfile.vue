@@ -54,16 +54,6 @@
                             />
                             <p class="m-0">{{ athleteData.user_data.height }}cm</p>
                         </div>
-                        <div class="d-flex align-items-center">
-                            <font-awesome-icon
-                                class="p-3"
-                                icon="fa-solid fa-weight-scale"
-                                size="2xl"
-                            />
-                            <p class="m-0">
-                                {{ athleteData.user_data.body_weight }}kg
-                            </p>
-                        </div>
 
                         <p>
                             <strong>Time training: </strong

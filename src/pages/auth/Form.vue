@@ -56,25 +56,6 @@
                             {{ errors.height }}
                         </div>
                     </div>
-
-                    <div class="form-group mt-5">
-                        <label for="bodyWeight" class="text-black"
-                            >Body Weight (kg)</label
-                        >
-                        <input
-                            type="number"
-                            id="bodyWeight"
-                            class="form-control"
-                            :class="errors.body_weight ? 'is-invalid' : ''"
-                            placeholder="Introduce your body weight"
-                            min="10"
-                            required
-                            v-model="body_weight"
-                        />
-                        <div v-if="errors.body_weight" class="invalid-feedback">
-                            {{ errors.body_weight }}
-                        </div>
-                    </div>
                 </div>
 
                 <div
@@ -454,7 +435,6 @@ const totalPages = 4;
 const errors = reactive({
     date_birth: "",
     height: "",
-    body_weight: "",
     time_training: "",
     train_available_time: "",
     train_available_days: "",
@@ -467,7 +447,6 @@ const errors = reactive({
 /* Primera página */
 const date_birth = ref("");
 const height = ref("");
-const body_weight = ref("");
 
 const maxDate = computed(() => {
     const today = new Date();
@@ -514,16 +493,9 @@ function validatePage(num) {
                 errors.height = "";
             }
 
-            if (!body_weight.value) {
-                errors.body_weight = "Body weight field is mandatory.";
-            } else {
-                errors.body_weight = "";
-            }
-
             if (
                 errors.date_birth == "" &&
-                errors.height == "" &&
-                errors.body_weight == ""
+                errors.height == ""
             ) {
                 nextPage();
             }
@@ -615,7 +587,6 @@ async function sendForm() {
             user_id: route.query.id,
             date_birth: date_birth.value,
             height: height.value,
-            body_weight: body_weight.value,
             time_training: time_training.value,
             train_available_time: train_available_time.value,
             wishlist_exercises: wishlist_exercises.value,
