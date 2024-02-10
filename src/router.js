@@ -25,104 +25,114 @@ import CoachLayout from "./layouts/CoachLayout.vue";
 import AthleteLayout from "./layouts/AthleteLayout.vue";
 
 const routes = [
-    { path: "/", component: IndexView },
-    { path: "/privacy-policy", component: PrivacyPolicy },
+  { path: "/", component: IndexView },
+  { path: "/privacy-policy", component: PrivacyPolicy },
 
-    //Auth public
-    { path: "/login", component: Login },
-    { path: "/register", component: Register },
-    { path: "/form", component: Form },
-    { path: "/aboutus", component: AboutUs },
-    { path: "/calculator", component: Calculator },
+  //Auth public
+  { path: "/login", component: Login },
+  { path: "/register", component: Register },
+  { path: "/form", component: Form },
+  { path: "/aboutus", component: AboutUs },
+  { path: "/calculator", component: Calculator },
 
-    //Password
-    { path: "/request-password-recover", component: RequestPasswordRecover },
-    { path: "/password-recover/:token", component: PasswordRecover },
+  //Password
+  { path: "/request-password-recover", component: RequestPasswordRecover },
+  { path: "/password-recover/:token", component: PasswordRecover },
 
-    //PRIVATE PART
-    {
-        path: "/coach",
-        component: CoachLayout,
-        meta: { requiresAuth: true }, // Requiere autenticación
+  //PRIVATE PART
+  {
+    path: "/coach",
+    component: CoachLayout,
+    meta: { requiresAuth: true }, // Requiere autenticación
 
-        children: [
-            { path: "", component: () => import("./pages/coach/Dashboard.vue") },
-            { path: "exercises", component: () => import("./pages/exercise/Exercises.vue") },
-            {
-                path: "manage",
-                component: () => import("./pages/coach/Manage.vue"),
-            },
-            { path: "profile", component: () => import("./pages/coach/Profile.vue") },
-            {
-                path: "athlete/:id",
-                component: () => import("./pages/coach/athlete/AthleteCalendar.vue"),
-            },
-            { path: "athlete/:id/profile", component: () => import("./pages/coach/athlete/AthleteProfile.vue") },
-            {
-                path: "athlete/:id/stats",
-                component: () => import("./pages/coach/athlete/AthleteStats.vue"),
-            },
-            {
-                path: "athlete/:id/workout/create",
-                component: () =>
-                    import("./pages/workout/EditWorkout.vue"),
-            },
-            {
-                path: "athlete/:id/workout/:workout_id",
-                component: () =>
-                    import("./pages/workout/EditWorkout.vue"),
-            },
-        ],
-    },
+    children: [
+      { path: "", component: () => import("./pages/coach/Dashboard.vue") },
+      {
+        path: "exercises",
+        component: () => import("./pages/exercise/Exercises.vue"),
+      },
+      {
+        path: "manage",
+        component: () => import("./pages/coach/Manage.vue"),
+      },
+      { path: "profile", component: () => import("./pages/coach/Profile.vue") },
+      {
+        path: "athlete/:id",
+        component: () => import("./pages/coach/athlete/AthleteCalendar.vue"),
+      },
+      {
+        path: "athlete/:id/profile",
+        component: () => import("./pages/coach/athlete/AthleteProfile.vue"),
+      },
+      {
+        path: "athlete/:id/stats",
+        component: () => import("./pages/coach/athlete/AthleteStats.vue"),
+      },
+      {
+        path: "athlete/:id/workout/create",
+        component: () => import("./pages/workout/EditWorkout.vue"),
+      },
+      {
+        path: "athlete/:id/workout/:workout_id",
+        component: () => import("./pages/workout/EditWorkout.vue"),
+      },
+    ],
+  },
 
-    //PRIVATE PART ATHLETE
-    {
-        path: "/athlete",
-        component: AthleteLayout,
-        meta: { requiresAuth: true }, // Requiere autenticación
+  //PRIVATE PART ATHLETE
+  {
+    path: "/athlete",
+    component: AthleteLayout,
+    meta: { requiresAuth: true }, // Requiere autenticación
 
-        children: [
-            { path: "", component: () => import("./pages/athlete/Home.vue") },
-            { path: "calendar", component: () => import("./pages/athlete/Calendar.vue") },
-            { path: "profile", component: () => import("./pages/athlete/Profile.vue") },
-            {
-                path: "workout/:workout_id", component: () =>
-                    import("./pages/workout/EditWorkout.vue"),
-            },
-            {
-                path: "workout/create",
-                component: () =>
-                    import("./pages/workout/EditWorkout.vue"),
-            },
-            { path: "exercises", component: () => import("./pages/exercise/Exercises.vue") },
-        ],
-    },
+    children: [
+      { path: "", component: () => import("./pages/athlete/Home.vue") },
+      {
+        path: "calendar",
+        component: () => import("./pages/athlete/Calendar.vue"),
+      },
+      {
+        path: "profile",
+        component: () => import("./pages/athlete/Profile.vue"),
+      },
+      {
+        path: "workout/:workout_id",
+        component: () => import("./pages/workout/EditWorkout.vue"),
+      },
+      {
+        path: "workout/create",
+        component: () => import("./pages/workout/EditWorkout.vue"),
+      },
+      {
+        path: "exercises",
+        component: () => import("./pages/exercise/Exercises.vue"),
+      },
+    ],
+  },
 
-    {
-        path: "/:catchAll(.*)",
-        component: NotFound,
-    },
+  {
+    path: "/:catchAll(.*)",
+    component: NotFound,
+  },
 ];
 
 const router = createRouter({
-    history: createWebHistory(),
-    routes,
+  history: createWebHistory(),
+  routes,
 });
 
 router.beforeEach(async (to, from, next) => {
-    if (to.matched.some((record) => record.meta.requiresAuth)) {
-        // Verificar la autenticación aquí
-        const isAuthenticated = await checkAuth(); // Lógica para verificar si el usuario está autenticado
-        if (!isAuthenticated) {
-            next("/login"); // Redirigir al usuario al inicio de sesión si no está autenticado
-        } else {
-            next(); // Permitir acceso a la ruta protegida si el usuario está autenticado
-        }
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    // Verificar la autenticación aquí
+    const isAuthenticated = await checkAuth(); // Lógica para verificar si el usuario está autenticado
+    if (!isAuthenticated) {
+      next("/login"); // Redirigir al usuario al inicio de sesión si no está autenticado
     } else {
-        next(); // Permitir acceso a rutas que no requieren autenticación
+      next(); // Permitir acceso a la ruta protegida si el usuario está autenticado
     }
+  } else {
+    next(); // Permitir acceso a rutas que no requieren autenticación
+  }
 });
 
 export default router;
-
-
