@@ -1,7 +1,7 @@
 <template>
     <RouterLink
         :to="`/coach/athlete/${athlete.id}`"
-        class="athlete-card p-3 border border-black border-1 rounded text-decoration-none text-black align-middle bg-white"
+        class="athlete-card w-100 p-3 border border-black border-1 rounded text-decoration-none text-black align-middle bg-white"
     >
         <img
             width="130"

@@ -4,6 +4,8 @@ import axiosClient from "../config/axios";
 import useAthleteStore from '../stores/useAthleteStore'
 import useCoachStore from "../stores/useCoachStore";
 
+const color = import.meta.env.VITE_PRIMARY_COLOR;
+
 //AUTH
 export function enterCoachCode(code, router) {
     Swal.fire({
@@ -15,7 +17,7 @@ export function enterCoachCode(code, router) {
         showCancelButton: true,
         cancelButtonText: "I don't have a coach",
         confirmButtonText: "Confirm",
-        confirmButtonColor: "#711bba",
+        confirmButtonColor: color,
     }).then((result) => {
         if (result.isConfirmed && result.value) {
             code.value = result.value;
@@ -74,7 +76,7 @@ export function showTermsConditions() {
             Thank you for choosing Coach It as your online strength sports coaching platform! Let's embark on this journey of strength and success together.
             `,
             confirmButtonText: "I agree to the Terms & Conditions",
-            confirmButtonColor: "#711bba",
+            confirmButtonColor: color,
 
             showCancelButton: true,
         }).then((result) => {
@@ -93,7 +95,7 @@ export function passwordRecoverRequestedSuccess(email) {
         title: "Requested",
         text: "We have sent an email to " + email,
         confirmButtonText: "Confirm",
-        confirmButtonColor: "#711bba",
+        confirmButtonColor: color,
     });
 }
 
@@ -123,7 +125,7 @@ export function selectExercise(exercises, workout) {
         `,
             showCloseButton: true,
             confirmButtonText: "Add to Workout",
-            confirmButtonColor: "#711bba",
+            confirmButtonColor: color,
             preConfirm: () => {
                 const exercise =
                     Swal.getPopup().querySelector("#exercise").value;
@@ -170,7 +172,7 @@ export function inviteAthlete(host, code) {
                 </div>
                 <div id="copiedMessage" style="display: none; color: green; margin-top: 10px; margin-bottom: 0;">Copied!</div>
             </div>`,
-        confirmButtonColor: "#711bba",
+        confirmButtonColor: color,
     });
 
     const copyButton = document.getElementById("copyButton");
@@ -208,7 +210,7 @@ export function copyWorkout(workout_id, workout_date, router) {
         },
         showCancelButton: true,
         confirmButtonText: "Copy",
-        confirmButtonColor: "#711bba",
+        confirmButtonColor: color,
         showLoaderOnConfirm: true,
         preConfirm: async (date) => {
             try {
@@ -244,7 +246,7 @@ export function addBodyWeightPopUp(date, user_id, isCoach) {
             focusConfirm: false,
             showCancelButton: true,
             confirmButtonText: "Add",
-            confirmButtonColor: "#711bba",
+            confirmButtonColor: color,
             preConfirm: () => {
                 const value = Swal.getPopup().querySelector("#value").value;
 
@@ -308,7 +310,7 @@ export function editBodyWeightPopUp(value, id, isCoach) {
             focusConfirm: false,
             showCancelButton: true,
             confirmButtonText: "Add",
-            confirmButtonColor: "#711bba",
+            confirmButtonColor: color,
             preConfirm: () => {
                 const value = Swal.getPopup().querySelector("#value").value;
 
@@ -387,7 +389,7 @@ export function addPaymentPopUp(coach_id, athlete_id) {
             focusConfirm: false,
             showCancelButton: true,
             confirmButtonText: "Add",
-            confirmButtonColor: "#711bba",
+            confirmButtonColor: color,
             preConfirm: () => {
                 const date = Swal.getPopup().querySelector("#date").value;
                 const quantity =
@@ -446,7 +448,7 @@ export function athletePaymentsHistoric(athlete) {
     </ul>
  `,
         confirmButtonText: "Ok",
-        confirmButtonColor: "#711bba",
+        confirmButtonColor: color,
         showCancelButton: true,
     });
 }

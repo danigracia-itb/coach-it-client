@@ -1,8 +1,8 @@
 <template>
     <Spinner v-if="loading" class="mx-auto mt-5" />
     <div class="mt-5" v-else>
-        <div class="d-flex justify-content-start">
-            <button class="btn btn-primary" @click="router.push(authStore.is_coach ? `/coach/athlete/${athlete_id}` : `/athlete/calendar`)">
+        <div class="d-flex justify-content-start mb-3" v-if="authStore.is_coach">
+            <button class="btn btn-primary" @click="router.push(`/coach/athlete/${athlete_id}`)">
                 <font-awesome-icon icon="fa-solid fa-left-long" />
             </button>
         </div>
