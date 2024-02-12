@@ -70,11 +70,11 @@ const routes = [
       },
       {
         path: "athlete/:id/workout/create",
-        component: () => import("./pages/workout/EditWorkout.vue"),
+        component: () => import("./pages/workout/Workout.vue"),
       },
       {
         path: "athlete/:id/workout/:workout_id",
-        component: () => import("./pages/workout/EditWorkout.vue"),
+        component: () => import("./pages/workout/Workout.vue"),
       },
     ],
   },
@@ -97,11 +97,11 @@ const routes = [
       },
       {
         path: "workout/:workout_id",
-        component: () => import("./pages/workout/EditWorkout.vue"),
+        component: () => import("./pages/workout/Workout.vue"),
       },
       {
         path: "workout/create",
-        component: () => import("./pages/workout/EditWorkout.vue"),
+        component: () => import("./pages/workout/Workout.vue"),
       },
       {
         path: "exercises",

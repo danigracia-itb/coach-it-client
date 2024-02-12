@@ -132,7 +132,7 @@ function workoutMenu(authStore, props, workoutDeleted, newAvailableDay, newRestD
         return [{
             label: "Workout",
             icon: h("img", {
-                src: "/assets/icons/pen-solid.svg",
+                src: "/assets/icons/dumbbell-solid.svg",
                 style: {
                     zIndex: 100,
                 },
@@ -144,32 +144,10 @@ function workoutMenu(authStore, props, workoutDeleted, newAvailableDay, newRestD
         }]
     }
     else if (!((props.isRestday || newRestDay.value) && !newAvailableDay.value)) {
-        children = [
-            ...children,
-            {
-                label: "Workout",
-                icon: h("img", {
-                    src: "/assets/icons/plus-solid.svg",
-                    style: {
-                        width: "15",
-                        height: "15",
-                        zIndex: 100,
-                    },
-                }),
-                onClick: () => {
-                    router.push(
-                        authStore.is_coach
-                            ? `/coach/athlete/${props.athlete.id}/workout/create?date=${props.day.date}`
-                            : `/athlete/workout/create?date=${props.day.date}`
-                    );
-                },
-            },
-        ]
-
         return [{
             label: "Workout",
             icon: h("img", {
-                src: "/assets/icons/pen-solid.svg",
+                src: "/assets/icons/plus-solid.svg",
                 style: {
                     zIndex: 100,
                 },
@@ -177,7 +155,13 @@ function workoutMenu(authStore, props, workoutDeleted, newAvailableDay, newRestD
 
             divided: true,
 
-            children
+            onClick: () => {
+                router.push(
+                    authStore.is_coach
+                        ? `/coach/athlete/${props.athlete.id}/workout/create?date=${props.day.date}`
+                        : `/athlete/workout/create?date=${props.day.date}`
+                );
+            },
         }]
     }
     else {
@@ -210,9 +194,21 @@ function bodyWeightMenu(authStore, props) {
         )
 
 
+        return [
+            {
+                label: "Body Weight",
+                icon: h("img", {
+                    src: "/assets/icons/weight-scale-solid.svg",
+                    style: {
+                        zIndex: 100,
+                    },
+                }),
+                children
+            }
+        ]
     } else {
-        children.push({
-            label: "Add",
+       return [{
+            label: "Body Weight",
             icon: h("img", {
                 src: "/assets/icons/plus-solid.svg",
                 style: {
@@ -226,22 +222,8 @@ function bodyWeightMenu(authStore, props) {
                     props.isCoach
                 );
             },
-        },
-        )
+        }]
     }
-
-    return [
-        {
-            label: "Body Weight",
-            icon: h("img", {
-                src: "/assets/icons/weight-scale-solid.svg",
-                style: {
-                    zIndex: 100,
-                },
-            }),
-            children
-        }
-    ]
 }
 
 export function calendarContextMenu(e, props, newAvailableDay, newRestDay, workoutDeleted) {
