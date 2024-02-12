@@ -28,18 +28,8 @@
         <div
             class="d-flex flex-column gap-1 justify-content-center align-items-center pt-5 pt-md-0"
         >
-            <!-- <p
-                v-if="(isRestday || newRestDay) && !newAvailableDay"
-                
-                style="font-size: 2rem"
-                class="align-self-flex-start"
-                id="restday"
-            >
-                <font-awesome-icon icon="fa-solid fa-bed" />
-            </p> -->
-
             <RouterLink
-                v-if="hasWorkout && !workoutDeleted"
+                v-if="hasWorkout"
                 :to="
                     authStore.is_coach
                         ? `/coach/athlete/${athlete.id}/workout/${workout.id}`
@@ -49,6 +39,19 @@
             >
                 <font-awesome-icon icon="fa-solid fa-dumbbell" />
                 <span class="d-none d-md-inline">Workout</span>
+            </RouterLink>
+
+            <RouterLink
+                v-if="hasTrac"
+                :to="
+                    authStore.is_coach
+                        ? `/coach/athlete/${athlete.id}/trac/${trac.id}`
+                        : `/athlete/trac/${trac.id}`
+                "
+                class="btn btn-warning d-flex gap-1 align-items-center"
+            >
+            <font-awesome-icon icon="fa-solid fa-chart-bar" />
+                <span class="d-none d-md-inline">Trac</span>
             </RouterLink>
 
             <div
@@ -80,25 +83,34 @@ const props = defineProps([
     "day",
     "isCurrentMonth",
     "isToday",
-    "isRestday",
     "athlete",
+
+    //restday
+    "isRestday",
+
+    //Workout
     "hasWorkout",
     "workout",
+
+    //body weight
     "hasBodyWeight",
     "bodyWeight",
-]);
 
-const newRestDay = ref(false);
-const newAvailableDay = ref(false);
+    //tracs
+    "hasTrac",
+    "trac",
+]);
 
 const label = computed(() => {
     return dayjs(props.day.date).format("D");
 });
 
-const workoutDeleted = ref(false);
+
+const newRestDay = ref(false);
+const newAvailableDay = ref(false);
 
 function handleCalendarContextMenu(e) {
-    calendarContextMenu(e, props, newAvailableDay, newRestDay, workoutDeleted)
+    calendarContextMenu(e, props, newAvailableDay, newRestDay)
 }
 
 </script>

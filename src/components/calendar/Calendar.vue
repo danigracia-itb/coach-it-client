@@ -14,13 +14,19 @@
                 :key="day.date"
                 :day="day"
                 :is-today="day.date === today"
-                :is-restday="isRestDay(day.date)"
                 :athlete="athlete"
+                :isCoach="isCoach"
+
+                :is-restday="isRestDay(day.date)"
+
                 :has-workout="hasWorkout(day.date)"
                 :workout="getWorkout(day.date)"
+                
                 :has-body-weight="hasBodyWeight(day.date)"
                 :bodyWeight="getBodyWeight(day.date)"
-                :isCoach="isCoach"
+
+                :has-trac="hasTrac(day.date)"
+                :trac="getTrac(day.date)"
             />
         </ol>
     </div>
@@ -54,18 +60,10 @@ export default {
             type: Boolean,
             required: true
         },
-        workouts: {
-            type: Array,
-            required: true,
-        },
-        restDays: {
-            type: Array,
-            required: true, 
-        },
-        bodyWeights: {
-            type: Array,
+        calendar: {
+            type: Object,
             required: true
-        },
+        }
     },
 
     data() {
@@ -179,22 +177,26 @@ export default {
         selectDate(newSelectedDate) {
             this.selectedDate = newSelectedDate;
         },
-        hasWorkout(date) {
-            // Verifica si hay un workout en la fecha dada
-            return this.workouts.some((workout) => workout.date === date);
-        },
-        hasBodyWeight(date) {
-            // Verifica si hay un workout en la fecha dada
-            return this.bodyWeights.some((bodyWeights) => bodyWeights.date === date);
-        },
         isRestDay(date) {
-            return this.restDays.some((day) => day.date === date);
+            return this.calendar.restDays.some((day) => day.date === date);
         },
         getWorkout(date) {
-            return this.workouts.find((workout) => workout.date === date);
+            return this.calendar.workouts.find((workout) => workout.date === date);
         },
         getBodyWeight(date) {
-            return this.bodyWeights.find((bodyWeights) => bodyWeights.date === date);
+            return this.calendar.bodyWeights.find((bodyWeights) => bodyWeights.date === date);
+        },
+        getTrac(date) {
+            return this.calendar.tracs.find((trac) => trac.date === date);
+        },
+        hasWorkout(date) {
+            return this.calendar.workouts.some((workout) => workout.date === date);
+        },
+        hasBodyWeight(date) {
+            return this.calendar.bodyWeights.some((bodyWeights) => bodyWeights.date === date);
+        },
+        hasTrac(date) {
+            return this.calendar.tracs.some((trac) => trac.date === date);
         }
     },
 };

@@ -165,7 +165,7 @@ async function saveData() {
     await authController.updateUserData(newName.value, newEmail.value);
 
     if (configStore.error) {
-        toast.error("Server error", {
+        toast.error("Server Error: Changes have not been saved.", {
             position: "top",
         });
     } else {

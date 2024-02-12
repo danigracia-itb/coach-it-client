@@ -36,6 +36,26 @@
             </div>
 
             <div
+                class="d-flex justify-content-between align-items-center p-3 rounded bg-warning text-white"
+            >
+                <span class="fw-bold my-2">Trac </span>
+                <RouterLink
+                    v-if="!getTodayEvents.trac"
+                    class="btn btn-light"
+                    :to="`/athlete/trac/create?date=${today}`"
+                >
+                    <font-awesome-icon icon="fa-solid fa-plus" />
+                </RouterLink>
+                <RouterLink
+                    v-else
+                    :to="`/athlete/trac/${getTodayEvents.trac.id}`"
+                    class="btn btn-light"
+                >
+                    <font-awesome-icon icon="fa-solid fa-pen" />
+                </RouterLink>
+            </div>
+
+            <div
                 class="d-flex justify-content-between align-items-center p-3 rounded bg-success text-white"
             >
                 <span class="fw-bold my-2">Body Weight</span>
@@ -93,6 +113,7 @@ async function getCalendar() {
             workouts: calendarResponse.data.workouts,
             restDays: calendarResponse.data.restDays,
             bodyWeights: calendarResponse.data.bodyWeights,
+            tracs: calendarResponse.data.tracs,
         });
 
         loading.value = false;

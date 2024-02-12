@@ -76,6 +76,14 @@ const routes = [
         path: "athlete/:id/workout/:workout_id",
         component: () => import("./pages/workout/Workout.vue"),
       },
+      {
+        path: "athlete/:id/trac/create",
+        component: () => import("./pages/trac/Trac.vue"),
+      },
+      {
+        path: "athlete/:id/trac/:trac_id",
+        component: () => import("./pages/trac/Trac.vue"),
+      },
     ],
   },
 
@@ -109,6 +117,10 @@ const routes = [
       },
       {
         path: "trac/create",
+        component: () => import("./pages/trac/Trac.vue"),
+      },
+      {
+        path: "trac/:trac_id",
         component: () => import("./pages/trac/Trac.vue"),
       },
     ],

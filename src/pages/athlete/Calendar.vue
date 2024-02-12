@@ -3,7 +3,7 @@
         <h1 class="text-center d-none d-md-block">Calendar</h1>
 
         <div v-if="!loading">
-            <Calendar :isCoach="false" :athlete="authStore.user"  :workouts="athleteStore.calendar.workouts" :restDays="athleteStore.calendar.restDays" :bodyWeights="athleteStore.calendar.bodyWeights"/>
+            <Calendar :isCoach="false" :athlete="authStore.user"  :calendar="athleteStore.calendar"/>
         </div>
         <Spinner v-else />
     </div>
@@ -39,6 +39,7 @@ async function getCalendar() {
             workouts: calendarResponse.data.workouts,
             restDays: calendarResponse.data.restDays,
             bodyWeights: calendarResponse.data.bodyWeights,
+            tracs: calendarResponse.data.tracs
         })
 
         loading.value = false;

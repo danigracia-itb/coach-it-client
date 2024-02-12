@@ -1,8 +1,14 @@
 <template>
     <Spinner v-if="loading" class="mx-auto mt-5" />
     <div class="mt-5" v-else>
-        <div class="d-flex justify-content-start mb-3" v-if="authStore.is_coach">
-            <button class="btn btn-primary" @click="router.push(`/coach/athlete/${athlete_id}`)">
+        <div
+            class="d-flex justify-content-start mb-3"
+            v-if="authStore.is_coach"
+        >
+            <button
+                class="btn btn-primary"
+                @click="router.push(`/coach/athlete/${athlete_id}`)"
+            >
                 <font-awesome-icon icon="fa-solid fa-left-long" />
             </button>
         </div>
@@ -10,13 +16,13 @@
         <header v-if="editing">
             <h1 class="text-center">
                 Edit
-                <span class="text-primary">{{ workout_date }}</span> Workout
+                <span class="text-primary">{{ workoutDate }}</span> Workout
             </h1>
         </header>
 
         <header v-else>
             <h1 class="text-center">Create Workout</h1>
-            <p class="text-primary text-center fw-bold">{{ date }}</p>
+            <p class="text-primary text-center fw-bold">{{ workoutDate }}</p>
         </header>
 
         <section class="mt-5">
@@ -197,12 +203,16 @@ import SetsCard from "../../components/workout/SetsCard.vue";
 //stores
 import useExercisesStore from "../../stores/useExercisesStore";
 import useAuthStore from "../../stores/useAuthStore";
+import useCoachStore from "../../stores/useCoachStore";
+import useAthleteStore from "../../stores/useAthleteStore";
 
 //controllers
 import exerciseController from "../../controllers/exerciseController";
 
 const exercisesStore = useExercisesStore();
 const authStore = useAuthStore();
+const athleteStore = useAthleteStore();
+const coachStore = useCoachStore();
 
 //route
 const route = useRoute();
@@ -213,9 +223,9 @@ const toast = useToast();
 const athlete_id = route.params.id;
 const workout_id = ref(route.params.workout_id);
 
-const editing = ref(route.params.workout_id ? true : false) 
+const editing = ref(route.params.workout_id ? true : false);
 
-const workout_date = ref(route.query.date ?? null);
+const workoutDate = ref(route.query.date ?? null);
 const loading = ref(false);
 
 const workout = reactive([]);
@@ -227,7 +237,7 @@ async function getWorkout() {
     loading.value = true;
     try {
         const response = await axiosClient("workout/" + workout_id.value);
-        workout_date.value = response.data[0].date;
+        workoutDate.value = response.data[0].date;
 
         for (let i of response.data) {
             workout.push(i);
@@ -344,16 +354,31 @@ async function saveWorkout(close = false) {
         } else {
             const response = await axiosClient.post("workout", {
                 user_id: athlete_id ?? authStore.id,
-                date: workout_date.value,
+                date: workoutDate.value,
                 workout,
             });
-            editing.value = true
-            router.push(authStore.is_coach ? `/coach/athlete/${athlete_id}/workout/${response.data.id}` : "/athlete/workout/" + response.data.id)
+            editing.value = true;
+            
+            if (authStore.is_coach) {
+                coachStore.addWorkout(response.data);
+            } else {
+                athleteStore.addWorkout(response.data);
+            }
+            
+            router.push(
+                authStore.is_coach
+                    ? `/coach/athlete/${athlete_id}/workout/${response.data.id}`
+                    : "/athlete/workout/" + response.data.id
+            );
         }
 
         if (close) {
             loading.value = false;
-            router.push(authStore.is_coach ? `/coach/athlete/${athlete_id}` : `/athlete/calendar`)
+            router.push(
+                authStore.is_coach
+                    ? `/coach/athlete/${athlete_id}`
+                    : `/athlete/calendar`
+            );
         } else {
             loading.value = false;
             toast.success("Workout saved", { position: "top" });
@@ -361,7 +386,9 @@ async function saveWorkout(close = false) {
     } catch (error) {
         console.log(error);
         loading.value = false;
-        toast.error("Error, changes have not been saved", { position: "top" });
+        toast.error("Server Error: Changes have not been saved.", {
+            position: "top",
+        });
     }
 }
 
