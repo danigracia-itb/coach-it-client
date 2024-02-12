@@ -95,43 +95,33 @@
 
                     <!-- Main exercise content -->
                     <section v-if="exercise.shown" class="mt-5">
-                        <header
-                            class="d-flex justify-content-between align-items-center mb-3"
-                        >
-                            <p class="mb-0">
-                                <span class="fw-bold">Total Sets:</span>
-                                {{ exercise.sets.length }}
-                            </p>
-
-                            <div class="d-flex flex-column align-items-end">
-                                <p class="mb-0">
-                                    <span class="fw-bold"
-                                        >Actual / Target Tonelage:</span
-                                    >
-                                    {{
-                                        calculateTonelage(
-                                            exercise.sets,
-                                            true,
-                                            false
-                                        )
-                                    }}kg /
-                                    {{
-                                        calculateTonelage(exercise.sets, true)
-                                    }}kg
-                                </p>
-                                <p class="mb-0">
-                                    <span class="fw-bold">E1RM: </span>
-                                    {{ calculateMaxRpe(exercise.sets) }}kg
-                                </p>
-                            </div>
-                        </header>
-
                         <SetsCard
                             :exercise="exercise"
                             :copy-to-next-set="copyToNextSet"
                             :copy-to-actual="copyToActual"
                             :delete-set="deleteSet"
                         />
+
+                        <section class="d-flex flex-wrap gap-3 mb-3 h5">
+                            <p class="mb-0 text-nowrap">
+                                <span class="fw-bold">E1RM: </span>
+                                {{ calculateMaxRpe(exercise.sets) }}kg
+                            </p>
+                            <p class="mb-0 text-nowrap">
+                                <span class="fw-bold">Target Tonelage:</span>
+                                {{ calculateTonelage(exercise.sets, true) }}kg
+                            </p>
+                            <p class="mb-0 text-nowrap">
+                                <span class="fw-bold">Actual Tonelage:</span>
+                                {{
+                                    calculateTonelage(
+                                        exercise.sets,
+                                        true,
+                                        false
+                                    )
+                                }}kg
+                            </p>
+                        </section>
 
                         <button
                             class="btn btn-secondary w-100"
@@ -237,7 +227,6 @@ async function getWorkout() {
     loading.value = true;
     try {
         const response = await axiosClient("workout/" + workout_id);
-        console.log(response.data);
         workout_date.value = response.data[0].date;
 
         for (let i of response.data) {

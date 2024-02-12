@@ -182,3 +182,41 @@ export const rpeTable = {
         4: 56.5
     }
 };
+
+export const tracOptions = {
+    sorenessLevels : {
+        1: "Severe soreness, very uncomfortable",
+        2: "Significant soreness, uncomfortable",
+        3: "Moderate soreness, noticeable but manageable",
+        4: "Slight soreness, barely notable",
+        5: "No soreness or tightness"
+    },
+    sleepAndNutritionLevels : {
+        1: "Terrible sleep and nutrition",
+        2: "Poor sleep or nutrition",
+        3: "Average sleep and nutrition",
+        4: "Good sleep and nutrition",
+        5: "Excellent sleep and nutrition"
+    },
+    recoveryLevels : {
+        1: "Feeling completely exhausted",
+        2: "Feeling very tired",
+        3: "Feeling somewhat tired",
+        4: "Feeling moderately fresh",
+        5: "Feeling very fresh"
+    },
+    motivationLevels : {
+        1: "Not motivated at all",
+        2: "Slightly motivated",
+        3: "Somewhat motivated",
+        4: "Moderately motivated",
+        5: "Very motivated"
+    },
+    technicalComfortLevels : {
+        1: "Very uncomfortable",
+        2: "A little uncomfortable",
+        3: "Somewhat comfortable",
+        4: "Mostly comfortable",
+        5: "Very comfortable"
+    },
+}

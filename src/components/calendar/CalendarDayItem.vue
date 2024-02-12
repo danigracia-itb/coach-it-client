@@ -1,6 +1,6 @@
 <template>
     <li
-        @contextmenu="onContextMenu($event)"
+        @contextmenu="handleCalendarContextMenu($event)"
         class="calendar-day"
         :class="{
             'calendar-day--not-current': !day.isCurrentMonth,
@@ -17,7 +17,7 @@
         }}</span>
 
         <button
-            @click="onContextMenu($event)"
+            @click="handleCalendarContextMenu($event)"
             v-if="day.isCurrentMonth"
             class="add-btn btn btn-success"
         >
@@ -63,19 +63,11 @@
 </template>
 
 <script setup>
-import { ref, computed, h } from "vue";
+import { ref, computed } from "vue";
 import dayjs from "dayjs";
-import { RouterLink } from "vue-router";
-import ContextMenu from "@imengyu/vue3-context-menu";
-import { useRouter } from "vue-router";
-import axiosClient from "../../config/axios";
+import { RouterLink, useRouter } from "vue-router";
 
-//helpers
-import {
-    copyWorkout,
-    addBodyWeightPopUp,
-    editBodyWeightPopUp,
-} from "../../functions/alerts";
+import { calendarContextMenu } from "../../functions/contextMenus";
 
 //stores
 import useAuthStore from "../../stores/useAuthStore";
@@ -105,194 +97,10 @@ const label = computed(() => {
 
 const workoutDeleted = ref(false);
 
-function onContextMenu(e) {
-    //prevent the browser's default menu
-    e.preventDefault();
-    //show your menu
-    ContextMenu.showContextMenu({
-        x: e.x,
-        y: e.y,
-        zIndex: 3,
-        items: [
-            ...((props.isRestday || newRestDay.value) && !newAvailableDay.value
-                ? [
-                      {
-                          label: "Available Day",
-                          icon: h("img", {
-                              src: "../../../assets/icons/calendar-check-solid.svg",
-                              style: {
-                                  width: "15",
-                                  height: "15",
-                                  zIndex: 100,
-                              },
-                          }),
-                          divided: true,
-                          onClick: () => {
-                              axiosClient.post("available-day", {
-                                  user_id: props.athlete.id,
-                                  date: props.day.date,
-                              });
-
-                              newRestDay.value = false;
-                              newAvailableDay.value = true;
-                          },
-                      },
-                  ]
-                : [
-                      {
-                          label: "Rest Day",
-                          icon: h("img", {
-                              src: "../../../assets/icons/calendar-xmark-solid.svg",
-                              style: {
-                                  width: "15",
-                                  height: "15",
-                                  zIndex: 100,
-                              },
-                          }),
-                          divided: true,
-                          onClick: () => {
-                              axiosClient.post("rest-day", {
-                                  user_id: props.athlete.id,
-                                  date: props.day.date,
-                              });
-
-                              newRestDay.value = true;
-                              newAvailableDay.value = false;
-                          },
-                      },
-                  ]),
-            ...(props.hasWorkout && !workoutDeleted.value
-                ? [
-                      {
-                          label: "Edit",
-                          icon: h("img", {
-                              src: "/assets/icons/pen-solid.svg",
-                              style: {
-                                  width: "15",
-                                  height: "15",
-                                  zIndex: 100,
-                              },
-                          }),
-
-                          divided: true,
-                          onClick: () => {
-                              router.push({
-                                  path: authStore.is_coach
-                                      ? `/coach/athlete/${props.athlete.id}/workout/${props.workout.id}`
-                                      : `/athlete/workout/${props.workout.id}`,
-                              });
-                          },
-                      },
-                      {
-                          label: "Copy",
-                          icon: h("img", {
-                              src: "/assets/icons/copy-solid.svg",
-                              style: {
-                                  width: "15",
-                                  height: "15",
-                                  zIndex: 100,
-                              },
-                          }),
-
-                          divided: true,
-                          onClick: () => {
-                              copyWorkout(
-                                  props.workout.id,
-                                  props.day.date,
-                                  router
-                              );
-                          },
-                      },
-                      {
-                          label: "Delete",
-                          icon: h("img", {
-                              src: "/assets/icons/trash-solid.svg",
-                              style: {
-                                  width: "15",
-                                  height: "15",
-                                  zIndex: 100,
-                              },
-                          }),
-                          divided: true,
-                          onClick: async () => {
-                              workoutDeleted.value = true;
-                              await axiosClient.delete(
-                                  "workout/" + props.workout.id
-                              );
-                          },
-                      },
-                  ]
-                : [
-                      ...((props.isRestday || newRestDay.value) &&
-                      !newAvailableDay.value
-                          ? []
-                          : [
-                                {
-                                    label: "Workout",
-                                    icon: h("img", {
-                                        src: "/assets/icons/plus-solid.svg",
-                                        style: {
-                                            width: "15",
-                                            height: "15",
-                                            zIndex: 100,
-                                        },
-                                    }),
-                                    divided: true,
-                                    onClick: () => {
-                                        router.push(
-                                            authStore.is_coach
-                                                ? `/coach/athlete/${props.athlete.id}/workout/create?date=${props.day.date}`
-                                                : `/athlete/workout/create?date=${props.day.date}`
-                                        );
-                                    },
-                                },
-                            ]),
-                  ]),
-
-            ...(props.hasBodyWeight
-                ? [
-                      {
-                          label: "Body Weight",
-                          icon: h("img", {
-                              src: "/assets/icons/pen-solid.svg",
-                              style: {
-                                  width: "15",
-                                  height: "15",
-                                  zIndex: 100,
-                              },
-                          }),
-                          onClick: () => {
-                              editBodyWeightPopUp(
-                                  props.bodyWeight.value,
-                                  props.bodyWeight.id,
-                                  props.isCoach
-                              );
-                          },
-                      },
-                  ]
-                : [
-                      {
-                          label: "Body Weight",
-                          icon: h("img", {
-                              src: "/assets/icons/plus-solid.svg",
-                              style: {
-                                  width: "15",
-                                  height: "15",
-                                  zIndex: 100,
-                              },
-                          }),
-                          onClick: () => {
-                              addBodyWeightPopUp(
-                                  props.day.date,
-                                  props.athlete.id,
-                                  props.isCoach
-                              );
-                          },
-                      },
-                  ]),
-        ],
-    });
+function handleCalendarContextMenu(e) {
+    calendarContextMenu(e, props, newAvailableDay, newRestDay, workoutDeleted)
 }
+
 </script>
 
 <style scoped>

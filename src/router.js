@@ -107,6 +107,10 @@ const routes = [
         path: "exercises",
         component: () => import("./pages/exercise/Exercises.vue"),
       },
+      {
+        path: "trac/create",
+        component: () => import("./pages/trac/Trac.vue"),
+      },
     ],
   },
 
