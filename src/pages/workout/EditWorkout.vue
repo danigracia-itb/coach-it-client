@@ -2,7 +2,7 @@
     <Spinner v-if="loading" class="mx-auto mt-5" />
     <div class="mt-5" v-else>
         <div class="d-flex justify-content-start">
-            <button class="btn btn-primary" @click="$router.back()">
+            <button class="btn btn-primary" @click="router.push(authStore.is_coach ? `/coach/athlete/${athlete_id}` : `/athlete/calendar`)">
                 <font-awesome-icon icon="fa-solid fa-left-long" />
             </button>
         </div>
@@ -211,9 +211,9 @@ const router = useRouter();
 const toast = useToast();
 
 const athlete_id = route.params.id;
-const workout_id = route.params.workout_id;
+const workout_id = ref(route.params.workout_id);
 
-const editing = route.params.workout_id ? true : false;
+const editing = ref(route.params.workout_id ? true : false) 
 
 const workout_date = ref(route.query.date ?? null);
 const loading = ref(false);
@@ -226,7 +226,7 @@ const counter = ref(1);
 async function getWorkout() {
     loading.value = true;
     try {
-        const response = await axiosClient("workout/" + workout_id);
+        const response = await axiosClient("workout/" + workout_id.value);
         workout_date.value = response.data[0].date;
 
         for (let i of response.data) {
@@ -330,24 +330,30 @@ function copyToActual(set) {
 
 //Enviar api
 async function saveWorkout(close = false) {
-    if (close || !editing) {
+    //Si el usuario quiere cerrar y esta creando el entreno
+    if (close || !editing.value) {
         loading.value = true;
     }
+
+    //Llamadas api
     try {
-        if (editing) {
-            await axiosClient.put("workout/" + workout_id, {
+        if (editing.value) {
+            await axiosClient.put("workout/" + route.params.workout_id, {
                 workout,
             });
         } else {
-            await axiosClient.post("workout", {
+            const response = await axiosClient.post("workout", {
                 user_id: athlete_id ?? authStore.id,
                 date: workout_date.value,
                 workout,
             });
+            editing.value = true
+            router.push(authStore.is_coach ? `/coach/athlete/${athlete_id}/workout/${response.data.id}` : "/athlete/workout/" + response.data.id)
         }
+
         if (close) {
             loading.value = false;
-            router.back();
+            router.push(authStore.is_coach ? `/coach/athlete/${athlete_id}` : `/athlete/calendar`)
         } else {
             loading.value = false;
             toast.success("Workout saved", { position: "top" });
@@ -360,7 +366,7 @@ async function saveWorkout(close = false) {
 }
 
 onMounted(() => {
-    if (editing) {
+    if (editing.value) {
         getWorkout();
     }
     if (exercisesStore.exercises.length <= 0) {
