@@ -45,7 +45,7 @@ const useExercisesStore = defineStore('exercises', {
                 if (!value) {
                     return groupExercises(state.exercises);
                 } else {
-                    const filtered = state.exercises.filter((e) => e.name.toLowerCase().includes(value));
+                    const filtered = state.exercises.filter((e) => e.name.toLowerCase().includes(value.toLowerCase()));
 
                     if (filtered) {
                         return groupExercises(filtered)
