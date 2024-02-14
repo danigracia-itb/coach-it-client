@@ -9,14 +9,14 @@
         </div>
 
         <header v-if="!editing">
-            <h1 class="text-center">Add Trac</h1>
+            <h1 class="text-center">Add Training Recovery Assessment Computed</h1>
             <p class="text-primary text-center fw-bold">{{ tracDate }}</p>
         </header>
 
         <header v-else>
-            <h1 class="text-center">
-                Edit <span class="text-primary">{{ tracDate }}</span> Trac
-            </h1>
+
+            <h1 class="text-center">Edit Training Recovery Assessment Computed</h1>
+            <p class="text-primary text-center fw-bold">Edit {{ tracDate }}</p>
         </header>
 
         <form class="mt-5" novalidate @submit.prevent="saveTrac()">

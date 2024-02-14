@@ -4,7 +4,7 @@
         class="calendar-day"
         :class="{
             'calendar-day--not-current': !day.isCurrentMonth,
-            'calendar-day--today bg-dark': isToday,
+            'calendar-day--today bg-primary': isToday,
             'calendar-day--rest-day':
                 (isRestday || newRestDay) && !newAvailableDay,
         }"

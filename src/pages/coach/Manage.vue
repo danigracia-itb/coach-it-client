@@ -5,18 +5,24 @@
 
             <Spinner class="mt-5" v-if="configStore.loading" />
 
-            <div class="d-flex justify-content-start mt-5 mt-md-0"
-                v-if="!configStore.loading">
-                <input type="text" id="searchTerm"
+            <div
+                class="d-flex justify-content-start mt-5 mt-md-0"
+                v-if="!configStore.loading"
+            >
+                <input
+                    type="text"
+                    id="searchTerm"
                     class="form-control w-auto"
                     placeholder="Search athlete..."
-                    v-model="searchInput" />
+                    v-model="searchInput"
+                />
             </div>
-
         </header>
 
-        <table class="table table-striped mt-5"
-            v-if="!configStore.loading && coachStore.athletes.length > 0">
+        <table
+            class="table table-striped mt-5"
+            v-if="!configStore.loading && coachStore.athletes.length > 0"
+        >
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -28,75 +34,105 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="athlete in coachStore.getFilteredAthletes(searchInput)"
-                    :key="athlete.id" :class="athlete.payments.length > 0 ?
-                            (isDateBeforeOrEqualToToday(athlete.payments[athlete.payments.length - 1].date)
+                <tr
+                    v-for="athlete in coachStore.getFilteredAthletes(
+                        searchInput
+                    )"
+                    :key="athlete.id"
+                    :class="
+                        athlete.payments.length > 0
+                            ? isDateBeforeOrEqualToToday(
+                                  athlete.payments[athlete.payments.length - 1]
+                                      .date
+                              )
                                 ? 'table-danger'
-                                : '') : ''
-                        ">
+                                : ''
+                            : ''
+                    "
+                >
                     <td>{{ athlete.id }}</td>
                     <td>{{ athlete.name }}</td>
                     <td>
                         {{
                             athlete.payments.length > 0
-                            ?
-                            formatDate(athlete.payments[athlete.payments.length
-                                - 1].date)
-                            : "No data"
+                                ? formatDate(
+                                      athlete.payments[
+                                          athlete.payments.length - 1
+                                      ].date
+                                  )
+                                : "No data"
                         }}
                     </td>
                     <td>
                         {{
                             athlete.payments.length > 0
-                            ?
-                            addMonths(athlete.payments[athlete.payments.length
-                                - 1].date,
-                                paymentTypeToMonths(athlete.payments[athlete.payments.length
-                                    - 1].payment_type))
-                            : "No data"
+                                ? addMonths(
+                                      athlete.payments[
+                                          athlete.payments.length - 1
+                                      ].date,
+                                      paymentTypeToMonths(
+                                          athlete.payments[
+                                              athlete.payments.length - 1
+                                          ].payment_type
+                                      )
+                                  )
+                                : "No data"
                         }}
                     </td>
                     <td>
                         {{
                             athlete.payments.length > 0
-                            ?
-                            athlete.payments[athlete.payments.length
-                                - 1].quantity
-                            : "No data"
+                                ? athlete.payments[athlete.payments.length - 1]
+                                      .quantity
+                                : "No data"
                         }}€
                     </td>
                     <td class="d-flex gap-3">
-                        <button class="btn btn-success"
-                            @click="handleAddPayment(athlete.id)">
-                            <font-awesome-icon
-                                icon="fa-solid fa-add" />
+                        <button
+                            class="btn btn-success"
+                            @click="handleAddPayment(athlete)"
+                        >
+                            <font-awesome-icon icon="fa-solid fa-add" />
                         </button>
-                        <button class="btn btn-info"
-                            @click="handleAthleteHistoric(athlete.id)">
+                        <button
+                            class="btn btn-info"
+                            @click="handleAthleteHistoric(athlete.id)"
+                        >
                             <font-awesome-icon
-                                icon="fa-solid fa-clock-rotate-left" />
+                                icon="fa-solid fa-clock-rotate-left"
+                            />
                         </button>
-                        <button class="btn btn-warning"
+                        <button
+                            class="btn btn-warning"
                             v-tooltip="'Send payment reminder'"
-                            @click="coachController.sendPaymentReminder(athlete)">
-                            <font-awesome-icon
-                                icon="fa-solid fa-bell" />
+                            @click="
+                                coachController.sendPaymentReminder(athlete)
+                            "
+                        >
+                            <font-awesome-icon icon="fa-solid fa-bell" />
                         </button>
-                        <button class="btn btn-danger"
-                            @click="coachController.deleteAthlete(athlete.id)">
-                            <font-awesome-icon
-                                icon="fa-solid fa-trash" />
+                        <button
+                            class="btn btn-danger"
+                            @click="coachController.deleteAthlete(athlete.id)"
+                        >
+                            <font-awesome-icon icon="fa-solid fa-trash" />
                         </button>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <div class="w-100 mt-5"
-            v-if="!configStore.loading && coachStore.athletes.length <= 0">
-            <h4 class="text-center">You have no athletes, <span
+        <div
+            class="w-100 mt-5"
+            v-if="!configStore.loading && coachStore.athletes.length <= 0"
+        >
+            <h4 class="text-center">
+                You have no athletes,
+                <span
                     class="cursor-pointer text-primary"
-                    @click="inviteAthlete(host, authStore.id)">invite
-                    your first athlete</span></h4>
+                    @click="inviteAthlete(host, authStore.id)"
+                    >invite your first athlete</span
+                >
+            </h4>
         </div>
     </div>
 </template>
@@ -108,12 +144,12 @@ import {
     addMonths,
     formatDate,
     isDateBeforeOrEqualToToday,
-    paymentTypeToMonths
+    paymentTypeToMonths,
 } from "../../functions/helpers";
 import {
     addPaymentPopUp,
     athletePaymentsHistoric,
-    inviteAthlete
+    inviteAthlete,
 } from "../../functions/alerts";
 
 import useCoachStore from "../../stores/useCoachStore";
@@ -121,11 +157,11 @@ import useConfigStore from "../../stores/useConfigStore";
 import useAuthStore from "../../stores/useAuthStore";
 import coachController from "../../controllers/coachController";
 
-const coachStore = useCoachStore()
-const configStore = useConfigStore()
-const authStore = useAuthStore()
+const coachStore = useCoachStore();
+const configStore = useConfigStore();
+const authStore = useAuthStore();
 
-const host = window.location.host
+const host = window.location.host;
 
 const searchInput = ref("");
 
@@ -141,7 +177,7 @@ function handleAddPayment(athlete) {
 
 onMounted(() => {
     if (coachStore.athletes.length <= 0) {
-        coachController.getAthletes()
+        coachController.getAthletes();
     }
 });
 </script>
@@ -154,4 +190,5 @@ th {
 
 td {
     vertical-align: middle;
-}</style>
+}
+</style>
