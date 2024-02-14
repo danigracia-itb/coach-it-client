@@ -583,7 +583,7 @@ async function sendForm() {
 
     try {
         //Call API
-        await axiosClient.post("athlete/user-data/", {
+        await axiosClient.post("athlete/user-data", {
             user_id: route.query.id,
             date_birth: date_birth.value,
             height: height.value,
