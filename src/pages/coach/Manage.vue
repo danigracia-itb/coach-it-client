@@ -60,7 +60,7 @@
                                           athlete.payments.length - 1
                                       ].date
                                   )
-                                : "No data"
+                                : "-"
                         }}
                     </td>
                     <td>
@@ -76,16 +76,16 @@
                                           ].payment_type
                                       )
                                   )
-                                : "No data"
+                                : "-"
                         }}
                     </td>
                     <td>
                         {{
                             athlete.payments.length > 0
                                 ? athlete.payments[athlete.payments.length - 1]
-                                      .quantity
-                                : "No data"
-                        }}€
+                                      .quantity + "€"
+                                : "-"
+                        }}
                     </td>
                     <td class="d-flex gap-3">
                         <button
@@ -115,7 +115,7 @@
                             class="btn btn-danger"
                             @click="coachController.deleteAthlete(athlete.id)"
                         >
-                            <font-awesome-icon icon="fa-solid fa-trash" />
+                            <font-awesome-icon icon="fa-solid fa-unlink" />
                         </button>
                     </td>
                 </tr>

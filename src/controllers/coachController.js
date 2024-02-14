@@ -34,11 +34,11 @@ const coachController = {
         const coachStore = useCoachStore();
 
         Swal.fire({
-            title: "¿Do you want to delete this athlete?",
-            text: "Once eliminated, he will no longer be your athlete, and will have to re-enter your code.",
+            title: "¿Do you want to unlink this athlete?",
+            text: "Once unlinked, he will no longer be your athlete, and will have to re-enter your code.",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#711bba",
+            confirmButtonColor: import.meta.env.VITE_PRIMARY_COLOR,
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes",
             cancelButtonText: "No",
@@ -93,7 +93,7 @@ const coachController = {
                 text: `Payment reminder sent successfully to ${athlete.name} for an amount of ${athlete.payments[0].quantity}€ `,
                 showCancelButton: true,
                 confirmButtonText: "Confirm",
-                confirmButtonColor: "#711bba",
+                confirmButtonColor: import.meta.env.VITE_PRIMARY_COLOR,
             });
         } catch (error) {
             configStore.setLoading(false)

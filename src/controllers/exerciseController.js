@@ -49,7 +49,7 @@ const exerciseController = {
             focusConfirm: false,
             showCancelButton: true,
             confirmButtonText: "Add",
-            confirmButtonColor: "#711bba",
+            confirmButtonColor: import.meta.env.VITE_PRIMARY_COLOR,
             preConfirm: () => {
                 const name = Swal.getPopup().querySelector("#name").value;
                 const muscular_group =
@@ -57,6 +57,10 @@ const exerciseController = {
 
                 if (!name || !muscular_group) {
                     Swal.showValidationMessage("Both fields are mandatory.");
+                }
+
+                if(exercisesStore.exercises.some(e => e.name.toLowerCase() == name.toLowerCase())) {
+                    Swal.showValidationMessage("This exercise is already created.");
                 }
 
                 return { name, muscular_group };

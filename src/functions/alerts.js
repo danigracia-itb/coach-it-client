@@ -242,7 +242,7 @@ export function addBodyWeightPopUp(date, user_id, isCoach) {
             html: `    
                 <div class="form-group mt-5">
                     <label for="value" class="form-label d-block">KG</label>
-                    <input type="number" id="value" name="value" class="form-control">
+                    <input type="number" id="value" name="value" class="form-control" onkeypress='return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)'>
                 </div>
                 `,
             focusConfirm: false,
@@ -302,16 +302,16 @@ export function addBodyWeightPopUp(date, user_id, isCoach) {
 export function editBodyWeightPopUp(value, id, isCoach) {
     return new Promise((resolve, reject) => {
         Swal.fire({
-            title: "Add Body Weight",
+            title: "Edit Body Weight",
             html: `    
                 <div class="form-group mt-5">
                     <label for="value" class="form-label d-block">KG</label>
-                    <input type="number" id="value" name="value" value="${value}" class="form-control">
+                    <input type="number" id="value" name="value" value="${value}" class="form-control" onkeypress='return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)'>
                 </div>
                 `,
             focusConfirm: false,
             showCancelButton: true,
-            confirmButtonText: "Add",
+            confirmButtonText: "Edit",
             confirmButtonColor: color,
             preConfirm: () => {
                 const value = Swal.getPopup().querySelector("#value").value;
@@ -443,7 +443,7 @@ export function addPaymentPopUp(coach_id, athlete) {
 
 export function athletePaymentsHistoric(athlete) {
     Swal.fire({
-        title: `<h4><span class="fw-bold text-primary">${athlete.name}</span> Payment Historial</h4>`,
+        title: `<h4><span class="fw-bold text-primary">${athlete.name}</span> Payment History</h4>`,
         iconHtml: "",
         html: `
         <ul class="list-unstyled">
