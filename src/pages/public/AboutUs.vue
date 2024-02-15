@@ -392,14 +392,14 @@ svg {
 }
 
 .btn-primary {
-    background-color: #9329f4;
+    background-color: #6c1c9c;
     border: none;
     border-radius: 5px;
     padding: 6px;
 }
 
 .btn-primary:hover {
-    background-color: #6c1c9c;
+    background-color: #561292;
 }
 
 .message-sent {
