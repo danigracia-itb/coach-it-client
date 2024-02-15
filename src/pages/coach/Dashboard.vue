@@ -64,13 +64,12 @@ onMounted(() => {
     }
 });
 
-// Función computada para filtrar atletas
 const filteredAthletes = computed(() => {
-    const searchTerm = searchInput.value.trim(); // Eliminar espacios en blanco alrededor del término de búsqueda
-    const lowercaseSearchTerm = searchTerm.toLowerCase(); // Convertir el término de búsqueda a minúsculas
+    const searchTerm = searchInput.value.trim(); 
+    const lowercaseSearchTerm = searchTerm.toLowerCase(); 
     return coachStore.athletes.filter(athlete => {
-        const lowercaseName = athlete.name.toLowerCase(); // Convertir el nombre del atleta a minúsculas
-        return lowercaseName.includes(lowercaseSearchTerm); // Realizar la comparación en minúsculas
+        const lowercaseName = athlete.name.toLowerCase(); 
+        return lowercaseName.includes(lowercaseSearchTerm); 
     });
 });
 </script>
