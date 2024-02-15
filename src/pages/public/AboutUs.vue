@@ -23,7 +23,7 @@
             </div>
         </section>
 
-        <section
+        <!-- <section
             class="bg-light px-5 py-2 d-flex flex-column flex-sm-row justify-content-between align-items-center shadow-sm"
         >
             <RouterLink to="/"
@@ -81,7 +81,8 @@
                     >
                 </div>
             </nav>
-        </section>
+        </section> -->
+        <HomeMobileMenu></HomeMobileMenu>
     </header>
 
     <section class="bg-light p-5 about-us-container">
@@ -215,6 +216,7 @@
 import { ref } from "vue";
 import Footer from "./Footer.vue";
 import axiosClient from "../../config/axios";
+import HomeMobileMenu from "../../components/utils/HomeMobileMenu.vue";
 
 const email = ref("");
 const subject = ref("");
