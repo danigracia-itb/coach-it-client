@@ -23,7 +23,7 @@
         <div class="athletes-grid h-100 w-100 mt-5" v-if="!configStore.loading && coachStore.athletes.length > 0">
 
             <AthleteCard
-                v-for="athlete in coachStore.getFilteredAthletes(searchInput)"
+                v-for="athlete in filteredAthletes"
                 :key="athlete.id"
                 :athlete="athlete"
             />
@@ -38,17 +38,17 @@
 import { onMounted, ref, computed } from "vue";
 import { inviteAthlete } from "../../functions/alerts";
 
-//Components
+// Components
 import Spinner from "../../components/utils/Spinner.vue";
 import InviteAthlete from "../../components/coach/InviteAthlete.vue";
 import AthleteCard from "../../components/coach/athletes/AthleteCard.vue";
 
-//Stores
+// Stores
 import useConfigStore from "../../stores/useConfigStore";
 import useCoachStore from "../../stores/useCoachStore";
 import useAuthStore from "../../stores/useAuthStore";
 
-//Controllers
+// Controllers
 import coachController from "../../controllers/coachController";
 
 const coachStore = useCoachStore();
@@ -62,6 +62,16 @@ onMounted(() => {
     if (coachStore.athletes.length <= 0) {
         coachController.getAthletes();
     }
+});
+
+// Función computada para filtrar atletas
+const filteredAthletes = computed(() => {
+    const searchTerm = searchInput.value.trim(); // Eliminar espacios en blanco alrededor del término de búsqueda
+    const lowercaseSearchTerm = searchTerm.toLowerCase(); // Convertir el término de búsqueda a minúsculas
+    return coachStore.athletes.filter(athlete => {
+        const lowercaseName = athlete.name.toLowerCase(); // Convertir el nombre del atleta a minúsculas
+        return lowercaseName.includes(lowercaseSearchTerm); // Realizar la comparación en minúsculas
+    });
 });
 </script>
 
