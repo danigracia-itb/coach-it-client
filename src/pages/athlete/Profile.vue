@@ -1,62 +1,35 @@
 <template>
     <div class="mt-5">
         <div class="d-flex justify-content-start">
-            <button
-                class="btn btn-primary d-none d-md-block"
-                @click="$router.back()"
-            >
+            <button class="btn btn-primary d-none d-md-block" @click="$router.back()">
                 <font-awesome-icon icon="fa-solid fa-left-long" />
             </button>
         </div>
 
         <!-- Contenedor principal -->
-        <div
-            class="d-flex flex-column align-items-center justify-content-center"
-        >
-            <img
-                class="img-user rounded-circle"
-                :src="`${backendUrl}/${authStore.picture}`"
-                @click="openFilePicker"
-            />
-            <input
-                type="file"
-                id="seleccionArchivos"
-                accept="image/*"
-                @change="handleFileChange"
-                style="display: none"
-            />
+        <div class="d-flex flex-column align-items-center justify-content-center">
+            <img class="img-user rounded-circle" :src="`${backendUrl}/${authStore.picture}`" @click="openFilePicker" />
+            <input type="file" id="seleccionArchivos" accept="image/*" @change="handleFileChange" style="display: none" />
         </div>
 
         <section class="mt-5">
             <p class="text-uppercase mb-1">Profile settings</p>
             <form class="d-flex flex-column gap-2" @submit.prevent="saveData()">
                 <div>
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Enter your name..."
-                        v-model="newName"
-                    />
+                    <input type="text" class="form-control" placeholder="Enter your name..." v-model="newName" />
                 </div>
                 <div>
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Enter your email..."
-                        v-model="newEmail"
-                    />
+                    <input type="text" class="form-control" placeholder="Enter your email..." v-model="newEmail" />
                 </div>
 
-                <button class="btn btn-secondary" type="submit">Save</button>
+                <button class="btn btn-success" type="submit"><font-awesome-icon :icon="['fas', 'save']" />
+                    Save</button>
             </form>
         </section>
 
         <section class="mt-5">
             <p class="text-uppercase mb-1">Your Coach</p>
-            <form
-                class="d-flex flex-column gap-2"
-                @submit.prevent="saveCoachCode()"
-            >
+            <form class="d-flex flex-column gap-2" @submit.prevent="saveCoachCode()">
                 <div>
                     <select class="form-select" v-model="newHaveCoach">
                         <option :value="true">I have a coach</option>
@@ -65,37 +38,27 @@
                 </div>
 
                 <div v-if="newHaveCoach">
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Enter your coach code..."
-                        v-model="newCoach"
-                    />
+                    <input type="text" class="form-control" placeholder="Enter your coach code..." v-model="newCoach" />
                 </div>
                 <div v-else>
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="No coach code"
-                        disabled
-                    />
+                    <input type="text" class="form-control" placeholder="No coach code" disabled />
                 </div>
-
-                <button class="btn btn-secondary" type="submit">Save</button>
+                <button class="btn btn-success" type="submit">
+                    <font-awesome-icon :icon="['fas', 'save']" /> Save
+                </button>
             </form>
         </section>
 
         <section class="mt-5">
             <p class="text-uppercase mb-1">Others</p>
             <div class="d-flex flex-column gap-2">
-                <RouterLink class="w-100 btn btn-secondary" :to="`/form?id=${id}`">
+                <RouterLink class="w-100 btn btn-secondary" :to="`/form?id=${id}`"><font-awesome-icon
+                        :icon="['fas', 'pen-to-square']" />
                     Edit personal data
                 </RouterLink>
 
-                <button
-                    class="bg-white text-danger w-100 btn btn-outline-danger border border-1 fw-bold"
-                    @click="authController.logout()"
-                >
+                <button class="btn btn-danger text-white w-100 btn btn-outline-danger border border-1 fw-bold logout-btn"
+                    @click="authController.logout()"><font-awesome-icon :icon="['fas', 'right-from-bracket']" />
                     Log Out
                 </button>
 
@@ -202,5 +165,14 @@ async function saveCoachCode() {
     .camposPerfil {
         margin-top: 15%;
     }
+}
+
+.logout-btn {
+    transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #b80000;
+    /* Cambia este valor al color que desees para oscurecer el botón */
 }
 </style>
