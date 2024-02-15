@@ -116,6 +116,7 @@ body {
 .row {
     height: 100vh;
     margin: 0;
+    overflow-y: hidden;
 }
 
 .img-login {
