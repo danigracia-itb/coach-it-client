@@ -1,5 +1,5 @@
 <template>
-    <div class="row vh-100">
+    <div class="row no-scroll">
         <div class="img-password col-7 d-none d-md-block"></div>
         <div class="col-md-5 d-flex flex-column align-items-center justify-content-center">
             <RouterLink to="/"><img class="auth-logo-img" src="../../../public/assets/logo.png" alt="" /></RouterLink>
@@ -84,15 +84,27 @@ async function requestPasswordRecover() {
 }
 </script>
 
+
 <style scoped>
-html,
 body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+html, body {
     height: 100%;
     overflow-y: hidden;
 }
 
-.row {
-    max-width: 100%;
-    overflow-x: hidden;
+.row.no-scroll {
+    overflow: hidden;
+    height: 100vh;
+    margin: 0;
+}
+
+.col-md-5 {
+    overflow-y: auto; 
+    max-height: 100vh; 
 }
 </style>

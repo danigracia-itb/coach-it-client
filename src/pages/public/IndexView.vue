@@ -23,13 +23,13 @@
             </div>
         </div>
 
-        <div
+        <!-- <div
             class="bg-light px-5 py-2 d-flex flex-column flex-sm-row justify-content-between align-items-center shadow-sm"
-        >
-            <RouterLink to="/"
+        > -->
+            <!-- <RouterLink to="/"
                 ><img width="300" src="../../../public/assets/logo.png"
-            /></RouterLink>
-            <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+            /></RouterLink> -->
+            <!-- <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
                 <div class="container-fluid">
                     <button
                         class="navbar-toggler"
@@ -80,8 +80,9 @@
                         </button></RouterLink
                     >
                 </div>
-            </nav>
-        </div>
+            </nav> -->
+            <HomeMobileMenu></HomeMobileMenu>
+        <!-- </div> -->
     </header>
 
     <section class="hero bg-dark">
@@ -286,6 +287,7 @@
 import { RouterLink } from "vue-router";
 import CookieBanner from "../../components/CookieBanner.vue";
 import Footer from "./Footer.vue";
+import HomeMobileMenu from "../../components/utils/HomeMobileMenu.vue";
 
 export default {
     data() {
@@ -347,10 +349,11 @@ export default {
         },
     },
     components: {
-        RouterLink,
-        CookieBanner,
-        Footer,
-    },
+    RouterLink,
+    CookieBanner,
+    Footer,
+    HomeMobileMenu
+},
 };
 </script>
 

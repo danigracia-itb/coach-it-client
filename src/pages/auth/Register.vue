@@ -1,5 +1,5 @@
 <template>
-    <div class="row min-vh-100">
+    <div class="row">
         <div class="img-register col-7 vh-100 d-none d-md-block"></div>
         <div
             class="col-md-5 d-flex flex-column align-items-center justify-content-center"
@@ -286,18 +286,16 @@ watch(
     }
 );
 </script>
-
 <style scoped>
 body {
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    overflow: hidden; /* Oculta el scroll vertical */
 }
 
 html,
 body {
     height: 100%;
-    overflow-y: hidden;
 }
 
 .col-md-5 {

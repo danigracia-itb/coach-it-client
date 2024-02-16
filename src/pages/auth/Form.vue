@@ -639,7 +639,7 @@ function previousPage() {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: auto;
+    overflow: hidden; 
 }
 
 .bg-form {
@@ -686,3 +686,4 @@ fieldset {
     }
 }
 </style>
+

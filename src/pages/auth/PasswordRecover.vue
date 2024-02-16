@@ -1,5 +1,5 @@
 <template>
-    <div class="row">
+    <div class="row no-scroll">
         <div class="img-password col-7 d-none d-md-block"></div>
         <div
             class="col-md-5 d-flex flex-column align-items-center justify-content-center"
@@ -145,4 +145,14 @@ async function recoverPassword() {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+body {
+    overflow: hidden;
+}
+
+.row.no-scroll {
+    overflow-y: hidden;
+    height: 100vh;
+    margin: 0;
+}
+</style>

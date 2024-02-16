@@ -24,7 +24,8 @@
                     <input type="text" class="form-control" placeholder="Enter your email..." v-model="newEmail" />
                 </div>
 
-                <button class="btn btn-secondary" type="submit">Save</button>
+                <button class="btn btn-success" type="submit"><font-awesome-icon :icon="['fas', 'save']" />
+                    Save</button>
             </form>
         </section>
 
@@ -44,15 +45,17 @@
                 <div v-else>
                     <input type="text" class="form-control" placeholder="No coach code" disabled />
                 </div>
-
-                <button class="btn btn-secondary" type="submit">Save</button>
+                <button class="btn btn-success" type="submit">
+                    <font-awesome-icon :icon="['fas', 'save']" /> Save
+                </button>
             </form>
         </section>
 
         <section class="mt-5">
             <p class="text-uppercase mb-1">Others</p>
             <div class="d-flex flex-column gap-2">
-                <RouterLink class="w-100 btn btn-secondary" :to="`/form?id=${id}`">
+                <RouterLink class="w-100 btn btn-secondary" :to="`/form?id=${id}`"><font-awesome-icon
+                        :icon="['fas', 'pen-to-square']" />
                     Edit personal data
                 </RouterLink>
 
@@ -169,5 +172,14 @@ async function saveCoachCode() {
     .camposPerfil {
         margin-top: 15%;
     }
+}
+
+.logout-btn {
+    transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #b80000;
+    /* Cambia este valor al color que desees para oscurecer el botón */
 }
 </style>
