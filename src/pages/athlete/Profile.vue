@@ -1,50 +1,27 @@
 <template>
     <div class="mt-5">
         <div class="d-flex justify-content-start">
-            <button
-                class="btn btn-primary d-none d-md-block"
-                @click="$router.back()"
-            >
+            <button class="btn btn-primary d-none d-md-block" @click="$router.back()">
                 <font-awesome-icon icon="fa-solid fa-left-long" />
             </button>
         </div>
 
         <!-- Contenedor principal -->
-        <div
-            class="d-flex flex-column align-items-center justify-content-center"
-        >
-            <img
-                class="img-user rounded-circle"
-                :src="`${backendUrl}/${authStore.picture}`"
-                @click="openFilePicker"
-            />
-            <input
-                type="file"
-                id="seleccionArchivos"
-                accept="image/*"
-                @change="handleFileChange"
-                style="display: none"
-            />
+        <div class="d-flex flex-row align-items-center justify-content-center" @click="openFilePicker">
+            <img class="img-user rounded-circle" :src="`${backendUrl}/${authStore.picture}`" />
+            <input type="file" id="seleccionArchivos" accept="image/*" @change="handleFileChange" style="display: none" />
+
+            <button class="btn align-self-end"> <font-awesome-icon class="text-primary" icon="fa-solid fa-arrow-up-from-bracket" size="xl" /></button>
         </div>
 
         <section class="mt-5">
             <p class="text-uppercase mb-1">Profile settings</p>
             <form class="d-flex flex-column gap-2" @submit.prevent="saveData()">
                 <div>
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Enter your name..."
-                        v-model="newName"
-                    />
+                    <input type="text" class="form-control" placeholder="Enter your name..." v-model="newName" />
                 </div>
                 <div>
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Enter your email..."
-                        v-model="newEmail"
-                    />
+                    <input type="text" class="form-control" placeholder="Enter your email..." v-model="newEmail" />
                 </div>
 
                 <button class="btn btn-secondary" type="submit">Save</button>
@@ -53,10 +30,7 @@
 
         <section class="mt-5">
             <p class="text-uppercase mb-1">Your Coach</p>
-            <form
-                class="d-flex flex-column gap-2"
-                @submit.prevent="saveCoachCode()"
-            >
+            <form class="d-flex flex-column gap-2" @submit.prevent="saveCoachCode()">
                 <div>
                     <select class="form-select" v-model="newHaveCoach">
                         <option :value="true">I have a coach</option>
@@ -65,20 +39,10 @@
                 </div>
 
                 <div v-if="newHaveCoach">
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Enter your coach code..."
-                        v-model="newCoach"
-                    />
+                    <input type="text" class="form-control" placeholder="Enter your coach code..." v-model="newCoach" />
                 </div>
                 <div v-else>
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="No coach code"
-                        disabled
-                    />
+                    <input type="text" class="form-control" placeholder="No coach code" disabled />
                 </div>
 
                 <button class="btn btn-secondary" type="submit">Save</button>
@@ -92,10 +56,8 @@
                     Edit personal data
                 </RouterLink>
 
-                <button
-                    class="bg-white text-danger w-100 btn btn-outline-danger border border-1 fw-bold"
-                    @click="authController.logout()"
-                >
+                <button class="bg-white text-danger w-100 btn btn-outline-danger border border-1 fw-bold"
+                    @click="authController.logout()">
                     Log Out
                 </button>
 
@@ -193,12 +155,17 @@ async function saveCoachCode() {
 
 <style scoped>
 .img-user {
-    width: 7rem;
-    height: 7rem;
+    width: 20rem;
+    height: 20rem;
     cursor: pointer;
 }
 
 @media (max-width: 768px) {
+    .img-user {
+        width: 12rem;
+        height: 12rem;
+    }
+
     .camposPerfil {
         margin-top: 15%;
     }
