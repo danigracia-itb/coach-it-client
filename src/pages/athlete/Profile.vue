@@ -7,9 +7,11 @@
         </div>
 
         <!-- Contenedor principal -->
-        <div class="d-flex flex-column align-items-center justify-content-center">
-            <img class="img-user rounded-circle" :src="`${backendUrl}/${authStore.picture}`" @click="openFilePicker" />
+        <div class="d-flex flex-row align-items-center justify-content-center" @click="openFilePicker">
+            <img class="img-user rounded-circle" :src="`${backendUrl}/${authStore.picture}`" />
             <input type="file" id="seleccionArchivos" accept="image/*" @change="handleFileChange" style="display: none" />
+
+            <button class="btn align-self-end"> <font-awesome-icon class="text-primary" icon="fa-solid fa-arrow-up-from-bracket" size="xl" /></button>
         </div>
 
         <section class="mt-5">
@@ -57,8 +59,8 @@
                     Edit personal data
                 </RouterLink>
 
-                <button class="btn btn-danger text-white w-100 btn btn-outline-danger border border-1 fw-bold logout-btn"
-                    @click="authController.logout()"><font-awesome-icon :icon="['fas', 'right-from-bracket']" />
+                <button class="bg-white text-danger w-100 btn btn-outline-danger border border-1 fw-bold"
+                    @click="authController.logout()">
                     Log Out
                 </button>
 
@@ -156,12 +158,17 @@ async function saveCoachCode() {
 
 <style scoped>
 .img-user {
-    width: 7rem;
-    height: 7rem;
+    width: 20rem;
+    height: 20rem;
     cursor: pointer;
 }
 
 @media (max-width: 768px) {
+    .img-user {
+        width: 12rem;
+        height: 12rem;
+    }
+
     .camposPerfil {
         margin-top: 15%;
     }

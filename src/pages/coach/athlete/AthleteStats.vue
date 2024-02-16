@@ -39,10 +39,10 @@
                 </div>
             </div>
 
-            <div class="mt-5 row">
+            <div class="mt-5 row justify-content-center">
                 <BodyWeightChart
                     :data="bodyWeights"
-                    class="col-md-6"
+                    class="col-md-8"
                 />
             </div>
         </div>
