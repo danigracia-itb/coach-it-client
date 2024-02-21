@@ -42,14 +42,14 @@
                             <li class="nav-item">
                                 <RouterLink to="/">
                                     <a
-                                        class="nav-link home fw-bold"
+                                        class="nav-link"
                                         href="#"
                                         @click="closeNav"
                                         >Home</a
                                     >
                                 </RouterLink>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item aboutus fw-bold">
                                 <RouterLink to="/aboutus">
                                     <a
                                         class="nav-link"
@@ -157,7 +157,7 @@ header {
     background-color: #9329f4;
 }
 
-.home {
+.aboutus {
     pointer-events: none;
 }
 

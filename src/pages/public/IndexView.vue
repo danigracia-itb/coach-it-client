@@ -26,10 +26,10 @@
         <!-- <div
             class="bg-light px-5 py-2 d-flex flex-column flex-sm-row justify-content-between align-items-center shadow-sm"
         > -->
-            <!-- <RouterLink to="/"
+        <!-- <RouterLink to="/"
                 ><img width="300" src="../../../public/assets/logo.png"
             /></RouterLink> -->
-            <!-- <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+        <!-- <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
                 <div class="container-fluid">
                     <button
                         class="navbar-toggler"
@@ -81,7 +81,7 @@
                     >
                 </div>
             </nav> -->
-            <HomeMobileMenu></HomeMobileMenu>
+        <HomeMobileMenu></HomeMobileMenu>
         <!-- </div> -->
     </header>
 
@@ -349,11 +349,11 @@ export default {
         },
     },
     components: {
-    RouterLink,
-    CookieBanner,
-    Footer,
-    HomeMobileMenu
-},
+        RouterLink,
+        CookieBanner,
+        Footer,
+        HomeMobileMenu,
+    },
 };
 </script>
 

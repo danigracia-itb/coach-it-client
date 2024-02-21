@@ -82,7 +82,7 @@
                 </div>
             </nav>
         </section> -->
-        <HomeMobileMenu></HomeMobileMenu>
+        <AboutUsMobileMenu></AboutUsMobileMenu>
     </header>
 
     <section class="bg-light p-5 about-us-container">
@@ -216,7 +216,7 @@
 import { ref } from "vue";
 import Footer from "./Footer.vue";
 import axiosClient from "../../config/axios";
-import HomeMobileMenu from "../../components/utils/HomeMobileMenu.vue";
+import AboutUsMobileMenu from "../../components/utils/AboutUsMobileMenu.vue";
 
 const email = ref("");
 const subject = ref("");
