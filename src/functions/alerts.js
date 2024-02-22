@@ -364,8 +364,7 @@ export function editBodyWeightPopUp(value, id, isCoach) {
 //PAYMENTS
 export function addPaymentPopUp(coach_id, athlete) {
     const athlete_id = athlete.id
-    const last_payment_date = addMonths(athlete.payments[athlete.payments.length - 1].date, 1);
-    console.log(last_payment_date)
+
     return new Promise((resolve, reject) => {
         // Obtiene la fecha actual en el formato deseado (YYYY-MM-DD)
         const today = new Date().toISOString().split('T')[0];
@@ -374,7 +373,7 @@ export function addPaymentPopUp(coach_id, athlete) {
             title: "Add Payment",
             html: `<div class="form-group">
                     <label for="date" class="form-label d-block">Date</label>
-                    <input type="date" id="date" name="date" class="form-control" min=${last_payment_date} value="${today}">
+                    <input type="date" id="date" name="date" class="form-control" value="${today}">
                 </div>
     
                 <div class="form-group mt-5">
