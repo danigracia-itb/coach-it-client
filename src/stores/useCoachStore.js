@@ -32,8 +32,8 @@ const useCoachStore = defineStore('coach', {
             this.athletes = data
         },
         addAthletePayment(athlete, data) {
-            this.athletes[this.athletes.findIndex((a) => a.id == athlete)].payments = [
-                ...this.athletes[this.athletes.findIndex((a) => a.id == athlete)].payments,
+            this.athletes[this.athletes.findIndex((a) => a.id == athlete.id)].payments = [
+                ...this.athletes[this.athletes.findIndex((a) => a.id == athlete.id)].payments,
                 data
             ]
         },
